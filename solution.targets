@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <!-- define build number -->
+    <!--<PackageVersion>1.0.0.$(Build)</PackageVersion>-->
+    <PackageVersion>4.2.2.0</PackageVersion>
+  </PropertyGroup>
+
+  <!-- ## uncomment and implement new targets to use another unit testing or coverage test ## -->
+  <!--<Target Name="Test" DependsOnTargets="MyTest"/>-->
+  <!--<Target Name="Coverage" DependsOnTargets="OpenCoverWithNUnit"/>-->
+  <!--<Target Name="CoverageReport" DependsOnTargets="OpenCoverReport"/>-->
+
+  <!--<Target Name="MyTest" >
+    <Message Text="no tests" Importance="high"/>
+  </Target>-->
+
+</Project>

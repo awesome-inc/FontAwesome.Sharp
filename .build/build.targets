@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Target Name="Version" BeforeTargets="BeforeBuild" DependsOnTargets="VersionWithGit" />
+  <Target Name="Test" DependsOnTargets="Build;TestWithNunit"/>
+  <Target Name="Coverage" DependsOnTargets="Build;OpenCoverWithNUnit"/>
+  <Target Name="CoverageReport" DependsOnTargets="Coverage;OpenCoverReport"/>
+  <Target Name="Package" DependsOnTargets="Build;PackageWithNuGet"/>
+  <Target Name="Deploy" DependsOnTargets="Build;DeployWithNuGet"/>
+
+  <!-- Use Jenkins Build-Number, if specified or 0 -->
+  <PropertyGroup>
+    <Build Condition="'$(BUILD_NUMBER)' != ''">$(BUILD_NUMBER)</Build>
+    <Build Condition="'$(BUILD_NUMBER)' == ''">0</Build>
+    <!-- override this setting in solution.targets -->
+    <PackageVersion>1.0.0.$(Build)</PackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <MSBuildCommunityTasksPath>$(SolutionDir).build</MSBuildCommunityTasksPath>
+    <TestsProjectPattern Condition="'$(TestsProjectPattern)' == '' And $(OutputType.EndsWith('Exe'))">$(OutDir)$(AssemblyName).exe</TestsProjectPattern>
+    <TestsProjectPattern Condition="'$(TestsProjectPattern)' == '' And '$(OutputType)' == 'Library'">$(OutDir)$(AssemblyName).dll</TestsProjectPattern>
+    <TestResultsDir Condition="'$(TestResultsDir)' == ''">$(SolutionDir)testresults\</TestResultsDir>
+    <TestResults Condition="'$(TestResults)' == ''">$(TestResultsDir)$(ProjectName).Tests.xml</TestResults>
+    <NUnitPath Condition="'$(PlatformTarget)' == 'x86'">$(SolutionDir)packages\NUnit.*\tools\nunit-console-x86.exe</NUnitPath>
+    <NUnitPath Condition="'$(PlatformTarget)' != 'x86'">$(SolutionDir)packages\NUnit.*\tools\nunit-console.exe</NUnitPath>
+    <OpenCoverFilter Condition="'$(OpenCoverFilter)' == ''">+[$(AssemblyName)]* -[*]*Tests -[FluentAssertions]*</OpenCoverFilter>
+    <OpenCoverOutput>$(TestResultsDir)$(ProjectName).Coverage.xml</OpenCoverOutput>
+    <!-- exclude generated code -->
+    <!-- [ExcludeFromCodeCoverage] cf.: https://github.com/OpenCover/opencover/issues/195 -->
+    <OpenCoverExcludeAttributes Condition="'$(OpenCoverExcludeAttributes)' == ''">*DebuggerNonUserCode*;*.GeneratedCode*;*.ExcludeFromCodeCoverage*</OpenCoverExcludeAttributes>
+    <CoverageFailOnTargetFail Condition="'$(CoverageFailOnTargetFail)' == ''">true</CoverageFailOnTargetFail>
+    <CoverageReportDir>$(TestResultsDir)coverage\$(ProjectName)</CoverageReportDir>
+
+    <NuspecFile Condition="'$(NuspecFile)'==''">$(ProjectDir)Package.nuspec</NuspecFile>
+    <NugetSourceToDeploy Condition="'$(NugetSourceToDeploy)'==''">https://www.nuget.org</NugetSourceToDeploy>
+
+    <!--verbosity -->
+    <!-- NUnit verbosity: Off|Error|Warning|Info|Verbose-->
+    <TestVerbosity Condition="'$(TestVerbosity)' == ''">Warning</TestVerbosity>
+    <!--OpenCover verbosity: Off|Fatal|Error|Warn|Info|Debug|Verbose|All -->
+    <CoverageVerbosity Condition="'$(CoverageVerbosity)' == ''">Warn</CoverageVerbosity>
+    <!-- ReportGenerator Verbosity: Verbose|Info|Error -->
+    <CoverageReportVerbosity Condition="'$(CoverageReportVerbosity)' == ''">Error</CoverageReportVerbosity>
+  
+  </PropertyGroup>
+
+  <!--Git Versioning -->
+  <PropertyGroup>
+    <BuildStarted>$(SolutionDir).build\build.stamp.cache</BuildStarted>
+    <VersionInfo>$(SolutionDir)VersionInfo.g.cs</VersionInfo>
+  </PropertyGroup>
+  <Target Name="VersionWithGit" Inputs="$(BuildStarted)" Outputs="$(VersionInfo)">
+    <PropertyGroup>
+      <Revision>0</Revision>
+    </PropertyGroup>
+    <GitVersion ContinueOnError="true" LocalPath="$(MSBuildProjectDirectory)">
+      <Output TaskParameter="CommitHash" PropertyName="Revision"/>
+    </GitVersion>
+    <AssemblyInfo ContinueOnError="true"
+       OutputFile="$(VersionInfo)" CodeLanguage="CS"
+       AssemblyVersion="$(PackageVersion)" AssemblyFileVersion="$(PackageVersion)" AssemblyInformationalVersion="$(PackageVersion).$(Revision)"/>
+  </Target>
+
+  <!-- NuGet Packaging -->
+  <Target Name="PackageWithNuGet" DependsOnTargets="Build">
+    <Warning Condition="!Exists($(NuspecFile))" Text="Skipping target because .nuspec-file is missing (expected '$(NuspecFile)')" />
+    <NuGetPack Condition="Exists($(NuspecFile))"
+               File="$(NuspecFile)" Properties="Version=$(PackageVersion);Revision=$(Revision);Configuration=$(Configuration)">
+      <Output TaskParameter="OutputFilePath" PropertyName="PackageFile" />
+    </NuGetPack>
+  </Target>
+
+  <Target Name="DeployWithNuGet" DependsOnTargets="PackageWithNuGet">
+    <Warning Condition="'$(PackageFile)'=='' Or !Exists($(PackageFile))" Text="Skipping target because package file has not been built." />
+    <!-- To set API key use "NuGet.exe setApiKey <key> -Source <source>" -->
+    <NuGetPush Condition="'$(PackageFile)'!='' And Exists($(PackageFile))"
+               File="$(PackageFile)" Source="$(NugetSourceToDeploy)" />
+  </Target>
+
+  <!-- NUnit -->
+  <PropertyGroup>
+    <NunitArgs>/nologo /nodots /noshadow /framework=net-4.0 /domain=single /xml:$(TestResults) /trace=$(TestVerbosity)</NunitArgs>
+  </PropertyGroup>
+  <Target Name="TestWithNunit" DependsOnTargets="PrepareTests">
+    <!-- NOTE: this item group is placed inside the target scope
+    so it will be evaluated lazy, i.e. after NuGet Package Restore 
+    installed Nunit.Runners for us. -->
+    <ItemGroup>
+      <NunitConsole Include="$(NUnitPath)"/>
+    </ItemGroup>
+    <Warning Condition="'@(TestAssemblies)' == ''" Text="Skipping target since no test assemblies" />
+    <Exec Condition="'@(TestAssemblies)' != ''" WorkingDirectory="$(OutDir)"
+          Command="@(NunitConsole->'%(FullPath)') $(NunitArgs) @(TestAssemblies, ' ')" />
+  </Target>
+
+  <!-- OpenCover -->
+  <Target Name="OpenCoverWithNUnit" DependsOnTargets="PrepareTests">
+    <ItemGroup Condition="'@(NunitConsole)' == ''">
+      <NunitConsole Include="$(NUnitPath)"/>
+    </ItemGroup>
+    <ItemGroup>
+      <OpenCoverConsole Include="$(SolutionDir)packages\OpenCover.*\OpenCover.Console.exe"/>
+    </ItemGroup>
+    <PropertyGroup>
+      <!-- Skip register profiler per user if run by System account -->
+      <RegisterProfiler Condition="!$(USERPROFILE.EndsWith('systemprofile'))">-register:user</RegisterProfiler>
+      <RegisterProfiler Condition="$(USERPROFILE.EndsWith('systemprofile'))">-register</RegisterProfiler>
+      <ReturnTargetCode Condition="'$(CoverageFailOnTargetFail)' == 'true'">-returntargetcode</ReturnTargetCode>
+      <OpenCoverArgs>$(RegisterProfiler) -filter:&quot;$(OpenCoverFilter)&quot; -output:&quot;$(OpenCoverOutput)&quot; -nodefaultfilters -mergebyhash -skipautoprops $(ReturnTargetCode) -excludebyattribute:&quot;$(OpenCoverExcludeAttributes)&quot; -log:$(CoverageVerbosity)</OpenCoverArgs>
+    </PropertyGroup>
+
+    <Warning Condition="'@(TestAssemblies)' == ''" Text="Skipping target since no test assemblies to cover" />
+    <Exec Condition="'@(TestAssemblies)' != ''" WorkingDirectory="$(OutDir)" IgnoreStandardErrorWarningFormat="true"
+          Command="@(OpenCoverConsole->'%(FullPath)') $(OpenCoverArgs) -target:&quot;@(NunitConsole->'%(FullPath)')&quot; -targetdir:. -targetargs:&quot;$(NunitArgs) @(TestAssemblies, ' ')&quot;"
+          />
+  </Target>
+
+  <!--Coverage Report -->
+  <Target Name="OpenCoverReport" DependsOnTargets="OpenCoverWithNUnit;PrepareCoverage">
+    <PropertyGroup>
+      <ReportGeneratorArgs>-reports:$(OpenCoverOutput) -targetdir:$(CoverageReportDir) -verbosity:$(CoverageReportVerbosity)</ReportGeneratorArgs>
+    </PropertyGroup>
+    <ItemGroup>
+      <ReportGenerator Include="$(SolutionDir)packages\ReportGenerator.*\ReportGenerator.exe"/>
+    </ItemGroup>
+
+    <Warning Condition="'@(TestAssemblies)' == ''" Text="Skipping target since no test assemblies to report coverage on" />
+    <Exec Command="@(ReportGenerator->'%(FullPath)') $(ReportGeneratorArgs)"
+          WorkingDirectory="$(OutDir)" Condition="'@(TestAssemblies)' != ''"/>
+  </Target>
+
+  <!-- Helper targets -->
+  <!-- helper target to get the names of the assemblies to test -->
+  <Target Name="GetTestAssemblies" DependsOnTargets="Build">
+    <ItemGroup Condition="'@(TestAssemblies)' == ''">
+      <TestAssembliesWithPath Include="$(TestsProjectPattern)"/>
+      <TestAssemblies Include="@(TestAssembliesWithPath->'%(Filename)%(Extension)')"/>
+    </ItemGroup>
+  </Target>
+  <!-- helper target to create a directory for the project test results -->
+  <Target Name="PrepareTests" DependsOnTargets="GetTestAssemblies">
+    <MakeDir Directories="$(TestResultsDir)" Condition="'@(TestAssemblies)' != '' And !Exists($(TestResultsDir))"/>
+  </Target>
+  <!-- helper target to create a directory for the project test coverage results -->
+  <Target Name="PrepareCoverage" Condition="'@(TestAssemblies)' != ''">
+    <MakeDir Directories="$(CoverageReportDir)" Condition="!Exists($(CoverageReportDir))"/>
+    <Delete Files="$(CoverageReportDir)" />
+  </Target>
+
+  <!-- import msbuild tasks -->
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
+
+  <!-- import custom user solution targets -->
+  <Import Project="$(SolutionDir)\solution.targets" />
+</Project>

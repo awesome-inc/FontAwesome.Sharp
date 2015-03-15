@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Default empty targets to avoid build errors if targets not exist, 
+      cf.: http://stackoverflow.com/questions/15869111/msbuild-ignore-targets-that-dont-exist -->
+  <Target Name="Version" BeforeTargets="Build" />
+  <Target Name="Test" DependsOnTargets="Build" />
+  <Target Name="Coverage" DependsOnTargets="Test" />
+  <Target Name="CoverageReport" DependsOnTargets="Coverage" />
+  <Target Name="Package" DependsOnTargets="Build" />
+  <Target Name="Deploy" DependsOnTargets="Build" />
+ </Project>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Props>CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)</Props>
+  </PropertyGroup>
+  <Target Name="Test">
+    <MSBuild Projects="@(ProjectReference)" Targets="Test" BuildInParallel="True" Properties="$(Props)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
+  </Target>
+  <Target Name="Coverage">
+    <MSBuild Projects="@(ProjectReference)" Targets="Coverage" BuildInParallel="True" Properties="$(Props)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
+  </Target>
+  <Target Name="CoverageReport">
+    <MSBuild Projects="@(ProjectReference)" Targets="CoverageReport" BuildInParallel="True" Properties="$(Props)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
+  </Target>
+  <Target Name="Version">
+    <MSBuild Projects="@(ProjectReference)" Targets="Version" BuildInParallel="True" Properties="$(Props)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
+  </Target>
+  <Target Name="Package">
+    <MSBuild Projects="@(ProjectReference)" Targets="Package" BuildInParallel="True" Properties="$(Props)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
+  </Target>
+  <Target Name="Deploy">
+    <MSBuild Projects="@(ProjectReference)" Targets="Deploy" BuildInParallel="True" Properties="$(Props)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
+  </Target>
+</Project>

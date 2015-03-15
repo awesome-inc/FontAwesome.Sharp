@@ -1,0 +1,82 @@
+﻿<Window x:Class="TestFontAwesome.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:testFontAwesome="clr-namespace:TestFontAwesome"
+        mc:Ignorable="d"
+        Title="TestFontAwesome" Height="350" Width="525" d:DataContext="{d:DesignInstance testFontAwesome:MainViewModel}">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <FontFamily x:Key="FontAwesome">/FontAwesome.WPF;component/fonts/#FontAwesome</FontFamily>
+        <Brush x:Key="FaBrush">DarkOrchid</Brush>
+        
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+
+            <Setter Property="Foreground" Value="DeepSkyBlue"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="LightSkyBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Image" x:Key="FaImageStyle">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+        </Style>
+        <fa:IconToImageConverter x:Key="IconToImage" Foreground="{StaticResource FaBrush}" ImageStyle="{StaticResource FaImageStyle}"/>
+    </Window.Resources>
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Command="Open" Icon="{Binding Icon, Converter={StaticResource IconToImage}}"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock>
+            TextBlock using FontAwesome natively, cf.:<LineBreak/>
+            * http://fortawesome.github.io/Font-Awesome/cheatsheet/
+        </TextBlock>
+        <TextBlock Grid.Column="1" Text="&#xf042;" FontFamily="{StaticResource FontAwesome}" Foreground="Chartreuse" TextAlignment="Center" />
+
+        <TextBlock Grid.Row="1" Text="IconBlock:"/>
+        <fa:IconBlock Grid.Row="1" Grid.Column="1" Icon="Adjust" Foreground="DarkSlateBlue" />
+
+        <TextBlock Grid.Row="2" Text="Button with 'Icon' markup extension"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="{fa:Icon InfoCircle, Foreground={StaticResource FaBrush}}"/>
+
+        <TextBlock Grid.Row="3" Text="IconImage:"/>
+        <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="Ambulance" Foreground="Red" Width="24" Height="24"/>
+
+        <TextBlock Grid.Row="4" Text="RibbonButton with 'IconSource' markup extension"/>
+        <RibbonButton Grid.Row="4" Grid.Column="1" 
+            SmallImageSource="{fa:IconSource InfoCircle, Foreground=CornflowerBlue}"
+                      HorizontalAlignment="Center"/>
+
+        <TextBlock Grid.Row="5" Text="Button with 'ToText' markup extension"/>
+        <Button Grid.Row="5" Grid.Column="1" Content="{fa:ToText Play}" />
+    </Grid>
+</Window>
