@@ -1,0 +1,6 @@
+version: 4.2.2.{build}
+nuget:
+  disable_publish_on_pr: true
+build_script:
+- build FontAwesome.WPF\FontAwesome.WPF /t:Build /v:m
+test: off
