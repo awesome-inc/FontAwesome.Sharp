@@ -164,3 +164,4 @@ $RECYCLE.BIN/
 /FontAwesome.WPF/fonts/*.eot
 /FontAwesome.WPF/fonts/*.svg
 /FontAwesome.WPF/fonts/*.woff
+*.nupkg
