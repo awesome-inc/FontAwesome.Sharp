@@ -138,9 +138,12 @@ Often you want to have the menu icons all have a consistent style (e.g. size and
 Other libraries for using FontAwesome in Windows applications that we know of and are available on NuGet:
 
 - [FontAwesome.Portable](http://www.nuget.org/packages/FontAwesome.Portable/)
-Great idea to make it a portable library. However, we could not find the source repository to take a look at how the code looks.
-- [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF): Clean and nice implementation. Icon metadata and spinning support are really cool. Maybe, we should try contributing there on the short term. In production, however, we needed to support 
+Great idea to make it a portable library. However, we could not find the source repository.
+- [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF): Clean and nice implementation. Icon metadata and spinning support are really cool. 
+
+In production, however, we needed to support 
 	- Ribbons using ImageSource (not only Image), 
 	- MVVM with Icon enum (smaller memory footprint on the viewmodel than Image) and 
 	- more markup extensions to keep the Xaml compact. 
 
+Another reason this project exists, is we started this about a year ago and recently (March 2015) decided to go open source. Then we found the excellent implementation of [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF). Maybe we are going to contribute there.
