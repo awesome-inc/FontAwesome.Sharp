@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>FontAwesome.WPF</id>
+    <id>FontAwesome.Sharp</id>
     <version>$Version$</version>
-    <title>FontAwesome.WPF</title>
+    <title>FontAwesome.Sharp</title>
     <authors>mkoertgen, tmentzel</authors>
     <owners>mkoertgen, tmentzel</owners>
     <iconUrl>http://fortawesome.github.io/Font-Awesome/assets/ico/favicon.ico</iconUrl>
@@ -12,7 +12,7 @@
     <projectUrl>https://github.com/awesome-inc/FontAwesome.WPF</projectUrl>
     <description>A library for embbeding Font Awesome icons in WPF applications</description>
     <summary>A library for embbeding Font Awesome icons in WPF applications</summary>
-    <copyright>Awesome Inc.</copyright>
+    <copyright>Awesome Incremented</copyright>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="WindowsBase"/>
       <frameworkAssembly assemblyName="PresentationCore"/>
@@ -22,6 +22,5 @@
   </metadata>
   <files>
     <file src="bin\Release\FontAwesome.WPF.dll" target="lib"/>
-    <file src="bin\Release\FontAwesome.WPF.pdb" target="lib"/>
   </files>
 </package>
