@@ -146,4 +146,4 @@ In production, however, we needed to support
 	- MVVM with Icon enum (smaller memory footprint on the viewmodel than Image) and 
 	- more markup extensions to keep the Xaml compact. 
 
-Another reason this project exists, is we started this about a year ago and recently (March 2015) decided to go open source. Then we found the excellent implementation of [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF). Maybe we are going to contribute there.
+Another reason this project exists, is we started this about a year ago and recently (March 2015) decided to go open source. Then we found the excellent implementation of [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF). For now, we renamed the project to `FontAwesome.Sharp` to avoid conflicts in the NuGet gallery. On the short-term, maybe we are going to contribute to `charri/Font-Awesome-WPF`.
