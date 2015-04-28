@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.CodeDom.Compiler;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace FontAwesome.WPF
+namespace FontAwesome.Sharp
 {
     class Dummy
     {

@@ -96,9 +96,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FontAwesome.WPF\FontAwesome.WPF.csproj">
+    <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj">
       <Project>{9098c25a-a6dc-4412-8def-dd0262fbfbd7}</Project>
-      <Name>FontAwesome.WPF</Name>
+      <Name>FontAwesome.Sharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

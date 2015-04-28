@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace FontAwesome.WPF
+namespace FontAwesome.Sharp
 {
     // adapted from https://bitbucket.org/ioachim/fontawesome.wpf
     public class IconBlock : TextBlock 

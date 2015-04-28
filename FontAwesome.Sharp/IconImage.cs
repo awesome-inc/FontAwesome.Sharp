@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace FontAwesome.WPF
+namespace FontAwesome.Sharp
 {
     public class IconImage : Image
     {

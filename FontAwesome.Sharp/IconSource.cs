@@ -2,7 +2,7 @@ using System;
 using System.Windows.Markup;
 using System.Windows.Media;
 
-namespace FontAwesome.WPF
+namespace FontAwesome.Sharp
 {
     public class IconSource : MarkupExtension
     {

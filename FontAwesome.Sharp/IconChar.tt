@@ -1,4 +1,4 @@
-﻿<#@template language="C#" hostSpecific="true" #>
+<#@template language="C#" hostSpecific="true" #>
 <#@ output extension=".cs" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.IO" #>
@@ -26,7 +26,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FontAwesome.WPF
+namespace FontAwesome.Sharp
 {
 	public enum IconChar
 	{

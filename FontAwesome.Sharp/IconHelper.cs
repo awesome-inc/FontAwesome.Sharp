@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 
-namespace FontAwesome.WPF
+namespace FontAwesome.Sharp
 {
     // cf.: 
     // * http://stackoverflow.com/questions/23108181/changing-font-icon-in-wpf-using-font-awesome
@@ -11,7 +11,7 @@ namespace FontAwesome.WPF
     static class IconHelper
     {
         public static readonly FontFamily FontAwesome = new FontFamily(new Uri("pack://application:,,,"),
-            "/FontAwesome.WPF;component/fonts/#FontAwesome");
+            "/FontAwesome.Sharp;component/fonts/#FontAwesome");
         public static readonly Brush DefaultBrush = SystemColors.WindowTextBrush; // this is TextBlock default brush
 
         public static ImageSource ToImageSource(this IconChar iconChar, Brush foregroundBrush = null)

@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Markup;
 
-namespace FontAwesome.WPF
+namespace FontAwesome.Sharp
 {
     public class ToText : MarkupExtension
     {

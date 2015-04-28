@@ -1,4 +1,4 @@
-﻿using FontAwesome.WPF;
+﻿using FontAwesome.Sharp;
 
 namespace TestFontAwesome
 {

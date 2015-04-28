@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace FontAwesome.WPF
+namespace FontAwesome.Sharp
 {
     [ValueConversion(typeof(IconChar), typeof(Image))]
     public class IconToImageConverter : IValueConverter

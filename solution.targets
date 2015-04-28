@@ -4,7 +4,7 @@
   <PropertyGroup>
     <!-- define build number -->
     <!--<PackageVersion>1.0.0.$(Build)</PackageVersion>-->
-    <PackageVersion>4.2.2.0</PackageVersion>
+    <PackageVersion>4.2.3.0</PackageVersion>
   </PropertyGroup>
 
   <!-- ## uncomment and implement new targets to use another unit testing or coverage test ## -->

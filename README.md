@@ -1,11 +1,11 @@
-# FontAwesome.WPF
-A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).. 
+# FontAwesome.Sharp
+A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons)..
 
 ## Installation
 
 Add the NuGet package to your WPF application or library. From the Package Manager Console type
 
-	Install-Package FontAwesome.WPF 
+	Install-Package FontAwesome.Sharp 
 
 ## How to use
 
@@ -133,3 +133,14 @@ Often you want to have the menu icons all have a consistent style (e.g. size and
     <fa:IconToImageConverter x:Key="IconToImage" 
 		Foreground="{StaticResource FaBrush}" 
 		ImageStyle="{StaticResource FaImageStyle}"/>
+
+## Related Projects
+Other libraries for using FontAwesome in Windows applications that we know of and are available on NuGet:
+
+- [FontAwesome.Portable](http://www.nuget.org/packages/FontAwesome.Portable/)
+Great idea to make it a portable library. However, we could not find the source repository to take a look at how the code looks.
+- [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF): Clean and nice implementation. Icon metadata and spinning support are really cool. Maybe, we should try contributing there on the short term. In production, however, we needed to support 
+	- Ribbons using ImageSource (not only Image), 
+	- MVVM with Icon enum (smaller memory footprint on the viewmodel than Image) and 
+	- more markup extensions to keep the Xaml compact. 
+

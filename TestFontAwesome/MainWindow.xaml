@@ -1,17 +1,17 @@
 ﻿<Window x:Class="TestFontAwesome.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:testFontAwesome="clr-namespace:TestFontAwesome"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
         Title="TestFontAwesome" Height="350" Width="525" d:DataContext="{d:DesignInstance testFontAwesome:MainViewModel}">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        <FontFamily x:Key="FontAwesome">/FontAwesome.WPF;component/fonts/#FontAwesome</FontFamily>
+        <FontFamily x:Key="FontAwesome">/FontAwesome.Sharp;component/fonts/#FontAwesome</FontFamily>
         <Brush x:Key="FaBrush">DarkOrchid</Brush>
         
         <Style TargetType="Button">

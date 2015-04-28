@@ -10,8 +10,8 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyDescription(@"© Awesome Inc. 2015")]
 
-[assembly: AssemblyCompany("Awesome Inc.")]
-[assembly: AssemblyProduct("FontAwesome.WPF")]
+[assembly: AssemblyCompany("Awesome Incr.")]
+[assembly: AssemblyProduct("FontAwesome.Sharp")]
 [assembly: AssemblyCopyright("Copyright © Awesome Inc. 2015")]
 [assembly: AssemblyTrademark("Awesome Inc.")]
 [assembly: AssemblyCulture("")]
