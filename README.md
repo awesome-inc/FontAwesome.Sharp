@@ -23,7 +23,7 @@ You can add iconic items to your views in the following ways
 The most rudimentary way is to use *FontAwesome* directly with a `TextBlock` like
 
         <TextBlock Grid.Column="1" Text="&#xf042;" 
-			FontFamily="/FontAwesome.WPF;component/fonts/#FontAwesome"
+			FontFamily="/FontAwesome.Sharp;component/fonts/#FontAwesome"
 			Foreground="Chartreuse" 
 			TextAlignment="Center" />
 
@@ -62,7 +62,7 @@ Using the `ToText` markup extension is most recommended when using the font. It 
 And here a default style
 
 	<Style TargetType="Button">
-        <Setter Property="FontFamily" Value="/FontAwesome.WPF;component/fonts/#FontAwesome"/>
+        <Setter Property="FontFamily" Value="/FontAwesome.Sharp;component/fonts/#FontAwesome"/>
         <Setter Property="FontSize" Value="18" />
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
