@@ -1,8 +1,12 @@
 # FontAwesome.Sharp
 
-[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y/branch/master?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp/branch/master)
-
 A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
+
+[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp)
+
+![NuGet Version](https://img.shields.io/nuget/v/FontAwesome.Sharp.svg?style=flat-square)
+
+![NuGet Version](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)
 
 Here is a screenshot from the sample application
 
