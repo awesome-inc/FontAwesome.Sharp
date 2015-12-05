@@ -8,7 +8,7 @@ namespace FontAwesome.Sharp
     // cf.: 
     // * http://stackoverflow.com/questions/23108181/changing-font-icon-in-wpf-using-font-awesome
     // * http://www.codeproject.com/Tips/634540/Using-Font-Icons
-    static class IconHelper
+    internal static class IconHelper
     {
         public static readonly FontFamily FontAwesome = new FontFamily(new Uri("pack://application:,,,"),
             "/FontAwesome.Sharp;component/fonts/#FontAwesome");
@@ -24,7 +24,7 @@ namespace FontAwesome.Sharp
         private static ImageSource ToImageSource(string text, Brush foregroundBrush, 
             FontFamily fontFamily, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch)
         {
-            if (fontFamily == null || String.IsNullOrEmpty(text)) return null;
+            if (fontFamily == null || string.IsNullOrEmpty(text)) return null;
             var typeface = new Typeface(fontFamily, fontStyle, fontWeight, fontStretch);
 
             GlyphTypeface glyphTypeface;
@@ -38,7 +38,7 @@ namespace FontAwesome.Sharp
             var glyphIndexes = new ushort[text.Length];
             var advanceWidths = new double[text.Length];
 
-            for (int n = 0; n < text.Length; n++)
+            for (var n = 0; n < text.Length; n++)
             {
                 ushort glyphIndex;
                 try

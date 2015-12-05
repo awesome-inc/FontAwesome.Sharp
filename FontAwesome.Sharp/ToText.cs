@@ -9,7 +9,7 @@ namespace FontAwesome.Sharp
 
         public ToText(IconChar iconChar)
         {
-            _text = new string((Char)iconChar,1);
+            _text = new string((char)iconChar,1);
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)

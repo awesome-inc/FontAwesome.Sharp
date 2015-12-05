@@ -1,12 +1,22 @@
 @echo off
 
 :checkMsBuild
+if exist "%msbuild%" goto checkNuget
 set msbuild=
-for /D %%a in (%SYSTEMROOT%\Microsoft.NET\Framework\v4.0*) do set msbuild=%%a\MSBuild.exe
-if not defined msbuild (
-	echo error: can't find MSBuild.exe. Is .NET Framework installed?
-	exit /B 2
-)
+for %%a in (MSBuild.exe) do (set msbuild=%%~$PATH:a)
+if exist %msbuild% goto checkNuget
+rem VS2015, 2013, cf.: http://blogs.msdn.com/b/visualstudio/archive/2013/07/24/msbuild-is-now-part-of-visual-studio.aspx
+set msbuild=c:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe
+if exist "%msbuild%" goto checkNuget
+rem VS2013
+set msbuild=c:\Program Files (x86)\MSBuild\12.0\Bin\MSBuild.exe
+if exist "%msbuild%" goto checkNuget
+rem .NET Framework
+for /D %%a in (%SYSTEMROOT%\Microsoft.NET\Framework\v4.0*) do set "msbuild=%%a\MSBuild.exe"
+if exist "%msbuild%" goto checkNuget
+
+echo error: can't find MSBuild.exe. Is .NET Framework installed?
+exit /B 2
 
 :checkNuget
 for %%a in (NuGet.exe) do (set nugetPath=%%~$PATH:a)
@@ -29,5 +39,4 @@ if not "%cd%\"=="%solutionDir%" (
 NuGet.exe restore -source "%PackageSources%"
 
 :build
-echo %DATE% %TIME% > .build\build.stamp.cache
-%msbuild% %* /p:CustomBeforeMicrosoftCommonTargets="%solutionDir%.build\empty.targets"
+"%msbuild%" %* /p:CustomBeforeMicrosoftCommonTargets="%solutionDir%empty.targets"
