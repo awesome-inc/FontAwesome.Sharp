@@ -152,8 +152,10 @@ Other libraries for using FontAwesome in Windows applications that we know of an
 - [FontAwesome.Portable](http://www.nuget.org/packages/FontAwesome.Portable/)
 Great idea to make it a portable library. However, we could not find the source repository.
 - [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF): Clean and nice implementation. Icon metadata and spinning support are really cool. 
+- [FontAwesome-WindowsForms](https://github.com/denwilliams/FontAwesome-WindowsForms): An example implementation for Windows Forms. We adapted this for **FontAwesome.Sharp.4.4.0**.
 
-In production, however, we needed to support 
+In production, however, we needed to support
+ 
 	- Ribbons using ImageSource (not only Image), 
 	- MVVM with Icon enum (smaller memory footprint on the viewmodel than Image) and 
 	- more markup extensions to keep the Xaml compact. 

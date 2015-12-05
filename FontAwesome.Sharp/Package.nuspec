@@ -9,9 +9,9 @@
     <iconUrl>http://fortawesome.github.io/Font-Awesome/assets/ico/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes>Revision: $Revision$</releaseNotes>
-    <projectUrl>https://github.com/awesome-inc/FontAwesome.WPF</projectUrl>
-    <description>A library for embbeding Font Awesome icons in WPF applications</description>
-    <summary>A library for embbeding Font Awesome icons in WPF applications</summary>
+    <projectUrl>https://github.com/awesome-inc/FontAwesome.Sharp</projectUrl>
+    <description>A library for embbeding Font Awesome icons in WPF & Windows Forms applications</description>
+    <summary>A library for embbeding Font Awesome icons in WPF & Windows Forms applications</summary>
     <copyright>Awesome Incremented</copyright>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="WindowsBase"/>
