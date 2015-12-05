@@ -1,30 +1,20 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome.Sharp", "FontAwesome.Sharp\FontAwesome.Sharp.csproj", "{9098C25A-A6DC-4412-8DEF-DD0262FBFBD7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9F40A268-B2BC-407C-A47B-CBAC0C3AD195}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{E0BDD849-1D16-4760-8F71-99B73AB6D41A}"
-	ProjectSection(SolutionItems) = preProject
-		build.bat = build.bat
-		.build\build.targets = .build\build.targets
-		.build\empty.targets = .build\empty.targets
-		.build\MSBuild.Community.Tasks.dll = .build\MSBuild.Community.Tasks.dll
-		.build\MSBuild.Community.Tasks.targets = .build\MSBuild.Community.Tasks.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{81C8E36E-2CF4-4ECA-B177-71E361EECFAF}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		build.bat = build.bat
+		empty.targets = empty.targets
 		FontAwesome.Sharp.png = FontAwesome.Sharp.png
+		GitVersionConfig.yaml = GitVersionConfig.yaml
+		LICENSE = LICENSE
 		README.md = README.md
 		solution.targets = solution.targets
 		SolutionInfo.cs = SolutionInfo.cs
-		VersionInfo.g.cs = VersionInfo.g.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFontAwesome", "TestFontAwesome\TestFontAwesome.csproj", "{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}"

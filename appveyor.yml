@@ -3,33 +3,42 @@
   branches:
     only:
       - master
-  version: 4.2.3.{build}
+  install:
+    - choco install gitversion.portable -pre -y
   test: off
+  assembly_info:
+    patch: false
   nuget:
     disable_publish_on_pr: true
   environment:
     apiKey:
       secure: lrwREUV4nO99AU0A6xVx/MNF0BaJc8A1B8dwEGMLqmYKGqD5E7PJ/IC9RHcle6pk
   before_build:
-  - nuget setapikey %apiKey% -Verbosity quiet
+    - ps: gitversion /l console /output buildserver
+    - nuget setapikey %apiKey% -Verbosity quiet
   build_script:
-  - build.bat FontAwesome.Sharp.sln /t:Deploy /v:m
+    - build.bat /t:Deploy /v:m
 #  after_build:
-#  - ps: >-
+#    - ps: >-
 #      $wc = New-Object 'System.Net.WebClient'
 #    
-#      $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\testresults\FontAweSome.WPF.Tests.xml))
+#      $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\testresults\FontAweSome.Sharp.Tests.xml))
 
 # all other branches
 -
-  version: 4.2.3.{build}
+  install:
+    - choco install gitversion.portable -pre -y
   test: off
+  assembly_info:
+    patch: false
   nuget:
     disable_publish_on_pr: true
+  before_build:
+    - ps: gitversion /l console /output buildserver
   build_script:
-  - build.bat FontAwesome.Sharp.sln /t:Package /v:m
+    - build.bat /t:Package /v:m
  # after_build:
  # - ps: >-
  #     $wc = New-Object 'System.Net.WebClient'
  #   
- #     $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\testresults\FontAweSome.WPF.Tests.xml))
+ #     $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\testresults\FontAweSome.Sharp.Tests.xml))
