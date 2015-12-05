@@ -157,10 +157,13 @@ $RECYCLE.BIN/
 
 # generated files
 *.g.cs
-/FontAwesome.WPF/fa.cs
-/FontAwesome.WPF/*.nupkg
-/FontAwesome.WPF/Content/font-awesome.min.css
-/FontAwesome.WPF/fonts/*.otf
-/FontAwesome.WPF/fonts/*.eot
-/FontAwesome.WPF/fonts/*.svg
-/FontAwesome.WPF/fonts/*.woff
+/FontAwesome.Sharp/fa.cs
+/FontAwesome.Sharp/*.nupkg
+/FontAwesome.Sharp/Content/font-awesome.min.css
+/FontAwesome.Sharp/fonts/*.otf
+/FontAwesome.Sharp/fonts/*.eot
+/FontAwesome.Sharp/fonts/*.svg
+/FontAwesome.Sharp/fonts/*.woff
+/FontAwesome.Sharp/fonts/*.woff2
+
+*.nupkg

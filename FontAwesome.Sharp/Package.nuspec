@@ -18,9 +18,11 @@
       <frameworkAssembly assemblyName="PresentationCore"/>
       <frameworkAssembly assemblyName="PresentationFramework"/>
       <frameworkAssembly assemblyName="System.Xaml"/>
+      <frameworkAssembly assemblyName="System.Windows.Forms"/>
+      <frameworkAssembly assemblyName="System.Drawing"/>
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="bin\Release\FontAwesome.Sharp.dll" target="lib"/>
+    <file src="bin\Release\FontAwesome.Sharp.dll" target="lib\net40"/>
   </files>
 </package>

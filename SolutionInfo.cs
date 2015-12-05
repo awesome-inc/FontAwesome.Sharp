@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyDescription(@"© Awesome Inc. 2015")]
 
-[assembly: AssemblyCompany("Awesome Incr.")]
+[assembly: AssemblyCompany("Awesome Inc.")]
 [assembly: AssemblyProduct("FontAwesome.Sharp")]
 [assembly: AssemblyCopyright("Copyright © Awesome Inc. 2015")]
 [assembly: AssemblyTrademark("Awesome Inc.")]

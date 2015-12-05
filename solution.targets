@@ -1,19 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+  <ItemGroup>
+     <Compile Include="$(SolutionDir)SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <!-- ## Using NUnit 3 -->
   <PropertyGroup>
-    <!-- define build number -->
-    <!--<PackageVersion>1.0.0.$(Build)</PackageVersion>-->
-    <PackageVersion>4.2.3.0</PackageVersion>
+    <UseNUnit3>true</UseNUnit3>
+    <NUnitResultFormat>nunit3</NUnitResultFormat>
   </PropertyGroup>
 
-  <!-- ## uncomment and implement new targets to use another unit testing or coverage test ## -->
-  <!--<Target Name="Test" DependsOnTargets="MyTest"/>-->
-  <!--<Target Name="Coverage" DependsOnTargets="OpenCoverWithNUnit"/>-->
-  <!--<Target Name="CoverageReport" DependsOnTargets="OpenCoverReport"/>-->
-
-  <!--<Target Name="MyTest" >
-    <Message Text="no tests" Importance="high"/>
-  </Target>-->
+  <!-- ## Automatically import sample/plugin targets -->
+  <Import Project="$(SolutionDir)\Samples\Sample.targets"
+     Condition="$(ProjectDir.Contains('\Samples\')) And '$(NCrunch)' != '1'"/>
+  
+  <!-- ## Automatically import project-specific overrides (place this last) -->
+  <Import Project="$(ProjectDir)\$(ProjectName).targets"
+     Condition="Exists('$(ProjectDir)\$(ProjectName).targets') And '$(NCrunch)' != '1'"/>
 
 </Project>

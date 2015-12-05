@@ -1,13 +1,25 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp) ![NuGet Version](https://img.shields.io/nuget/v/FontAwesome.Sharp.svg?style=flat-square) ![NuGet Version](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)
+
 # FontAwesome.Sharp
-A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons)..
+
+A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF & Windows Forms applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
+
+Here is a screenshot from the sample application
+
+![](FontAwesome.Sharp.png)
 
 ## Installation
 
-Add the NuGet package to your WPF application or library. From the Package Manager Console type
+Add the NuGet package to your WPF or Windows Forms application or library. From the Package Manager Console type
 
-	Install-Package FontAwesome.Sharp 
+	Install-Package FontAwesome.Sharp
 
-## How to use
+For Windows Forms projects use the `IconButton` class. If you use WPF you may remove the references to
+
+- `System.Windows.Forms`
+- `System.Drawing`
+
+## How to use (WPF)
 
 You can add iconic items to your views in the following ways
 
@@ -16,7 +28,7 @@ You can add iconic items to your views in the following ways
 The most rudimentary way is to use *FontAwesome* directly with a `TextBlock` like
 
         <TextBlock Grid.Column="1" Text="&#xf042;" 
-			FontFamily="/FontAwesome.WPF;component/fonts/#FontAwesome"
+			FontFamily="/FontAwesome.Sharp;component/fonts/#FontAwesome"
 			Foreground="Chartreuse" 
 			TextAlignment="Center" />
 
@@ -55,7 +67,7 @@ Using the `ToText` markup extension is most recommended when using the font. It 
 And here a default style
 
 	<Style TargetType="Button">
-        <Setter Property="FontFamily" Value="/FontAwesome.WPF;component/fonts/#FontAwesome"/>
+        <Setter Property="FontFamily" Value="/FontAwesome.Sharp;component/fonts/#FontAwesome"/>
         <Setter Property="FontSize" Value="18" />
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -146,4 +158,4 @@ In production, however, we needed to support
 	- MVVM with Icon enum (smaller memory footprint on the viewmodel than Image) and 
 	- more markup extensions to keep the Xaml compact. 
 
-Another reason this project exists, is we started this about a year ago and recently (March 2015) decided to go open source. Then we found the excellent implementation of [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF). Maybe we are going to contribute there.
+Another reason this project exists, is we started this about a year ago and recently (March 2015) decided to go open source. Then we found the excellent implementation of [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF). For now, we renamed the project to `FontAwesome.Sharp` to avoid conflicts in the NuGet gallery. On the short-term, maybe we are going to contribute to `charri/Font-Awesome-WPF`.
