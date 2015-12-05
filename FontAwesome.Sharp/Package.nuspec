@@ -21,6 +21,6 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="bin\Release\FontAwesome.Sharp.dll" target="lib"/>
+    <file src="bin\Release\FontAwesome.Sharp.dll" target="lib\net40"/>
   </files>
 </package>
