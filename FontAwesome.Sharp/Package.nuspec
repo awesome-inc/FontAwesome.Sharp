@@ -18,6 +18,8 @@
       <frameworkAssembly assemblyName="PresentationCore"/>
       <frameworkAssembly assemblyName="PresentationFramework"/>
       <frameworkAssembly assemblyName="System.Xaml"/>
+      <frameworkAssembly assemblyName="System.Windows.Forms"/>
+      <frameworkAssembly assemblyName="System.Drawing"/>
     </frameworkAssemblies>
   </metadata>
   <files>

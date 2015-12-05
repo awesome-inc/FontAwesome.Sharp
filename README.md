@@ -2,7 +2,7 @@
 
 # FontAwesome.Sharp
 
-A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
+A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF & Windows Forms applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
 
 Here is a screenshot from the sample application
 
@@ -10,11 +10,16 @@ Here is a screenshot from the sample application
 
 ## Installation
 
-Add the NuGet package to your WPF application or library. From the Package Manager Console type
+Add the NuGet package to your WPF or Windows Forms application or library. From the Package Manager Console type
 
-	Install-Package FontAwesome.Sharp 
+	Install-Package FontAwesome.Sharp
 
-## How to use
+For Windows Forms projects use the `IconButton` class. If you use WPF you may remove the references to
+
+- `System.Windows.Forms`
+- `System.Drawing`
+
+## How to use (WPF)
 
 You can add iconic items to your views in the following ways
 
