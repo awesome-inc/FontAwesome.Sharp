@@ -164,4 +164,6 @@ $RECYCLE.BIN/
 /FontAwesome.Sharp/fonts/*.eot
 /FontAwesome.Sharp/fonts/*.svg
 /FontAwesome.Sharp/fonts/*.woff
+/FontAwesome.Sharp/fonts/*.woff2
+
 *.nupkg
