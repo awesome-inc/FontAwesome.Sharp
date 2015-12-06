@@ -6,6 +6,7 @@
         xmlns:testFontAwesome="clr-namespace:TestFontAwesome"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
+        Icon="{fa:IconSource Flag}"
         Title="TestWpf" Height="350" Width="525" d:DataContext="{d:DesignInstance testFontAwesome:MainViewModel}">
     <Window.Resources>
         <Style TargetType="TextBlock">
@@ -69,11 +70,11 @@
         <Button Grid.Row="2" Grid.Column="1" Content="{fa:Icon InfoCircle, Foreground={StaticResource FaBrush}}"/>
 
         <TextBlock Grid.Row="3" Text="IconImage:"/>
-        <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="Ambulance" Foreground="Red" Width="24" Height="24"/>
+        <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="GooglePlusSquare" Foreground="Red" Width="32" Height="32"/>
 
         <TextBlock Grid.Row="4" Text="RibbonButton with 'IconSource' markup extension"/>
         <RibbonButton Grid.Row="4" Grid.Column="1" 
-            SmallImageSource="{fa:IconSource InfoCircle, Foreground=CornflowerBlue}"
+            LargeImageSource="{fa:IconSource TwitterSquare, Foreground=CornflowerBlue}"
                       HorizontalAlignment="Center"/>
 
         <TextBlock Grid.Row="5" Text="Button with 'ToText' markup extension"/>

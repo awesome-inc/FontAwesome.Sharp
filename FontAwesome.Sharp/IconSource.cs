@@ -9,6 +9,7 @@ namespace FontAwesome.Sharp
         private readonly IconChar _icon;
         private ImageSource _imageSource;
         private Brush _foreground = IconHelper.DefaultBrush;
+        private double _size = IconHelper.DefaultSize;
 
         public Brush Foreground
         {
@@ -17,15 +18,31 @@ namespace FontAwesome.Sharp
             {
                 if (_foreground.Equals(value)) return;
                 _foreground = value;
-                _imageSource = _icon.ToImageSource(_foreground);
+                UpdateImageSource();
             }
+        }
+
+        public double Size
+        {
+            get { return _size; }
+            set
+            {
+                if (Math.Abs(_size - value) < 0.5) return;
+                _size = value;
+                UpdateImageSource();
+            }
+        }
+
+        private void UpdateImageSource()
+        {
+            _imageSource = _icon.ToImageSource(_foreground, _size);
         }
 
 
         public IconSource(IconChar icon)
         {
             _icon = icon;
-            _imageSource = _icon.ToImageSource(_foreground);
+            _imageSource = _icon.ToImageSource(_foreground, _size);
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
