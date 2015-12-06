@@ -48,7 +48,7 @@ namespace FontAwesome.Sharp
 
         private void UpdateImage()
         {
-            Image = FormsIconHelper.GetImage(_icon, _size, _color);
+            Image = _icon.ToBitmap(_size, _color);
         }
     }
 }

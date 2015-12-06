@@ -9,17 +9,17 @@ namespace FontAwesome.Sharp
 {
     public static class FormsIconHelper
     {
-        public static Image GetImage(IconChar icon, int size, Color color)
+        public static Bitmap ToBitmap(this IconChar icon, int size, Color color)
         {
-            var image = new Bitmap(size, size);
-            using (var graphics = Graphics.FromImage(image))
+            var bitmap = new Bitmap(size, size);
+            using (var graphics = Graphics.FromImage(bitmap))
             {
                 var text = char.ConvertFromUtf32((int)icon);
                 var font = GetAdjustedIconFont(graphics, text, size, size, 4, true);
                 var brush = new SolidBrush(color);
                 DrawIcon(graphics, font, text, size, size, brush);
             }
-            return image;
+            return bitmap;
         }
 
         public static void DrawIcon(this Graphics graphics, Font font, string text, int width, int height, Brush brush)
