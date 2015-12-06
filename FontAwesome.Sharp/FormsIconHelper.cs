@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
 using System.IO.Packaging;
+using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
@@ -42,6 +43,17 @@ namespace FontAwesome.Sharp
 
             // Draw string to screen.
             graphics.DrawString(text, font, brush, new PointF(left, top));
+        }
+
+        public static void AddIcon(this ImageList imageList, IconChar icon, int size, Color color)
+        {
+            imageList.Images.Add(icon.ToString(), icon.ToBitmap(size, color));
+        }
+
+        public static void AddIcons(this ImageList imageList, int size, Color color, params IconChar[] icons)
+        {
+            foreach(var icon in icons)
+                imageList.AddIcon(icon, size, color);
         }
 
         internal static Font GetAdjustedIconFont(this Graphics g, string graphicString, int containerWidth, int maxFontSize, int minFontSize, bool smallestOnFail)
