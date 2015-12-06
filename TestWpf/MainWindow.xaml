@@ -6,7 +6,7 @@
         xmlns:testFontAwesome="clr-namespace:TestFontAwesome"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="TestFontAwesome" Height="350" Width="525" d:DataContext="{d:DesignInstance testFontAwesome:MainViewModel}">
+        Title="TestWpf" Height="350" Width="525" d:DataContext="{d:DesignInstance testFontAwesome:MainViewModel}">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>

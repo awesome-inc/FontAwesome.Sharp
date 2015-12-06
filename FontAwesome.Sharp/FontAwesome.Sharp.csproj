@@ -54,10 +54,24 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormsIconHelper.cs" />
     <Compile Include="IconButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="IconDropDownButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IconMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IconPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IconToImageConverter.cs" />
+    <Compile Include="IconSplitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IFormsIcon.cs" />
     <Compile Include="ToText.cs" />
     <None Include="Dummy.cs" />
     <Compile Include="IconChar.cs">

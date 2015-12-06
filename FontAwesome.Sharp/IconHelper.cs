@@ -8,7 +8,7 @@ namespace FontAwesome.Sharp
     // cf.: 
     // * http://stackoverflow.com/questions/23108181/changing-font-icon-in-wpf-using-font-awesome
     // * http://www.codeproject.com/Tips/634540/Using-Font-Icons
-    internal static class IconHelper
+    public static class IconHelper
     {
         public static readonly FontFamily FontAwesome = new FontFamily(new Uri("pack://application:,,,"),
             "/FontAwesome.Sharp;component/fonts/#FontAwesome");
