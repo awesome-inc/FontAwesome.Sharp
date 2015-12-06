@@ -13,27 +13,19 @@ namespace FontAwesome.Sharp
         public static readonly FontFamily FontAwesome = new FontFamily(new Uri("pack://application:,,,"),
             "/FontAwesome.Sharp;component/fonts/#FontAwesome");
         public static readonly Brush DefaultBrush = SystemColors.WindowTextBrush; // this is TextBlock default brush
+        public const double DefaultSize = 16.0;
 
-        public static ImageSource ToImageSource(this IconChar iconChar, Brush foregroundBrush = null)
+        public static ImageSource ToImageSource(this IconChar iconChar, 
+            Brush foregroundBrush = null, double size = DefaultSize)
         {
             var text = char.ConvertFromUtf32((int) iconChar);
-            return ToImageSource(text, foregroundBrush ?? DefaultBrush,
-                FontAwesome, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+            return ToImageSource(text, foregroundBrush ?? DefaultBrush, size);
         }
 
-        private static ImageSource ToImageSource(string text, Brush foregroundBrush, 
-            FontFamily fontFamily, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch)
+        public static ImageSource ToImageSource(string text, 
+            Brush foregroundBrush = null, double size = DefaultSize)
         {
-            if (fontFamily == null || string.IsNullOrEmpty(text)) return null;
-            var typeface = new Typeface(fontFamily, fontStyle, fontWeight, fontStretch);
-
-            GlyphTypeface glyphTypeface;
-            if (!typeface.TryGetGlyphTypeface(out glyphTypeface))
-            {
-                typeface = new Typeface(new FontFamily(new Uri("pack://application:,,,"), fontFamily.Source), fontStyle, fontWeight, fontStretch);
-                if (!typeface.TryGetGlyphTypeface(out glyphTypeface))
-                    throw new InvalidOperationException("No glyphtypeface found");
-            }
+            if (string.IsNullOrWhiteSpace(text)) return null;
 
             var glyphIndexes = new ushort[text.Length];
             var advanceWidths = new double[text.Length];
@@ -43,7 +35,7 @@ namespace FontAwesome.Sharp
                 ushort glyphIndex;
                 try
                 {
-                    glyphIndex = glyphTypeface.CharacterToGlyphMap[text[n]];
+                    glyphIndex = GlyphTypeface.CharacterToGlyphMap[text[n]];
                 }
                 catch (Exception)
                 {
@@ -51,24 +43,38 @@ namespace FontAwesome.Sharp
                 }
                 glyphIndexes[n] = glyphIndex;
 
-                var width = glyphTypeface.AdvanceWidths[glyphIndex] * 1.0;
+                var width = GlyphTypeface.AdvanceWidths[glyphIndex] * 1.0;
                 advanceWidths[n] = width;
             }
 
             try
             {
-                var gr = new GlyphRun(glyphTypeface, 0, false, 1.0, glyphIndexes,
+                // pixels to points, cf.: http://stackoverflow.com/a/139712/2592915
+                var fontSize = size * (72.0 / 96.0);
+                var glyphRun = new GlyphRun(GlyphTypeface, 0, false, fontSize, glyphIndexes,
                     new Point(0, 0), advanceWidths, null, null, null, null, null, null);
 
-                var glyphRunDrawing = new GlyphRunDrawing(foregroundBrush, gr);
+                var glyphRunDrawing = new GlyphRunDrawing(foregroundBrush ?? DefaultBrush, glyphRun);
                 return new DrawingImage(glyphRunDrawing);
             }
             catch (Exception ex)
             {
-                // ReSharper disable one LocalizableElement
-                Trace.TraceError("Error in generating Glyphrun : " + ex.Message);
+                Trace.TraceError($"Error generating GlyphRun : {ex.Message}");
             }
             return null;
+        }
+
+
+        private static readonly GlyphTypeface GlyphTypeface;
+
+        static IconHelper()
+        {
+            var typeface = new Typeface(FontAwesome, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+            if (typeface.TryGetGlyphTypeface(out GlyphTypeface)) return;
+            typeface = new Typeface(new FontFamily(new Uri("pack://application:,,,"), FontAwesome.Source),
+                FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+            if (!typeface.TryGetGlyphTypeface(out GlyphTypeface))
+                throw new InvalidOperationException("No glyphtypeface found");
         }
     }
 }

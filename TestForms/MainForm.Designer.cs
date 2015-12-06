@@ -85,7 +85,7 @@ namespace TestFontForms
             this._iconMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(544, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(341, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -185,11 +185,11 @@ namespace TestFontForms
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(544, 341);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(341, 224);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(544, 412);
+            this.toolStripContainer1.Size = new System.Drawing.Size(341, 295);
             this.toolStripContainer1.TabIndex = 3;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -207,7 +207,7 @@ namespace TestFontForms
             this.toolStripSplitButton1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 0);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(544, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(341, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -257,8 +257,8 @@ namespace TestFontForms
             this.splitContainer1.Panel2.Controls.Add(this.iconPictureBox2);
             this.splitContainer1.Panel2.Controls.Add(this.iconPictureBox1);
             this.splitContainer1.Panel2.Controls.Add(this.iconButton1);
-            this.splitContainer1.Size = new System.Drawing.Size(544, 341);
-            this.splitContainer1.SplitterDistance = 171;
+            this.splitContainer1.Size = new System.Drawing.Size(341, 224);
+            this.splitContainer1.SplitterDistance = 107;
             this.splitContainer1.TabIndex = 1;
             // 
             // treeView1
@@ -279,7 +279,7 @@ namespace TestFontForms
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode4});
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(171, 341);
+            this.treeView1.Size = new System.Drawing.Size(107, 224);
             this.treeView1.TabIndex = 0;
             // 
             // imageList1
@@ -291,11 +291,10 @@ namespace TestFontForms
             // iconPictureBox3
             // 
             this.iconPictureBox3.ActiveColor = System.Drawing.Color.DarkSlateGray;
-            this.iconPictureBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.iconPictureBox3.BackColor = System.Drawing.Color.Transparent;
             this.iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.XingSquare;
             this.iconPictureBox3.InActiveColor = System.Drawing.Color.DarkGray;
-            this.iconPictureBox3.Location = new System.Drawing.Point(146, 124);
+            this.iconPictureBox3.Location = new System.Drawing.Point(121, 113);
             this.iconPictureBox3.Name = "iconPictureBox3";
             this.iconPictureBox3.Size = new System.Drawing.Size(85, 82);
             this.iconPictureBox3.TabIndex = 3;
@@ -304,11 +303,10 @@ namespace TestFontForms
             // iconPictureBox2
             // 
             this.iconPictureBox2.ActiveColor = System.Drawing.Color.Red;
-            this.iconPictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.iconPictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.GooglePlusSquare;
             this.iconPictureBox2.InActiveColor = System.Drawing.Color.LightCoral;
-            this.iconPictureBox2.Location = new System.Drawing.Point(39, 124);
+            this.iconPictureBox2.Location = new System.Drawing.Point(14, 113);
             this.iconPictureBox2.Name = "iconPictureBox2";
             this.iconPictureBox2.Size = new System.Drawing.Size(85, 82);
             this.iconPictureBox2.TabIndex = 2;
@@ -317,11 +315,10 @@ namespace TestFontForms
             // iconPictureBox1
             // 
             this.iconPictureBox1.ActiveColor = System.Drawing.Color.Black;
-            this.iconPictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.iconPictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Github;
             this.iconPictureBox1.InActiveColor = System.Drawing.Color.Gray;
-            this.iconPictureBox1.Location = new System.Drawing.Point(146, 23);
+            this.iconPictureBox1.Location = new System.Drawing.Point(121, 12);
             this.iconPictureBox1.Name = "iconPictureBox1";
             this.iconPictureBox1.Size = new System.Drawing.Size(85, 82);
             this.iconPictureBox1.TabIndex = 1;
@@ -330,11 +327,10 @@ namespace TestFontForms
             // iconButton1
             // 
             this.iconButton1.ActiveColor = System.Drawing.Color.SteelBlue;
-            this.iconButton1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.iconButton1.BackColor = System.Drawing.Color.Transparent;
             this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.TwitterSquare;
             this.iconButton1.InActiveColor = System.Drawing.Color.LightSteelBlue;
-            this.iconButton1.Location = new System.Drawing.Point(39, 23);
+            this.iconButton1.Location = new System.Drawing.Point(14, 12);
             this.iconButton1.Name = "iconButton1";
             this.iconButton1.Size = new System.Drawing.Size(85, 82);
             this.iconButton1.TabIndex = 0;
@@ -345,7 +341,7 @@ namespace TestFontForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 412);
+            this.ClientSize = new System.Drawing.Size(341, 295);
             this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
