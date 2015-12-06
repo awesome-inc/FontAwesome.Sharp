@@ -14,14 +14,38 @@ Add the NuGet package to your WPF or Windows Forms application or library. From 
 
 	Install-Package FontAwesome.Sharp
 
-For Windows Forms projects use the `IconButton` class. If you use WPF you may remove the references to
+## How to use
+
+### Windows Forms
+
+For Windows Forms projects use the subclasses 
+
+- `IconButton`,
+- `IconDropDownButton`,
+- `IconMenuItem`,  
+- `IconPictureBox` or  
+- `IconSplitButton`,  
+
+respectively. For more details including setting the application icon or using a treeview, have a look at the sample application `TestForms`.
+
+### WPF
+
+If you use WPF you may remove the references to
 
 - `System.Windows.Forms`
 - `System.Drawing`
 
-## How to use (WPF)
-
 You can add iconic items to your views in the following ways
+
+- `<TextBlock />` using the FontAwesome directly,
+- `<IconBlock />`,
+- `{fa:Icon [Icon]}`,
+- `{fa:ToText [Icon]}`,
+- `<fa:IconImage />`,
+- `{fa:IconSource [Icon]}`
+- `<fa:IconToImageConverter />`
+
+More details are given below. Be sure to have a look at the sample application `TestWpf`.
 
 ### Inline Text
 
