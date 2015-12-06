@@ -14,14 +14,38 @@ Add the NuGet package to your WPF or Windows Forms application or library. From 
 
 	Install-Package FontAwesome.Sharp
 
-For Windows Forms projects use the `IconButton` class. If you use WPF you may remove the references to
+## How to use
+
+### Windows Forms
+
+For Windows Forms projects use the subclasses 
+
+- `IconButton`,
+- `IconDropDownButton`,
+- `IconMenuItem`,  
+- `IconPictureBox` or  
+- `IconSplitButton`,  
+
+respectively. For more details including setting the application icon or using a treeview, have a look at the sample application `TestForms`.
+
+### WPF
+
+If you use WPF you may remove the references to
 
 - `System.Windows.Forms`
 - `System.Drawing`
 
-## How to use (WPF)
-
 You can add iconic items to your views in the following ways
+
+- `<TextBlock />` using the FontAwesome directly,
+- `<IconBlock />`,
+- `{fa:Icon [Icon]}`,
+- `{fa:ToText [Icon]}`,
+- `<fa:IconImage />`,
+- `{fa:IconSource [Icon]}`
+- `<fa:IconToImageConverter />`
+
+More details are given below. Be sure to have a look at the sample application `TestWpf`.
 
 ### Inline Text
 
@@ -152,8 +176,10 @@ Other libraries for using FontAwesome in Windows applications that we know of an
 - [FontAwesome.Portable](http://www.nuget.org/packages/FontAwesome.Portable/)
 Great idea to make it a portable library. However, we could not find the source repository.
 - [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF): Clean and nice implementation. Icon metadata and spinning support are really cool. 
+- [FontAwesome-WindowsForms](https://github.com/denwilliams/FontAwesome-WindowsForms): An example implementation for Windows Forms. We adapted this for **FontAwesome.Sharp.4.4.0**.
 
-In production, however, we needed to support 
+In production, however, we needed to support
+ 
 	- Ribbons using ImageSource (not only Image), 
 	- MVVM with Icon enum (smaller memory footprint on the viewmodel than Image) and 
 	- more markup extensions to keep the Xaml compact. 

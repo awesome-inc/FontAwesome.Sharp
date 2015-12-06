@@ -6,7 +6,8 @@
         xmlns:testFontAwesome="clr-namespace:TestFontAwesome"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="TestFontAwesome" Height="350" Width="525" d:DataContext="{d:DesignInstance testFontAwesome:MainViewModel}">
+        Icon="{fa:IconSource Flag}"
+        Title="TestWpf" Height="350" Width="525" d:DataContext="{d:DesignInstance testFontAwesome:MainViewModel}">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -16,7 +17,7 @@
         
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontSize" Value="24" />
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="4" />
@@ -52,28 +53,29 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock>
-            TextBlock using FontAwesome natively, cf.:<LineBreak/>
-            * http://fortawesome.github.io/Font-Awesome/cheatsheet/
-        </TextBlock>
-        <TextBlock Grid.Column="1" Text="&#xf042;" FontFamily="{StaticResource FontAwesome}" Foreground="Chartreuse" TextAlignment="Center" />
+        <TextBlock Text="TextBlock using FontAwesome natively"/>
+        <TextBlock Grid.Column="1" Text="&#xf042;" FontFamily="{StaticResource FontAwesome}" 
+                   Foreground="Chartreuse" TextAlignment="Center" FontSize="24" />
 
         <TextBlock Grid.Row="1" Text="IconBlock:"/>
-        <fa:IconBlock Grid.Row="1" Grid.Column="1" Icon="Adjust" Foreground="DarkSlateBlue" />
+        <fa:IconBlock Grid.Row="1" Grid.Column="1" Icon="Adjust" 
+                      Foreground="DarkSlateBlue" TextAlignment="Center"
+                      FontSize="24" VerticalAlignment="Center" />
 
         <TextBlock Grid.Row="2" Text="Button with 'Icon' markup extension"/>
-        <Button Grid.Row="2" Grid.Column="1" Content="{fa:Icon InfoCircle, Foreground={StaticResource FaBrush}}"/>
+        <Button Grid.Row="2" Grid.Column="1"
+                Content="{fa:Icon InfoCircle, Foreground={StaticResource FaBrush}}"/>
 
         <TextBlock Grid.Row="3" Text="IconImage:"/>
-        <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="Ambulance" Foreground="Red" Width="24" Height="24"/>
+        <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="GooglePlusSquare" Foreground="Red" Width="48" Height="48"/>
 
         <TextBlock Grid.Row="4" Text="RibbonButton with 'IconSource' markup extension"/>
-        <RibbonButton Grid.Row="4" Grid.Column="1" 
-            SmallImageSource="{fa:IconSource InfoCircle, Foreground=CornflowerBlue}"
+        <RibbonButton Grid.Row="4" Grid.Column="1" Width="48" Height="48"
+            LargeImageSource="{fa:IconSource TwitterSquare, Foreground=CornflowerBlue, Size=64}"
                       HorizontalAlignment="Center"/>
 
         <TextBlock Grid.Row="5" Text="Button with 'ToText' markup extension"/>
