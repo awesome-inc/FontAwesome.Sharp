@@ -58,6 +58,9 @@
     <Compile Include="IconButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="IconToolStripButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IconDropDownButton.cs">
       <SubType>Component</SubType>
     </Compile>

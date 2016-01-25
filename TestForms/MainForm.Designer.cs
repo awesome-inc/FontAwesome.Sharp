@@ -47,7 +47,7 @@ namespace TestFontForms
             this._quitMenuItem = new FontAwesome.Sharp.IconMenuItem();
             this._iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnSignIn = new FontAwesome.Sharp.IconButton();
+            this.btnSignIn = new FontAwesome.Sharp.IconToolStripButton();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -56,10 +56,10 @@ namespace TestFontForms
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
-            this.iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
-            this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            this.iconButton1 = new FontAwesome.Sharp.IconPictureBox();
+            this.btnXing = new FontAwesome.Sharp.IconButton();
+            this.btnGooglePlus = new FontAwesome.Sharp.IconButton();
+            this.boxOctocat = new FontAwesome.Sharp.IconPictureBox();
+            this.boxTwitter = new FontAwesome.Sharp.IconPictureBox();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -71,10 +71,8 @@ namespace TestFontForms
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconButton1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxOctocat)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxTwitter)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -253,10 +251,10 @@ namespace TestFontForms
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.iconPictureBox3);
-            this.splitContainer1.Panel2.Controls.Add(this.iconPictureBox2);
-            this.splitContainer1.Panel2.Controls.Add(this.iconPictureBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.iconButton1);
+            this.splitContainer1.Panel2.Controls.Add(this.btnXing);
+            this.splitContainer1.Panel2.Controls.Add(this.btnGooglePlus);
+            this.splitContainer1.Panel2.Controls.Add(this.boxOctocat);
+            this.splitContainer1.Panel2.Controls.Add(this.boxTwitter);
             this.splitContainer1.Size = new System.Drawing.Size(341, 224);
             this.splitContainer1.SplitterDistance = 107;
             this.splitContainer1.TabIndex = 1;
@@ -288,54 +286,55 @@ namespace TestFontForms
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // iconPictureBox3
+            // btnXing
             // 
-            this.iconPictureBox3.ActiveColor = System.Drawing.Color.DarkSlateGray;
-            this.iconPictureBox3.BackColor = System.Drawing.Color.Transparent;
-            this.iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.XingSquare;
-            this.iconPictureBox3.InActiveColor = System.Drawing.Color.DarkGray;
-            this.iconPictureBox3.Location = new System.Drawing.Point(121, 113);
-            this.iconPictureBox3.Name = "iconPictureBox3";
-            this.iconPictureBox3.Size = new System.Drawing.Size(85, 82);
-            this.iconPictureBox3.TabIndex = 3;
-            this.iconPictureBox3.TabStop = false;
+            this.btnXing.Icon = FontAwesome.Sharp.IconChar.XingSquare;
+            this.btnXing.IconColor = System.Drawing.Color.DarkSlateGray;
+            this.btnXing.IconSize = 32;
+            this.btnXing.Image = ((System.Drawing.Image)(resources.GetObject("btnXing.Image")));
+            this.btnXing.Location = new System.Drawing.Point(121, 121);
+            this.btnXing.Name = "btnXing";
+            this.btnXing.Size = new System.Drawing.Size(75, 57);
+            this.btnXing.TabIndex = 3;
+            this.btnXing.TabStop = false;
             // 
-            // iconPictureBox2
+            // btnGooglePlus
             // 
-            this.iconPictureBox2.ActiveColor = System.Drawing.Color.Red;
-            this.iconPictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.GooglePlusSquare;
-            this.iconPictureBox2.InActiveColor = System.Drawing.Color.LightCoral;
-            this.iconPictureBox2.Location = new System.Drawing.Point(14, 113);
-            this.iconPictureBox2.Name = "iconPictureBox2";
-            this.iconPictureBox2.Size = new System.Drawing.Size(85, 82);
-            this.iconPictureBox2.TabIndex = 2;
-            this.iconPictureBox2.TabStop = false;
+            this.btnGooglePlus.AutoSize = true;
+            this.btnGooglePlus.Icon = FontAwesome.Sharp.IconChar.GooglePlusSquare;
+            this.btnGooglePlus.IconColor = System.Drawing.Color.Red;
+            this.btnGooglePlus.IconSize = 32;
+            this.btnGooglePlus.Image = ((System.Drawing.Image)(resources.GetObject("btnGooglePlus.Image")));
+            this.btnGooglePlus.Location = new System.Drawing.Point(14, 121);
+            this.btnGooglePlus.Name = "btnGooglePlus";
+            this.btnGooglePlus.Size = new System.Drawing.Size(85, 57);
+            this.btnGooglePlus.TabIndex = 2;
+            this.btnGooglePlus.TabStop = false;
             // 
-            // iconPictureBox1
+            // boxOctocat
             // 
-            this.iconPictureBox1.ActiveColor = System.Drawing.Color.Black;
-            this.iconPictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Github;
-            this.iconPictureBox1.InActiveColor = System.Drawing.Color.Gray;
-            this.iconPictureBox1.Location = new System.Drawing.Point(121, 12);
-            this.iconPictureBox1.Name = "iconPictureBox1";
-            this.iconPictureBox1.Size = new System.Drawing.Size(85, 82);
-            this.iconPictureBox1.TabIndex = 1;
-            this.iconPictureBox1.TabStop = false;
+            this.boxOctocat.ActiveColor = System.Drawing.Color.Black;
+            this.boxOctocat.BackColor = System.Drawing.Color.Transparent;
+            this.boxOctocat.IconChar = FontAwesome.Sharp.IconChar.Github;
+            this.boxOctocat.InActiveColor = System.Drawing.Color.Gray;
+            this.boxOctocat.Location = new System.Drawing.Point(121, 12);
+            this.boxOctocat.Name = "boxOctocat";
+            this.boxOctocat.Size = new System.Drawing.Size(75, 82);
+            this.boxOctocat.TabIndex = 1;
+            this.boxOctocat.TabStop = false;
             // 
-            // iconButton1
+            // boxTwitter
             // 
-            this.iconButton1.ActiveColor = System.Drawing.Color.SteelBlue;
-            this.iconButton1.BackColor = System.Drawing.Color.Transparent;
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.TwitterSquare;
-            this.iconButton1.InActiveColor = System.Drawing.Color.LightSteelBlue;
-            this.iconButton1.Location = new System.Drawing.Point(14, 12);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(85, 82);
-            this.iconButton1.TabIndex = 0;
-            this.iconButton1.TabStop = false;
-            this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
+            this.boxTwitter.ActiveColor = System.Drawing.Color.SteelBlue;
+            this.boxTwitter.BackColor = System.Drawing.Color.Transparent;
+            this.boxTwitter.IconChar = FontAwesome.Sharp.IconChar.TwitterSquare;
+            this.boxTwitter.InActiveColor = System.Drawing.Color.LightSteelBlue;
+            this.boxTwitter.Location = new System.Drawing.Point(14, 12);
+            this.boxTwitter.Name = "boxTwitter";
+            this.boxTwitter.Size = new System.Drawing.Size(85, 82);
+            this.boxTwitter.TabIndex = 0;
+            this.boxTwitter.TabStop = false;
+            this.boxTwitter.Click += new System.EventHandler(this.iconButton1_Click);
             // 
             // MainForm
             // 
@@ -361,26 +360,25 @@ namespace TestFontForms
             this.statusStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconButton1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxOctocat)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxTwitter)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private IconPictureBox iconButton1;
+        private IconPictureBox boxTwitter;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private IconMenuItem mnuHome;
         private IconMenuItem _openMenuItem;
         private IconMenuItem _saveMenuItem;
         private IconMenuItem _quitMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private IconButton btnSignIn;
+        private IconToolStripButton btnSignIn;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
@@ -389,9 +387,9 @@ namespace TestFontForms
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView treeView1;
         private IconSplitButton toolStripSplitButton1;
-        private IconPictureBox iconPictureBox3;
-        private IconPictureBox iconPictureBox2;
-        private IconPictureBox iconPictureBox1;
+        private IconButton btnXing;
+        private IconButton btnGooglePlus;
+        private IconPictureBox boxOctocat;
         private IconMenuItem _iconMenuItem1;
         private System.Windows.Forms.ImageList imageList1;
     }

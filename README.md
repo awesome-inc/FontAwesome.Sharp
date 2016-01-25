@@ -21,6 +21,7 @@ Add the NuGet package to your WPF or Windows Forms application or library. From 
 For Windows Forms projects use the subclasses 
 
 - `IconButton`,
+- `IconToolStripButton`,
 - `IconDropDownButton`,
 - `IconMenuItem`,  
 - `IconPictureBox` or  

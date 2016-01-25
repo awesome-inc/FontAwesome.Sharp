@@ -16,7 +16,7 @@ namespace FontAwesome.Sharp
             using (var graphics = Graphics.FromImage(bitmap))
             {
                 var text = char.ConvertFromUtf32((int)icon);
-                var font = GetAdjustedIconFont(graphics, text, size, size, 4, true);
+                var font = GetAdjustedIconFont(graphics, text, size, size);
                 var brush = new SolidBrush(color);
                 DrawIcon(graphics, font, text, size, size, brush);
             }
@@ -56,14 +56,16 @@ namespace FontAwesome.Sharp
                 imageList.AddIcon(icon, size, color);
         }
 
-        internal static Font GetAdjustedIconFont(this Graphics g, string graphicString, int containerWidth, int maxFontSize, int minFontSize, bool smallestOnFail)
+        internal static Font GetAdjustedIconFont(this Graphics g, string graphicString, 
+            int width, int height, int maxFontSize = 0, int minFontSize = 4, bool smallestOnFail = true)
         {
-            for (double adjustedSize = maxFontSize; adjustedSize >= minFontSize; adjustedSize = adjustedSize - 0.5)
+            var safeMaxFontSize = maxFontSize > 0 ? maxFontSize : height;
+            for (double adjustedSize = safeMaxFontSize; adjustedSize >= minFontSize; adjustedSize = adjustedSize - 0.5)
             {
                 var testFont = GetIconFont((float)adjustedSize);
                 // Test the string with the new size
                 var adjustedSizeNew = g.MeasureString(graphicString, testFont);
-                if (containerWidth > Convert.ToInt32(adjustedSizeNew.Width))
+                if (width > adjustedSizeNew.Width && height > adjustedSizeNew.Height)
                 {
                     // Fits! return it
                     return testFont;
