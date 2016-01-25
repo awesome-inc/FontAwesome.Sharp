@@ -8,8 +8,8 @@ namespace FontAwesome.Sharp
     public class IconPictureBox : PictureBox
     {
         private IconChar _iconChar = IconChar.Star;
-        private Color _activeColor = Color.Black;
-        private Color _inActiveColor = Color.Black;
+        private Color _activeColor;
+        private Color _inActiveColor;
 
         private string _iconText;
         private Font _iconFont;
@@ -24,6 +24,8 @@ namespace FontAwesome.Sharp
             Width = Height = 16;
             MouseEnter += Icon_MouseEnter;
             MouseLeave += Icon_MouseLeave;
+            ActiveColor = Color.Black;
+            InActiveColor = Color.Gray;
         }
 
         [Category("FontAwesome")]
@@ -69,8 +71,8 @@ namespace FontAwesome.Sharp
             set
             {
                 if (base.Width == value) return;
-                base.Width = value;
                 _iconFont = null;
+                base.Width = value;
                 Invalidate();
             }
         }
@@ -81,8 +83,8 @@ namespace FontAwesome.Sharp
             set
             {
                 if (base.Height == value) return;
-                base.Height = value;
                 _iconFont = null;
+                base.Height = value;
                 Invalidate();
             }
         }
@@ -92,7 +94,7 @@ namespace FontAwesome.Sharp
             var graphics = e.Graphics;
 
             if (_iconFont == null)
-                _iconFont = graphics.GetAdjustedIconFont(_iconText, Width, Height, 4, true);
+                _iconFont = graphics.GetAdjustedIconFont(_iconText, Width, Height);
 
             graphics.DrawIcon(_iconFont, _iconText, Width, Height, _currentBrush);
 
