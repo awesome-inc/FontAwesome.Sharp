@@ -189,3 +189,9 @@ In production, however, we needed to support
 - MVVM with Icon enum (smaller memory footprint on the viewmodel than Image), 
 - more markup extensions to keep the Xaml compact
 - and finally `Windows.Forms` as well.
+
+## FAQ
+
+### Windows Forms Designer: I cannot find any controls in the Toolbox
+
+Add the controls to the toolbox as described in this SO answer: [How do I add my new User Control to the Toolbox or a new Winform?](http://stackoverflow.com/questions/8931328/how-do-i-add-my-new-user-control-to-the-toolbox-or-a-new-winform#8931414)
