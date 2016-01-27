@@ -10,10 +10,11 @@
 		var cssFile = this.Host.ResolvePath(@"Content\font-awesome.css");
 		var css = File.ReadAllText(cssFile);
 		// c.f.: http://derekslager.com/blog/posts/2007/09/a-better-dotnet-regular-expression-tester.ashx
-		var regEx = new Regex(@"\.fa-(.+):before \{\n  content: ""\\(.+)"";\n\}", RegexOptions.Multiline);
+		var regEx = new Regex(@"\.fa-(.+):before\s*\{\s*content:\s*""\\(.+)"";\s*}", RegexOptions.Multiline);
 
 		var fas = regEx.Matches(css).OfType<Match>()
 				.Select(match => new Fa {Class = ValidIdentifier(match.Groups[1].Value), Code = match.Groups[2].Value})
+				.OrderBy(x => x.Class)
 				.ToList();
 
 #>

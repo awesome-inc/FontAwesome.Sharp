@@ -10,6 +10,11 @@ namespace FontAwesome.Sharp
         private Color _color = Color.Black;
         private int _size = 16;
 
+        public IconDropDownButton()
+        {
+            UpdateImage();
+        }
+
         [Category("FontAwesome")]
         public IconChar Icon
         {

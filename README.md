@@ -1,4 +1,6 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp) ![NuGet Version](https://img.shields.io/nuget/v/FontAwesome.Sharp.svg?style=flat-square) ![NuGet Version](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)
+[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp) 
+[![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/) 
+[![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)
 
 # FontAwesome.Sharp
 
@@ -12,7 +14,7 @@ Here is a screenshot from the sample application
 
 Add the NuGet package to your WPF or Windows Forms application or library. From the Package Manager Console type
 
-	Install-Package FontAwesome.Sharp
+  Install-Package FontAwesome.Sharp
 
 ## How to use
 
@@ -53,17 +55,17 @@ More details are given below. Be sure to have a look at the sample application `
 The most rudimentary way is to use *FontAwesome* directly with a `TextBlock` like
 
         <TextBlock Grid.Column="1" Text="&#xf042;" 
-			FontFamily="/FontAwesome.Sharp;component/fonts/#FontAwesome"
-			Foreground="Chartreuse" 
-			TextAlignment="Center" />
+      FontFamily="/FontAwesome.Sharp;component/fonts/#FontAwesome"
+      Foreground="Chartreuse" 
+      TextAlignment="Center" />
 
 However, you need to have the [FontAwesome Cheatsheet](http://fortawesome.github.io/Font-Awesome/cheatsheet/) on your knees to know the icons correct unicodes.
 
 #### `<fa:IconBlock />`
 
 To use *FontAwesome*-icons in text you can use the `IconBlock` which subclasses the standard WPF [TextBlock](http://msdn.microsoft.com/en-us/library/system.windows.controls.textblock.aspx). You can the set the corresponding *Font Awesome* icon via the `Icon`-property:
-		
-	<fa:IconBlock Icon="Home" Foreground="Blue" /> 
+    
+  <fa:IconBlock Icon="Home" Foreground="Blue" /> 
 
 ### Buttons
 
@@ -91,7 +93,7 @@ Using the `ToText` markup extension is most recommended when using the font. It 
 
 And here a default style
 
-	<Style TargetType="Button">
+    <Style TargetType="Button">
         <Setter Property="FontFamily" Value="/FontAwesome.Sharp;component/fonts/#FontAwesome"/>
         <Setter Property="FontSize" Value="18" />
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -109,18 +111,19 @@ And here a default style
         </Style.Triggers>
     </Style>
 
-
 ### Images
 
 #### `<fa:IconImage />`
+
 Use this control when you are restricted to images and cannot you `IconBlock`. It subclasses the standard WPF [Image](http://msdn.microsoft.com/en-us/library/system.windows.controls.image(v=vs.110).aspx) for convenience. Again, you can set the corresponding Font Awesome element via the `Icon`-property like this
-		
+    
         <fa:IconImage Icon="Ambulance" Foreground="Red" Width="24" Height="24"/>
 You can additionally change the color with the `Foreground`-property.
 
 ### ImageSource (RibbonButton)
 
 #### `{fa:IconSource [Icon]}`
+
 When you are restricted to [ImageSource](http://msdn.microsoft.com/en-us/library/system.windows.media.imagesource(v=vs.110).aspx) like with the WPF [Ribbon](http://msdn.microsoft.com/en-us/library/ff799534(v=vs.110).aspx) control you can use the `IconSource` markup extension like:
 
         <RibbonButton SmallImageSource="{fa:IconSource InfoCircle, Foreground=Red"/>
@@ -168,10 +171,11 @@ Often you want to have the menu icons all have a consistent style (e.g. size and
         <Setter Property="Height" Value="20"/>
     </Style>
     <fa:IconToImageConverter x:Key="IconToImage" 
-		Foreground="{StaticResource FaBrush}" 
-		ImageStyle="{StaticResource FaImageStyle}"/>
+    Foreground="{StaticResource FaBrush}" 
+    ImageStyle="{StaticResource FaImageStyle}"/>
 
 ## Related Projects
+
 Other libraries for using FontAwesome in Windows applications that we know of and are available on NuGet:
 
 - [FontAwesome.Portable](http://www.nuget.org/packages/FontAwesome.Portable/)
@@ -181,8 +185,13 @@ Great idea to make it a portable library. However, we could not find the source 
 
 In production, however, we needed to support
  
-	- Ribbons using ImageSource (not only Image), 
-	- MVVM with Icon enum (smaller memory footprint on the viewmodel than Image) and 
-	- more markup extensions to keep the Xaml compact. 
+- Ribbons using ImageSource (not only Image), 
+- MVVM with Icon enum (smaller memory footprint on the viewmodel than Image), 
+- more markup extensions to keep the Xaml compact
+- and finally `Windows.Forms` as well.
 
-Another reason this project exists, is we started this about a year ago and recently (March 2015) decided to go open source. Then we found the excellent implementation of [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF). For now, we renamed the project to `FontAwesome.Sharp` to avoid conflicts in the NuGet gallery. On the short-term, maybe we are going to contribute to `charri/Font-Awesome-WPF`.
+## FAQ
+
+### Windows Forms Designer: I cannot find any controls in the Toolbox
+
+Add the controls to the toolbox as described in this SO answer: [How do I add my new User Control to the Toolbox or a new Winform?](http://stackoverflow.com/questions/8931328/how-do-i-add-my-new-user-control-to-the-toolbox-or-a-new-winform#8931414)
