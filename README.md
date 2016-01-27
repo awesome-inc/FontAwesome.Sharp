@@ -1,6 +1,6 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp) 
-[![NuGet](https://img.shields.io/nuget/v/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp.svg/) 
-[![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp.svg/)
+[![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/) 
+[![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)
 
 # FontAwesome.Sharp
 
