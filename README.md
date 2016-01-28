@@ -14,7 +14,7 @@ Here is a screenshot from the sample application
 
 Add the NuGet package to your WPF or Windows Forms application or library. From the Package Manager Console type
 
-  Install-Package FontAwesome.Sharp
+    Install-Package FontAwesome.Sharp
 
 ## How to use
 
