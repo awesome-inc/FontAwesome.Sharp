@@ -1,10 +1,13 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp) 
-[![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/) 
-[![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)
-
 # FontAwesome.Sharp
 
 A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF & Windows Forms applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
+
+[![Join the chat at https://gitter.im/awesome-inc/FontAwesome.Sharp](https://badges.gitter.im/awesome-inc/FontAwesome.Sharp.svg)](https://gitter.im/awesome-inc/FontAwesome.Sharp?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
+[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp) 
+
+[![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/) 
+[![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)
+
 
 Here is a screenshot from the sample application
 
