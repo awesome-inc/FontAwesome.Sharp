@@ -7,12 +7,13 @@
     <ProjectGuid>{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestFontAwesome</RootNamespace>
-    <AssemblyName>TestFontAwesome</AssemblyName>
+    <RootNamespace>TestWpf</RootNamespace>
+    <AssemblyName>TestWpf</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <GenerateManifests>true</GenerateManifests>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>

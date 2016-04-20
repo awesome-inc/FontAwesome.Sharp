@@ -1,6 +1,6 @@
 ﻿using FontAwesome.Sharp;
 
-namespace TestFontForms
+namespace TestForms
 {
     partial class MainForm
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using FontAwesome.Sharp;
 
-namespace TestFontForms
+namespace TestForms
 {
     public partial class MainForm : Form
     {

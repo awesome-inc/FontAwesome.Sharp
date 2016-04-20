@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace TestFontAwesome
+namespace TestWpf
 {
     public class DelegateCommand : ICommand
     {

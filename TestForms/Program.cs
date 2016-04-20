@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace TestFontForms
+namespace TestForms
 {
     internal static class Program
     {
