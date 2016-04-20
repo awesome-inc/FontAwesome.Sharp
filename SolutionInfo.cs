@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 #endif
 
 [assembly: AssemblyCompany("Awesome Inc.")]
-[assembly: AssemblyCopyright("Copyright © Awesome Inc. 2015")]
+[assembly: AssemblyCopyright("Copyright © Awesome Inc. 2016")]
 [assembly: AssemblyTrademark("Awesome Inc.")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

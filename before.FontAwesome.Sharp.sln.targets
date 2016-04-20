@@ -12,8 +12,8 @@
   <Target Name="CoverageReport">
     <MSBuild Projects="@(ProjectReference)" Targets="CoverageReport" BuildInParallel="True" Properties="$(Props)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
   </Target>
-  <Target Name="Version">
-    <MSBuild Projects="@(ProjectReference)" Targets="Version" BuildInParallel="True" Properties="$(Props)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
+  <Target Name="CoverageUpload">
+    <MSBuild Projects="@(ProjectReference)" Targets="CoverageUpload" BuildInParallel="True" Properties="$(Props)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
   </Target>
   <Target Name="Package">
     <MSBuild Projects="@(ProjectReference)" Targets="Package" BuildInParallel="True" Properties="$(Props)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />

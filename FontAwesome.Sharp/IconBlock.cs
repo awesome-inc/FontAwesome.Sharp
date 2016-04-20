@@ -6,24 +6,35 @@ using System.Windows.Controls;
 namespace FontAwesome.Sharp
 {
     // adapted from https://bitbucket.org/ioachim/fontawesome.wpf
-    public class IconBlock : TextBlock 
+    public class IconBlock : TextBlock
     {
-        public IconChar Icon 
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(IconChar), typeof(IconBlock), 
+            new PropertyMetadata(IconChar.None, OnIconPropertyChanged));
+
+        public IconChar Icon
         {
             get { return (IconChar)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
 
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(IconChar), typeof(IconBlock), 
-            new PropertyMetadata(IconChar.None, OnIconPropertyChanged));
-
         private static void OnIconPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) 
         {
+#if NET40
+            d.SetValue(TextOptions.TextRenderingModeProperty, TextRenderingMode.ClearType);
+#endif
+            d.SetValue(FontFamilyProperty, IconHelper.FontAwesome);
+            d.SetValue(TextAlignmentProperty, TextAlignment.Center);
+            d.SetValue(VerticalAlignmentProperty, VerticalAlignment.Center);
+
             d.SetValue(TextProperty, char.ConvertFromUtf32((int)e.NewValue));
         }
 
-        public IconBlock() 
+        public IconBlock()
         {
+            FontFamily = IconHelper.FontAwesome;
+            VerticalAlignment = VerticalAlignment.Center;
+            TextAlignment = TextAlignment.Center;
+
             var descriptor = DependencyPropertyDescriptor.FromProperty(TextProperty, typeof(IconBlock));
             descriptor.AddValueChanged(this, OnTextValueChanged);
             FontFamily = IconHelper.FontAwesome;
