@@ -8,7 +8,6 @@ A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome
 [![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/) 
 [![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)
 
-
 Here is a screenshot from the sample application
 
 ![](FontAwesome.Sharp.png)
@@ -53,11 +52,11 @@ You can add iconic items to your views in the following ways
 
 More details are given below. Be sure to have a look at the sample application `TestWpf`.
 
-### Inline Text
+### Text
 
 The most rudimentary way is to use *FontAwesome* directly with a `TextBlock` like
 
-        <TextBlock Grid.Column="1" Text="&#xf042;" 
+    <TextBlock Grid.Column="1" Text="&#xf042;" 
       FontFamily="/FontAwesome.Sharp;component/fonts/#FontAwesome"
       Foreground="Chartreuse" 
       TextAlignment="Center" />
@@ -129,7 +128,7 @@ You can additionally change the color with the `Foreground`-property.
 
 When you are restricted to [ImageSource](http://msdn.microsoft.com/en-us/library/system.windows.media.imagesource(v=vs.110).aspx) like with the WPF [Ribbon](http://msdn.microsoft.com/en-us/library/ff799534(v=vs.110).aspx) control you can use the `IconSource` markup extension like:
 
-        <RibbonButton SmallImageSource="{fa:IconSource InfoCircle, Foreground=Red"/>
+    <RibbonButton SmallImageSource="{fa:IconSource InfoCircle, Foreground=Red"/>
 
 ### Menus and MVVM
 
@@ -174,8 +173,8 @@ Often you want to have the menu icons all have a consistent style (e.g. size and
         <Setter Property="Height" Value="20"/>
     </Style>
     <fa:IconToImageConverter x:Key="IconToImage" 
-    Foreground="{StaticResource FaBrush}" 
-    ImageStyle="{StaticResource FaImageStyle}"/>
+    	Foreground="{StaticResource FaBrush}" 
+    	ImageStyle="{StaticResource FaImageStyle}"/>
 
 ## Related Projects
 

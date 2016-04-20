@@ -7,10 +7,12 @@
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
         Icon="{fa:IconSource Flag}"
-        Title="TestWpf" Height="350" Width="525" d:DataContext="{d:DesignInstance testFontAwesome:MainViewModel}">
+        Title="TestWpf" Height="600" Width="800" d:DataContext="{d:DesignInstance testFontAwesome:MainViewModel}">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
         <FontFamily x:Key="FontAwesome">/FontAwesome.Sharp;component/fonts/#FontAwesome</FontFamily>
         <Brush x:Key="FaBrush">DarkOrchid</Brush>
@@ -37,14 +39,28 @@
             <Setter Property="Height" Value="20"/>
         </Style>
         <fa:IconToImageConverter x:Key="IconToImage" Foreground="{StaticResource FaBrush}" ImageStyle="{StaticResource FaImageStyle}"/>
+        
+        <Style TargetType="fa:IconImage">
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Margin" Value="8,0,8,0"/>
+        </Style>
+
+        <Style TargetType="RowDefinition">
+            <Setter Property="MinHeight" Value="48"/>
+        </Style>
     </Window.Resources>
     <Window.ContextMenu>
         <ContextMenu>
-            <MenuItem Command="Open" Icon="{Binding Icon, Converter={StaticResource IconToImage}}"/>
+            <MenuItem Command="{Binding OpenCommand}" Header="Open" Icon="{Binding Icon, Converter={StaticResource IconToImage}}"/>
         </ContextMenu>
     </Window.ContextMenu>
     <Grid Margin="8">
         <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -58,7 +74,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="TextBlock using FontAwesome natively"/>
-        <TextBlock Grid.Column="1" Text="&#xf042;" FontFamily="{StaticResource FontAwesome}" 
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="&#xf042;" FontFamily="{StaticResource FontAwesome}" 
                    Foreground="Chartreuse" TextAlignment="Center" FontSize="24" />
 
         <TextBlock Grid.Row="1" Text="IconBlock:"/>
@@ -71,14 +87,39 @@
                 Content="{fa:Icon InfoCircle, Foreground={StaticResource FaBrush}}"/>
 
         <TextBlock Grid.Row="3" Text="IconImage:"/>
-        <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="GooglePlusSquare" Foreground="Red" Width="48" Height="48"/>
+        <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="GooglePlusSquare" Foreground="Red" fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
 
-        <TextBlock Grid.Row="4" Text="RibbonButton with 'IconSource' markup extension"/>
-        <RibbonButton Grid.Row="4" Grid.Column="1" Width="48" Height="48"
-            LargeImageSource="{fa:IconSource TwitterSquare, Foreground=CornflowerBlue, Size=64}"
-                      HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="4" Text="RibbonButton with 'IconSource' markup extension (Click to toggle spinning)"/>
+        <RibbonButton Grid.Row="4" Grid.Column="1" ToolTip="Click to toggle spinning (Spinning 4 sec., rotated 45° &amp; flipped vertically)"
+            LargeImageSource="{fa:IconSource TwitterSquare, Foreground=CornflowerBlue, Size=48}" 
+                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                      Width="48" Height="48"
+            Command="{Binding ToggleSpinCommand}" 
+            fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="4" 
+            fa:Awesome.Rotation="45"
+            fa:Awesome.Flip="Vertical">
+        </RibbonButton>
 
         <TextBlock Grid.Row="5" Text="Button with 'ToText' markup extension"/>
-        <Button Grid.Row="5" Grid.Column="1" Content="{fa:ToText Play}" />
+        <Button Grid.Row="5" Grid.Column="1" Content="{fa:ToText Play}" Command="{Binding PlayCommand}" ToolTip="Click me!" />
+
+        <TextBlock Grid.Row="6" Text="Stacking Icons"/>
+        <Grid Grid.Row="6" Grid.Column="1" ToolTip="Two icons stacked in a grid">
+            <fa:IconImage Icon="Camera" Width="16" Height="16" />
+            <fa:IconImage Icon="Ban" Foreground="Red" />
+        </Grid>
+
+        <TextBlock Grid.Row="7" Text="Spinning Icons"/>
+        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <fa:IconImage Icon="Refresh" fa:Awesome.Spin="{Binding IsSpinning}" Foreground="SlateGray" />
+            <fa:IconBlock Icon="Cog" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2" Foreground="DarkSlateBlue" FontSize="32" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="8" Text="Rotated &amp; flipped"/>
+        <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <fa:IconImage Icon="Shield" fa:Awesome.Rotation="45" ToolTip="Rotated 45°" />
+            <fa:IconBlock Icon="Shield" fa:Awesome.Flip="Horizontal" FontSize="32" ToolTip="Flipped horizontally"/>
+            <fa:IconImage Icon="Shield" fa:Awesome.Flip="Vertical" ToolTip="Flipped vertically"/>
+        </StackPanel>
     </Grid>
 </Window>

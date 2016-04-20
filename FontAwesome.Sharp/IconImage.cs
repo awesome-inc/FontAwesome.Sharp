@@ -6,11 +6,10 @@ namespace FontAwesome.Sharp
 {
     public class IconImage : Image
     {
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(IconChar), typeof(IconImage),
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(IconChar), typeof(IconImage),
             new PropertyMetadata(IconChar.None, OnIconPropertyChanged));
-        public static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register("Foreground", typeof(Brush), typeof(IconImage),
+        public static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register(nameof(Foreground), typeof(Brush), typeof(IconImage),
             new PropertyMetadata(IconHelper.DefaultBrush, OnForegroundPropertyChanged));
-
 
         public IconChar Icon
         {
