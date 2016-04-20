@@ -60,6 +60,10 @@ namespace TestFontForms
             this.btnGooglePlus = new FontAwesome.Sharp.IconButton();
             this.boxOctocat = new FontAwesome.Sharp.IconPictureBox();
             this.boxTwitter = new FontAwesome.Sharp.IconPictureBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
+            this.iconMenuItem2 = new FontAwesome.Sharp.IconMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -73,6 +77,7 @@ namespace TestFontForms
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxOctocat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxTwitter)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -111,7 +116,7 @@ namespace TestFontForms
             this._openMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("_openMenuItem.Image")));
             this._openMenuItem.Name = "_openMenuItem";
             this._openMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this._openMenuItem.Size = new System.Drawing.Size(146, 22);
+            this._openMenuItem.Size = new System.Drawing.Size(152, 22);
             this._openMenuItem.Text = "&Open";
             // 
             // _saveMenuItem
@@ -122,13 +127,13 @@ namespace TestFontForms
             this._saveMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("_saveMenuItem.Image")));
             this._saveMenuItem.Name = "_saveMenuItem";
             this._saveMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this._saveMenuItem.Size = new System.Drawing.Size(146, 22);
+            this._saveMenuItem.Size = new System.Drawing.Size(152, 22);
             this._saveMenuItem.Text = "&Save";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // _quitMenuItem
             // 
@@ -138,7 +143,7 @@ namespace TestFontForms
             this._quitMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("_quitMenuItem.Image")));
             this._quitMenuItem.Name = "_quitMenuItem";
             this._quitMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this._quitMenuItem.Size = new System.Drawing.Size(146, 22);
+            this._quitMenuItem.Size = new System.Drawing.Size(152, 22);
             this._quitMenuItem.Text = "&Quit";
             // 
             // _iconMenuItem1
@@ -158,7 +163,7 @@ namespace TestFontForms
             this.btnSignIn});
             this.toolStrip1.Location = new System.Drawing.Point(3, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(75, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(106, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -218,6 +223,8 @@ namespace TestFontForms
             // iconDropDown
             // 
             this.iconDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.iconDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iconMenuItem2});
             this.iconDropDown.Icon = FontAwesome.Sharp.IconChar.Cog;
             this.iconDropDown.IconColor = System.Drawing.Color.DimGray;
             this.iconDropDown.IconSize = 16;
@@ -266,12 +273,15 @@ namespace TestFontForms
             this.treeView1.ImageList = this.imageList1;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
+            treeNode1.ContextMenuStrip = this.contextMenuStrip1;
             treeNode1.Name = "Node2";
             treeNode1.Text = "Node2";
+            treeNode2.ContextMenuStrip = this.contextMenuStrip1;
             treeNode2.Name = "Node1";
             treeNode2.Text = "Node1";
             treeNode3.Name = "Node3";
             treeNode3.Text = "Node3";
+            treeNode4.ContextMenuStrip = this.contextMenuStrip1;
             treeNode4.Name = "Root";
             treeNode4.Text = "Root";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
@@ -288,6 +298,7 @@ namespace TestFontForms
             // 
             // btnXing
             // 
+            this.btnXing.ContextMenuStrip = this.contextMenuStrip1;
             this.btnXing.Icon = FontAwesome.Sharp.IconChar.XingSquare;
             this.btnXing.IconColor = System.Drawing.Color.DarkSlateGray;
             this.btnXing.IconSize = 32;
@@ -301,6 +312,7 @@ namespace TestFontForms
             // btnGooglePlus
             // 
             this.btnGooglePlus.AutoSize = true;
+            this.btnGooglePlus.ContextMenuStrip = this.contextMenuStrip1;
             this.btnGooglePlus.Icon = FontAwesome.Sharp.IconChar.GooglePlusSquare;
             this.btnGooglePlus.IconColor = System.Drawing.Color.Red;
             this.btnGooglePlus.IconSize = 32;
@@ -315,6 +327,7 @@ namespace TestFontForms
             // 
             this.boxOctocat.ActiveColor = System.Drawing.Color.Black;
             this.boxOctocat.BackColor = System.Drawing.Color.Transparent;
+            this.boxOctocat.ContextMenuStrip = this.contextMenuStrip1;
             this.boxOctocat.IconChar = FontAwesome.Sharp.IconChar.Github;
             this.boxOctocat.InActiveColor = System.Drawing.Color.Gray;
             this.boxOctocat.Location = new System.Drawing.Point(121, 12);
@@ -335,6 +348,42 @@ namespace TestFontForms
             this.boxTwitter.TabIndex = 0;
             this.boxTwitter.TabStop = false;
             this.boxTwitter.Click += new System.EventHandler(this.iconButton1_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.iconMenuItem1});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 48);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
+            this.toolStripMenuItem1.Text = "menuItem1";
+            this.toolStripMenuItem1.ToolTipText = "Regular menu item";
+            // 
+            // iconMenuItem1
+            // 
+            this.iconMenuItem1.Icon = FontAwesome.Sharp.IconChar.Wpforms;
+            this.iconMenuItem1.IconColor = System.Drawing.Color.Black;
+            this.iconMenuItem1.IconSize = 16;
+            this.iconMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("iconMenuItem1.Image")));
+            this.iconMenuItem1.Name = "iconMenuItem1";
+            this.iconMenuItem1.Size = new System.Drawing.Size(158, 22);
+            this.iconMenuItem1.Text = "iconMenuItem1";
+            this.iconMenuItem1.ToolTipText = "wpforms icon (fa 4.6.1)";
+            // 
+            // iconMenuItem2
+            // 
+            this.iconMenuItem2.Icon = FontAwesome.Sharp.IconChar.Star;
+            this.iconMenuItem2.IconColor = System.Drawing.Color.Black;
+            this.iconMenuItem2.IconSize = 16;
+            this.iconMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("iconMenuItem2.Image")));
+            this.iconMenuItem2.Name = "iconMenuItem2";
+            this.iconMenuItem2.Size = new System.Drawing.Size(158, 22);
+            this.iconMenuItem2.Text = "iconMenuItem2";
             // 
             // MainForm
             // 
@@ -365,6 +414,7 @@ namespace TestFontForms
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.boxOctocat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxTwitter)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -392,6 +442,10 @@ namespace TestFontForms
         private IconPictureBox boxOctocat;
         private IconMenuItem _iconMenuItem1;
         private System.Windows.Forms.ImageList imageList1;
+        private IconMenuItem iconMenuItem2;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private IconMenuItem iconMenuItem1;
     }
 }
 

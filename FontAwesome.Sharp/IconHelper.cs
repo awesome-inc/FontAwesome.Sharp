@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 
@@ -22,6 +23,7 @@ namespace FontAwesome.Sharp
             return ToImageSource(text, foregroundBrush ?? DefaultBrush, size);
         }
 
+        // ReSharper disable once MemberCanBePrivate.Global
         public static ImageSource ToImageSource(string text, 
             Brush foregroundBrush = null, double size = DefaultSize)
         {
@@ -49,8 +51,7 @@ namespace FontAwesome.Sharp
 
             try
             {
-                // pixels to points, cf.: http://stackoverflow.com/a/139712/2592915
-                var fontSize = size * (72.0 / 96.0);
+                var fontSize = PixelsToPoints(size);
                 var glyphRun = new GlyphRun(GlyphTypeface, 0, false, fontSize, glyphIndexes,
                     new Point(0, 0), advanceWidths, null, null, null, null, null, null);
 
@@ -64,7 +65,6 @@ namespace FontAwesome.Sharp
             return null;
         }
 
-
         private static readonly GlyphTypeface GlyphTypeface;
 
         static IconHelper()
@@ -75,6 +75,21 @@ namespace FontAwesome.Sharp
                 FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
             if (!typeface.TryGetGlyphTypeface(out GlyphTypeface))
                 throw new InvalidOperationException("No glyphtypeface found");
+        }
+
+        private static double PixelsToPoints(double size)
+        {
+            // pixels to points, cf.: http://stackoverflow.com/a/139712/2592915
+            return size * (72.0 / Dpi);
+        }
+
+        private static readonly int Dpi = GetDpi();
+
+        private static int GetDpi()
+        {
+            // How can I get the DPI in WPF?, cf.: http://stackoverflow.com/a/12487917/2592915
+            var dpiProperty = typeof(SystemParameters).GetProperty("Dpi", BindingFlags.NonPublic | BindingFlags.Static);
+            return (int)dpiProperty.GetValue(null, null);
         }
     }
 }

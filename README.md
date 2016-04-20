@@ -1,10 +1,12 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp) 
-[![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/) 
-[![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)
-
 # FontAwesome.Sharp
 
 A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF & Windows Forms applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
+
+[![Join the chat at https://gitter.im/awesome-inc/FontAwesome.Sharp](https://badges.gitter.im/awesome-inc/FontAwesome.Sharp.svg)](https://gitter.im/awesome-inc/FontAwesome.Sharp?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
+[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp) 
+
+[![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/) 
+[![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)
 
 Here is a screenshot from the sample application
 
@@ -14,7 +16,7 @@ Here is a screenshot from the sample application
 
 Add the NuGet package to your WPF or Windows Forms application or library. From the Package Manager Console type
 
-  Install-Package FontAwesome.Sharp
+    Install-Package FontAwesome.Sharp
 
 ## How to use
 
@@ -50,11 +52,11 @@ You can add iconic items to your views in the following ways
 
 More details are given below. Be sure to have a look at the sample application `TestWpf`.
 
-### Inline Text
+### Text
 
 The most rudimentary way is to use *FontAwesome* directly with a `TextBlock` like
 
-        <TextBlock Grid.Column="1" Text="&#xf042;" 
+    <TextBlock Grid.Column="1" Text="&#xf042;" 
       FontFamily="/FontAwesome.Sharp;component/fonts/#FontAwesome"
       Foreground="Chartreuse" 
       TextAlignment="Center" />
@@ -126,7 +128,7 @@ You can additionally change the color with the `Foreground`-property.
 
 When you are restricted to [ImageSource](http://msdn.microsoft.com/en-us/library/system.windows.media.imagesource(v=vs.110).aspx) like with the WPF [Ribbon](http://msdn.microsoft.com/en-us/library/ff799534(v=vs.110).aspx) control you can use the `IconSource` markup extension like:
 
-        <RibbonButton SmallImageSource="{fa:IconSource InfoCircle, Foreground=Red"/>
+    <RibbonButton SmallImageSource="{fa:IconSource InfoCircle, Foreground=Red"/>
 
 ### Menus and MVVM
 
@@ -171,8 +173,8 @@ Often you want to have the menu icons all have a consistent style (e.g. size and
         <Setter Property="Height" Value="20"/>
     </Style>
     <fa:IconToImageConverter x:Key="IconToImage" 
-    Foreground="{StaticResource FaBrush}" 
-    ImageStyle="{StaticResource FaImageStyle}"/>
+    	Foreground="{StaticResource FaBrush}" 
+    	ImageStyle="{StaticResource FaImageStyle}"/>
 
 ## Related Projects
 
