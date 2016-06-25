@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using FontAwesome.Sharp;
 
-namespace TestFontAwesome
+namespace TestWpf
 {
     public class MainViewModel : INotifyPropertyChanged
     {

@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -8,11 +12,14 @@ namespace FontAwesome.Sharp
 {
     public static class Awesome
     {
-        public static readonly DependencyProperty SpinProperty = DependencyProperty.RegisterAttached("Spin", 
+        #region Animation
+        public static readonly DependencyProperty SpinProperty = DependencyProperty.RegisterAttached("Spin",
             typeof(bool), typeof(Awesome), new PropertyMetadata(false, SpinChanged));
 
-        public static readonly DependencyProperty SpinDurationProperty = DependencyProperty.RegisterAttached("SpinDuration",
-            typeof(double), typeof(Awesome), new PropertyMetadata(1.0d, SpinDurationChanged, SpinDurationCoerceValue));
+        public static readonly DependencyProperty SpinDurationProperty =
+            DependencyProperty.RegisterAttached("SpinDuration",
+                typeof(double), typeof(Awesome),
+                new PropertyMetadata(1.0d, SpinDurationChanged, SpinDurationCoerceValue));
 
         public static readonly DependencyProperty RotationProperty = DependencyProperty.RegisterAttached("Rotation",
             typeof(double), typeof(Awesome), new PropertyMetadata(0.0d, RotationChanged, RotationCoerceValue));
@@ -21,14 +28,45 @@ namespace FontAwesome.Sharp
             typeof(FlipOrientation), typeof(Awesome), new PropertyMetadata(FlipOrientation.Normal, FlipChanged));
 
 
-        public static bool GetSpin(DependencyObject target) { return (bool)target.GetValue(SpinProperty); }
-        public static void SetSpin(DependencyObject target, bool value) { target.SetValue(SpinProperty, value); }
-        public static double GetSpinDuration(DependencyObject target) { return (double)target.GetValue(SpinDurationProperty); }
-        public static void SetSpinDuration(DependencyObject target, double value) { target.SetValue(SpinDurationProperty, value); }
-        public static double GetRotation(DependencyObject target) { return (double)target.GetValue(RotationProperty); }
-        public static void SetRotation(DependencyObject target, double value) { target.SetValue(RotationProperty, value); }
-        public static FlipOrientation GetFlip(DependencyObject target) { return (FlipOrientation)target.GetValue(FlipProperty); }
-        public static void SetFlip(DependencyObject target, FlipOrientation value) { target.SetValue(FlipProperty, value); }
+        public static bool GetSpin(DependencyObject target)
+        {
+            return (bool)target.GetValue(SpinProperty);
+        }
+
+        public static void SetSpin(DependencyObject target, bool value)
+        {
+            target.SetValue(SpinProperty, value);
+        }
+
+        public static double GetSpinDuration(DependencyObject target)
+        {
+            return (double)target.GetValue(SpinDurationProperty);
+        }
+
+        public static void SetSpinDuration(DependencyObject target, double value)
+        {
+            target.SetValue(SpinDurationProperty, value);
+        }
+
+        public static double GetRotation(DependencyObject target)
+        {
+            return (double)target.GetValue(RotationProperty);
+        }
+
+        public static void SetRotation(DependencyObject target, double value)
+        {
+            target.SetValue(RotationProperty, value);
+        }
+
+        public static FlipOrientation GetFlip(DependencyObject target)
+        {
+            return (FlipOrientation)target.GetValue(FlipProperty);
+        }
+
+        public static void SetFlip(DependencyObject target, FlipOrientation value)
+        {
+            target.SetValue(FlipProperty, value);
+        }
 
         private static void SpinChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -36,7 +74,7 @@ namespace FontAwesome.Sharp
             if (control == null) return;
 
             if (!(e.NewValue is bool) || e.NewValue.Equals(e.OldValue)) return;
-            var spin = (bool) e.NewValue;
+            var spin = (bool)e.NewValue;
 
             if (spin)
             {
@@ -180,5 +218,84 @@ namespace FontAwesome.Sharp
         {
             return control.Resources[SpinnerStoryBoardName] as Storyboard;
         }
+
+        #endregion Animation
+
+        #region Inline text
+
+        public static readonly DependencyProperty InlineProperty = DependencyProperty.RegisterAttached(
+            "Inline", typeof(string), typeof(Awesome),
+            new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.AffectsMeasure,
+                InlinePropertyChanged));
+
+        public const string DefaultPattern = @":(\w+):";
+        public static readonly DependencyProperty PatternProperty = DependencyProperty.RegisterAttached(
+            "Pattern", typeof (string), typeof (Awesome), new PropertyMetadata(DefaultPattern));
+
+        public static void SetInline(DependencyObject textBlock, string value)
+        {
+            textBlock.SetValue(InlineProperty, value);
+        }
+
+        public static string GetInline(DependencyObject textBlock)
+        {
+            return (string)textBlock.GetValue(InlineProperty);
+        }
+
+        public static void SetPattern(DependencyObject textBlock, string value)
+        {
+            textBlock.SetValue(PatternProperty, value);
+        }
+
+        public static string GetPattern(DependencyObject textBlock)
+        {
+            return (string)textBlock.GetValue(PatternProperty);
+        }
+
+        private static void InlinePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var textBlock = d as TextBlock;
+            if (textBlock == null)
+                return;
+
+            var text = (string)e.NewValue ?? string.Empty;
+            var pattern = GetPattern(textBlock) ?? DefaultPattern;
+            var inlines = FormatText(text, pattern).ToList();
+
+            if (inlines.Any())
+            {
+                textBlock.Inlines.Clear();
+                inlines.ForEach(textBlock.Inlines.Add);
+            }
+            else
+            {
+                textBlock.Text = text;
+            }
+        }
+
+        public static IEnumerable<Inline> FormatText(string text, string pattern = DefaultPattern)
+        {
+            var tokens = Regex.Split(text, pattern);
+            if (tokens.Length == 1) return Enumerable.Empty<Inline>();
+
+            var inlines = new List<Inline>();
+            for (var i = 0; i < tokens.Length; i+=2)
+            {
+                var t = tokens[i];
+                if (!string.IsNullOrWhiteSpace(t))
+                    inlines.Add(new Run(t));
+                if (i + 1 >= tokens.Length) break;
+
+                t = tokens[i + 1];
+                IconChar icon;
+                if (!Enum.TryParse(t, true, out icon)) continue;
+                inlines.Add(new Run(char.ConvertFromUtf32((int)icon)) { FontFamily = IconHelper.FontAwesome});
+            }
+
+            return inlines;
+        }
+
+        #endregion Inline text
+
     }
 }

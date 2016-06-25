@@ -1,6 +1,6 @@
 ﻿using FontAwesome.Sharp;
 
-namespace TestFontAwesome
+namespace TestWpf
 {
     public partial class MainWindow
     {

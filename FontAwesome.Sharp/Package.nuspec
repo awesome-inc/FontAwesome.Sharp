@@ -4,8 +4,8 @@
     <id>FontAwesome.Sharp</id>
     <version>$Version$</version>
     <title>FontAwesome.Sharp</title>
-    <authors>mkoertgen, tmentzel</authors>
-    <owners>mkoertgen, tmentzel</owners>
+		<authors>Awesome Incremented and Contributors</authors>
+		<owners>Awesome Incremented and Contributors</owners>
     <iconUrl>http://fortawesome.github.io/Font-Awesome/assets/ico/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes>Revision: $Revision$</releaseNotes>
