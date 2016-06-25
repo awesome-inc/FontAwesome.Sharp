@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:testWpf="clr-namespace:TestWpf"
         mc:Ignorable="d"
         Icon="{fa:IconSource Flag}"
-        Title="TestWpf" Height="600" Width="800" d:DataContext="{d:DesignInstance testFontAwesome:MainViewModel}">
+        Title="TestWpf" Height="600" Width="800" d:DataContext="{d:DesignInstance testWpf:MainViewModel}">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -56,6 +57,8 @@
     </Window.ContextMenu>
     <Grid Margin="8">
         <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -120,5 +123,14 @@
             <fa:IconBlock Icon="Shield" fa:Awesome.Flip="Horizontal" FontSize="32" ToolTip="Flipped horizontally"/>
             <fa:IconImage Icon="Shield" fa:Awesome.Flip="Vertical" ToolTip="Flipped vertically"/>
         </StackPanel>
+
+        <TextBlock Grid.Row="9" Text="Inline (:icon:)"/>
+        <TextBlock Grid.Row="9" Grid.Column="1" fa:Awesome.Inline=":btc: is a cryptocurrency. :Eur: is a fiat money." />
+
+        <TextBlock Grid.Row="10" Text="Inline ({fa:Icon})"/>
+        <TextBlock Grid.Row="10" Grid.Column="1"
+                   fa:Awesome.Pattern="{}{fa:(\w+)}"
+                   fa:Awesome.Inline="{}{fa:Btc} is a cryptocurrency. {fa:eur} is a fiat money."
+                   />
     </Grid>
 </Window>
