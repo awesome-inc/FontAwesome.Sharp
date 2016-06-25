@@ -22,14 +22,14 @@ Add the NuGet package to your WPF or Windows Forms application or library. From 
 
 ### Windows Forms
 
-For Windows Forms projects use the subclasses 
+For Windows Forms projects use the subclasses
 
 - `IconButton`,
 - `IconToolStripButton`,
 - `IconDropDownButton`,
-- `IconMenuItem`,  
-- `IconPictureBox` or  
-- `IconSplitButton`,  
+- `IconMenuItem`,
+- `IconPictureBox` or
+- `IconSplitButton`,
 
 respectively. For more details including setting the application icon or using a treeview, have a look at the sample application `TestForms`.
 
@@ -58,15 +58,39 @@ The most rudimentary way is to use *FontAwesome* directly with a `TextBlock` lik
 
     <TextBlock Grid.Column="1" Text="&#xf042;" 
       FontFamily="/FontAwesome.Sharp;component/fonts/#FontAwesome"
-      Foreground="Chartreuse" 
+      Foreground="Chartreuse"
       TextAlignment="Center" />
 
 However, you need to have the [FontAwesome Cheatsheet](http://fortawesome.github.io/Font-Awesome/cheatsheet/) on your knees to know the icons correct unicodes.
 
+#### Inline text
+
+As of [v4.6.3](https://www.nuget.org/packages/FontAwesome.Sharp/4.6.3) inline parsing was added ([#2](https://github.com/awesome-inc/FontAwesome.Sharp/issues/2)), thx to [@furesoft](https://github.com/furesoft) for the nice idea. Here is an example
+
+    <TextBlock fa:Awesome.Inline=":btc: is a cryptocurrency. :Eur: is a fiat money." />
+
+Usually, you will bind some text from your view model, say
+
+    <TextBlock fa:Awesome.Inline="{Binding MyInlineText}" />
+
+where `MyViewModel.MyInlineText` may be some text like *":btc: is a cryptocurrency. :Eur: is a fiat money."*.
+
+This works by creating inline [Runs](https://msdn.microsoft.com/en-us/library/system.windows.documents.run(v=vs.110).aspx) switching fonts to **FontAwesome** while preserving
+all other font related properties of the `TextBlock` like color, weight and size.
+
+The default RegEx pattern for parsing the icon names is `:(\w+):`.
+It can be customized using the `Awesome.Pattern`-property. Any pattern with the first group matching the icon name (case insensitive) should work. An example:
+
+    <TextBlock fa:Awesome.Pattern="{}{fa:(\w+)}"
+        fa:Awesome.Inline="{}{fa:Btc} is a cryptocurrency. {fa:eur} is a fiat money."
+     />
+
+**Note** that in Xaml you should declare the `Pattern`-property **before** the `Inline`-property.
+
 #### `<fa:IconBlock />`
 
 To use *FontAwesome*-icons in text you can use the `IconBlock` which subclasses the standard WPF [TextBlock](http://msdn.microsoft.com/en-us/library/system.windows.controls.textblock.aspx). You can the set the corresponding *Font Awesome* icon via the `Icon`-property:
-    
+
   <fa:IconBlock Icon="Home" Foreground="Blue" /> 
 
 ### Buttons
