@@ -7,12 +7,13 @@
         xmlns:testWpf="clr-namespace:TestWpf"
         mc:Ignorable="d"
         Icon="{fa:IconSource Flag}"
-        Title="TestWpf" Height="600" Width="800" d:DataContext="{d:DesignInstance testWpf:MainViewModel}">
+        Title="TestWpf" Height="700" Width="800" d:DataContext="{d:DesignInstance testWpf:MainViewModel}">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="20" />
             <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="4" />
         </Style>
         <FontFamily x:Key="FontAwesome">/FontAwesome.Sharp;component/fonts/#FontAwesome</FontFamily>
         <Brush x:Key="FaBrush">DarkOrchid</Brush>
@@ -67,15 +68,14 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="TextBlock using FontAwesome natively"/>
+        <TextBlock Text="TextBlock 'xf042' (Unicode)"/>
         <TextBlock Grid.Row="0" Grid.Column="1" Text="&#xf042;" FontFamily="{StaticResource FontAwesome}" 
                    Foreground="Chartreuse" TextAlignment="Center" FontSize="24" />
 
@@ -84,14 +84,14 @@
                       Foreground="DarkSlateBlue" TextAlignment="Center"
                       FontSize="24" VerticalAlignment="Center" />
 
-        <TextBlock Grid.Row="2" Text="Button with 'Icon' markup extension"/>
+        <TextBlock Grid.Row="2" Text="{}{Icon} Button"/>
         <Button Grid.Row="2" Grid.Column="1"
-                Content="{fa:Icon InfoCircle, Foreground={StaticResource FaBrush}}"/>
+                Content="{fa:Icon Meetup, Foreground={StaticResource FaBrush}}"/>
 
         <TextBlock Grid.Row="3" Text="IconImage:"/>
         <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="GooglePlusSquare" Foreground="Red" fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
 
-        <TextBlock Grid.Row="4" Text="RibbonButton with 'IconSource' markup extension (Click to toggle spinning)"/>
+        <TextBlock Grid.Row="4" Text="{}{IconSource} Ribbon, Click for spinning"/>
         <RibbonButton Grid.Row="4" Grid.Column="1" ToolTip="Click to toggle spinning (Spinning 4 sec., rotated 45° &amp; flipped vertically)"
             LargeImageSource="{fa:IconSource TwitterSquare, Foreground=CornflowerBlue, Size=48}" 
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
@@ -102,7 +102,7 @@
             fa:Awesome.Flip="Vertical">
         </RibbonButton>
 
-        <TextBlock Grid.Row="5" Text="Button with 'ToText' markup extension"/>
+        <TextBlock Grid.Row="5" Text="{}{ToText} Button"/>
         <Button Grid.Row="5" Grid.Column="1" Content="{fa:ToText Play}" Command="{Binding PlayCommand}" ToolTip="Click me!" />
 
         <TextBlock Grid.Row="6" Text="Stacking Icons"/>
@@ -115,6 +115,7 @@
         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <fa:IconImage Icon="Refresh" fa:Awesome.Spin="{Binding IsSpinning}" Foreground="SlateGray" />
             <fa:IconBlock Icon="Cog" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2" Foreground="DarkSlateBlue" FontSize="32" />
+            <fa:IconBlock Icon="Spinner" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2" Foreground="DarkMagenta" FontSize="32" />
         </StackPanel>
 
         <TextBlock Grid.Row="8" Text="Rotated &amp; flipped"/>
@@ -128,7 +129,8 @@
         <TextBlock Grid.Row="9" Grid.Column="1" fa:Awesome.Inline=":btc: is a cryptocurrency. :Eur: is a fiat money." />
 
         <TextBlock Grid.Row="10" Text="Inline ({fa:Icon})"/>
-        <TextBlock Grid.Row="10" Grid.Column="1"
+        <TextBlock Grid.Row="10" Grid.Column="1" VerticalAlignment="Stretch"
+                   Foreground="BlueViolet" FontWeight="Bold" FontSize="24" FontStretch="ExtraExpanded"
                    fa:Awesome.Pattern="{}{fa:(\w+)}"
                    fa:Awesome.Inline="{}{fa:Btc} is a cryptocurrency. {fa:eur} is a fiat money."
                    />
