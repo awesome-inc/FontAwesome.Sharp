@@ -86,7 +86,7 @@
 
         <TextBlock Grid.Row="2" Text="{}{Icon} Button"/>
         <Button Grid.Row="2" Grid.Column="1"
-                Content="{fa:Icon InfoCircle, Foreground={StaticResource FaBrush}}"/>
+                Content="{fa:Icon Meetup, Foreground={StaticResource FaBrush}}"/>
 
         <TextBlock Grid.Row="3" Text="IconImage:"/>
         <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="GooglePlusSquare" Foreground="Red" fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
@@ -115,6 +115,7 @@
         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <fa:IconImage Icon="Refresh" fa:Awesome.Spin="{Binding IsSpinning}" Foreground="SlateGray" />
             <fa:IconBlock Icon="Cog" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2" Foreground="DarkSlateBlue" FontSize="32" />
+            <fa:IconBlock Icon="Spinner" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2" Foreground="DarkMagenta" FontSize="32" />
         </StackPanel>
 
         <TextBlock Grid.Row="8" Text="Rotated &amp; flipped"/>
