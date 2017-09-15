@@ -9,8 +9,8 @@ namespace FontAwesome.Sharp
     {
         public static int DefaultIconSize = 32;
         public static new Size DefaultSize = new Size(DefaultIconSize, DefaultIconSize);
-        public static Color DefaultForeColor = Color.Black;
-        public static Color DefaultBackColor = Color.White;
+        public static new Color DefaultForeColor = Color.Black;
+        public static new Color DefaultBackColor = Color.White;
 
 
         private string _iconText;
