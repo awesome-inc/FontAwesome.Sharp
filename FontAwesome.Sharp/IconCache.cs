@@ -83,8 +83,8 @@ namespace FontAwesome.Sharp
             get
             {
                 IconKey k = new IconKey(icon, size, fore, back, flip, rotation);
-
-                if (!cache.TryGetValue(k, out Bitmap cachedImage))
+                Bitmap cachedImage;
+                if (!cache.TryGetValue(k, out cachedImage))
                 {
                     //Debug.WriteLine(
                     //    "Image cahed: " + icon + " / " + 
