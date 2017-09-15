@@ -59,6 +59,7 @@
     <Compile Include="IconButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="IconFlip.cs" />
     <Compile Include="IconToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -77,6 +78,7 @@
     </Compile>
     <Compile Include="IFormsIcon.cs" />
     <Compile Include="FlipOrientation.cs" />
+    <Compile Include="IconCache.cs" />
     <Compile Include="ToText.cs" />
     <None Include="Dummy.cs" />
     <Compile Include="IconChar.cs">

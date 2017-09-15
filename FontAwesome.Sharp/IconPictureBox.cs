@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,7 +13,7 @@ namespace FontAwesome.Sharp
         public static new Size DefaultSize = new Size(DefaultIconSize, DefaultIconSize);
         public static new Color DefaultForeColor = Color.Black;
         public static new Color DefaultBackColor = Color.White;
-
+        public static bool DefaultUseIconCache = false;
 
         private string _iconText;
         private IconChar _iconChar = IconChar.Star;
@@ -24,30 +26,24 @@ namespace FontAwesome.Sharp
         private Color lastFontColor;
         private IconFlip _Flip = IconFlip.None;
         private int _Rotation = 0;
-        
-        /// <summary>
-        /// Flip flags
-        /// </summary>
-        [Flags]
-        public enum IconFlip : byte
+
+        private bool _UseIconCache = DefaultUseIconCache;
+        private IconCache Cache = new IconCache();              
+
+        [Category("FontAwesome"), Description("Enable or disable icons caching. Usefull, when you have several controls with same large size icon and you want to save some memory. Also usefull for color change and animations. Icons caching by icon, size, 2 colors, rotation, flip.")]
+        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public bool UseIconCache
         {
-            /// <summary>
-            /// Flip off
-            /// </summary>
-            None = 0x0,
-            /// <summary>
-            /// Horizontal flip
-            /// </summary>
-            Horizontal = 0x1,
-            /// <summary>
-            /// Vertical flip
-            /// </summary>
-            Vertical = 0x2,
-            /// <summary>
-            /// Full flip - same as Rotate(180)
-            /// </summary>
-            Full = 0x4
+            get { return _UseIconCache; }
+            set { _UseIconCache = value; }
         }
+
+        public bool ShouldSerializeUseImageCache()
+        {
+            return _UseIconCache != DefaultUseIconCache;
+        }
+        public void ResetUseImageCache() { _UseIconCache = DefaultUseIconCache; }
 
         /// <summary>
         /// Icon flip
@@ -292,15 +288,25 @@ namespace FontAwesome.Sharp
                 {
                     return;
                 }
-                base.Image.Dispose(); // Dispose old image - in other case we will have memory leaks
+                if( !UseIconCache)
+                {
+                    base.Image.Dispose(); // Dispose old image - in other case we will have memory leaks
+                }                
             }
             
             lasticonSize = _iconSize;
             lastBgColor = _BackColor;
             lastFontColor = _ForeColor;
             lastIconChar = _iconChar;
-            
-            base.Image = _iconChar.ToBitmap1(IconSize, _ForeColor, _BackColor);
+
+            if (UseIconCache)
+            {
+                base.Image = Cache[_iconChar, IconSize, _ForeColor, _BackColor, _Flip, _Rotation];
+            }
+            else
+            {
+                base.Image = _iconChar.ToBitmap1(IconSize, _ForeColor, _BackColor);
+            }
         }
 
         public IconPictureBox()

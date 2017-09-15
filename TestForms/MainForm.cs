@@ -16,6 +16,19 @@ namespace TestForms
             Icon = System.Drawing.Icon.FromHandle(IconChar.Flag.ToBitmap(16, Color.Black).GetHicon());
 
             InitTreeIcons();
+
+            boxOctocat.MouseHover += BoxOctocat_MouseHover;
+            boxOctocat.MouseLeave += BoxOctocat_MouseLeave;
+        }
+
+        private void BoxOctocat_MouseLeave(object sender, EventArgs e)
+        {
+            boxOctocat.ForeColor = Color.Black;
+        }
+
+        private void BoxOctocat_MouseHover(object sender, EventArgs e)
+        {
+            boxOctocat.ForeColor = Color.Aquamarine;
         }
 
         private void InitTreeIcons()
