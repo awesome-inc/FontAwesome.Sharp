@@ -303,36 +303,46 @@ namespace FontAwesome.Sharp
                         PixelFormat.Format32bppArgb
                     );
 
-                    // variables init
-                    int x = 0;
-                    uint c = 0,
-                        stride = (uint)size; // imageData.Stride / 4 ; 4 = bytes per pixel, as result stride is equals width in pixels
-                    ;
-                    uint* currentRow = (uint*)imageData.Scan0;
-                    uint* lastRow = currentRow + size * stride;
-
-                    // Here is 2 cycles because bmp format can contatin 
-                    // empty bytes in the end of pixels horizontal string
-                    // and I'm not sure if bytes in memory can or not can
-                    // have similar structure.
-
-                    for (; currentRow < lastRow; currentRow += stride)
+                    try
                     {
-                        for (x = 0; x < size; x++)
-                        {
-                            c = currentRow[x] & 0x000000FF; // *4
-                            currentRow[x] = (
-                                (uint)(Math.Abs((int)c - alfaReverse))   // Setting alfa: from bg to icon or from icon to bg
-                                << 24)                                   // 0xAA -> 0xAA000000
-                                | visibleColorRGB                        // 0xAA000000 + 0x00RRGGBB
-                            ; // red -> alfa; + color
-                            
-                        };
-                    }
-                    image.UnlockBits(imageData);
-                }
-            }
+                        // variables init
+                        int x = 0;
+                        uint c = 0,
+                            stride = (uint)size; // imageData.Stride / 4 ; 4 = bytes per pixel, as result stride is equals width in pixels
+                        ;
+                        uint* currentRow = (uint*)imageData.Scan0;
+                        uint* lastRow = currentRow + size * stride;
 
+                        // Here is 2 cycles because bmp format can contatin 
+                        // empty bytes in the end of pixels horizontal string
+                        // and I'm not sure if bytes in memory can or not can
+                        // have similar structure.
+
+                        for (; currentRow < lastRow; currentRow += stride)
+                        {
+                            for (x = 0; x < size; x++)
+                            {
+                                c = currentRow[x] & 0x000000FF; // *4
+                                currentRow[x] = (
+                                    (uint)(Math.Abs((int)c - alfaReverse))   // Setting alfa: from bg to icon or from icon to bg
+                                    << 24)                                   // 0xAA -> 0xAA000000
+                                    | visibleColorRGB                        // 0xAA000000 + 0x00RRGGBB
+                                ;
+
+                            };
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                    finally
+                    {
+                        image.UnlockBits(imageData);
+                    }                    
+                }
+
+            }
             return image;
         }
 

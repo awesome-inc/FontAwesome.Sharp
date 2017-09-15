@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace FontAwesome.Sharp
 {
@@ -14,6 +9,9 @@ namespace FontAwesome.Sharp
     {
         public static int DefaultIconSize = 32;
         public static new Size DefaultSize = new Size(DefaultIconSize, DefaultIconSize);
+        public static Color DefaultForeColor = Color.Black;
+        public static Color DefaultBackColor = Color.White;
+
 
         private string _iconText;
         private IconChar _iconChar = IconChar.Star;
@@ -68,6 +66,9 @@ namespace FontAwesome.Sharp
             }
         }
 
+        public bool ShouldSerializeReset() { return _Flip != IconFlip.None; }
+        public void ResetFlip() { Flip = IconFlip.None; }
+
         /// <summary>
         /// Rotation angle in degrees, ±360°
         /// </summary>
@@ -84,6 +85,9 @@ namespace FontAwesome.Sharp
                 Invalidate();
             }
         }
+
+        public bool ShouldSerializeRotation() { return _Rotation != 0; }
+        public void ResetRotation() { Rotation = 0; }
 
         /// <summary>
         /// Hide for constructor Image property
@@ -117,6 +121,7 @@ namespace FontAwesome.Sharp
         {
             return _iconChar != IconChar.Star;
         }
+        public void ResetIconChar() { IconChar = IconChar.Star; }
 
         [Category("FontAwesome"), Description("If 'SizeMode' is 'Normal', then 'IconSize' depends on Width and Height: `Math.Min(Width, Height)`. In other size modes you can set any value for icon size. ")]
         [EditorBrowsable(EditorBrowsableState.Always), Browsable(true)]
@@ -159,7 +164,15 @@ namespace FontAwesome.Sharp
             }
         }
 
-        [DefaultValue(16)]
+        public void ResetIconSize()
+        {
+            if (SizeMode != PictureBoxSizeMode.Normal)
+            {
+                IconSize = DefaultIconSize;
+            }
+        }
+
+        [DefaultValue(32)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always), Browsable(true)]
         public new int Width
@@ -177,8 +190,9 @@ namespace FontAwesome.Sharp
         {
             return true;
         }
+        public void ResetWidth() { Width = DefaultSize.Width; }
 
-        [DefaultValue(16)]
+        [DefaultValue(32)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always), Browsable(true)]
         public new int Height
@@ -196,6 +210,7 @@ namespace FontAwesome.Sharp
         {
             return true;
         }
+        public void ResetHeight() { Height = DefaultSize.Height; }
 
         /// <summary>
         /// Icon color
@@ -222,10 +237,11 @@ namespace FontAwesome.Sharp
         /// Constructor support property
         /// </summary>
         /// <returns></returns>
-        private bool ShouldSerializeForeColor()
+        public bool ShouldSerializeForeColor()
         {
-            return _ForeColor != Color.Black;
+            return _ForeColor != DefaultBackColor;
         }
+        public new void ResetForeColor() { ForeColor = DefaultBackColor; }
 
         /// <summary>
         /// Back color
@@ -254,8 +270,9 @@ namespace FontAwesome.Sharp
         /// <returns></returns>
         private bool ShouldSerializeBackColor()
         {
-            return _BackColor != Color.White;
+            return _BackColor != DefaultForeColor;
         }
+        public new void ResetBackColor() { ForeColor = DefaultForeColor; }
 
         /// <summary>
         /// Try to render icon
@@ -288,7 +305,6 @@ namespace FontAwesome.Sharp
 
         public IconPictureBox()
         {
-            //base.Height = base.Width = DefaultSize;
             Size = DefaultSize;
 
             SetStyle(
