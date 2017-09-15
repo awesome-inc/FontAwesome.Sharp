@@ -25,7 +25,9 @@ namespace FontAwesome.Sharp
         private Color _ForeColor = Color.Black;
         private Color lastFontColor;
         private IconFlip _Flip = IconFlip.None;
+        private IconFlip lastFlip = IconFlip.None;
         private int _Rotation = 0;
+        private int lastRotation = 0;
 
         private bool _UseIconCache = DefaultUseIconCache;
         private IconCache Cache = new IconCache();              
@@ -283,7 +285,9 @@ namespace FontAwesome.Sharp
                     (_iconSize == lasticonSize) &
                     (_BackColor == lastBgColor) &
                     (_ForeColor == lastFontColor) &
-                    (_iconChar == lastIconChar)
+                    (_iconChar == lastIconChar) &
+                    (_Flip == lastFlip) &
+                    (_Rotation == lastRotation)
                 )
                 {
                     return;
@@ -298,6 +302,8 @@ namespace FontAwesome.Sharp
             lastBgColor = _BackColor;
             lastFontColor = _ForeColor;
             lastIconChar = _iconChar;
+            lastFlip = _Flip;
+            lastRotation = _Rotation;
 
             if (UseIconCache)
             {
