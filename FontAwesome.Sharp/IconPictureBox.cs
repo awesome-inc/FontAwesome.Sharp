@@ -372,28 +372,29 @@ namespace FontAwesome.Sharp
             {
                 case IconFlip.Horizontal:
                     // Flip the X-Axis
-                    graphics.ScaleTransform(-1.0F, 1.0F);
+                    graphics.ScaleTransform(-1f, 1f);
                     // Translate the drawing area accordingly
-                    graphics.TranslateTransform(-(float) Width, 0.0F);
+                    graphics.TranslateTransform(-Width, 0f);
                     break;
 
                 case IconFlip.Vertical:
                     // Flip the Y-Axis
-                    graphics.ScaleTransform(1.0F, -1.0F);
+                    graphics.ScaleTransform(1f, -1f);
                     // Translate the drawing area accordingly
-                    graphics.TranslateTransform(0.0F, -(float) Height);
+                    graphics.TranslateTransform(0.0F, -Height);
                     break;
 
                 case IconFlip.Full:
-                    graphics.ScaleTransform(-1.0F, -1.0F);
-                    graphics.TranslateTransform(-(float) Width, -(float) Height);
+                    graphics.ScaleTransform(-1f, -1f);
+                    graphics.TranslateTransform(-Width, -Height);
                     break;
             }
 
             // Rotation logic
             if (_rotation != 0)
             {
-                float mx = Width / 2, my = Height / 2;
+                var mx = 0.5f * Width;
+                var my = 0.5f * Height;
                 graphics.TranslateTransform(mx, my);
                 graphics.RotateTransform(_rotation);
                 graphics.TranslateTransform(-mx, -my);
