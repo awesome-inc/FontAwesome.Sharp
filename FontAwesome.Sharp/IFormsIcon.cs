@@ -13,5 +13,11 @@ namespace FontAwesome.Sharp
 
         [Category("FontAwesome")]
         Color IconColor { get; set; }
+
+        [Category("Transform")]
+        IconFlip Flip { get; set; }
+
+        [Category("Transform")]
+        int Rotation { get; set; }
     }
 }

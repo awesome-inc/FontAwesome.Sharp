@@ -7,7 +7,7 @@ namespace FontAwesome.Sharp
 {
     public class IconPictureBox : PictureBox
     {
-        public static int DefaultIconSize = 32;
+        public const int DefaultIconSize = 32;
         public new static Size DefaultSize = new Size(DefaultIconSize, DefaultIconSize);
         public new static Color DefaultForeColor = Color.Black;
         public new static Color DefaultBackColor = Color.White;
@@ -126,12 +126,7 @@ namespace FontAwesome.Sharp
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int IconSize
         {
-            get
-            {
-                if (SizeMode == PictureBoxSizeMode.Normal)
-                    return Math.Min(base.Width, base.Height);
-                return _iconSize;
-            }
+            get => SizeMode == PictureBoxSizeMode.Normal ? Math.Min(base.Width, base.Height) : _iconSize;
             set
             {
                 if (value == _iconSize) return;
@@ -140,7 +135,7 @@ namespace FontAwesome.Sharp
             }
         }
 
-        [DefaultValue(32)]
+        [DefaultValue(DefaultIconSize)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
@@ -155,7 +150,7 @@ namespace FontAwesome.Sharp
             }
         }
 
-        [DefaultValue(32)]
+        [DefaultValue(DefaultIconSize)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]

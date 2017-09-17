@@ -51,6 +51,11 @@ namespace FontAwesome.Sharp
             }
         }
 
+        // TODO: implement
+        public IconFlip Flip { get; set; }
+        // TODO: implement
+        public int Rotation { get; set; }
+
         private void UpdateImage()
         {
             Image = _icon.ToBitmap(_size, _color);
