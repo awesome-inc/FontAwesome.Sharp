@@ -7,8 +7,10 @@ namespace FontAwesome.Sharp
     {
         [Category("FontAwesome")]
         IconChar Icon { get; set; }
+
         [Category("FontAwesome")]
         int IconSize { get; set; }
+
         [Category("FontAwesome")]
         Color IconColor { get; set; }
     }

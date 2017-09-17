@@ -21,8 +21,8 @@ namespace FontAwesome.Sharp
 
             if (Foreground != null)
                 image.Foreground = Foreground;
-            
-            if (ImageStyle != null) 
+
+            if (ImageStyle != null)
                 image.Style = ImageStyle;
 
             return image;

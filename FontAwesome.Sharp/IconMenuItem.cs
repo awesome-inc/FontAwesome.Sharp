@@ -6,8 +6,8 @@ namespace FontAwesome.Sharp
 {
     public class IconMenuItem : ToolStripMenuItem, IFormsIcon
     {
-        private IconChar _icon = IconChar.Star;
         private Color _color = Color.Black;
+        private IconChar _icon = IconChar.Star;
         private int _size = 16;
 
         public IconMenuItem()
@@ -18,7 +18,7 @@ namespace FontAwesome.Sharp
         [Category("FontAwesome")]
         public IconChar Icon
         {
-            get { return _icon; }
+            get => _icon;
             set
             {
                 if (_icon == value) return;
@@ -30,7 +30,7 @@ namespace FontAwesome.Sharp
         [Category("FontAwesome")]
         public int IconSize
         {
-            get { return _size; }
+            get => _size;
             set
             {
                 if (_size == value) return;
@@ -42,7 +42,7 @@ namespace FontAwesome.Sharp
         [Category("FontAwesome")]
         public Color IconColor
         {
-            get { return _color; }
+            get => _color;
             set
             {
                 if (_color == value) return;

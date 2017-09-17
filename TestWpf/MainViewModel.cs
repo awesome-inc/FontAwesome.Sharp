@@ -17,7 +17,7 @@ namespace TestWpf
 
         public bool IsSpinning
         {
-            get { return _isSpinning; }
+            get => _isSpinning;
             set
             {
                 if (_isSpinning == value) return;

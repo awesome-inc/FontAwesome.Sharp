@@ -11,12 +11,28 @@ namespace FontAwesome.Sharp
     // * http://www.codeproject.com/Tips/634540/Using-Font-Icons
     public static class IconHelper
     {
-        public static readonly FontFamily FontAwesome = new FontFamily(new Uri("pack://application:,,,"),
-            "/FontAwesome.Sharp;component/fonts/#FontAwesome");
-        public static readonly Brush DefaultBrush = SystemColors.WindowTextBrush; // this is TextBlock default brush
         public const double DefaultSize = 16.0;
 
-        public static ImageSource ToImageSource(this IconChar iconChar, 
+        public static readonly FontFamily FontAwesome = new FontFamily(new Uri("pack://application:,,,"),
+            "/FontAwesome.Sharp;component/fonts/#FontAwesome");
+
+        public static readonly Brush DefaultBrush = SystemColors.WindowTextBrush; // this is TextBlock default brush
+
+        private static readonly GlyphTypeface GlyphTypeface;
+
+        private static readonly int Dpi = GetDpi();
+
+        static IconHelper()
+        {
+            var typeface = new Typeface(FontAwesome, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+            if (typeface.TryGetGlyphTypeface(out GlyphTypeface)) return;
+            typeface = new Typeface(new FontFamily(new Uri("pack://application:,,,"), FontAwesome.Source),
+                FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+            if (!typeface.TryGetGlyphTypeface(out GlyphTypeface))
+                throw new InvalidOperationException("No glyphtypeface found");
+        }
+
+        public static ImageSource ToImageSource(this IconChar iconChar,
             Brush foregroundBrush = null, double size = DefaultSize)
         {
             var text = char.ConvertFromUtf32((int) iconChar);
@@ -24,7 +40,7 @@ namespace FontAwesome.Sharp
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
-        public static ImageSource ToImageSource(string text, 
+        public static ImageSource ToImageSource(string text,
             Brush foregroundBrush = null, double size = DefaultSize)
         {
             if (string.IsNullOrWhiteSpace(text)) return null;
@@ -65,31 +81,17 @@ namespace FontAwesome.Sharp
             return null;
         }
 
-        private static readonly GlyphTypeface GlyphTypeface;
-
-        static IconHelper()
-        {
-            var typeface = new Typeface(FontAwesome, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
-            if (typeface.TryGetGlyphTypeface(out GlyphTypeface)) return;
-            typeface = new Typeface(new FontFamily(new Uri("pack://application:,,,"), FontAwesome.Source),
-                FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
-            if (!typeface.TryGetGlyphTypeface(out GlyphTypeface))
-                throw new InvalidOperationException("No glyphtypeface found");
-        }
-
         private static double PixelsToPoints(double size)
         {
             // pixels to points, cf.: http://stackoverflow.com/a/139712/2592915
             return size * (72.0 / Dpi);
         }
 
-        private static readonly int Dpi = GetDpi();
-
         private static int GetDpi()
         {
             // How can I get the DPI in WPF?, cf.: http://stackoverflow.com/a/12487917/2592915
             var dpiProperty = typeof(SystemParameters).GetProperty("Dpi", BindingFlags.NonPublic | BindingFlags.Static);
-            return (int)dpiProperty.GetValue(null, null);
+            return (int) dpiProperty.GetValue(null, null);
         }
     }
 }

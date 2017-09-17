@@ -56,7 +56,7 @@ namespace TestForms
             }
         }
 
-        private void iconButton1_Click(object sender, System.EventArgs e)
+        private void iconButton1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("You clicked me");
         }
