@@ -1,75 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 
 namespace FontAwesome.Sharp
 {
     /// <summary>
-    /// Icon cachig logic
+    ///     Icon caching logic
     /// </summary>
     public class IconCache
     {
         /// <summary>
-        /// Global cache
+        ///   A bitmap cache. Useful when creating bitmaps becomes expensive (<see cref="IconPictureBox"/>).
         /// </summary>
-        private static Dictionary<IconKey, Bitmap> cache = new Dictionary<IconKey, Bitmap>();
-        
+        private readonly Dictionary<IconKey, Bitmap> _cache = new Dictionary<IconKey, Bitmap>();
+
         /// <summary>
-        /// Icon key for dictionary
-        /// </summary>
-        private class IconKey : IEquatable<IconKey>
-        {
-            public readonly IconChar icon;
-            public readonly int size = 0;
-            public readonly uint fore;
-            public readonly uint back;
-            public readonly IconFlip flip;
-            public readonly int rotation;
-            public readonly int hash;
-
-            public IconKey(IconChar icon, int size, Color fore, Color back, IconFlip flip, int rotation)
-            {
-                this.icon = icon;
-                this.size = size;
-                this.fore = (uint)fore.ToArgb();
-                this.back = (uint)back.ToArgb();
-                this.flip = flip;
-                this.rotation = rotation;
-                hash = (
-                    this.icon.ToString() +
-                    this.size.ToString() +
-                    this.fore.ToString() +
-                    this.back.ToString() +
-                    this.flip.ToString() +
-                    this.rotation.ToString()
-                ).GetHashCode();
-            }
-            public override bool Equals(object k)
-            {
-                return Equals(k as IconKey);
-            }
-
-            public bool Equals(IconKey k)
-            {
-                return 
-                    (icon == k.icon) && 
-                    (size == k.size) && 
-                    (fore == k.fore) && 
-                    (back == k.back) &&
-                    (flip == k.flip) &&
-                    (rotation == k.rotation)
-                ;
-            }
-
-            public override int GetHashCode()
-            {
-                return hash;
-            }
-        }
-        
-        /// <summary>
-        /// Get icon from cache. If icon not in cache yet - add this icon to cache.
+        ///     Get icon from cache. If icon not in cache yet - add this icon to cache.
         /// </summary>
         /// <param name="icon"></param>
         /// <param name="size"></param>
@@ -82,22 +28,62 @@ namespace FontAwesome.Sharp
         {
             get
             {
-                IconKey k = new IconKey(icon, size, fore, back, flip, rotation);
-                Bitmap cachedImage;
-                if (!cache.TryGetValue(k, out cachedImage))
-                {
-                    //Debug.WriteLine(
-                    //    "Image cahed: " + icon + " / " + 
-                    //    size + " / " +
-                    //    fore.ToArgb().ToString("x") + " / " +
-                    //    back.ToArgb().ToString("x") + " / " +
-                    //    flip.ToString() + " / " +
-                    //    rotation 
-                    //);
-                    cachedImage = icon.ToBitmap1(size, fore, back);
-                    cache[k] = cachedImage;
-                }
+                var k = new IconKey(icon, size, fore, back, flip, rotation);
+                if (_cache.TryGetValue(k, out var cachedImage)) return cachedImage;
+                cachedImage = icon.ToBitmapGdi(size, fore, back);
+                _cache[k] = cachedImage;
                 return cachedImage;
+            }
+        }
+
+        private class IconKey : IEquatable<IconKey>
+        {
+            private readonly uint _back;
+            private readonly IconFlip _flip;
+            private readonly uint _fore;
+            private readonly int _hash;
+            private readonly IconChar _icon;
+            private readonly int _rotation;
+            private readonly int _size;
+
+            public IconKey(IconChar icon, int size, Color fore, Color back, IconFlip flip, int rotation)
+            {
+                _icon = icon;
+                _size = size;
+                _fore = (uint) fore.ToArgb();
+                _back = (uint) back.ToArgb();
+                _flip = flip;
+                _rotation = rotation;
+                _hash = (
+                    _icon +
+                    _size.ToString() +
+                    _fore +
+                    _back +
+                    _flip +
+                    _rotation
+                ).GetHashCode();
+            }
+
+            public bool Equals(IconKey k)
+            {
+                return
+                    _icon == k._icon &&
+                    _size == k._size &&
+                    _fore == k._fore &&
+                    _back == k._back &&
+                    _flip == k._flip &&
+                    _rotation == k._rotation
+                    ;
+            }
+
+            public override bool Equals(object k)
+            {
+                return Equals(k as IconKey);
+            }
+
+            public override int GetHashCode()
+            {
+                return _hash;
             }
         }
     }
