@@ -168,3 +168,4 @@ $RECYCLE.BIN/
 
 *.nupkg
 /.project
+.vs/
