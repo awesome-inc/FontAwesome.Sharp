@@ -87,23 +87,25 @@ namespace TestForms
             this.toolStripMenuItem1,
             this.iconMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(186, 56);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(163, 56);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(185, 26);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(162, 26);
             this.toolStripMenuItem1.Text = "menuItem1";
             this.toolStripMenuItem1.ToolTipText = "Regular menu item";
             // 
             // iconMenuItem1
             // 
+            this.iconMenuItem1.Flip = FontAwesome.Sharp.IconFlip.None;
             this.iconMenuItem1.Icon = FontAwesome.Sharp.IconChar.Wpforms;
             this.iconMenuItem1.IconColor = System.Drawing.Color.Black;
             this.iconMenuItem1.IconSize = 16;
             this.iconMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("iconMenuItem1.Image")));
             this.iconMenuItem1.Name = "iconMenuItem1";
-            this.iconMenuItem1.Size = new System.Drawing.Size(185, 26);
+            this.iconMenuItem1.Rotation = 0;
+            this.iconMenuItem1.Size = new System.Drawing.Size(162, 26);
             this.iconMenuItem1.Text = "iconMenuItem1";
             this.iconMenuItem1.ToolTipText = "wpforms icon (fa 4.6.1)";
             // 
@@ -116,7 +118,7 @@ namespace TestForms
             this._iconMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 27);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(455, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(322, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -127,61 +129,71 @@ namespace TestForms
             this._saveMenuItem,
             this.toolStripSeparator1,
             this._quitMenuItem});
+            this.mnuHome.Flip = FontAwesome.Sharp.IconFlip.None;
             this.mnuHome.Icon = FontAwesome.Sharp.IconChar.Home;
             this.mnuHome.IconColor = System.Drawing.Color.DarkBlue;
             this.mnuHome.IconSize = 16;
             this.mnuHome.Image = ((System.Drawing.Image)(resources.GetObject("mnuHome.Image")));
             this.mnuHome.Name = "mnuHome";
-            this.mnuHome.Size = new System.Drawing.Size(64, 24);
+            this.mnuHome.Rotation = 0;
+            this.mnuHome.Size = new System.Drawing.Size(57, 24);
             this.mnuHome.Text = "&File";
             // 
             // _openMenuItem
             // 
             this._openMenuItem.BackColor = System.Drawing.Color.Transparent;
+            this._openMenuItem.Flip = FontAwesome.Sharp.IconFlip.None;
             this._openMenuItem.Icon = FontAwesome.Sharp.IconChar.FileO;
             this._openMenuItem.IconColor = System.Drawing.Color.Black;
             this._openMenuItem.IconSize = 16;
             this._openMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("_openMenuItem.Image")));
             this._openMenuItem.Name = "_openMenuItem";
+            this._openMenuItem.Rotation = 0;
             this._openMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this._openMenuItem.Size = new System.Drawing.Size(173, 26);
+            this._openMenuItem.Size = new System.Drawing.Size(146, 22);
             this._openMenuItem.Text = "&Open";
             // 
             // _saveMenuItem
             // 
+            this._saveMenuItem.Flip = FontAwesome.Sharp.IconFlip.None;
             this._saveMenuItem.Icon = FontAwesome.Sharp.IconChar.FloppyO;
             this._saveMenuItem.IconColor = System.Drawing.Color.Black;
             this._saveMenuItem.IconSize = 16;
             this._saveMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("_saveMenuItem.Image")));
             this._saveMenuItem.Name = "_saveMenuItem";
+            this._saveMenuItem.Rotation = 0;
             this._saveMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this._saveMenuItem.Size = new System.Drawing.Size(173, 26);
+            this._saveMenuItem.Size = new System.Drawing.Size(146, 22);
             this._saveMenuItem.Text = "&Save";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
             // 
             // _quitMenuItem
             // 
+            this._quitMenuItem.Flip = FontAwesome.Sharp.IconFlip.None;
             this._quitMenuItem.Icon = FontAwesome.Sharp.IconChar.TimesCircle;
             this._quitMenuItem.IconColor = System.Drawing.Color.Black;
             this._quitMenuItem.IconSize = 16;
             this._quitMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("_quitMenuItem.Image")));
             this._quitMenuItem.Name = "_quitMenuItem";
+            this._quitMenuItem.Rotation = 0;
             this._quitMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this._quitMenuItem.Size = new System.Drawing.Size(173, 26);
+            this._quitMenuItem.Size = new System.Drawing.Size(146, 22);
             this._quitMenuItem.Text = "&Quit";
             // 
             // _iconMenuItem1
             // 
+            this._iconMenuItem1.Flip = FontAwesome.Sharp.IconFlip.None;
             this._iconMenuItem1.Icon = FontAwesome.Sharp.IconChar.QuestionCircle;
             this._iconMenuItem1.IconColor = System.Drawing.Color.DarkBlue;
             this._iconMenuItem1.IconSize = 17;
             this._iconMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("_iconMenuItem1.Image")));
             this._iconMenuItem1.Name = "_iconMenuItem1";
-            this._iconMenuItem1.Size = new System.Drawing.Size(73, 24);
+            this._iconMenuItem1.Rotation = 0;
+            this._iconMenuItem1.Size = new System.Drawing.Size(64, 24);
             this._iconMenuItem1.Text = "&Help";
             // 
             // toolStrip1
@@ -192,19 +204,21 @@ namespace TestForms
             this.btnSignIn});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(90, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(79, 27);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // btnSignIn
             // 
+            this.btnSignIn.Flip = FontAwesome.Sharp.IconFlip.None;
             this.btnSignIn.Icon = FontAwesome.Sharp.IconChar.SignIn;
             this.btnSignIn.IconColor = System.Drawing.Color.Black;
             this.btnSignIn.IconSize = 16;
             this.btnSignIn.Image = ((System.Drawing.Image)(resources.GetObject("btnSignIn.Image")));
             this.btnSignIn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSignIn.Name = "btnSignIn";
-            this.btnSignIn.Size = new System.Drawing.Size(78, 24);
+            this.btnSignIn.Rotation = 0;
+            this.btnSignIn.Size = new System.Drawing.Size(67, 24);
             this.btnSignIn.Text = "Sign In";
             // 
             // toolStripContainer1
@@ -217,20 +231,18 @@ namespace TestForms
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(455, 282);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(322, 201);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(455, 363);
+            this.toolStripContainer1.Size = new System.Drawing.Size(322, 282);
             this.toolStripContainer1.TabIndex = 3;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
             // 
             // statusStrip1
             // 
@@ -242,14 +254,14 @@ namespace TestForms
             this.toolStripSplitButton1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 0);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(455, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(322, 26);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(49, 21);
+            this.lblStatus.Size = new System.Drawing.Size(39, 21);
             this.lblStatus.Text = "Status";
             // 
             // iconDropDown
@@ -257,42 +269,47 @@ namespace TestForms
             this.iconDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.iconDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.iconMenuItem2});
+            this.iconDropDown.Flip = FontAwesome.Sharp.IconFlip.None;
             this.iconDropDown.Icon = FontAwesome.Sharp.IconChar.Cog;
             this.iconDropDown.IconColor = System.Drawing.Color.DimGray;
             this.iconDropDown.IconSize = 16;
             this.iconDropDown.Image = ((System.Drawing.Image)(resources.GetObject("iconDropDown.Image")));
             this.iconDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.iconDropDown.Name = "iconDropDown";
-            this.iconDropDown.Size = new System.Drawing.Size(34, 24);
+            this.iconDropDown.Rotation = 0;
+            this.iconDropDown.Size = new System.Drawing.Size(33, 24);
             this.iconDropDown.Text = "toolStripDropDownButton1";
             // 
             // iconMenuItem2
             // 
+            this.iconMenuItem2.Flip = FontAwesome.Sharp.IconFlip.None;
             this.iconMenuItem2.Icon = FontAwesome.Sharp.IconChar.Star;
             this.iconMenuItem2.IconColor = System.Drawing.Color.Black;
             this.iconMenuItem2.IconSize = 16;
             this.iconMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("iconMenuItem2.Image")));
             this.iconMenuItem2.Name = "iconMenuItem2";
-            this.iconMenuItem2.Size = new System.Drawing.Size(187, 26);
+            this.iconMenuItem2.Rotation = 0;
+            this.iconMenuItem2.Size = new System.Drawing.Size(158, 22);
             this.iconMenuItem2.Text = "iconMenuItem2";
             // 
             // toolStripSplitButton1
             // 
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripSplitButton1.Flip = FontAwesome.Sharp.IconFlip.None;
             this.toolStripSplitButton1.Icon = FontAwesome.Sharp.IconChar.Glass;
             this.toolStripSplitButton1.IconColor = System.Drawing.Color.DarkViolet;
             this.toolStripSplitButton1.IconSize = 16;
             this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(39, 24);
+            this.toolStripSplitButton1.Rotation = 0;
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(36, 24);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -305,9 +322,8 @@ namespace TestForms
             this.splitContainer1.Panel2.Controls.Add(this.btnGooglePlus);
             this.splitContainer1.Panel2.Controls.Add(this.boxOctocat);
             this.splitContainer1.Panel2.Controls.Add(this.boxTwitter);
-            this.splitContainer1.Size = new System.Drawing.Size(455, 282);
-            this.splitContainer1.SplitterDistance = 142;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(322, 201);
+            this.splitContainer1.SplitterDistance = 100;
             this.splitContainer1.TabIndex = 1;
             // 
             // treeView1
@@ -316,7 +332,6 @@ namespace TestForms
             this.treeView1.ImageIndex = 0;
             this.treeView1.ImageList = this.imageList1;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.treeView1.Name = "treeView1";
             treeNode1.ContextMenuStrip = this.contextMenuStrip1;
             treeNode1.Name = "Node2";
@@ -332,7 +347,7 @@ namespace TestForms
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode4});
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(142, 282);
+            this.treeView1.Size = new System.Drawing.Size(100, 201);
             this.treeView1.TabIndex = 0;
             // 
             // imageList1
@@ -344,14 +359,15 @@ namespace TestForms
             // btnXing
             // 
             this.btnXing.ContextMenuStrip = this.contextMenuStrip1;
+            this.btnXing.Flip = FontAwesome.Sharp.IconFlip.None;
             this.btnXing.Icon = FontAwesome.Sharp.IconChar.XingSquare;
             this.btnXing.IconColor = System.Drawing.Color.DarkSlateGray;
             this.btnXing.IconSize = 32;
             this.btnXing.Image = ((System.Drawing.Image)(resources.GetObject("btnXing.Image")));
-            this.btnXing.Location = new System.Drawing.Point(161, 149);
-            this.btnXing.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnXing.Location = new System.Drawing.Point(121, 121);
             this.btnXing.Name = "btnXing";
-            this.btnXing.Size = new System.Drawing.Size(100, 70);
+            this.btnXing.Rotation = 0;
+            this.btnXing.Size = new System.Drawing.Size(75, 57);
             this.btnXing.TabIndex = 3;
             this.btnXing.TabStop = false;
             // 
@@ -359,14 +375,15 @@ namespace TestForms
             // 
             this.btnGooglePlus.AutoSize = true;
             this.btnGooglePlus.ContextMenuStrip = this.contextMenuStrip1;
+            this.btnGooglePlus.Flip = FontAwesome.Sharp.IconFlip.None;
             this.btnGooglePlus.Icon = FontAwesome.Sharp.IconChar.GooglePlusSquare;
             this.btnGooglePlus.IconColor = System.Drawing.Color.Red;
             this.btnGooglePlus.IconSize = 32;
             this.btnGooglePlus.Image = ((System.Drawing.Image)(resources.GetObject("btnGooglePlus.Image")));
-            this.btnGooglePlus.Location = new System.Drawing.Point(19, 149);
-            this.btnGooglePlus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGooglePlus.Location = new System.Drawing.Point(14, 121);
             this.btnGooglePlus.Name = "btnGooglePlus";
-            this.btnGooglePlus.Size = new System.Drawing.Size(113, 70);
+            this.btnGooglePlus.Rotation = 0;
+            this.btnGooglePlus.Size = new System.Drawing.Size(85, 57);
             this.btnGooglePlus.TabIndex = 2;
             this.btnGooglePlus.TabStop = false;
             // 
@@ -375,43 +392,39 @@ namespace TestForms
             this.boxOctocat.BackColor = System.Drawing.Color.Transparent;
             this.boxOctocat.ContextMenuStrip = this.contextMenuStrip1;
             this.boxOctocat.ForeColor = System.Drawing.Color.Black;
-            this.boxOctocat.Height = 105;
             this.boxOctocat.IconChar = FontAwesome.Sharp.IconChar.Github;
-            this.boxOctocat.Location = new System.Drawing.Point(161, 15);
-            this.boxOctocat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.boxOctocat.IconSize = 85;
+            this.boxOctocat.Location = new System.Drawing.Point(121, 12);
             this.boxOctocat.Name = "boxOctocat";
-            this.boxOctocat.Size = new System.Drawing.Size(113, 105);
+            this.boxOctocat.Rotation = 0F;
+            this.boxOctocat.Size = new System.Drawing.Size(85, 85);
             this.boxOctocat.TabIndex = 1;
             this.boxOctocat.TabStop = false;
             this.boxOctocat.UseIconCache = true;
-            this.boxOctocat.Width = 113;
             // 
             // boxTwitter
             // 
             this.boxTwitter.BackColor = System.Drawing.Color.Transparent;
             this.boxTwitter.Flip = FontAwesome.Sharp.IconFlip.Full;
             this.boxTwitter.ForeColor = System.Drawing.Color.SteelBlue;
-            this.boxTwitter.Height = 105;
             this.boxTwitter.IconChar = FontAwesome.Sharp.IconChar.TwitterSquare;
-            this.boxTwitter.Location = new System.Drawing.Point(19, 15);
-            this.boxTwitter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.boxTwitter.IconSize = 85;
+            this.boxTwitter.Location = new System.Drawing.Point(14, 12);
             this.boxTwitter.Name = "boxTwitter";
-            this.boxTwitter.Rotation = 135;
-            this.boxTwitter.Size = new System.Drawing.Size(113, 105);
+            this.boxTwitter.Rotation = 135F;
+            this.boxTwitter.Size = new System.Drawing.Size(85, 85);
             this.boxTwitter.TabIndex = 0;
             this.boxTwitter.TabStop = false;
             this.boxTwitter.UseIconCache = true;
-            this.boxTwitter.Width = 113;
             this.boxTwitter.Click += new System.EventHandler(this.iconButton1_Click);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(455, 363);
+            this.ClientSize = new System.Drawing.Size(322, 282);
             this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.Text = "TestForms";
             this.contextMenuStrip1.ResumeLayout(false);
