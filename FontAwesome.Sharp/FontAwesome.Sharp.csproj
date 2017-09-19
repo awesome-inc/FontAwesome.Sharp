@@ -78,7 +78,7 @@
     </Compile>
     <Compile Include="IFormsIcon.cs" />
     <Compile Include="FlipOrientation.cs" />
-    <Compile Include="IconCache.cs" />
+    <Compile Include="IconsCache.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="ToText.cs" />
     <None Include="Dummy.cs" />
