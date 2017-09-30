@@ -1,4 +1,4 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 
 namespace FontAwesome.Sharp
@@ -6,7 +6,7 @@ namespace FontAwesome.Sharp
     public interface IFormsIcon
     {
         [Category("FontAwesome")]
-        IconChar Icon { get; set; }
+        IconChar IconChar { get; set; }
 
         [Category("FontAwesome")]
         int IconSize { get; set; }

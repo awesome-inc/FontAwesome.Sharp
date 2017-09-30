@@ -99,7 +99,7 @@ namespace TestForms
             // iconMenuItem1
             // 
             this.iconMenuItem1.Flip = FontAwesome.Sharp.IconFlip.None;
-            this.iconMenuItem1.Icon = FontAwesome.Sharp.IconChar.Wpforms;
+            this.iconMenuItem1.IconChar = FontAwesome.Sharp.IconChar.Wpforms;
             this.iconMenuItem1.IconColor = System.Drawing.Color.Black;
             this.iconMenuItem1.IconSize = 16;
             this.iconMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("iconMenuItem1.Image")));
@@ -130,7 +130,7 @@ namespace TestForms
             this.toolStripSeparator1,
             this._quitMenuItem});
             this.mnuHome.Flip = FontAwesome.Sharp.IconFlip.None;
-            this.mnuHome.Icon = FontAwesome.Sharp.IconChar.Home;
+            this.mnuHome.IconChar = FontAwesome.Sharp.IconChar.Home;
             this.mnuHome.IconColor = System.Drawing.Color.DarkBlue;
             this.mnuHome.IconSize = 16;
             this.mnuHome.Image = ((System.Drawing.Image)(resources.GetObject("mnuHome.Image")));
@@ -143,7 +143,7 @@ namespace TestForms
             // 
             this._openMenuItem.BackColor = System.Drawing.Color.Transparent;
             this._openMenuItem.Flip = FontAwesome.Sharp.IconFlip.None;
-            this._openMenuItem.Icon = FontAwesome.Sharp.IconChar.FileO;
+            this._openMenuItem.IconChar = FontAwesome.Sharp.IconChar.FileO;
             this._openMenuItem.IconColor = System.Drawing.Color.Black;
             this._openMenuItem.IconSize = 16;
             this._openMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("_openMenuItem.Image")));
@@ -156,7 +156,7 @@ namespace TestForms
             // _saveMenuItem
             // 
             this._saveMenuItem.Flip = FontAwesome.Sharp.IconFlip.None;
-            this._saveMenuItem.Icon = FontAwesome.Sharp.IconChar.FloppyO;
+            this._saveMenuItem.IconChar = FontAwesome.Sharp.IconChar.FloppyO;
             this._saveMenuItem.IconColor = System.Drawing.Color.Black;
             this._saveMenuItem.IconSize = 16;
             this._saveMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("_saveMenuItem.Image")));
@@ -174,7 +174,7 @@ namespace TestForms
             // _quitMenuItem
             // 
             this._quitMenuItem.Flip = FontAwesome.Sharp.IconFlip.None;
-            this._quitMenuItem.Icon = FontAwesome.Sharp.IconChar.TimesCircle;
+            this._quitMenuItem.IconChar = FontAwesome.Sharp.IconChar.TimesCircle;
             this._quitMenuItem.IconColor = System.Drawing.Color.Black;
             this._quitMenuItem.IconSize = 16;
             this._quitMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("_quitMenuItem.Image")));
@@ -187,7 +187,7 @@ namespace TestForms
             // _iconMenuItem1
             // 
             this._iconMenuItem1.Flip = FontAwesome.Sharp.IconFlip.None;
-            this._iconMenuItem1.Icon = FontAwesome.Sharp.IconChar.QuestionCircle;
+            this._iconMenuItem1.IconChar = FontAwesome.Sharp.IconChar.QuestionCircle;
             this._iconMenuItem1.IconColor = System.Drawing.Color.DarkBlue;
             this._iconMenuItem1.IconSize = 17;
             this._iconMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("_iconMenuItem1.Image")));
@@ -211,7 +211,7 @@ namespace TestForms
             // btnSignIn
             // 
             this.btnSignIn.Flip = FontAwesome.Sharp.IconFlip.None;
-            this.btnSignIn.Icon = FontAwesome.Sharp.IconChar.SignIn;
+            this.btnSignIn.IconChar = FontAwesome.Sharp.IconChar.SignIn;
             this.btnSignIn.IconColor = System.Drawing.Color.Black;
             this.btnSignIn.IconSize = 16;
             this.btnSignIn.Image = ((System.Drawing.Image)(resources.GetObject("btnSignIn.Image")));
@@ -270,7 +270,7 @@ namespace TestForms
             this.iconDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.iconMenuItem2});
             this.iconDropDown.Flip = FontAwesome.Sharp.IconFlip.None;
-            this.iconDropDown.Icon = FontAwesome.Sharp.IconChar.Cog;
+            this.iconDropDown.IconChar = FontAwesome.Sharp.IconChar.Cog;
             this.iconDropDown.IconColor = System.Drawing.Color.DimGray;
             this.iconDropDown.IconSize = 16;
             this.iconDropDown.Image = ((System.Drawing.Image)(resources.GetObject("iconDropDown.Image")));
@@ -283,7 +283,7 @@ namespace TestForms
             // iconMenuItem2
             // 
             this.iconMenuItem2.Flip = FontAwesome.Sharp.IconFlip.None;
-            this.iconMenuItem2.Icon = FontAwesome.Sharp.IconChar.Star;
+            this.iconMenuItem2.IconChar = FontAwesome.Sharp.IconChar.Star;
             this.iconMenuItem2.IconColor = System.Drawing.Color.Black;
             this.iconMenuItem2.IconSize = 16;
             this.iconMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("iconMenuItem2.Image")));
@@ -296,7 +296,7 @@ namespace TestForms
             // 
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripSplitButton1.Flip = FontAwesome.Sharp.IconFlip.None;
-            this.toolStripSplitButton1.Icon = FontAwesome.Sharp.IconChar.Glass;
+            this.toolStripSplitButton1.IconChar = FontAwesome.Sharp.IconChar.Glass;
             this.toolStripSplitButton1.IconColor = System.Drawing.Color.DarkViolet;
             this.toolStripSplitButton1.IconSize = 16;
             this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
@@ -360,7 +360,7 @@ namespace TestForms
             // 
             this.btnXing.ContextMenuStrip = this.contextMenuStrip1;
             this.btnXing.Flip = FontAwesome.Sharp.IconFlip.None;
-            this.btnXing.Icon = FontAwesome.Sharp.IconChar.XingSquare;
+            this.btnXing.IconChar = FontAwesome.Sharp.IconChar.XingSquare;
             this.btnXing.IconColor = System.Drawing.Color.DarkSlateGray;
             this.btnXing.IconSize = 32;
             this.btnXing.Image = ((System.Drawing.Image)(resources.GetObject("btnXing.Image")));
@@ -376,7 +376,7 @@ namespace TestForms
             this.btnGooglePlus.AutoSize = true;
             this.btnGooglePlus.ContextMenuStrip = this.contextMenuStrip1;
             this.btnGooglePlus.Flip = FontAwesome.Sharp.IconFlip.None;
-            this.btnGooglePlus.Icon = FontAwesome.Sharp.IconChar.GooglePlusSquare;
+            this.btnGooglePlus.IconChar = FontAwesome.Sharp.IconChar.GooglePlusSquare;
             this.btnGooglePlus.IconColor = System.Drawing.Color.Red;
             this.btnGooglePlus.IconSize = 32;
             this.btnGooglePlus.Image = ((System.Drawing.Image)(resources.GetObject("btnGooglePlus.Image")));
@@ -396,7 +396,7 @@ namespace TestForms
             this.boxOctocat.IconSize = 85;
             this.boxOctocat.Location = new System.Drawing.Point(121, 12);
             this.boxOctocat.Name = "boxOctocat";
-            this.boxOctocat.Rotation = 0F;
+            this.boxOctocat.Rotation = 0;
             this.boxOctocat.Size = new System.Drawing.Size(85, 85);
             this.boxOctocat.TabIndex = 1;
             this.boxOctocat.TabStop = false;
@@ -411,7 +411,7 @@ namespace TestForms
             this.boxTwitter.IconSize = 85;
             this.boxTwitter.Location = new System.Drawing.Point(14, 12);
             this.boxTwitter.Name = "boxTwitter";
-            this.boxTwitter.Rotation = 135F;
+            this.boxTwitter.Rotation = 135;
             this.boxTwitter.Size = new System.Drawing.Size(85, 85);
             this.boxTwitter.TabIndex = 0;
             this.boxTwitter.TabStop = false;

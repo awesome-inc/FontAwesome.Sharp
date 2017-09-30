@@ -16,7 +16,7 @@ namespace FontAwesome.Sharp
         }
 
         [Category("FontAwesome")]
-        public IconChar Icon
+        public IconChar IconChar
         {
             get => _icon;
             set
