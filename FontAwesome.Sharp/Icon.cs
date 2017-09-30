@@ -10,7 +10,10 @@ namespace FontAwesome.Sharp
 
         public Icon(IconChar icon)
         {
-            _iconBlock = new IconBlock {Icon = icon};
+            _iconBlock = new IconBlock
+            {
+                Icon = icon
+            };
         }
 
         public Brush Foreground

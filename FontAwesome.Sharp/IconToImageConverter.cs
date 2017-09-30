@@ -17,7 +17,10 @@ namespace FontAwesome.Sharp
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var icon = (IconChar) value;
-            var image = new IconImage {Icon = icon};
+            var image = new IconImage
+            {
+                Icon = icon
+            };
 
             if (Foreground != null)
                 image.Foreground = Foreground;

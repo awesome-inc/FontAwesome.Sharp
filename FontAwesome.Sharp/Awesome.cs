@@ -287,7 +287,10 @@ namespace FontAwesome.Sharp
 
                 t = tokens[i + 1];
                 if (!Enum.TryParse<IconChar>(t, true, out var icon)) continue;
-                inlines.Add(new Run(char.ConvertFromUtf32((int) icon)) {FontFamily = IconHelper.FontAwesome});
+                inlines.Add(new Run(char.ConvertFromUtf32((int) icon))
+                {
+                    FontFamily = IconHelper.FontAwesome
+                });
             }
 
             return inlines;
