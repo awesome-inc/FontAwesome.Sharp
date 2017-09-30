@@ -26,8 +26,8 @@ for:
       - /hotfix/
       - /release/
   build_script:
-    - build.bat /t:Deploy /v:m
+    - build.bat /t:CoverageUpload,Deploy /v:m
 # all other branches
 -
   build_script:
-    - build.bat /t:Package /v:m
+    - build.bat /t:CoverageUpload,Package /v:m
