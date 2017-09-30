@@ -10,129 +10,134 @@
         Title="TestWpf" Height="700" Width="800" d:DataContext="{d:DesignInstance testWpf:MainViewModel}">
     <Window.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="TextWrapping" Value="Wrap" />
             <Setter Property="Margin" Value="4" />
         </Style>
         <FontFamily x:Key="FontAwesome">/FontAwesome.Sharp;component/fonts/#FontAwesome</FontFamily>
         <Brush x:Key="FaBrush">DarkOrchid</Brush>
-        
+
         <Style TargetType="Button">
-            <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
             <Setter Property="FontSize" Value="24" />
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="Margin" Value="4" />
             <Setter Property="Padding" Value="4" />
             <Setter Property="Width" Value="32" />
             <Setter Property="Height" Value="32" />
 
-            <Setter Property="Foreground" Value="DeepSkyBlue"/>
+            <Setter Property="Foreground" Value="DeepSkyBlue" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="LightSkyBlue"/>
+                    <Setter Property="Foreground" Value="LightSkyBlue" />
                 </Trigger>
             </Style.Triggers>
         </Style>
         <Style TargetType="Image" x:Key="FaImageStyle">
-            <Setter Property="Width" Value="20"/>
-            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
         </Style>
-        <fa:IconToImageConverter x:Key="IconToImage" Foreground="{StaticResource FaBrush}" ImageStyle="{StaticResource FaImageStyle}"/>
-        
+        <fa:IconToImageConverter x:Key="IconToImage" Foreground="{StaticResource FaBrush}"
+                                 ImageStyle="{StaticResource FaImageStyle}" />
+
         <Style TargetType="fa:IconImage">
-            <Setter Property="Width" Value="32"/>
-            <Setter Property="Height" Value="32"/>
-            <Setter Property="Margin" Value="8,0,8,0"/>
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Margin" Value="8,0,8,0" />
         </Style>
 
         <Style TargetType="RowDefinition">
-            <Setter Property="MinHeight" Value="48"/>
+            <Setter Property="MinHeight" Value="48" />
         </Style>
     </Window.Resources>
     <Window.ContextMenu>
         <ContextMenu>
-            <MenuItem Command="{Binding OpenCommand}" Header="Open" Icon="{Binding Icon, Converter={StaticResource IconToImage}}"/>
+            <MenuItem Command="{Binding OpenCommand}" Header="Open"
+                      Icon="{Binding Icon, Converter={StaticResource IconToImage}}" />
         </ContextMenu>
     </Window.ContextMenu>
     <Grid Margin="8">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="80"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="80" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="TextBlock 'xf042' (Unicode)"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="&#xf042;" FontFamily="{StaticResource FontAwesome}" 
+        <TextBlock Text="TextBlock 'xf042' (Unicode)" />
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="&#xf042;" FontFamily="{StaticResource FontAwesome}"
                    Foreground="Chartreuse" TextAlignment="Center" FontSize="24" />
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="IconBlock:"/>
-        <fa:IconBlock Grid.Row="1" Grid.Column="1" Icon="Adjust" 
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="IconBlock:" />
+        <fa:IconBlock Grid.Row="1" Grid.Column="1" Icon="Adjust"
                       Foreground="DarkSlateBlue" TextAlignment="Center"
                       FontSize="24" VerticalAlignment="Center" />
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="{}{Icon} Button"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{}{Icon} Button" />
         <Button Grid.Row="2" Grid.Column="1"
-                Content="{fa:Icon Meetup, Foreground={StaticResource FaBrush}}"/>
+                Content="{fa:Icon Meetup, Foreground={StaticResource FaBrush}}" />
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="IconImage:"/>
-        <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="GooglePlusSquare" Foreground="Red" fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="IconImage:" />
+        <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="GooglePlusSquare" Foreground="Red"
+                      fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
 
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{IconSource} Ribbon, Click for spinning"/>
-        <RibbonButton Grid.Row="4" Grid.Column="1" ToolTip="Click to toggle spinning (Spinning 4 sec., rotated 45° &amp; flipped vertically)"
-            LargeImageSource="{fa:IconSource TwitterSquare, Foreground=CornflowerBlue, Size=48}" 
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{IconSource} Ribbon, Click for spinning" />
+        <RibbonButton Grid.Row="4" Grid.Column="1"
+                      ToolTip="Click to toggle spinning (Spinning 4 sec., rotated 45° &amp; flipped vertically)"
+                      LargeImageSource="{fa:IconSource TwitterSquare, Foreground=CornflowerBlue, Size=48}"
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                       Width="48" Height="48"
-            Command="{Binding ToggleSpinCommand}" 
-            fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="4" 
-            fa:Awesome.Rotation="45"
-            fa:Awesome.Flip="Vertical">
-        </RibbonButton>
+                      Command="{Binding ToggleSpinCommand}"
+                      fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="4"
+                      fa:Awesome.Rotation="45"
+                      fa:Awesome.Flip="Vertical" />
 
-        <TextBlock Grid.Row="5" Grid.Column="0" Text="{}{ToText} Button"/>
-        <Button Grid.Row="5" Grid.Column="1" Content="{fa:ToText Play}" Command="{Binding PlayCommand}" ToolTip="Click me!" />
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="{}{ToText} Button" />
+        <Button Grid.Row="5" Grid.Column="1" Content="{fa:ToText Play}" Command="{Binding PlayCommand}"
+                ToolTip="Click me!" />
 
-        <TextBlock Grid.Row="6" Grid.Column="0" Text="Stacking Icons"/>
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="Stacking Icons" />
         <Grid Grid.Row="6" Grid.Column="1" ToolTip="Two icons stacked in a grid">
             <fa:IconImage Icon="Camera" Width="16" Height="16" />
             <fa:IconImage Icon="Ban" Foreground="Red" />
         </Grid>
 
-        <TextBlock Grid.Row="7" Grid.Column="0" Text="Spinning Icons"/>
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="Spinning Icons" />
         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <fa:IconImage Icon="Refresh" fa:Awesome.Spin="{Binding IsSpinning}" Foreground="SlateGray" />
-            <fa:IconBlock Icon="Cog" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2" Foreground="DarkSlateBlue" FontSize="32" />
-            <fa:IconBlock Icon="Spinner" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2" Foreground="DarkMagenta" FontSize="32" />
+            <fa:IconBlock Icon="Cog" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2"
+                          Foreground="DarkSlateBlue" FontSize="32" />
+            <fa:IconBlock Icon="Spinner" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2"
+                          Foreground="DarkMagenta" FontSize="32" />
         </StackPanel>
 
-        <TextBlock Grid.Row="8" Grid.Column="0" Text="Rotated &amp; flipped"/>
+        <TextBlock Grid.Row="8" Grid.Column="0" Text="Rotated &amp; flipped" />
         <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <fa:IconImage Icon="Shield" fa:Awesome.Rotation="45" ToolTip="Rotated 45°" />
-            <fa:IconBlock Icon="Shield" fa:Awesome.Flip="Horizontal" FontSize="32" ToolTip="Flipped horizontally"/>
-            <fa:IconImage Icon="Shield" fa:Awesome.Flip="Vertical" ToolTip="Flipped vertically"/>
+            <fa:IconBlock Icon="Shield" fa:Awesome.Flip="Horizontal" FontSize="32" ToolTip="Flipped horizontally" />
+            <fa:IconImage Icon="Shield" fa:Awesome.Flip="Vertical" ToolTip="Flipped vertically" />
         </StackPanel>
 
-        <TextBlock Grid.Row="9" Grid.Column="0" Text="Inline (:icon:)"/>
+        <TextBlock Grid.Row="9" Grid.Column="0" Text="Inline (:icon:)" />
         <TextBlock Grid.Row="9" Grid.Column="1" fa:Awesome.Inline=":btc: is a cryptocurrency. :Eur: is a fiat money." />
 
-        <TextBlock Grid.Row="10" Grid.Column="0" Text="Inline ({fa:Icon})"/>
+        <TextBlock Grid.Row="10" Grid.Column="0" Text="Inline ({fa:Icon})" />
         <TextBlock Grid.Row="10" Grid.Column="1" VerticalAlignment="Stretch"
                    Foreground="BlueViolet" FontWeight="Bold" FontSize="24" FontStretch="ExtraExpanded"
                    fa:Awesome.Pattern="{}{fa:(\w+)}"
-                   fa:Awesome.Inline="{}{fa:Btc} is a cryptocurrency. {fa:eur} is a fiat money."
-                   />
+                   fa:Awesome.Inline="{}{fa:Btc} is a cryptocurrency. {fa:eur} is a fiat money." />
     </Grid>
 </Window>

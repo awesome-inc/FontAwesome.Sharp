@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace TestWpf
 {
-    [TestFixtureFor(typeof (Awesome))]
+    [TestFixtureFor(typeof(Awesome))]
     // ReSharper disable once InconsistentNaming
     internal class Awesome_Should
     {

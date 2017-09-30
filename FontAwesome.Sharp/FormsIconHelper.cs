@@ -99,7 +99,8 @@ namespace FontAwesome.Sharp
                 {
                     uint dummy = 0;
                     fonts.AddMemoryFont((IntPtr) pFontData, fontBytes.Length);
-                    NativeMethods.AddFontMemResourceEx((IntPtr) pFontData, (uint) fontBytes.Length, IntPtr.Zero, ref dummy);
+                    NativeMethods.AddFontMemResourceEx((IntPtr) pFontData, (uint) fontBytes.Length, IntPtr.Zero,
+                        ref dummy);
                 }
                 return fonts;
             }
@@ -286,7 +287,7 @@ namespace FontAwesome.Sharp
                     {
                         // variables init
                         var stride =
-                                (uint) size; // imageData.Stride / 4 ; 4 = bytes per pixel, as result stride is equals width in pixels
+                            (uint) size; // imageData.Stride / 4 ; 4 = bytes per pixel, as result stride is equals width in pixels
                         var currentRow = (uint*) imageData.Scan0;
                         var lastRow = currentRow + size * stride;
 
@@ -300,7 +301,8 @@ namespace FontAwesome.Sharp
                             int x;
                             for (x = 0; x < size; x++)
                             {
-                                var c = currentRow[x] & 0x000000FF; // imageData.Stride / 4 ; 4 = bytes per pixel, as result stride is equals width in pixels
+                                var c = currentRow[x] &
+                                        0x000000FF; // imageData.Stride / 4 ; 4 = bytes per pixel, as result stride is equals width in pixels
                                 currentRow[x] = (
                                                     (uint) Math.Abs(
                                                         (int) c -

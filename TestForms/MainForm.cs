@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using FontAwesome.Sharp;
+using Icon = System.Drawing.Icon;
 
 namespace TestForms
 {
@@ -13,7 +14,7 @@ namespace TestForms
         {
             InitializeComponent();
 
-            Icon = System.Drawing.Icon.FromHandle(IconChar.Flag.ToBitmap(16, Color.Black).GetHicon());
+            Icon = Icon.FromHandle(IconChar.Flag.ToBitmap(16, Color.Black).GetHicon());
 
             InitTreeIcons();
 
@@ -33,7 +34,7 @@ namespace TestForms
 
         private void InitTreeIcons()
         {
-            var icons = Enum.GetValues(typeof (IconChar))
+            var icons = Enum.GetValues(typeof(IconChar))
                 .OfType<IconChar>()
                 .Skip(1)
                 .Take(10)

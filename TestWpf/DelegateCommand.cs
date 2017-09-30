@@ -16,8 +16,8 @@ namespace TestWpf
         }
 
         public DelegateCommand(Action execute, Func<bool> canExecute = null)
-                   : this(execute == null ? (Action<object>)(context => { }) : o => execute(),
-                       canExecute == null ? (Func<object, bool>)(context => true) : o => canExecute())
+            : this(execute == null ? (Action<object>) (context => { }) : o => execute(),
+                canExecute == null ? (Func<object, bool>) (context => true) : o => canExecute())
         {
         }
 

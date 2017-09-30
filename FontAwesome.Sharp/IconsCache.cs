@@ -11,12 +11,12 @@ namespace FontAwesome.Sharp
     public static class IconsCache
     {
         /// <summary>
-        ///    Global bitmap icon cache - contains all icons. 
-        ///    Useful when creating bitmaps becomes expensive (<see cref="IconPictureBox"/>),
-        ///    and in cases, when you have icons dublicates - it allow to save memory 
-        ///    and use one icon in several controls.
+        ///     Global bitmap icon cache - contains all icons.
+        ///     Useful when creating bitmaps becomes expensive (<see cref="IconPictureBox" />),
+        ///     and in cases, when you have icons dublicates - it allow to save memory
+        ///     and use one icon in several controls.
         /// </summary>
-        private readonly static Dictionary<IconKey, CachedBitmap> cache = new Dictionary<IconKey, CachedBitmap>();
+        private static readonly Dictionary<IconKey, CachedBitmap> cache = new Dictionary<IconKey, CachedBitmap>();
 
         /// <summary>
         ///     Get icon from cache. If icon not in cache yet - add this icon to cache and return bitmap.
@@ -28,25 +28,26 @@ namespace FontAwesome.Sharp
         /// <param name="flip"></param>
         /// <param name="rotation"></param>
         /// <returns></returns>
-        public static Bitmap Get(Control container, IconChar icon, int size, Color fore, Color back, IconFlip flip, float rotation)
+        public static Bitmap Get(Control container, IconChar icon, int size, Color fore, Color back, IconFlip flip,
+            float rotation)
         {
-            IconKey k = new IconKey(icon, size, fore, back, flip, rotation);
-            if (!cache.TryGetValue(k, out CachedBitmap cachedImage))
+            var k = new IconKey(icon, size, fore, back, flip, rotation);
+            if (!cache.TryGetValue(k, out var cachedImage))
             {
                 cachedImage = new CachedBitmap(icon.ToBitmapGdi(size, fore, back), container);
                 cache[k] = cachedImage;
             }
             return cachedImage.Bitmap;
         }
-        
+
         /// <summary>
-        /// Dispose all icons, associated with this control
+        ///     Dispose all icons, associated with this control
         /// </summary>
         /// <param name="container"></param>
         public static void Dispose(Control container)
         {
             // List of keys for removing: C# can't remove item from dictionary while iterating it
-            List<IconKey> removeItems = new List<IconKey>();
+            var removeItems = new List<IconKey>();
             foreach (var p in cache)
             {
                 p.Value.Remove(container);
@@ -57,20 +58,18 @@ namespace FontAwesome.Sharp
                 }
             }
             foreach (var k in removeItems)
-            {
                 cache.Remove(k);
-            }
         }
 
-        class IconKey : IEquatable<IconKey>
+        private class IconKey : IEquatable<IconKey>
         {
-            readonly uint _back;
-            readonly IconFlip _flip;
-            readonly uint _fore;
-            readonly int _hash;
-            readonly IconChar _icon;
-            readonly float _rotation;
-            readonly int _size;
+            private readonly uint _back;
+            private readonly IconFlip _flip;
+            private readonly uint _fore;
+            private readonly int _hash;
+            private readonly IconChar _icon;
+            private readonly float _rotation;
+            private readonly int _size;
 
             public IconKey(IconChar icon, int size, Color fore, Color back, IconFlip flip, float rotation)
             {
@@ -80,8 +79,8 @@ namespace FontAwesome.Sharp
                 _back = (uint) back.ToArgb();
                 _flip = flip;
                 _rotation = rotation;
-                _hash = string.Concat(  //  Concat 6 items to string in 2 steps. For 5 and more strings generated
-                    string.Concat(      //  code is less effective. See more: https://www.dotnetperls.com/string-concat
+                _hash = string.Concat( //  Concat 6 items to string in 2 steps. For 5 and more strings generated
+                    string.Concat( //  code is less effective. See more: https://www.dotnetperls.com/string-concat
                         _icon, _size, _fore, _back
                     ), _flip, _rotation
                 ).GetHashCode();
@@ -111,16 +110,17 @@ namespace FontAwesome.Sharp
         }
 
         /// <summary>
-        ///   Cached icon item
+        ///     Cached icon item
         /// </summary>
-        class CachedBitmap : IDisposable
+        private class CachedBitmap : IDisposable
         {
             /// <summary>
-            ///   Cached icon bitmap
+            ///     Cached icon bitmap
             /// </summary>
-            public Bitmap Bitmap = null;
+            public readonly Bitmap Bitmap;
+
             /// <summary>
-            ///   List of controls, which still use this icon
+            ///     List of controls, which still use this icon
             /// </summary>
             public List<Control> Controls = new List<Control>();
 
@@ -131,17 +131,26 @@ namespace FontAwesome.Sharp
             }
 
             /// <summary>
-            ///   Add control to controls list for this icon
+            ///     Dispose this cached bitmap
+            /// </summary>
+            public void Dispose()
+            {
+                Bitmap.Dispose();
+                Controls = null;
+            }
+
+            /// <summary>
+            ///     Add control to controls list for this icon
             /// </summary>
             /// <param name="c"></param>
             public void Add(Control c)
             {
-                if (Controls.Contains(c)) { return; }
+                if (Controls.Contains(c)) return;
                 Controls.Add(c);
             }
 
             /// <summary>
-            ///   Remove control from list of controls
+            ///     Remove control from list of controls
             /// </summary>
             /// <param name="c"></param>
             public void Remove(Control c)
@@ -150,7 +159,7 @@ namespace FontAwesome.Sharp
             }
 
             /// <summary>
-            ///   Return true, if controls list are empty
+            ///     Return true, if controls list are empty
             /// </summary>
             /// <returns></returns>
             public bool IsDisposeRequired()
@@ -159,21 +168,12 @@ namespace FontAwesome.Sharp
             }
 
             /// <summary>
-            ///   Dispose this cached bitmap
-            /// </summary>
-            public void Dispose()
-            {
-                Bitmap.Dispose();
-                Controls = null;
-            }
-            
-            /// <summary>
-            ///   Dispose icons for this container
+            ///     Dispose icons for this container
             /// </summary>
             /// <param name="container"></param>
             public void Dispose(Control container)
             {
-                List<IconKey> removeItems = new List<IconKey>();
+                var removeItems = new List<IconKey>();
                 foreach (var p in cache)
                 {
                     p.Value.Remove(container);
@@ -184,9 +184,7 @@ namespace FontAwesome.Sharp
                     }
                 }
                 foreach (var k in removeItems)
-                {
                     cache.Remove(k);
-                }
             }
         }
     }

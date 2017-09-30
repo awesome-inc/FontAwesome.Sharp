@@ -53,6 +53,7 @@ namespace FontAwesome.Sharp
 
         // TODO: implement
         public IconFlip Flip { get; set; }
+
         // TODO: implement
         public int Rotation { get; set; }
 
