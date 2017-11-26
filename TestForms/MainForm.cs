@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Drawing;
 using System.Linq;
@@ -60,6 +60,20 @@ namespace TestForms
         private void iconButton1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("You clicked me");
+        }
+
+        private void _refreshMenuItem_Click(object sender, EventArgs e)
+        {
+            _rotateMenuItem.Rotation += 22.5;
+            _rotateMenuItem.Text = $"Rotate ({_rotateMenuItem.Rotation}°)";
+        }
+
+        private void _flipMenuItem_Click(object sender, EventArgs e)
+        {
+            var flip = (int)_flipMenuItem.Flip + 1;
+            flip %= Enum.GetValues(typeof(FlipOrientation)).Length;
+            _flipMenuItem.Flip = (FlipOrientation)flip;
+            _flipMenuItem.Text = $"Flip ({_flipMenuItem.Flip})";
         }
     }
 }

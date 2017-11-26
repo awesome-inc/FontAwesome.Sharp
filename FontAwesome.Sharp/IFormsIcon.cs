@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace FontAwesome.Sharp
@@ -15,9 +15,9 @@ namespace FontAwesome.Sharp
         Color IconColor { get; set; }
 
         [Category("Transform")]
-        IconFlip Flip { get; set; }
+        FlipOrientation Flip { get; set; }
 
         [Category("Transform")]
-        int Rotation { get; set; }
+        double Rotation { get; set; }
     }
 }

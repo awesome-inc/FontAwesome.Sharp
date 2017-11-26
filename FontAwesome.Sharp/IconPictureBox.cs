@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -8,47 +8,28 @@ namespace FontAwesome.Sharp
     public class IconPictureBox : PictureBox, IFormsIcon
     {
         private static readonly IconCache IconCache = new IconCache();
-        /// <summary>
-        ///     Default icon char value
-        /// </summary>
-        public static IconChar DefaultIconChar = IconChar.Star;
 
-        /// <summary>
-        ///     Default icon size in pixels
-        /// </summary>
-        public static int DefaultIconSize = 32;
+        private const IconChar DefaultIconChar = IconChar.Star;
+        private const int DefaultIconSize = 32;
 
-        /// <summary>
-        ///     Default control item size: width and height in pixels
-        /// </summary>
         public new static Size DefaultSize = new Size(DefaultIconSize, DefaultIconSize);
-
-        /// <summary>
-        ///     Default icon color, RGB
-        /// </summary>
         public new static Color DefaultForeColor = Color.Black;
-
-        /// <summary>
-        ///     Default background color, ARGB
-        /// </summary>
         public new static Color DefaultBackColor = Color.White;
 
-        /// <summary>
-        ///     Default icon caching - off or on
-        /// </summary>
-        public static bool DefaultUseIconCache = false;
-
-        private IconFlip _flip = IconFlip.None;
         private IconChar _iconChar = DefaultIconChar;
-        private int _iconSize = DefaultIconSize;
-
-        private int _rotation;
-        private Color _lastBgColor;
-        private IconFlip _lastFlip = IconFlip.None;
-        private Color _lastFontColor;
         private IconChar _lastIconChar = DefaultIconChar;
+
+        private int _iconSize = DefaultIconSize;
         private int _lasticonSize = DefaultIconSize;
-        private int _lastRotation;
+
+        private double _rotation;
+        private double _lastRotation;
+
+        private FlipOrientation _flip = FlipOrientation.Normal;
+        private FlipOrientation _lastFlip = FlipOrientation.Normal;
+
+        private Color _lastBgColor;
+        private Color _lastFontColor;
 
         public IconPictureBox()
         {
@@ -70,23 +51,15 @@ namespace FontAwesome.Sharp
         [Category("FontAwesome")]
         [Description(
             "Enable or disable icons caching. Usefull, when you have several controls with same large size icon and you want to save some memory. Also usefull for color change and simple fast animations. Icons is caching by icon, size, 2 colors, rotation, flip.")]
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public bool UseIconCache { get; set; } = DefaultUseIconCache;
+        [DefaultValue(false)]
+        public bool UseIconCache { get; set; }
 
+        [Category("FontAwesome")]
         public Color IconColor { get => ForeColor; set => ForeColor = value; }
 
-        /// <summary>
-        ///     Icon flip
-        /// </summary>
-        [Category("Transform")]
-        [Description("Flip options")]
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [DefaultValue(IconFlip.None)]
-        public IconFlip Flip
+        [Category("FontAwesome")]
+        [DefaultValue(FlipOrientation.Normal)]
+        public FlipOrientation Flip
         {
             get => _flip;
             set
@@ -97,48 +70,28 @@ namespace FontAwesome.Sharp
             }
         }
 
-        /// <summary>
-        ///     Rotation angle in degrees, ±360°
-        /// </summary>
-        [Category("Transform")]
-        [Description("Rotation angle in degrees, ±360°")]
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [DefaultValue(0)]
-        public int Rotation
+        [Category("FontAwesome")]
+        [DefaultValue(0.0)]
+        public double Rotation
         {
             get => _rotation;
             set
             {
-                var v = value % 360;
-                if (_rotation == v) return;
+                var v = value % 360.0;
+                if (Math.Abs(_rotation - v) < 0.5) return;
                 _rotation = v;
                 Invalidate();
             }
         }
 
-        /// <summary>
-        ///     Hide for constructor Image property
-        /// </summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [Browsable(false)]
-        public new Image Image
-        {
-            get => base.Image;
-            set => base.Image = value;
-        }
-
         [Category("FontAwesome")]
-        [Description("FontAwesome icon")]
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [DefaultValue(DefaultIconChar)]
         public IconChar IconChar
         {
             get => _iconChar;
             set
             {
+                if (value == _iconChar) return;
                 _iconChar = value;
                 char.ConvertFromUtf32((int) _iconChar);
                 Invalidate();
@@ -148,9 +101,7 @@ namespace FontAwesome.Sharp
         [Category("FontAwesome")]
         [Description(
             "Can be used only in AutoSize or CenterImage SizeMode. in other modes depends on Width and Height: `Math.Min(Width, Height)`.")]
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [DefaultValue(DefaultIconSize)]
         public int IconSize
         {
             get => _iconSize;
@@ -162,9 +113,7 @@ namespace FontAwesome.Sharp
             }
         }
 
-        /// <summary>
-        ///     Icon color
-        /// </summary>
+        // override fore/back color attributes to make them designer-visible (PictureBox hides them)
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -180,9 +129,6 @@ namespace FontAwesome.Sharp
             }
         }
 
-        /// <summary>
-        ///     Back color
-        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -198,111 +144,36 @@ namespace FontAwesome.Sharp
             }
         }
 
-        public bool ShouldSerializeUseImageCache()
+        // Define default attributes for designer serialization.
+        // Note: Use DefaultValueAttribute or ShouldSerialize/Reset-methods for a property. Don't use both!
+        // cf.: https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/defining-default-values-with-the-shouldserialize-and-reset-methods
+        public bool ShouldSerializeImage() { return false; }
+        public bool ShouldSerializeForeColor() { return base.ForeColor != DefaultBackColor; }
+        public new void ResetForeColor() { ForeColor = DefaultBackColor; }
+        public bool ShouldSerializeBackColor() { return base.BackColor != DefaultForeColor; }
+        public new void ResetBackColor() { ForeColor = DefaultForeColor; }
+
+        // hide Image in designer (we want only icon)
+        [ReadOnly(true), Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new Image Image
         {
-            return UseIconCache != DefaultUseIconCache;
+            get => base.Image;
+            set => base.Image = value;
         }
 
-        public void ResetUseImageCache()
-        {
-            UseIconCache = DefaultUseIconCache;
-        }
-
-        public bool ShouldSerializeReset()
-        {
-            return _flip != IconFlip.None;
-        }
-
-        public void ResetFlip()
-        {
-            Flip = IconFlip.None;
-        }
-
-        public bool ShouldSerializeRotation()
-        {
-            return _rotation != 0;
-        }
-
-        public void ResetRotation()
-        {
-            Rotation = 0;
-        }
-
-        public bool ShouldSerializeImage()
-        {
-            return false;
-        }
-
-        public bool ShouldSerializeIconChar()
-        {
-            return _iconChar != DefaultIconChar;
-        }
-
-        public void ResetIconChar()
-        {
-            IconChar = DefaultIconChar;
-        }
-
-        /// <summary>
-        ///     IconSize serialization only if SizeMode is auto or center
-        /// </summary>
-        /// <returns></returns>
-        public bool ShouldSerializeIconSize()
-        {
-            return _iconSize != DefaultIconSize;
-        }
-
-        public void ResetIconSize()
-        {
-            IconSize = DefaultIconSize;
-        }
-
-        /// <summary>
-        ///     Constructor support property
-        /// </summary>
-        /// <returns></returns>
-        public bool ShouldSerializeForeColor()
-        {
-            return base.ForeColor != DefaultBackColor;
-        }
-
-        public new void ResetForeColor()
-        {
-            ForeColor = DefaultBackColor;
-        }
-
-        /// <summary>
-        ///     Constructor support property
-        /// </summary>
-        /// <returns></returns>
-        private bool ShouldSerializeBackColor()
-        {
-            return base.BackColor != DefaultForeColor;
-        }
-
-        public new void ResetBackColor()
-        {
-            ForeColor = DefaultForeColor;
-        }
-
-        /// <summary>
-        ///     Try to render icon
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public void Draw(object sender = null, InvalidateEventArgs e = null)
         {
             if (base.Image != null)
             {
-                if (
-                    (_iconSize == _lasticonSize) &
-                    (base.BackColor == _lastBgColor) &
-                    (base.ForeColor == _lastFontColor) &
-                    (_iconChar == _lastIconChar) &
-                    (_flip == _lastFlip) &
-                    (_rotation == _lastRotation)
-                )
-                    return;
+                var changed = _iconSize != _lasticonSize ||
+                        base.BackColor != _lastBgColor ||
+                        base.ForeColor != _lastFontColor ||
+                        _iconChar != _lastIconChar ||
+                        _flip != _lastFlip ||
+                        Math.Abs(_rotation - _lastRotation) >= 0.5;
+                if (!changed) return;
+
                 if (!UseIconCache)
                     base.Image.Dispose(); // Dispose old image - in other case we will have memory leaks
             }
@@ -314,18 +185,14 @@ namespace FontAwesome.Sharp
             _lastFlip = _flip;
             _lastRotation = _rotation;
 
-            if (UseIconCache)
-                Image = IconCache.Get(_iconChar,
-                    _iconSize,
-                    IconColor,
-                    BackColor);
-            else
-                Image = _iconChar.ToBitmapGdi(IconSize, base.ForeColor, base.BackColor);
+            Image = UseIconCache
+                ? IconCache.Get(_iconChar, _iconSize, IconColor, BackColor)
+                : _iconChar.ToBitmapGdi(IconSize, base.ForeColor, base.BackColor);
         }
 
         private void IconPictureBox_Disposed(object sender, EventArgs e)
         {
-            base.Image = null; // In some cases I catch errors in forms constructor with image
+            base.Image = null; // In some cases, catch errors in forms constructor with image
         }
 
         private void IconPictureBox_SizeChanged(object sender, EventArgs e)
@@ -341,37 +208,8 @@ namespace FontAwesome.Sharp
 
             Draw();
 
-            // Flip logic
-            switch (_flip)
-            {
-                case IconFlip.Horizontal:
-                    // Flip the X-Axis
-                    graphics.ScaleTransform(-1.0F, 1.0F);
-                    // Translate the drawing area accordingly
-                    graphics.TranslateTransform(-Width, 0.0F);
-                    break;
-
-                case IconFlip.Vertical:
-                    // Flip the Y-Axis
-                    graphics.ScaleTransform(1.0F, -1.0F);
-                    // Translate the drawing area accordingly
-                    graphics.TranslateTransform(0.0F, -Height);
-                    break;
-
-                case IconFlip.Full:
-                    graphics.ScaleTransform(-1.0F, -1.0F);
-                    graphics.TranslateTransform(-Width, -Height);
-                    break;
-            }
-
-            // Rotation logic
-            if (_rotation != 0)
-            {
-                float mx = .5f * Width, my = .5f * Height;
-                graphics.TranslateTransform(mx, my);
-                graphics.RotateTransform(_rotation);
-                graphics.TranslateTransform(-mx, -my);
-            }
+            graphics.Flip(Flip, Width, Height);
+            graphics.Rotate(Rotation, Width, Height);
 
             base.OnPaint(e);
 

@@ -20,7 +20,7 @@ namespace FontAwesome.Sharp
         ///     Convert icon to bitmap image with GDI+ API - positioning of icon isn't perfect, but aliasing is good. Good for
         ///     small icons.
         /// </summary>
-        public static Bitmap ToBitmap(this IconChar icon, int size, Color color)
+        public static Bitmap ToBitmap(this IconChar icon, int size, Color color, double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
         {
             var bitmap = new Bitmap(size, size);
             using (var graphics = Graphics.FromImage(bitmap))
@@ -28,8 +28,14 @@ namespace FontAwesome.Sharp
                 var text = char.ConvertFromUtf32((int) icon);
                 var font = GetAdjustedIconFont(graphics, text, size, size);
                 var brush = new SolidBrush(color);
+
+                graphics.Rotate(rotation, size, size);
+
                 DrawIcon(graphics, font, text, size, size, brush);
             }
+
+            bitmap.Flip(flip);
+
             return bitmap;
         }
 

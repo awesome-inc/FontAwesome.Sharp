@@ -55,11 +55,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Awesome.cs" />
+    <Compile Include="FormsIconExtensions.cs" />
     <Compile Include="FormsIconHelper.cs" />
     <Compile Include="IconButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IconFlip.cs" />
     <Compile Include="IconToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
