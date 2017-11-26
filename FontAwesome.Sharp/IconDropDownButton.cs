@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -6,9 +7,11 @@ namespace FontAwesome.Sharp
 {
     public class IconDropDownButton : ToolStripDropDownButton, IFormsIcon
     {
-        private IconChar _icon = IconChar.Star;
         private Color _color = Color.Black;
+        private IconChar _icon = IconChar.Star;
         private int _size = 16;
+        private FlipOrientation _flip = FlipOrientation.Normal;
+        private double _rotation;
 
         public IconDropDownButton()
         {
@@ -16,9 +19,9 @@ namespace FontAwesome.Sharp
         }
 
         [Category("FontAwesome")]
-        public IconChar Icon
+        public IconChar IconChar
         {
-            get { return _icon; }
+            get => _icon;
             set
             {
                 if (_icon == value) return;
@@ -30,7 +33,7 @@ namespace FontAwesome.Sharp
         [Category("FontAwesome")]
         public int IconSize
         {
-            get { return _size; }
+            get => _size;
             set
             {
                 if (_size == value) return;
@@ -42,7 +45,7 @@ namespace FontAwesome.Sharp
         [Category("FontAwesome")]
         public Color IconColor
         {
-            get { return _color; }
+            get => _color;
             set
             {
                 if (_color == value) return;
@@ -51,9 +54,48 @@ namespace FontAwesome.Sharp
             }
         }
 
+        [Category("FontAwesome")]
+        public FlipOrientation Flip
+        {
+            get => _flip;
+            set
+            {
+                if (_flip == value) return;
+                _flip = value;
+                UpdateImage();
+            }
+        }
+
+        [Category("FontAwesome")]
+        public double Rotation
+        {
+            get => _rotation;
+            set
+            {
+                var v = value % 360.0;
+                if (Math.Abs(_rotation - v) < 0.5) return;
+                _rotation = v;
+                UpdateImage();
+            }
+        }
+
         private void UpdateImage()
         {
-            Image = _icon.ToBitmap(_size, _color);
+            Image = _icon.ToBitmap(_size, _color, _rotation, _flip);
+        }
+
+        // Dont' serialize image
+        // Note: Use DefaultValueAttribute or ShouldSerialize/Reset-methods for a property. Don't use both!
+        // cf.: https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/defining-default-values-with-the-shouldserialize-and-reset-methods
+        public bool ShouldSerializeImage() { return false; }
+
+        // hide Image in designer (we want only icon)
+        [ReadOnly(true), Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new Image Image
+        {
+            get => base.Image;
+            set => base.Image = value;
         }
     }
 }

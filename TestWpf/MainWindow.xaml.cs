@@ -8,7 +8,10 @@ namespace TestWpf
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel {Icon = IconChar.Apple};
+            DataContext = new MainViewModel
+            {
+                Icon = IconChar.Apple
+            };
         }
     }
 }

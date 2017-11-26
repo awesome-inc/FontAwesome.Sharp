@@ -8,6 +8,8 @@ A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome
 [![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/) 
 [![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)
 
+[![Coverage Status](https://coveralls.io/repos/github/awesome-inc/FontAwesome.Sharp/badge.svg)](https://coveralls.io/github/awesome-inc/FontAwesome.Sharp)
+
 Here is a screenshot from the sample application
 
 ![](FontAwesome.Sharp.png)

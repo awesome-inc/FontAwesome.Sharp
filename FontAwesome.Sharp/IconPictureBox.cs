@@ -5,98 +5,211 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
-    public class IconPictureBox : PictureBox
+    public class IconPictureBox : PictureBox, IFormsIcon
     {
-        private IconChar _iconChar = IconChar.Star;
-        private Color _activeColor;
-        private Color _inActiveColor;
+        private static readonly IconCache IconCache = new IconCache();
 
-        private string _iconText;
-        private Font _iconFont;
-        private Brush _currentBrush;
-        private Brush _activeBrush;
-        private Brush _inActiveBrush;
+        private const IconChar DefaultIconChar = IconChar.Star;
+        private const int DefaultIconSize = 32;
+
+        public new static Size DefaultSize = new Size(DefaultIconSize, DefaultIconSize);
+        public new static Color DefaultForeColor = Color.Black;
+        public new static Color DefaultBackColor = Color.White;
+
+        private IconChar _iconChar = DefaultIconChar;
+        private IconChar _lastIconChar = DefaultIconChar;
+
+        private int _iconSize = DefaultIconSize;
+        private int _lasticonSize = DefaultIconSize;
+
+        private double _rotation;
+        private double _lastRotation;
+
+        private FlipOrientation _flip = FlipOrientation.Normal;
+        private FlipOrientation _lastFlip = FlipOrientation.Normal;
+
+        private Color _lastBgColor;
+        private Color _lastFontColor;
 
         public IconPictureBox()
         {
-            // ReSharper disable once VirtualMemberCallInContructor
-            BackColor = Color.Transparent;
-            Width = Height = 16;
-            MouseEnter += Icon_MouseEnter;
-            MouseLeave += Icon_MouseLeave;
-            ActiveColor = Color.Black;
-            InActiveColor = Color.Gray;
+            Size = DefaultSize;
+
+            SetStyle(
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.UserPaint |
+                ControlStyles.DoubleBuffer,
+                true
+            );
+
+            Invalidated += Draw;
+            SizeChanged += IconPictureBox_SizeChanged;
+            Disposed += IconPictureBox_Disposed;
+            Draw();
         }
 
         [Category("FontAwesome")]
+        [Description(
+            "Enable or disable icons caching. Usefull, when you have several controls with same large size icon and you want to save some memory. Also usefull for color change and simple fast animations. Icons is caching by icon, size, 2 colors, rotation, flip.")]
+        [DefaultValue(false)]
+        public bool UseIconCache { get; set; }
+
+        [Category("FontAwesome")]
+        public Color IconColor { get => ForeColor; set => ForeColor = value; }
+
+        [Category("FontAwesome")]
+        [DefaultValue(FlipOrientation.Normal)]
+        public FlipOrientation Flip
+        {
+            get => _flip;
+            set
+            {
+                if (_flip == value) return;
+                _flip = value;
+                Invalidate();
+            }
+        }
+
+        [Category("FontAwesome")]
+        [DefaultValue(0.0)]
+        public double Rotation
+        {
+            get => _rotation;
+            set
+            {
+                var v = value % 360.0;
+                if (Math.Abs(_rotation - v) < 0.5) return;
+                _rotation = v;
+                Invalidate();
+            }
+        }
+
+        [Category("FontAwesome")]
+        [DefaultValue(DefaultIconChar)]
         public IconChar IconChar
         {
-            get { return _iconChar; }
+            get => _iconChar;
             set
             {
+                if (value == _iconChar) return;
                 _iconChar = value;
-                _iconText = char.ConvertFromUtf32((int)_iconChar);
+                char.ConvertFromUtf32((int) _iconChar);
                 Invalidate();
             }
         }
 
         [Category("FontAwesome")]
-        public Color ActiveColor
+        [Description(
+            "Can be used only in AutoSize or CenterImage SizeMode. in other modes depends on Width and Height: `Math.Min(Width, Height)`.")]
+        [DefaultValue(DefaultIconSize)]
+        public int IconSize
         {
-            get { return _activeColor; }
+            get => _iconSize;
             set
             {
-                _activeColor = value;
-                _activeBrush = new SolidBrush(value);
+                if (value == _iconSize) return;
+                _iconSize = value;
                 Invalidate();
             }
         }
 
-        [Category("FontAwesome")]
-        public Color InActiveColor
+        // override fore/back color attributes to make them designer-visible (PictureBox hides them)
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Bindable(true)]
+        public new Color ForeColor
         {
-            get { return _inActiveColor; }
+            get => base.ForeColor;
             set
             {
-                _inActiveColor = value;
-                _inActiveBrush = new SolidBrush(value);
-                _currentBrush = _inActiveBrush;
+                if (base.ForeColor == value) return;
+                base.ForeColor = value;
                 Invalidate();
             }
         }
 
-        public new int Width
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Bindable(true)]
+        public new Color BackColor
         {
-            get { return base.Width; }
+            get => base.BackColor;
             set
             {
-                if (base.Width == value) return;
-                _iconFont = null;
-                base.Width = value;
+                if (base.BackColor == value) return;
+                base.BackColor = value;
                 Invalidate();
             }
         }
 
-        public new int Height
+        // Define default attributes for designer serialization.
+        // Note: Use DefaultValueAttribute or ShouldSerialize/Reset-methods for a property. Don't use both!
+        // cf.: https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/defining-default-values-with-the-shouldserialize-and-reset-methods
+        public bool ShouldSerializeImage() { return false; }
+        public bool ShouldSerializeForeColor() { return base.ForeColor != DefaultBackColor; }
+        public new void ResetForeColor() { ForeColor = DefaultBackColor; }
+        public bool ShouldSerializeBackColor() { return base.BackColor != DefaultForeColor; }
+        public new void ResetBackColor() { ForeColor = DefaultForeColor; }
+
+        // hide Image in designer (we want only icon)
+        [ReadOnly(true), Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new Image Image
         {
-            get { return base.Height; }
-            set
+            get => base.Image;
+            set => base.Image = value;
+        }
+
+        public void Draw(object sender = null, InvalidateEventArgs e = null)
+        {
+            if (base.Image != null)
             {
-                if (base.Height == value) return;
-                _iconFont = null;
-                base.Height = value;
-                Invalidate();
+                var changed = _iconSize != _lasticonSize ||
+                        base.BackColor != _lastBgColor ||
+                        base.ForeColor != _lastFontColor ||
+                        _iconChar != _lastIconChar ||
+                        _flip != _lastFlip ||
+                        Math.Abs(_rotation - _lastRotation) >= 0.5;
+                if (!changed) return;
+
+                if (!UseIconCache)
+                    base.Image.Dispose(); // Dispose old image - in other case we will have memory leaks
             }
+
+            _lasticonSize = _iconSize;
+            _lastBgColor = base.BackColor;
+            _lastFontColor = base.ForeColor;
+            _lastIconChar = _iconChar;
+            _lastFlip = _flip;
+            _lastRotation = _rotation;
+
+            Image = UseIconCache
+                ? IconCache.Get(_iconChar, _iconSize, IconColor, BackColor)
+                : _iconChar.ToBitmapGdi(IconSize, base.ForeColor, base.BackColor);
+        }
+
+        private void IconPictureBox_Disposed(object sender, EventArgs e)
+        {
+            base.Image = null; // In some cases, catch errors in forms constructor with image
+        }
+
+        private void IconPictureBox_SizeChanged(object sender, EventArgs e)
+        {
+            if (SizeMode != PictureBoxSizeMode.AutoSize)
+                IconSize = Math.Min(Width, Height);
+            Invalidate();
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             var graphics = e.Graphics;
 
-            if (_iconFont == null)
-                _iconFont = graphics.GetAdjustedIconFont(_iconText, Width, Height);
+            Draw();
 
-            graphics.DrawIcon(_iconFont, _iconText, Width, Height, _currentBrush);
+            graphics.Flip(Flip, Width, Height);
+            graphics.Rotate(Rotation, Width, Height);
 
             base.OnPaint(e);
 
@@ -104,18 +217,6 @@ namespace FontAwesome.Sharp
             var rc = ClientRectangle;
             rc.Inflate(-2, -2);
             ControlPaint.DrawFocusRectangle(e.Graphics, rc);
-        }
-
-        private void Icon_MouseLeave(object sender, EventArgs e)
-        {
-            _currentBrush = _inActiveBrush;
-            Invalidate();
-        }
-
-        private void Icon_MouseEnter(object sender, EventArgs e)
-        {
-            _currentBrush = _activeBrush;
-            Invalidate();
         }
     }
 }

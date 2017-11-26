@@ -1,19 +1,22 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome.Sharp", "FontAwesome.Sharp\FontAwesome.Sharp.csproj", "{9098C25A-A6DC-4412-8DEF-DD0262FBFBD7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{81C8E36E-2CF4-4ECA-B177-71E361EECFAF}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
 		build.bat = build.bat
+		CONTRIBUTING.md = CONTRIBUTING.md
 		empty.targets = empty.targets
 		FontAwesome.Sharp.png = FontAwesome.Sharp.png
 		GitVersionConfig.yaml = GitVersionConfig.yaml
 		LICENSE = LICENSE
 		README.md = README.md
-		CONTRIBUTING.md = CONTRIBUTING.md
 		solution.targets = solution.targets
 		SolutionInfo.cs = SolutionInfo.cs
 	EndProjectSection
@@ -21,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "TestWpf\TestWpf.csproj", "{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForms", "TestForms\TestForms.csproj", "{E658D377-C50B-416A-9FC8-128036AC6977}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome.Sharp.Tests", "FontAwesome.Sharp.Tests\FontAwesome.Sharp.Tests.csproj", "{68723D84-3DE1-42FF-8FBC-9CEEA6485CE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,8 +45,15 @@ Global
 		{E658D377-C50B-416A-9FC8-128036AC6977}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E658D377-C50B-416A-9FC8-128036AC6977}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E658D377-C50B-416A-9FC8-128036AC6977}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68723D84-3DE1-42FF-8FBC-9CEEA6485CE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68723D84-3DE1-42FF-8FBC-9CEEA6485CE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68723D84-3DE1-42FF-8FBC-9CEEA6485CE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68723D84-3DE1-42FF-8FBC-9CEEA6485CE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5715E097-E80B-4B5B-8D03-B9EA5DDB1C14}
 	EndGlobalSection
 EndGlobal

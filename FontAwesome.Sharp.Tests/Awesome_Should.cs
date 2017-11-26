@@ -1,13 +1,12 @@
 using System.Linq;
 using System.Windows.Documents;
 using FluentAssertions;
-using FontAwesome.Sharp;
 using NEdifis.Attributes;
 using NUnit.Framework;
 
-namespace TestWpf
+namespace FontAwesome.Sharp.Tests
 {
-    [TestFixtureFor(typeof (Awesome))]
+    [TestFixtureFor(typeof(Awesome))]
     // ReSharper disable once InconsistentNaming
     internal class Awesome_Should
     {

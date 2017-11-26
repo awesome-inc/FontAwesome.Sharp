@@ -10,6 +10,13 @@ namespace TestWpf
     {
         private bool _isSpinning = true;
 
+        public MainViewModel()
+        {
+            OpenCommand = new DelegateCommand(DoOpen);
+            PlayCommand = new DelegateCommand(DoPlay);
+            ToggleSpinCommand = new DelegateCommand(ToggleSpin);
+        }
+
         public IconChar Icon { get; set; }
         public ICommand OpenCommand { get; }
         public ICommand PlayCommand { get; }
@@ -17,7 +24,7 @@ namespace TestWpf
 
         public bool IsSpinning
         {
-            get { return _isSpinning; }
+            get => _isSpinning;
             set
             {
                 if (_isSpinning == value) return;
@@ -26,12 +33,7 @@ namespace TestWpf
             }
         }
 
-        public MainViewModel()
-        {
-            OpenCommand = new DelegateCommand(DoOpen);
-            PlayCommand = new DelegateCommand(DoPlay);
-            ToggleSpinCommand = new DelegateCommand(ToggleSpin);
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
 
         private void DoOpen()
@@ -48,8 +50,6 @@ namespace TestWpf
         {
             IsSpinning = !IsSpinning;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

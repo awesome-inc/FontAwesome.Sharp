@@ -4,6 +4,6 @@ namespace FontAwesome.Sharp
     {
         Normal = 0,
         Horizontal,
-        Vertical,
+        Vertical
     }
 }

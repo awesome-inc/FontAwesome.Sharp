@@ -8,26 +8,9 @@ namespace FontAwesome.Sharp
     // adapted from https://bitbucket.org/ioachim/fontawesome.wpf
     public class IconBlock : TextBlock
     {
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(IconChar), typeof(IconBlock), 
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon),
+            typeof(IconChar), typeof(IconBlock),
             new PropertyMetadata(IconChar.None, OnIconPropertyChanged));
-
-        public IconChar Icon
-        {
-            get { return (IconChar)GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
-        }
-
-        private static void OnIconPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) 
-        {
-#if NET40
-            d.SetValue(TextOptions.TextRenderingModeProperty, TextRenderingMode.ClearType);
-#endif
-            d.SetValue(FontFamilyProperty, IconHelper.FontAwesome);
-            d.SetValue(TextAlignmentProperty, TextAlignment.Center);
-            d.SetValue(VerticalAlignmentProperty, VerticalAlignment.Center);
-
-            d.SetValue(TextProperty, char.ConvertFromUtf32((int)e.NewValue));
-        }
 
         public IconBlock()
         {
@@ -38,6 +21,24 @@ namespace FontAwesome.Sharp
             var descriptor = DependencyPropertyDescriptor.FromProperty(TextProperty, typeof(IconBlock));
             descriptor.AddValueChanged(this, OnTextValueChanged);
             FontFamily = IconHelper.FontAwesome;
+        }
+
+        public IconChar Icon
+        {
+            get => (IconChar) GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
+        }
+
+        private static void OnIconPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+#if NET40
+            d.SetValue(TextOptions.TextRenderingModeProperty, TextRenderingMode.ClearType);
+#endif
+            d.SetValue(FontFamilyProperty, IconHelper.FontAwesome);
+            d.SetValue(TextAlignmentProperty, TextAlignment.Center);
+            d.SetValue(VerticalAlignmentProperty, VerticalAlignment.Center);
+
+            d.SetValue(TextProperty, char.ConvertFromUtf32((int) e.NewValue));
         }
 
         private void OnTextValueChanged(object sender, EventArgs e)

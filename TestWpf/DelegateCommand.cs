@@ -11,15 +11,13 @@ namespace TestWpf
 
         public DelegateCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
-            if (execute == null)
-                throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute ?? (parameter => true);
-            _doExecute = execute;
+            _doExecute = execute ?? throw new ArgumentNullException(nameof(execute));
         }
 
         public DelegateCommand(Action execute, Func<bool> canExecute = null)
-                   : this(execute == null ? (Action<object>)(context => { }) : o => execute(),
-                       canExecute == null ? (Func<object, bool>)(context => true) : o => canExecute())
+            : this(execute == null ? (Action<object>) (context => { }) : o => execute(),
+                canExecute == null ? (Func<object, bool>) (context => true) : o => canExecute())
         {
         }
 
@@ -28,8 +26,8 @@ namespace TestWpf
         // cf.: http://stackoverflow.com/questions/2587916/wpf-viewmodel-commands-canexecute-issue
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         [DebuggerStepThrough]
