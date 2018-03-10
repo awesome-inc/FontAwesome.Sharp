@@ -223,3 +223,46 @@ In production, however, we needed to support
 ### Windows Forms Designer: I cannot find any controls in the Toolbox
 
 Add the controls to the toolbox as described in this SO answer: [How do I add my new User Control to the Toolbox or a new Winform?](http://stackoverflow.com/questions/8931328/how-do-i-add-my-new-user-control-to-the-toolbox-or-a-new-winform#8931414)
+
+### Strong name Signing (e.g. for ClickOnce Publishing)
+
+We don't think Strong Name Signing is still a good thing to do. Here is one possible rationale for this:
+
+- [Still Strong-Naming your Assemblies? You do know it’s 2016, right?](https://www.pedrolamas.com/2016/03/01/still-strong-naming-your-assemblies-you-do-know-its-2016-right/)
+
+If you do need to strong name your software (e.g. you do ClickOnce Publishing), here are some alternatives:
+
+- Merge into your project using [Fody/Costura](https://github.com/Fody/Costura)
+- Post-Build Strong Name Signing using [brutaldev/StrongNameSigner](https://github.com/brutaldev/StrongNameSigner)
+
+Here is an MSBuild snippet/example of how i got this working in 2015 with `StrongNameSigner` (no warranty of still working)
+
+```xml
+<!--Strong naming assemblies -->
+<ItemGroup>
+    <!--strong name all NFileSearch stuff -->
+    <StrongNameAssembly Include="$(SolutionDir)packages\FontAwesome.Sharp.*\lib\**\*.dll" />
+</ItemGroup>
+
+<!-- Strong naming dependencies -->
+<Target Name="StrongName" BeforeTargets="PrepareForBuild" Condition="'$(NCrunch)' != '1'">
+    <PropertyGroup>
+        <StrongNameSignerPath>$(SolutionDir)packages\Brutal.Dev.StrongNameSigner.*\tools\StrongNameSigner.Console.exe</StrongNameSignerPath>
+    </PropertyGroup>
+    <ItemGroup>
+        <StrongNameSigner Include="$(StrongNameSignerPath)"/>
+        <StrongNameDirs Include="@(StrongNameAssembly->DirectoryName())"/>
+        <UniqueDirs Include="@(StrongNameDirs->Distinct())"/>
+    </ItemGroup>
+    <PropertyGroup>
+        <StrongNameArgs>&quot;@(UniqueDirs,'|')&quot;</StrongNameArgs>
+    </PropertyGroup>
+
+    <Message Condition="'$(StrongNameArgs)' != '&quot;&quot;'"
+        Text="Strong name signing $(StrongNameArgs)..." Importance="High"/>
+    <Exec Condition="'$(StrongNameArgs)' != '&quot;&quot;'" ContinueOnError="false"
+        Command="&quot;@(StrongNameSigner->'%(FullPath)')&quot; -in $(StrongNameArgs) > strongName.log" />
+</Target>
+```
+
+Include this in your `.csproj` and you should be good to go!
