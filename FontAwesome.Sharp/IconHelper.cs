@@ -1,5 +1,5 @@
 using System;
-using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
@@ -11,74 +11,60 @@ namespace FontAwesome.Sharp
     // * http://www.codeproject.com/Tips/634540/Using-Font-Icons
     public static class IconHelper
     {
-        public const double DefaultSize = 16.0;
-
-        public static readonly FontFamily FontAwesome = new FontFamily(new Uri("pack://application:,,,"),
-            "/FontAwesome.Sharp;component/fonts/#FontAwesome");
-
         public static readonly Brush DefaultBrush = SystemColors.WindowTextBrush; // this is TextBlock default brush
-
-        private static readonly GlyphTypeface GlyphTypeface;
-
-        private static readonly int Dpi = GetDpi();
-
-        static IconHelper()
-        {
-            var typeface = new Typeface(FontAwesome, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
-            if (typeface.TryGetGlyphTypeface(out GlyphTypeface)) return;
-            typeface = new Typeface(new FontFamily(new Uri("pack://application:,,,"), FontAwesome.Source),
-                FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
-            if (!typeface.TryGetGlyphTypeface(out GlyphTypeface))
-                throw new InvalidOperationException("No glyphtypeface found");
-        }
+        public const double DefaultSize = 16.0;
 
         public static ImageSource ToImageSource(this IconChar iconChar,
             Brush foregroundBrush = null, double size = DefaultSize)
         {
-            var text = char.ConvertFromUtf32((int) iconChar);
-            return ToImageSource(text, foregroundBrush ?? DefaultBrush, size);
+            if (TypefaceFor(iconChar.ToChar(), out var gt, out var glyphIndex) == null)
+                return null;
+            var fontSize = PixelsToPoints(size);
+            var width = gt.AdvanceWidths[glyphIndex];
+            var glyphRun = new GlyphRun(gt, 0, false, fontSize,
+                new[] { glyphIndex }, new Point(0, 0), new[] { width },
+                null, null, null, null, null, null);
+            var glyphRunDrawing = new GlyphRunDrawing(foregroundBrush ?? DefaultBrush, glyphRun);
+            return new DrawingImage(glyphRunDrawing);
         }
 
-        // ReSharper disable once MemberCanBePrivate.Global
-        public static ImageSource ToImageSource(string text,
-            Brush foregroundBrush = null, double size = DefaultSize)
+        public static char ToChar(this IconChar iconChar)
         {
-            if (string.IsNullOrWhiteSpace(text)) return null;
+            return char.ConvertFromUtf32((int)iconChar).Single();
+        }
 
-            var glyphIndexes = new ushort[text.Length];
-            var advanceWidths = new double[text.Length];
+        public static FontFamily FontFor(IconChar iconChar)
+        {
+            return TypefaceFor(iconChar.ToChar(), out _, out _)?.FontFamily;
+        }
 
-            for (var n = 0; n < text.Length; n++)
-            {
-                ushort glyphIndex;
-                try
-                {
-                    glyphIndex = GlyphTypeface.CharacterToGlyphMap[text[n]];
-                }
-                catch (Exception)
-                {
-                    glyphIndex = 42;
-                }
-                glyphIndexes[n] = glyphIndex;
+        private static readonly Uri BaseUri = new Uri($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/");
+        private const string FontPath = "./FontAwesome.Sharp;component/fonts/";
 
-                var width = GlyphTypeface.AdvanceWidths[glyphIndex] * 1.0;
-                advanceWidths[n] = width;
-            }
+        private static readonly string[] FontTitles =
+        {
+            "Font Awesome 5 Free Solid",
+            //"Font Awesome 5 Free Regular",
+            "Font Awesome 5 Brands Regular"
+        };
 
-            try
-            {
-                var fontSize = PixelsToPoints(size);
-                var glyphRun = new GlyphRun(GlyphTypeface, 0, false, fontSize, glyphIndexes,
-                    new Point(0, 0), advanceWidths, null, null, null, null, null, null);
+        private static readonly Typeface[] Typefaces = FontTitles.Select(GetTypeFace).ToArray();
+        private static readonly int Dpi = GetDpi();
 
-                var glyphRunDrawing = new GlyphRunDrawing(foregroundBrush ?? DefaultBrush, glyphRun);
-                return new DrawingImage(glyphRunDrawing);
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError($"Error generating GlyphRun : {ex.Message}");
-            }
-            return null;
+        private static Typeface GetTypeFace(string fontTitle)
+        {
+            var fontFamily = new FontFamily(BaseUri, $"{FontPath}#{fontTitle}");
+            return new Typeface(fontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+        }
+
+        private static Typeface TypefaceFor(char c, out GlyphTypeface gt, out ushort glyphIndex)
+        {
+            gt = null;
+            glyphIndex = 42;
+            foreach (var typeface in Typefaces)
+                if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
+                    return typeface;
+            return SystemFonts.MessageFontFamily.GetTypefaces().FirstOrDefault(); 
         }
 
         private static double PixelsToPoints(double size)

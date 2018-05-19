@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
 using System.IO.Packaging;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Application = System.Windows.Application;
@@ -22,20 +23,18 @@ namespace FontAwesome.Sharp
         /// </summary>
         public static Bitmap ToBitmap(this IconChar icon, int size, Color color, double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
         {
+            var fontFamily = FontFamilyFor(icon);
             var bitmap = new Bitmap(size, size);
             using (var graphics = Graphics.FromImage(bitmap))
             {
-                var text = char.ConvertFromUtf32((int) icon);
-                var font = GetAdjustedIconFont(graphics, text, size, size);
-                var brush = new SolidBrush(color);
-
+                var text = char.ConvertFromUtf32((int)icon);
+                var font = GetAdjustedIconFont(graphics, fontFamily, text, size, size);
                 graphics.Rotate(rotation, size, size);
-
+                var brush = new SolidBrush(color);
                 DrawIcon(graphics, font, text, size, size, brush);
             }
 
             bitmap.Flip(flip);
-
             return bitmap;
         }
 
@@ -72,60 +71,66 @@ namespace FontAwesome.Sharp
                 imageList.AddIcon(icon, size, color);
         }
 
-        internal static Font GetAdjustedIconFont(this Graphics g, string graphicString,
+        internal static Font GetAdjustedIconFont(this Graphics g, FontFamily fontFamily, string text,
             int width, int height, int maxFontSize = 0, int minFontSize = 4, bool smallestOnFail = true)
         {
             var safeMaxFontSize = maxFontSize > 0 ? maxFontSize : height;
             for (double adjustedSize = safeMaxFontSize; adjustedSize >= minFontSize; adjustedSize = adjustedSize - 0.5)
             {
-                var testFont = GetIconFont((float) adjustedSize);
+                var testFont = GetIconFont(fontFamily, (float)adjustedSize);
                 // Test the string with the new size
-                var adjustedSizeNew = g.MeasureString(graphicString, testFont);
+                var adjustedSizeNew = g.MeasureString(text, testFont);
                 if (width > adjustedSizeNew.Width && height > adjustedSizeNew.Height)
                     return testFont;
             }
 
             // Could not find a font size
             // return min or max or maxFontSize?
-            return GetIconFont(smallestOnFail ? minFontSize : maxFontSize);
+            return GetIconFont(fontFamily, smallestOnFail ? minFontSize : maxFontSize);
         }
 
-        private static Font GetIconFont(float size)
+        private static FontFamily FontFamilyFor(IconChar iconChar)
         {
-            return new Font(Fonts.Families[0], size, GraphicsUnit.Point);
+            var name = IconHelper.FontFor(iconChar).FamilyNames.Values.Single();
+            return Fonts.Families.FirstOrDefault(f => name.StartsWith(f.Name)) ?? Fonts.Families[0];
+        }
+
+        private static Font GetIconFont(FontFamily fontFamily, float size)
+        {
+            return new Font(fontFamily, size, GraphicsUnit.Point);
         }
 
         private static unsafe PrivateFontCollection InitializeFonts()
         {
-            try
+            var fontFiles = new[] { "fa-solid-900.ttf", /*"fa-regular-400.ttf",*/ "fa-brands-400.ttf" };
+            var fonts = new PrivateFontCollection();
+            foreach (var fontFile in fontFiles.Reverse())
             {
-                var fonts = new PrivateFontCollection();
-                var fontBytes = GetFontBytes();
-                fixed (byte* pFontData = fontBytes)
+                try
                 {
-                    uint dummy = 0;
-                    fonts.AddMemoryFont((IntPtr) pFontData, fontBytes.Length);
-                    NativeMethods.AddFontMemResourceEx((IntPtr) pFontData, (uint) fontBytes.Length, IntPtr.Zero,
-                        ref dummy);
+                    var fontBytes = GetFontBytes(fontFile);
+                    fixed (byte* pFontData = fontBytes)
+                    {
+                        fonts.AddMemoryFont((IntPtr)pFontData, fontBytes.Length);
+                        uint dummy = 0;
+                        NativeMethods.AddFontMemResourceEx((IntPtr)pFontData, (uint)fontBytes.Length, IntPtr.Zero,
+                            ref dummy);
+                    }
                 }
-                return fonts;
+                catch (Exception ex)
+                {
+                    Trace.WriteLine($"Could not load FontAwesome: {ex}");
+                    throw;
+                }
             }
-            catch (Exception ex)
-            {
-                Trace.WriteLine($"Could not load FontAwesome: {ex}");
-                throw;
-            }
+            return fonts;
         }
 
-        private static byte[] GetFontBytes()
+        private static byte[] GetFontBytes(string fontFile)
         {
-            //cf: http://stackoverflow.com/questions/6005398/uriformatexception-invalid-uri-invalid-port-specified
-            // NOTE: this line is important to not have the compiler optimize out the type initialization because of unused variable!
-            if (string.IsNullOrWhiteSpace(PackUriHelper.UriSchemePack))
-                Trace.TraceInformation("pack:// uri scheme not supported");
-
             var streamInfo = Application.GetResourceStream(
-                new Uri(@"pack://application:,,,/FontAwesome.Sharp;component/fonts/fontawesome-webfont.ttf",
+                //cf: http://stackoverflow.com/questions/6005398/uriformatexception-invalid-uri-invalid-port-specified
+                new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/FontAwesome.Sharp;component/fonts/{fontFile}",
                     UriKind.Absolute));
             // ReSharper disable once PossibleNullReferenceException
             using (streamInfo.Stream)
@@ -161,6 +166,8 @@ namespace FontAwesome.Sharp
         /// <returns>Image</returns>
         internal static Bitmap ToBitmapGdi(this IconChar icon, int size, Color color, Color bgColor)
         {
+            var fontFamily = FontFamilyFor(icon);
+
             // create the final image to render into
             var image = new Bitmap(size, size, PixelFormat.Format32bppArgb);
 
@@ -208,7 +215,7 @@ namespace FontAwesome.Sharp
                     renBgColor = Color.Black;
                     alphaReverse = 0;
                 }
-                visibleColorRgb = (uint) bgColor.ToArgb() & 0x00FFFFFF; // Save bg color as color for rendering
+                visibleColorRgb = (uint)bgColor.ToArgb() & 0x00FFFFFF; // Save bg color as color for rendering
                 isTransparentRendering = true;
             }
             else if (isBgTransparent) // Background is transparent
@@ -225,7 +232,7 @@ namespace FontAwesome.Sharp
                     renBgColor = Color.White;
                     alphaReverse = 0xFF;
                 }
-                visibleColorRgb = (uint) color.ToArgb() & 0x00FFFFFF; // Save color as color for rendering
+                visibleColorRgb = (uint)color.ToArgb() & 0x00FFFFFF; // Save color as color for rendering
                 isTransparentRendering = true;
             }
             else // No transparent color
@@ -246,8 +253,8 @@ namespace FontAwesome.Sharp
                     memoryGraphics.SmoothingMode = SmoothingMode.HighQuality;
 
                     // Getting font and icon as text
-                    var text = char.ConvertFromUtf32((int) icon);
-                    var font = GetAdjustedIconFont(memoryGraphics, text, size, size);
+                    var text = char.ConvertFromUtf32((int)icon);
+                    var font = GetAdjustedIconFont(memoryGraphics, fontFamily, text, size, size);
 
                     // must not be transparent background 
                     memoryGraphics.Clear(renBgColor);
@@ -293,8 +300,8 @@ namespace FontAwesome.Sharp
                     {
                         // variables init
                         var stride =
-                            (uint) size; // imageData.Stride / 4 ; 4 = bytes per pixel, as result stride is equals width in pixels
-                        var currentRow = (uint*) imageData.Scan0;
+                            (uint)size; // imageData.Stride / 4 ; 4 = bytes per pixel, as result stride is equals width in pixels
+                        var currentRow = (uint*)imageData.Scan0;
                         var lastRow = currentRow + size * stride;
 
                         // Here is 2 cycles because bmp format can contatin 
@@ -310,8 +317,8 @@ namespace FontAwesome.Sharp
                                 var c = currentRow[x] &
                                         0x000000FF; // imageData.Stride / 4 ; 4 = bytes per pixel, as result stride is equals width in pixels
                                 currentRow[x] = (
-                                                    (uint) Math.Abs(
-                                                        (int) c -
+                                                    (uint)Math.Abs(
+                                                        (int)c -
                                                         alphaReverse) // Setting alfa: from bg to icon or from icon to bg
                                                     << 24) // 0xAA -> 0xAA000000
                                                 | visibleColorRgb // 0xAA000000 + 0x00RRGGBB

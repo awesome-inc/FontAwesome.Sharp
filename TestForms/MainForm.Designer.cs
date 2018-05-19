@@ -145,7 +145,7 @@ namespace TestForms
             // 
             this._openMenuItem.BackColor = System.Drawing.Color.Transparent;
             this._openMenuItem.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this._openMenuItem.IconChar = FontAwesome.Sharp.IconChar.FileO;
+            this._openMenuItem.IconChar = FontAwesome.Sharp.IconChar.File;
             this._openMenuItem.IconColor = System.Drawing.Color.Black;
             this._openMenuItem.IconSize = 16;
             this._openMenuItem.Name = "_openMenuItem";
@@ -158,7 +158,7 @@ namespace TestForms
             // 
             this._flipMenuItem.BackColor = System.Drawing.Color.Transparent;
             this._flipMenuItem.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this._flipMenuItem.IconChar = FontAwesome.Sharp.IconChar.Exchange;
+            this._flipMenuItem.IconChar = FontAwesome.Sharp.IconChar.ExchangeAlt;
             this._flipMenuItem.IconColor = System.Drawing.Color.Black;
             this._flipMenuItem.IconSize = 16;
             this._flipMenuItem.Name = "_flipMenuItem";
@@ -172,7 +172,7 @@ namespace TestForms
             // 
             this._rotateMenuItem.BackColor = System.Drawing.Color.Transparent;
             this._rotateMenuItem.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this._rotateMenuItem.IconChar = FontAwesome.Sharp.IconChar.Repeat;
+            this._rotateMenuItem.IconChar = FontAwesome.Sharp.IconChar.Redo;
             this._rotateMenuItem.IconColor = System.Drawing.Color.Black;
             this._rotateMenuItem.IconSize = 16;
             this._rotateMenuItem.Name = "_rotateMenuItem";
@@ -185,7 +185,7 @@ namespace TestForms
             // _saveMenuItem
             // 
             this._saveMenuItem.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this._saveMenuItem.IconChar = FontAwesome.Sharp.IconChar.FloppyO;
+            this._saveMenuItem.IconChar = FontAwesome.Sharp.IconChar.Save;
             this._saveMenuItem.IconColor = System.Drawing.Color.Black;
             this._saveMenuItem.IconSize = 16;
             this._saveMenuItem.Name = "_saveMenuItem";
@@ -237,7 +237,7 @@ namespace TestForms
             // btnSignIn
             // 
             this.btnSignIn.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.btnSignIn.IconChar = FontAwesome.Sharp.IconChar.SignIn;
+            this.btnSignIn.IconChar = FontAwesome.Sharp.IconChar.SignInAlt;
             this.btnSignIn.IconColor = System.Drawing.Color.Black;
             this.btnSignIn.IconSize = 16;
             this.btnSignIn.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -321,7 +321,7 @@ namespace TestForms
             // 
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripSplitButton1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.toolStripSplitButton1.IconChar = FontAwesome.Sharp.IconChar.Glass;
+            this.toolStripSplitButton1.IconChar = FontAwesome.Sharp.IconChar.GlassMartini;
             this.toolStripSplitButton1.IconColor = System.Drawing.Color.DarkViolet;
             this.toolStripSplitButton1.IconSize = 16;
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;

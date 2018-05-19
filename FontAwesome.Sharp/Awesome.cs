@@ -31,7 +31,7 @@ namespace FontAwesome.Sharp
 
         public static bool GetSpin(DependencyObject target)
         {
-            return (bool) target.GetValue(SpinProperty);
+            return (bool)target.GetValue(SpinProperty);
         }
 
         public static void SetSpin(DependencyObject target, bool value)
@@ -41,7 +41,7 @@ namespace FontAwesome.Sharp
 
         public static double GetSpinDuration(DependencyObject target)
         {
-            return (double) target.GetValue(SpinDurationProperty);
+            return (double)target.GetValue(SpinDurationProperty);
         }
 
         public static void SetSpinDuration(DependencyObject target, double value)
@@ -51,7 +51,7 @@ namespace FontAwesome.Sharp
 
         public static double GetRotation(DependencyObject target)
         {
-            return (double) target.GetValue(RotationProperty);
+            return (double)target.GetValue(RotationProperty);
         }
 
         public static void SetRotation(DependencyObject target, double value)
@@ -61,7 +61,7 @@ namespace FontAwesome.Sharp
 
         public static FlipOrientation GetFlip(DependencyObject target)
         {
-            return (FlipOrientation) target.GetValue(FlipProperty);
+            return (FlipOrientation)target.GetValue(FlipProperty);
         }
 
         public static void SetFlip(DependencyObject target, FlipOrientation value)
@@ -74,7 +74,7 @@ namespace FontAwesome.Sharp
             if (!(d is FrameworkElement control)) return;
 
             if (!(e.NewValue is bool) || e.NewValue.Equals(e.OldValue)) return;
-            var spin = (bool) e.NewValue;
+            var spin = (bool)e.NewValue;
 
             if (spin)
             {
@@ -93,14 +93,14 @@ namespace FontAwesome.Sharp
         {
             if (!(d is FrameworkElement control)) return;
             if (!(e.NewValue is double) || e.NewValue.Equals(e.OldValue)) return;
-            var spinDuration = (double) e.NewValue;
+            var spinDuration = (double)e.NewValue;
             StopSpin(control);
             BeginSpin(control, spinDuration);
         }
 
         private static object SpinDurationCoerceValue(DependencyObject d, object value)
         {
-            var val = (double) value;
+            var val = (double)value;
             return val < 0 ? 0d : value;
         }
 
@@ -108,13 +108,13 @@ namespace FontAwesome.Sharp
         {
             if (!(d is FrameworkElement control)) return;
             if (!(e.NewValue is double) || e.NewValue.Equals(e.OldValue)) return;
-            var rotation = (double) e.NewValue;
+            var rotation = (double)e.NewValue;
             SetRotation(control, rotation);
         }
 
         private static object RotationCoerceValue(DependencyObject d, object value)
         {
-            var val = (double) value;
+            var val = (double)value;
             return val < 0 ? 0d : (val > 360 ? 360d : value);
         }
 
@@ -122,7 +122,7 @@ namespace FontAwesome.Sharp
         {
             if (!(d is FrameworkElement control)) return;
             if (!(e.NewValue is FlipOrientation) || e.NewValue.Equals(e.OldValue)) return;
-            var flipOrientation = (FlipOrientation) e.NewValue;
+            var flipOrientation = (FlipOrientation)e.NewValue;
             SetFlipOrientation(control, flipOrientation);
         }
 
@@ -237,9 +237,10 @@ namespace FontAwesome.Sharp
             textBlock.SetValue(InlineProperty, value);
         }
 
+        // ReSharper disable once UnusedMember.Global
         public static string GetInline(DependencyObject textBlock)
         {
-            return (string) textBlock.GetValue(InlineProperty);
+            return (string)textBlock.GetValue(InlineProperty);
         }
 
         public static void SetPattern(DependencyObject textBlock, string value)
@@ -249,7 +250,7 @@ namespace FontAwesome.Sharp
 
         public static string GetPattern(DependencyObject textBlock)
         {
-            return (string) textBlock.GetValue(PatternProperty);
+            return (string)textBlock.GetValue(PatternProperty);
         }
 
         private static void InlinePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -257,7 +258,7 @@ namespace FontAwesome.Sharp
             if (!(d is TextBlock textBlock))
                 return;
 
-            var text = (string) e.NewValue ?? string.Empty;
+            var text = (string)e.NewValue ?? string.Empty;
             var pattern = GetPattern(textBlock) ?? DefaultPattern;
             var inlines = FormatText(text, pattern).ToList();
 
@@ -286,14 +287,19 @@ namespace FontAwesome.Sharp
                 if (i + 1 >= tokens.Length) break;
 
                 t = tokens[i + 1];
-                if (!Enum.TryParse<IconChar>(t, true, out var icon)) continue;
-                inlines.Add(new Run(char.ConvertFromUtf32((int) icon))
-                {
-                    FontFamily = IconHelper.FontAwesome
-                });
+                inlines.Add(RunFor(t));
             }
 
             return inlines;
+        }
+
+        private static Run RunFor(string token)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+                throw new ArgumentException("token must not be null, empty or whitespace");
+            return Enum.TryParse<IconChar>(token, true, out var icon)
+                ? new Run(new string(icon.ToChar(), 1)) { FontFamily = IconHelper.FontFor(icon) }
+                : new Run(token);
         }
 
         #endregion Inline text

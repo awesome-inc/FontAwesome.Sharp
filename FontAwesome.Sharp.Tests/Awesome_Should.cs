@@ -11,16 +11,16 @@ namespace FontAwesome.Sharp.Tests
     internal class Awesome_Should
     {
         [Test]
-        [TestCase(@":(\w+):", ":btc: is a cryptocurrency. :eur: is a fiat money.")]
-        [TestCase(@"{fa:(\w+)}", "{fa:Btc} is a cryptocurrency. {fa:Eur} is a fiat money.")]
+        [TestCase(@":(\w+):", ":Bitcoin: is a cryptocurrency. :EuroSign: is a fiat money.")]
+        [TestCase(@"{fa:(\w+)}", "{fa:Bitcoin} is a cryptocurrency. {fa:EuroSign} is a fiat money.")]
         public void Format_Text(string pattern, string input)
         {
             var runs = Awesome.FormatText(input, pattern).OfType<Run>().ToList();
 
             runs.Should().HaveCount(4);
-            AssertIcon(runs[0].Text, IconChar.Btc);
+            AssertIcon(runs[0].Text, IconChar.Bitcoin);
             runs[1].Text.Should().Be(" is a cryptocurrency. ");
-            AssertIcon(runs[2].Text, IconChar.Eur);
+            AssertIcon(runs[2].Text, IconChar.EuroSign);
             runs[3].Text.Should().Be(" is a fiat money.");
         }
 

@@ -14,13 +14,14 @@ namespace FontAwesome.Sharp
 
         public IconBlock()
         {
-            FontFamily = IconHelper.FontAwesome;
             VerticalAlignment = VerticalAlignment.Center;
             TextAlignment = TextAlignment.Center;
 
             var descriptor = DependencyPropertyDescriptor.FromProperty(TextProperty, typeof(IconBlock));
             descriptor.AddValueChanged(this, OnTextValueChanged);
-            FontFamily = IconHelper.FontAwesome;
+            var fontFamily = IconHelper.FontFor(Icon);
+            if (fontFamily != null)
+                FontFamily = fontFamily;
         }
 
         public IconChar Icon
@@ -31,14 +32,15 @@ namespace FontAwesome.Sharp
 
         private static void OnIconPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            var iconBlock = d as IconBlock;
+            if (iconBlock == null) return;
 #if NET40
-            d.SetValue(TextOptions.TextRenderingModeProperty, TextRenderingMode.ClearType);
+            iconBlock.SetValue(TextOptions.TextRenderingModeProperty, TextRenderingMode.ClearType);
 #endif
-            d.SetValue(FontFamilyProperty, IconHelper.FontAwesome);
-            d.SetValue(TextAlignmentProperty, TextAlignment.Center);
-            d.SetValue(VerticalAlignmentProperty, VerticalAlignment.Center);
-
-            d.SetValue(TextProperty, char.ConvertFromUtf32((int) e.NewValue));
+            iconBlock.SetValue(FontFamilyProperty, IconHelper.FontFor(iconBlock.Icon));
+            iconBlock.SetValue(TextAlignmentProperty, TextAlignment.Center);
+            iconBlock.SetValue(VerticalAlignmentProperty, VerticalAlignment.Center);
+            iconBlock.SetValue(TextProperty, char.ConvertFromUtf32((int) e.NewValue));
         }
 
         private void OnTextValueChanged(object sender, EventArgs e)

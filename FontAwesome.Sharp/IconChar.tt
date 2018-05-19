@@ -7,7 +7,7 @@
 <#@ import namespace="System.CodeDom.Compiler" #>
 <#@ import namespace="System.Globalization" #>
 <#
-		var cssFile = this.Host.ResolvePath(@"Content\font-awesome.css");
+		var cssFile = this.Host.ResolvePath(@"Content\fontawesome-all.css");
 		var css = File.ReadAllText(cssFile);
 		// c.f.: http://derekslager.com/blog/posts/2007/09/a-better-dotnet-regular-expression-tester.ashx
 		var regEx = new Regex(@"\.fa-(.+):before\s*\{\s*content:\s*""\\(.+)"";\s*}", RegexOptions.Multiline);

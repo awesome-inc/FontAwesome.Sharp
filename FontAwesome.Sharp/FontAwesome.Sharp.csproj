@@ -95,8 +95,10 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Resource Include="fonts\fa-solid-900.ttf" />
+    <Resource Include="fonts\fa-brands-400.ttf" />
+    <None Include="fonts\fa-regular-400.ttf" />
     <None Include="packages.config" />
-    <Resource Include="fonts\fontawesome-webfont.ttf" />
     <None Include="IconChar.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconChar.cs</LastGenOutput>
@@ -108,7 +110,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\fontawesome-all.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets')" />

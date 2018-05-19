@@ -1,4 +1,4 @@
-﻿<Window x:Class="TestWpf.MainWindow"
+<Window x:Class="TestWpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,7 +15,7 @@
             <Setter Property="TextWrapping" Value="Wrap" />
             <Setter Property="Margin" Value="4" />
         </Style>
-        <FontFamily x:Key="FontAwesome">/FontAwesome.Sharp;component/fonts/#FontAwesome</FontFamily>
+        <FontFamily x:Key="FontAwesome">/FontAwesome.Sharp;component/fonts/#Font Awesome 5 Free Solid</FontFamily>
         <Brush x:Key="FaBrush">DarkOrchid</Brush>
 
         <Style TargetType="Button">
@@ -117,7 +117,7 @@
 
         <TextBlock Grid.Row="7" Grid.Column="0" Text="Spinning Icons" />
         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <fa:IconImage Icon="Refresh" fa:Awesome.Spin="{Binding IsSpinning}" Foreground="SlateGray" />
+            <fa:IconImage Icon="Sync" fa:Awesome.Spin="{Binding IsSpinning}" Foreground="SlateGray" />
             <fa:IconBlock Icon="Cog" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2"
                           Foreground="DarkSlateBlue" FontSize="32" />
             <fa:IconBlock Icon="Spinner" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2"
@@ -126,18 +126,18 @@
 
         <TextBlock Grid.Row="8" Grid.Column="0" Text="Rotated &amp; flipped" />
         <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <fa:IconImage Icon="Shield" fa:Awesome.Rotation="45" ToolTip="Rotated 45°" />
-            <fa:IconBlock Icon="Shield" fa:Awesome.Flip="Horizontal" FontSize="32" ToolTip="Flipped horizontally" />
-            <fa:IconImage Icon="Shield" fa:Awesome.Flip="Vertical" ToolTip="Flipped vertically" />
+            <fa:IconImage Icon="ShieldAlt" fa:Awesome.Rotation="45" ToolTip="Rotated 45°" />
+            <fa:IconBlock Icon="ShieldAlt" fa:Awesome.Flip="Horizontal" FontSize="32" ToolTip="Flipped horizontally" />
+            <fa:IconImage Icon="ShieldAlt" fa:Awesome.Flip="Vertical" ToolTip="Flipped vertically" />
         </StackPanel>
 
         <TextBlock Grid.Row="9" Grid.Column="0" Text="Inline (:icon:)" />
-        <TextBlock Grid.Row="9" Grid.Column="1" fa:Awesome.Inline=":btc: is a cryptocurrency. :Eur: is a fiat money." />
+        <TextBlock Grid.Row="9" Grid.Column="1" fa:Awesome.Inline=":bitcoin: is a cryptocurrency. :eurosign: is a fiat money." />
 
         <TextBlock Grid.Row="10" Grid.Column="0" Text="Inline ({fa:Icon})" />
         <TextBlock Grid.Row="10" Grid.Column="1" VerticalAlignment="Stretch"
                    Foreground="BlueViolet" FontWeight="Bold" FontSize="24" FontStretch="ExtraExpanded"
-                   fa:Awesome.Pattern="{}{fa:(\w+)}"
-                   fa:Awesome.Inline="{}{fa:Btc} is a cryptocurrency. {fa:eur} is a fiat money." />
+                   fa:Awesome.Pattern="{}{fa:([\w,-]+)}"
+                   fa:Awesome.Inline="{}{fa:bitcoin} is a cryptocurrency. {fa:eurosign} is a fiat money." />
     </Grid>
 </Window>
