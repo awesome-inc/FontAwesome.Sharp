@@ -31,6 +31,9 @@ echo error: can't find MSBuild.exe. Is .NET Framework installed?
 exit /B 2
 
 :checkNuget
+echo ==========================================
+echo %msbuild%
+echo ==========================================
 for %%a in (NuGet.exe) do (set nugetPath=%%~$PATH:a)
 if not defined nugetPath (
 	echo error: can't find NuGet.exe in your path.
