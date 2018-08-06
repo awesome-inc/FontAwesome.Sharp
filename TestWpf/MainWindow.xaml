@@ -71,6 +71,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition Height="80" />
+            <RowDefinition Height="80" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -134,8 +135,11 @@
         <TextBlock Grid.Row="9" Grid.Column="0" Text="Inline (:icon:)" />
         <TextBlock Grid.Row="9" Grid.Column="1" fa:Awesome.Inline=":bitcoin: is a cryptocurrency. :eurosign: is a fiat money." />
 
-        <TextBlock Grid.Row="10" Grid.Column="0" Text="Inline ({fa:Icon})" />
-        <TextBlock Grid.Row="10" Grid.Column="1" VerticalAlignment="Stretch"
+        <TextBlock Grid.Row="10" Grid.Column="0" Text="Changing Icon (now memory leak)" />
+        <ContentControl  Grid.Row="10" Grid.Column="1" Content="{Binding IconBlock}" Height="80"/>
+
+        <TextBlock Grid.Row="11" Grid.Column="0" Text="Inline ({fa:Icon})" />
+        <TextBlock Grid.Row="11" Grid.Column="1" VerticalAlignment="Stretch"
                    Foreground="BlueViolet" FontWeight="Bold" FontSize="24" FontStretch="ExtraExpanded"
                    fa:Awesome.Pattern="{}{fa:([\w,-]+)}"
                    fa:Awesome.Inline="{}{fa:bitcoin} is a cryptocurrency. {fa:eurosign} is a fiat money." />
