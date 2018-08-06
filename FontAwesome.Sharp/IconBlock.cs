@@ -1,12 +1,14 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace FontAwesome.Sharp
 {
     // adapted from https://bitbucket.org/ioachim/fontawesome.wpf
-    public class IconBlock : TextBlock
+    public class IconBlock
+        : TextBlock
     {
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon),
             typeof(IconChar), typeof(IconBlock),
@@ -17,16 +19,20 @@ namespace FontAwesome.Sharp
             VerticalAlignment = VerticalAlignment.Center;
             TextAlignment = TextAlignment.Center;
 
+            EventHandler handler = OnTextValueChanged;
             var descriptor = DependencyPropertyDescriptor.FromProperty(TextProperty, typeof(IconBlock));
-            descriptor.AddValueChanged(this, OnTextValueChanged);
+            descriptor.AddValueChanged(this, handler);
             var fontFamily = IconHelper.FontFor(Icon);
             if (fontFamily != null)
                 FontFamily = fontFamily;
+
+            // remove handler otherwise we get a memory leak
+            Unloaded += (s, e) => { descriptor.RemoveValueChanged(this, handler); };
         }
 
         public IconChar Icon
         {
-            get => (IconChar) GetValue(IconProperty);
+            get => (IconChar)GetValue(IconProperty);
             set => SetValue(IconProperty, value);
         }
 
@@ -40,7 +46,7 @@ namespace FontAwesome.Sharp
             iconBlock.SetValue(FontFamilyProperty, IconHelper.FontFor(iconBlock.Icon));
             iconBlock.SetValue(TextAlignmentProperty, TextAlignment.Center);
             iconBlock.SetValue(VerticalAlignmentProperty, VerticalAlignment.Center);
-            iconBlock.SetValue(TextProperty, char.ConvertFromUtf32((int) e.NewValue));
+            iconBlock.SetValue(TextProperty, char.ConvertFromUtf32((int)e.NewValue));
         }
 
         private void OnTextValueChanged(object sender, EventArgs e)
