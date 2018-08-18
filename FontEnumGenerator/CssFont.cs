@@ -1,33 +1,29 @@
 using System;
 using System.CodeDom.Compiler;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace FontAwesome.Sharp
+namespace FontEnumGenerator
 {
-    class Dummy
+    internal class CssFont
     {
-        class Fa
+        public static List<FontEnumItem> Parse(string cssFile, string prefix = ".fa-")
         {
-            public string Class { get; set; }
-            public string Code { get; set; }
-        }
-
-        void a()
-        {
-            var css = "...";
+            var css = File.ReadAllText(cssFile);
             // http://derekslager.com/blog/posts/2007/09/a-better-dotnet-regular-expression-tester.ashx
             // NOTE: avoid double quotes on the website
-            var regEx = new Regex(@"\.fa-(.+):before\s*\{\s*content:\s*""\\(.+)"";\s*}", RegexOptions.Multiline);
+            var pattern = Regex.Escape(prefix) + @"(.+):before\s*\{\s*content:\s*""\\(.+)"";\s*}";
+            var regEx = new Regex(pattern, RegexOptions.Multiline);
 
-            var fas = regEx.Matches(css).OfType<Match>()
-                .Select(match => new Fa {Class = ValidIdentifier(match.Groups[1].Value), Code = match.Groups[2].Value})
+            var items = regEx.Matches(css).OfType<Match>()
+                .Select(match => new FontEnumItem {Class = ValidIdentifier(match.Groups[1].Value), Code = match.Groups[2].Value})
                 .OrderBy(x => x.Class)
                 .ToList();
 
-            fas.ForEach(fa => Trace.TraceInformation("\t\t public const string {0} = \"\\u{1}\";", fa.Class, fa.Code));
+            return items;
         }
 
         // c.f.: http://blog.visualt4.com/2009/02/creating-valid-c-identifiers.html
@@ -48,6 +44,5 @@ namespace FontAwesome.Sharp
                 ret = string.Concat("_", ret);
             return ret;
         }
-
     }
 }
