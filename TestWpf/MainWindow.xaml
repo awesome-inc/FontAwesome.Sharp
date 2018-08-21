@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         xmlns:testWpf="clr-namespace:TestWpf"
+        xmlns:mdi="clr-namespace:TestWpf.MaterialDesign"
         mc:Ignorable="d"
         Icon="{fa:IconSource Flag}"
         Title="TestWpf" Height="700" Width="800" d:DataContext="{d:DesignInstance testWpf:MainViewModel}">
@@ -161,6 +162,11 @@
                 <TextBlock Text="TextBlock '0xF002' (Unicode)" />
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="&#xf002;" FontFamily="{StaticResource MaterialDesign}"
                            Foreground="Chartreuse" TextAlignment="Center" FontSize="24" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="IconBlock:" />
+                <mdi:IconBlock Grid.Row="1" Grid.Column="1" Icon="AccessPointNetwork"
+                              Foreground="DarkSlateBlue" TextAlignment="Center"
+                              FontSize="24" VerticalAlignment="Center" />
             </Grid>
         </TabItem>
     </TabControl>

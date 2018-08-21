@@ -1,4 +1,6 @@
-namespace TestWpf
+using System.Windows.Media;
+
+namespace TestWpf.MaterialDesign
 {
     public enum MaterialIcons
     {

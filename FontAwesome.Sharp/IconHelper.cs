@@ -38,6 +38,11 @@ namespace FontAwesome.Sharp
             return TypefaceFor(iconChar.ToChar(), out _, out _)?.FontFamily;
         }
 
+        public static FontFamily GetFont(this Assembly assembly, string path, string fontTitle)
+        {
+            return new FontFamily(BaseUri, $"./{assembly.GetName().Name};component/{path}/#{fontTitle}");
+        }
+
         private static readonly Uri BaseUri = new Uri($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/");
         private const string FontPath = "./FontAwesome.Sharp;component/fonts/";
 
@@ -53,7 +58,7 @@ namespace FontAwesome.Sharp
 
         private static Typeface GetTypeFace(string fontTitle)
         {
-            var fontFamily = new FontFamily(BaseUri, $"{FontPath}#{fontTitle}");
+            var fontFamily = Assembly.GetExecutingAssembly().GetFont("fonts", fontTitle);
             return new Typeface(fontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
         }
 

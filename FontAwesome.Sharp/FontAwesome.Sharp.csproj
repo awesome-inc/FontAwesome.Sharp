@@ -57,6 +57,7 @@
     <Compile Include="Awesome.cs" />
     <Compile Include="FormsIconExtensions.cs" />
     <Compile Include="FormsIconHelper.cs" />
+    <Compile Include="IconBlockBase.cs" />
     <Compile Include="IconButton.cs">
       <SubType>Component</SubType>
     </Compile>

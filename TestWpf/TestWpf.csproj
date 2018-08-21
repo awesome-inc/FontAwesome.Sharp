@@ -73,7 +73,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MaterialIcons.cs" />
+    <Compile Include="MaterialDesign\IconBlock.cs" />
+    <Compile Include="MaterialDesign\MaterialIcons.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
