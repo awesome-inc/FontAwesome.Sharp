@@ -57,11 +57,13 @@
     <Compile Include="Awesome.cs" />
     <Compile Include="FormsIconExtensions.cs" />
     <Compile Include="FormsIconHelper.cs" />
+    <Compile Include="IconBase.cs" />
     <Compile Include="IconBlockBase.cs" />
     <Compile Include="IconButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="IconChar.cs" />
+    <Compile Include="IconImageBase.cs" />
     <Compile Include="IconToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -91,6 +93,7 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ToTextBase.cs" />
     <Resource Include="fonts\fa-solid-900.ttf" />
     <Resource Include="fonts\fa-brands-400.ttf" />
     <None Include="fonts\fa-regular-400.ttf" />

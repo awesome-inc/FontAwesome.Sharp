@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Awesome_Should.cs" />
     <Compile Include="IconCache_Should.cs" />
+    <Compile Include="IconHelper_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

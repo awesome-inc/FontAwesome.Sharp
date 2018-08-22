@@ -20,8 +20,9 @@
         <FontFamily x:Key="MaterialDesign">/TestWpf;component/fonts/#Material Design Icons</FontFamily>
         <Brush x:Key="FaBrush">DarkOrchid</Brush>
 
-        <Style TargetType="Button">
+        <Style TargetType="Button" x:Key="FaButtonStyle">
             <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
+
             <Setter Property="FontSize" Value="24" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -37,6 +38,10 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="Button" x:Key="MdiButtonStyle" BasedOn="{StaticResource FaButtonStyle}">
+            <Setter Property="FontFamily" Value="{StaticResource MaterialDesign}" />
+        </Style>
+
         <Style TargetType="Image" x:Key="FaImageStyle">
             <Setter Property="Width" Value="20" />
             <Setter Property="Height" Value="20" />
@@ -45,6 +50,11 @@
                                  ImageStyle="{StaticResource FaImageStyle}" />
 
         <Style TargetType="fa:IconImage">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Margin" Value="8,0,8,0" />
+        </Style>
+        <Style TargetType="mdi:IconImage">
             <Setter Property="Width" Value="32" />
             <Setter Property="Height" Value="32" />
             <Setter Property="Margin" Value="8,0,8,0" />
@@ -92,7 +102,7 @@
                       FontSize="24" VerticalAlignment="Center" />
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="{}{Icon} Button" />
-                <Button Grid.Row="2" Grid.Column="1"
+                <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource FaButtonStyle}"
                 Content="{fa:Icon Meetup, Foreground={StaticResource FaBrush}}" />
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="IconImage:" />
@@ -112,7 +122,7 @@
 
                 <TextBlock Grid.Row="5" Grid.Column="0" Text="{}{ToText} Button" />
                 <Button Grid.Row="5" Grid.Column="1" Content="{fa:ToText Play}" Command="{Binding PlayCommand}"
-                ToolTip="Click me!" />
+                ToolTip="Click me!"  Style="{StaticResource FaButtonStyle}" />
 
                 <TextBlock Grid.Row="6" Grid.Column="0" Text="Stacking Icons" />
                 <Grid Grid.Row="6" Grid.Column="1" ToolTip="Two icons stacked in a grid">
@@ -139,19 +149,22 @@
                 <TextBlock Grid.Row="9" Grid.Column="0" Text="Inline (:icon:)" />
                 <TextBlock Grid.Row="9" Grid.Column="1" fa:Awesome.Inline=":bitcoin: is a cryptocurrency. :eurosign: is a fiat money." />
 
-                <TextBlock Grid.Row="10" Grid.Column="0" Text="Changing Icon (now memory leak)" />
-                <ContentControl  Grid.Row="10" Grid.Column="1" Content="{Binding IconBlock}" Height="80"/>
-
-                <TextBlock Grid.Row="11" Grid.Column="0" Text="Inline ({fa:Icon})" />
-                <TextBlock Grid.Row="11" Grid.Column="1" VerticalAlignment="Stretch"
+                <TextBlock Grid.Row="10" Grid.Column="0" Text="Inline ({fa:Icon})" />
+                <TextBlock Grid.Row="10" Grid.Column="1" VerticalAlignment="Stretch"
                    Foreground="BlueViolet" FontWeight="Bold" FontSize="24" FontStretch="ExtraExpanded"
                    fa:Awesome.Pattern="{}{fa:([\w,-]+)}"
                    fa:Awesome.Inline="{}{fa:bitcoin} is a cryptocurrency. {fa:eurosign} is a fiat money." />
+
+                <TextBlock Grid.Row="11" Grid.Column="0" Text="Changing Icon (now memory leak)" />
+                <ContentControl  Grid.Row="11" Grid.Column="1" Content="{Binding IconBlock}" Height="80"/>
             </Grid>
         </TabItem>
         <TabItem Header="MaterialDesign">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
@@ -167,6 +180,17 @@
                 <mdi:IconBlock Grid.Row="1" Grid.Column="1" Icon="AccessPointNetwork"
                               Foreground="DarkSlateBlue" TextAlignment="Center"
                               FontSize="24" VerticalAlignment="Center" />
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="IconImage:" />
+                <mdi:IconImage Grid.Row="2" Grid.Column="1" Icon="AccountBoxMultiple" Foreground="Red"
+                               fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="{}{Icon} Button" />
+                <Button Grid.Row="3" Grid.Column="1"  Style="{StaticResource MdiButtonStyle}"
+                        Content="{mdi:Icon AirplaneLanding, Foreground={StaticResource FaBrush}}" />
+
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{ToText} Button" />
+                <Button Grid.Row="4" Grid.Column="1" Content="{mdi:ToText AlarmSnooze}" Style="{StaticResource MdiButtonStyle}"/>
             </Grid>
         </TabItem>
     </TabControl>
