@@ -1,18 +1,24 @@
 # FontAwesome.Sharp
 
-A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF & Windows Forms applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
-
-[![Join the chat at https://gitter.im/awesome-inc/FontAwesome.Sharp](https://badges.gitter.im/awesome-inc/FontAwesome.Sharp.svg)](https://gitter.im/awesome-inc/FontAwesome.Sharp?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
-[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp) 
-
-[![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/) 
+[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp)
+[![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/)
 [![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)
-
 [![Coverage Status](https://coveralls.io/repos/github/awesome-inc/FontAwesome.Sharp/badge.svg)](https://coveralls.io/github/awesome-inc/FontAwesome.Sharp)
+
+A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF & Windows Forms applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
 
 Here is a screenshot from the sample application
 
-![](FontAwesome.Sharp.png)
+![Screenshot](img/FontAwesome.Sharp.png)
+
+How to
+
+- [Install](#installation)
+- Use with [WPF](#wpf)
+- Use with [Windows Forms](#windows-forms)
+- [Use custom fonts](#using-custom-fonts) other than Font Awesome, e.g. [Material Design Icons](https://materialdesignicons.com/).
+
+Or see the [FAQ](#faq).
 
 ## Installation
 
@@ -22,9 +28,7 @@ Add the NuGet package to your WPF or Windows Forms application or library. From 
 Install-Package FontAwesome.Sharp
 ```
 
-## How to use
-
-### Windows Forms
+## Windows Forms
 
 For Windows Forms projects use the subclasses
 
@@ -37,7 +41,7 @@ For Windows Forms projects use the subclasses
 
 respectively. For more details including setting the application icon or using a treeview, have a look at the sample application `TestForms`.
 
-### WPF
+## WPF
 
 If you use WPF you may remove the references to
 
@@ -238,18 +242,96 @@ Often you want to have the menu icons all have a consistent style (e.g. size and
     ImageStyle="{StaticResource FaImageStyle}"/>
 ```
 
+## Using custom fonts
+
+As of version *5.2+* it is easy to reuse the library with other icon fonts (see e.g. [Vector Icons Roundup](https://tagliala.github.io/vectoriconsroundup/) for a comparative list).
+
+See the `TestWPF` sample application for an example on how to use  [Material Design Icons](https://materialdesignicons.com/) in WPF.
+
+The steps to use your own icon font are laid out below with Google's Material Design Icons as an example:
+
+1. Download the web font, e.g. [Templarian/MaterialDesign-Webfont](https://github.com/Templarian/MaterialDesign-Webfont/releases). You will need the `.css` and the `.ttf` files.
+2. Generate the font icon enum class using `FontEnumGenerator`
+
+    ```console
+    FontEnumGenerator.exe --css Content\materialdesignicons.css --prefix .mdi- --name MaterialIcons
+    ```
+
+   This will parse the `.css` file and generate an enumeration class `MaterialIcons.cs` with the UTF8-codes of all css-items matching the specified prefix `.mdi-*-before`, cf.
+
+   ```css
+    .mdi-access-point:before {
+    content: "\F002";
+    }
+
+    .mdi-access-point-network:before {
+    content: "\F003";
+    }
+    ...
+   ```
+
+   ```csharp
+    public enum MaterialIcons
+    {
+        None = 0,
+        AccessPoint = 0xF002,
+        AccessPointNetwork = 0xF003,
+        ...
+   ```
+
+3. Add the generated class and the font file (`.ttf`) to your project. Check that `Build Action` is set to `Resource` for the font file.
+
+    ![Set build action to resource](img/font_as_resource.png)
+
+4. Load the font and declare icon classes using the enum and the corresponding font
+
+    ```csharp
+    internal static class MaterialDesignFont
+    {
+        internal static readonly FontFamily FontFamily =
+            Assembly.GetExecutingAssembly().GetFont("fonts", "Material Design Icons");
+    }
+    ...
+    public class IconBlock : IconBlockBase<MaterialIcons>
+    {
+        public IconBlock() : base(MaterialDesignFont.FontFamily)
+        {
+        }
+    }
+    ...
+    ```
+
+    You can find the font title by inspecting the File properties.
+
+    ![Font Title](img/font_title.png)
+
+5. Use your custom classes, e.g. with Xaml
+
+    ```xml
+    <Window x:Class="TestWpf.MainWindow"
+        ...
+        xmlns:mdi="clr-namespace:TestWpf.MaterialDesign">
+        ...
+        <mdi:IconBlock Icon="AccessPointNetwork" FontSize="24" Foreground="DarkSlateBlue" />
+        ...
+    ```
+
+    which will look like this
+
+    ![Material Design Icon: Access Point Network](img/mdi-access-point-network.png)
+
 ## Related Projects
 
 Other libraries for using FontAwesome in Windows applications that we know of and are available on NuGet:
 
 - [FontAwesome.Portable](http://www.nuget.org/packages/FontAwesome.Portable/): Great idea to make it a portable library. However, we could not find the source repository.
-- [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF): Clean and nice implementation. Icon metadata and spinning support are really cool. 
+- [charri/Font-Awesome-WPF](https://github.com/charri/Font-Awesome-WPF): Clean and nice implementation. Icon metadata and spinning support are really cool.
 - [FontAwesome-WindowsForms](https://github.com/denwilliams/FontAwesome-WindowsForms): An example implementation for Windows Forms. We adapted this for **FontAwesome.Sharp.4.4.0**.
 
 In production, however, we needed to support
 
-- Ribbons using ImageSource (not only Image), 
-- MVVM with Icon enum (smaller memory footprint on the viewmodel than Image), 
+- Ribbons using ImageSource (not only Image),
+- MVVM with Icon enum (smaller memory footprint on the viewmodel than Image),
 - more markup extensions to keep the Xaml compact
 - and finally `Windows.Forms` as well.
 
