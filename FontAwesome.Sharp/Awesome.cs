@@ -29,6 +29,7 @@ namespace FontAwesome.Sharp
             typeof(FlipOrientation), typeof(Awesome), new PropertyMetadata(FlipOrientation.Normal, FlipChanged));
 
 
+        // ReSharper disable once UnusedMember.Global
         public static bool GetSpin(DependencyObject target)
         {
             return (bool)target.GetValue(SpinProperty);
@@ -59,6 +60,7 @@ namespace FontAwesome.Sharp
             target.SetValue(RotationProperty, value);
         }
 
+        // ReSharper disable once UnusedMember.Global
         public static FlipOrientation GetFlip(DependencyObject target)
         {
             return (FlipOrientation)target.GetValue(FlipProperty);

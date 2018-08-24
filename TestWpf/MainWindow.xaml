@@ -167,6 +167,8 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -187,10 +189,30 @@
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="{}{Icon} Button" />
                 <Button Grid.Row="3" Grid.Column="1"  Style="{StaticResource MdiButtonStyle}"
-                        Content="{mdi:Icon AirplaneLanding, Foreground={StaticResource FaBrush}}" />
+                        ToolTip="Click to toggle spinning"
+                        Content="{mdi:Icon AirplaneLanding, Foreground={StaticResource FaBrush}}"
+                        Command="{Binding ToggleSpinCommand}"
+                        fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="4"/>
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{ToText} Button" />
-                <Button Grid.Row="4" Grid.Column="1" Content="{mdi:ToText AlarmSnooze}" Style="{StaticResource MdiButtonStyle}"/>
+                <Button Grid.Row="4" Grid.Column="1"
+                        Command="{Binding PlayCommand}"
+                        Content="{mdi:ToText Play}" Style="{StaticResource MdiButtonStyle}" />
+
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="Spinning Icons" />
+                <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <mdi:IconImage Icon="Sync" fa:Awesome.Spin="{Binding IsSpinning}" Foreground="SlateGray" />
+                    <mdi:IconBlock Icon="ProgressUpload" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2"
+                                  Foreground="DarkSlateBlue" FontSize="32" />
+                    <mdi:IconBlock Icon="ProgressDownload" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="4"
+                                  Foreground="DarkMagenta" FontSize="32" />
+                </StackPanel>
+
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="Stacking Icons" />
+                <Grid Grid.Row="6" Grid.Column="1" ToolTip="Two icons stacked in a grid">
+                    <mdi:IconImage Icon="Camera" Width="16" Height="16" />
+                    <mdi:IconImage Icon="Cancel" Foreground="Red" />
+                </Grid>
             </Grid>
         </TabItem>
     </TabControl>

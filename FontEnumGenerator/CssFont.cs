@@ -1,4 +1,3 @@
-using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Globalization;
@@ -38,7 +37,7 @@ namespace FontEnumGenerator
             var name = TextInfo.ToTitleCase(value.Replace('-', ' '));
 
             // Compliant with item 2.4.2 of the C# specification
-            var ret = InvalidChars.Replace(name, String.Empty);
+            var ret = InvalidChars.Replace(name, string.Empty);
             //The identifier must start with a character or a "_"
             if (!char.IsLetter(ret, 0) || !Csharp.IsValidIdentifier(ret))
                 ret = string.Concat("_", ret);
