@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -14,11 +15,40 @@ namespace FontAwesome.Sharp
         public static readonly Brush DefaultBrush = SystemColors.WindowTextBrush; // this is TextBlock default brush
         public const double DefaultSize = 16.0;
 
+        public static FontFamily GetFont(this Assembly assembly, string path, string fontTitle)
+        {
+            return new FontFamily(BaseUri, $"./{assembly.GetName().Name};component/{path}/#{fontTitle}");
+        }
+
+        public static ImageSource ToImageSource<TEnum>(this FontFamily fontFamily, TEnum icon,
+            Brush foregroundBrush = null, double size = DefaultSize)
+            where TEnum : struct, IConvertible, IComparable, IFormattable
+        {
+            if (fontFamily.TypefaceFor(icon.ToChar(), out var gt, out var glyphIndex) == null)
+                return null;
+            return ToImageSource(foregroundBrush, size, gt, glyphIndex);
+        }
+
+        public static char ToChar<TEnum>(this TEnum icon, IFormatProvider formatProvider = null) where TEnum : struct, IConvertible, IComparable, IFormattable
+        {
+            return char.ConvertFromUtf32(icon.ToInt32(formatProvider ?? CultureInfo.InvariantCulture)).Single();
+        }
+
         public static ImageSource ToImageSource(this IconChar iconChar,
             Brush foregroundBrush = null, double size = DefaultSize)
         {
             if (TypefaceFor(iconChar.ToChar(), out var gt, out var glyphIndex) == null)
                 return null;
+            return ToImageSource(foregroundBrush, size, gt, glyphIndex);
+        }
+
+        public static char ToChar(this IconChar iconChar)
+        {
+            return ToChar<IconChar>(iconChar);
+        }
+
+        private static ImageSource ToImageSource(Brush foregroundBrush, double size, GlyphTypeface gt, ushort glyphIndex)
+        {
             var fontSize = PixelsToPoints(size);
             var width = gt.AdvanceWidths[glyphIndex];
             var glyphRun = new GlyphRun(gt, 0, false, fontSize,
@@ -28,18 +58,22 @@ namespace FontAwesome.Sharp
             return new DrawingImage(glyphRunDrawing);
         }
 
-        public static char ToChar(this IconChar iconChar)
+        private static Typeface TypefaceFor(this FontFamily fontFamily, char c, out GlyphTypeface gt, out ushort glyphIndex)
         {
-            return char.ConvertFromUtf32((int)iconChar).Single();
+            gt = null;
+            glyphIndex = 42;
+            foreach (var typeface in fontFamily.GetTypefaces())
+                if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
+                    return typeface;
+            return SystemFonts.MessageFontFamily.GetTypefaces().FirstOrDefault();
         }
 
-        public static FontFamily FontFor(IconChar iconChar)
+        internal static FontFamily FontFor(IconChar iconChar)
         {
             return TypefaceFor(iconChar.ToChar(), out _, out _)?.FontFamily;
         }
 
         private static readonly Uri BaseUri = new Uri($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/");
-        private const string FontPath = "./FontAwesome.Sharp;component/fonts/";
 
         private static readonly string[] FontTitles =
         {
@@ -53,7 +87,7 @@ namespace FontAwesome.Sharp
 
         private static Typeface GetTypeFace(string fontTitle)
         {
-            var fontFamily = new FontFamily(BaseUri, $"{FontPath}#{fontTitle}");
+            var fontFamily = Assembly.GetExecutingAssembly().GetFont("fonts", fontTitle);
             return new Typeface(fontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
         }
 
@@ -64,7 +98,7 @@ namespace FontAwesome.Sharp
             foreach (var typeface in Typefaces)
                 if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
                     return typeface;
-            return SystemFonts.MessageFontFamily.GetTypefaces().FirstOrDefault(); 
+            return SystemFonts.MessageFontFamily.GetTypefaces().FirstOrDefault();
         }
 
         private static double PixelsToPoints(double size)
@@ -77,7 +111,7 @@ namespace FontAwesome.Sharp
         {
             // How can I get the DPI in WPF?, cf.: http://stackoverflow.com/a/12487917/2592915
             var dpiProperty = typeof(SystemParameters).GetProperty("Dpi", BindingFlags.NonPublic | BindingFlags.Static);
-            return (int) dpiProperty.GetValue(null, null);
+            return (int)dpiProperty.GetValue(null, null);
         }
     }
 }

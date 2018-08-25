@@ -1,6 +1,11 @@
 ﻿<SolutionConfiguration>
   <Settings>
     <AllowParallelTestExecution>True</AllowParallelTestExecution>
+    <MetricsExclusionList>
+      <Value>TestForms\TestForms.csproj</Value>
+      <Value>TestWpf\TestWpf.csproj</Value>
+      <Value>FontEnumGenerator\FontEnumGenerator.csproj</Value>
+    </MetricsExclusionList>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>
 </SolutionConfiguration>

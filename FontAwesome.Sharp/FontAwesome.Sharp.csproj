@@ -57,9 +57,13 @@
     <Compile Include="Awesome.cs" />
     <Compile Include="FormsIconExtensions.cs" />
     <Compile Include="FormsIconHelper.cs" />
+    <Compile Include="IconBase.cs" />
+    <Compile Include="IconBlockBase.cs" />
     <Compile Include="IconButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="IconChar.cs" />
+    <Compile Include="IconImageBase.cs" />
     <Compile Include="IconToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -81,12 +85,6 @@
     <Compile Include="IconCache.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="ToText.cs" />
-    <None Include="Dummy.cs" />
-    <Compile Include="IconChar.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IconChar.tt</DependentUpon>
-    </Compile>
     <Compile Include="IconHelper.cs" />
     <Compile Include="IconBlock.cs" />
     <Compile Include="Icon.cs" />
@@ -95,22 +93,16 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ToTextBase.cs" />
     <Resource Include="fonts\fa-solid-900.ttf" />
     <Resource Include="fonts\fa-brands-400.ttf" />
     <None Include="fonts\fa-regular-400.ttf" />
     <None Include="packages.config" />
-    <None Include="IconChar.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IconChar.cs</LastGenOutput>
-    </None>
     <None Include="Package.nuspec" />
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\fontawesome-all.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets')" />

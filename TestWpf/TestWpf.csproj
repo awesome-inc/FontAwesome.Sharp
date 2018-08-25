@@ -73,6 +73,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MaterialDesign\Icon.cs" />
+    <Compile Include="MaterialDesign\IconBlock.cs" />
+    <Compile Include="MaterialDesign\IconImage.cs" />
+    <Compile Include="MaterialDesign\MaterialDesignFont.cs" />
+    <Compile Include="MaterialDesign\MaterialIcons.cs" />
+    <Compile Include="MaterialDesign\ToText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -90,6 +96,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="fonts\materialdesignicons-webfont.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

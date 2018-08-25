@@ -1,20 +1,9 @@
-using System;
-using System.Windows.Markup;
-
 namespace FontAwesome.Sharp
 {
-    public class ToText : MarkupExtension
+    public class ToText : ToTextBase<IconChar>
     {
-        private readonly string _text;
-
-        public ToText(IconChar iconChar)
+        public ToText(IconChar icon) : base(icon)
         {
-            _text = new string((char) iconChar, 1);
-        }
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return _text;
         }
     }
 }

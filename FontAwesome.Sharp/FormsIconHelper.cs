@@ -71,7 +71,7 @@ namespace FontAwesome.Sharp
                 imageList.AddIcon(icon, size, color);
         }
 
-        internal static Font GetAdjustedIconFont(this Graphics g, FontFamily fontFamily, string text,
+        private static Font GetAdjustedIconFont(this Graphics g, FontFamily fontFamily, string text,
             int width, int height, int maxFontSize = 0, int minFontSize = 4, bool smallestOnFail = true)
         {
             var safeMaxFontSize = maxFontSize > 0 ? maxFontSize : height;
