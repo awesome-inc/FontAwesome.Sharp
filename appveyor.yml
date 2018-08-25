@@ -23,11 +23,13 @@ for:
   branches:
     only:
       - master
+  environment:
+    BUILD_TARGET: Package
   build_script:
-    - build.bat /t:CoverageUpload;Deploy /v:m
-  skip_non_tags: true
+    - cmd: if "%APPVEYOR_REPO_TAG%" == "true" set BUILD_TARGET=Deploy
+    - cmd: build.bat /t:CoverageUpload;%BUILD_TARGET% /v:m
 
 # all other branches
 -
   build_script:
-    - build.bat /t:CoverageUpload;Package /v:m
+    - cmd: build.bat /t:CoverageUpload;Package /v:m
