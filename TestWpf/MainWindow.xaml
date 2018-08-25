@@ -97,7 +97,7 @@
                    Foreground="Chartreuse" TextAlignment="Center" FontSize="24" />
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="IconBlock:" />
-                <fa:IconBlock Grid.Row="1" Grid.Column="1" Icon="Adjust"
+                <fa:IconBlock Grid.Row="1" Grid.Column="1" Icon="AirFreshener"
                       Foreground="DarkSlateBlue" TextAlignment="Center"
                       FontSize="24" VerticalAlignment="Center" />
 
@@ -106,7 +106,7 @@
                 Content="{fa:Icon Meetup, Foreground={StaticResource FaBrush}}" />
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="IconImage:" />
-                <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="GooglePlusSquare" Foreground="Red"
+                <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="Markdown" Foreground="Red"
                       fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{IconSource} Ribbon, Click for spinning" />
