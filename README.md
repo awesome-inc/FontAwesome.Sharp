@@ -357,7 +357,7 @@ Here is an MSBuild snippet/example of how i got this working in 2015 with `Stron
 ```xml
 <!--Strong naming assemblies -->
 <ItemGroup>
-    <!--strong name all NFileSearch stuff -->
+    <!--strong name font awesome sharp -->
     <StrongNameAssembly Include="$(SolutionDir)packages\FontAwesome.Sharp.*\lib\**\*.dll" />
 </ItemGroup>
 
