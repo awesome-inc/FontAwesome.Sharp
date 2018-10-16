@@ -17,17 +17,14 @@ namespace FontAwesome.Sharp
     {
         private static readonly PrivateFontCollection Fonts = InitializeFonts();
 
-        /// <summary>
-        ///     Convert icon to bitmap image with GDI+ API - positioning of icon isn't perfect, but aliasing is good. Good for
-        ///     small icons.
-        /// </summary>
-        public static Bitmap ToBitmap(this IconChar icon, int size, Color color, double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
+        public static Bitmap ToBitmap<TEnum>(this FontFamily fontFamily, TEnum icon, int size, Color color,
+            double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
+            where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            var fontFamily = FontFamilyFor(icon);
             var bitmap = new Bitmap(size, size);
             using (var graphics = Graphics.FromImage(bitmap))
             {
-                var text = char.ConvertFromUtf32((int)icon);
+                var text = icon.ToChar().ToString();
                 var font = GetAdjustedIconFont(graphics, fontFamily, text, size, size);
                 graphics.Rotate(rotation, size, size);
                 var brush = new SolidBrush(color);
@@ -36,6 +33,17 @@ namespace FontAwesome.Sharp
 
             bitmap.Flip(flip);
             return bitmap;
+        }
+
+        /// <summary>
+        ///     Convert icon to bitmap image with GDI+ API - positioning of icon isn't perfect, but aliasing is good. Good for
+        ///     small icons.
+        /// </summary>
+        public static Bitmap ToBitmap(this IconChar icon, int size, Color color,
+            double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
+        {
+            var fontFamily = FontFamilyFor(icon);
+            return fontFamily.ToBitmap(icon, size, color, rotation, flip);
         }
 
         public static void DrawIcon(this Graphics graphics, Font font, string text, int width, int height, Brush brush)
@@ -304,7 +312,7 @@ namespace FontAwesome.Sharp
                         var currentRow = (uint*)imageData.Scan0;
                         var lastRow = currentRow + size * stride;
 
-                        // Here is 2 cycles because bmp format can contatin 
+                        // Here is 2 cycles because bmp format can contain 
                         // empty bytes in the end of pixels horizontal string
                         // and I'm not sure if bytes in memory can or not can
                         // have similar structure.
