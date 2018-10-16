@@ -16,9 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		FontAwesome.Sharp.png = FontAwesome.Sharp.png
 		GitVersion.yml = GitVersion.yml
 		LICENSE = LICENSE
+		package.json = package.json
 		README.md = README.md
 		solution.targets = solution.targets
 		SolutionInfo.cs = SolutionInfo.cs
+		yarn.lock = yarn.lock
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "TestWpf\TestWpf.csproj", "{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}"
