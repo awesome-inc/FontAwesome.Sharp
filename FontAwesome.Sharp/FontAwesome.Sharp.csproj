@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\UtilPack.NuGet.MSBuild.2.8.0\build\UtilPack.NuGet.MSBuild.props" Condition="Exists('..\packages\UtilPack.NuGet.MSBuild.2.8.0\build\UtilPack.NuGet.MSBuild.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -105,15 +106,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets'))" />
     <Error Condition="!Exists('..\packages\OneClickBuild.1.11.5\build\OneClickBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OneClickBuild.1.11.5\build\OneClickBuild.targets'))" />
+    <Error Condition="!Exists('..\packages\GitVersionTask.4.0.0\build\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.4.0.0\build\GitVersionTask.targets'))" />
+    <Error Condition="!Exists('..\packages\UtilPack.NuGet.MSBuild.2.8.0\build\UtilPack.NuGet.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UtilPack.NuGet.MSBuild.2.8.0\build\UtilPack.NuGet.MSBuild.props'))" />
   </Target>
   <Import Project="..\packages\OneClickBuild.1.11.5\build\OneClickBuild.targets" Condition="Exists('..\packages\OneClickBuild.1.11.5\build\OneClickBuild.targets')" />
+  <Import Project="..\packages\GitVersionTask.4.0.0\build\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.4.0.0\build\GitVersionTask.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

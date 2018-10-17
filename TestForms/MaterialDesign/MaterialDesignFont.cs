@@ -1,12 +1,12 @@
+using System.Drawing;
 using System.Reflection;
-using System.Windows.Media;
 using FontAwesome.Sharp;
 
-namespace TestWpf.MaterialDesign
+namespace TestForms.MaterialDesign
 {
     internal static class MaterialDesignFont
     {
         internal static readonly FontFamily FontFamily =
-            Assembly.GetExecutingAssembly().LoadFont("fonts", "Material Design Icons");
+            Assembly.GetExecutingAssembly().LoadResourceFont("fonts", "materialdesignicons-webfont.ttf");
     }
 }

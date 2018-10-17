@@ -15,7 +15,7 @@ namespace FontAwesome.Sharp
         public static readonly Brush DefaultBrush = SystemColors.WindowTextBrush; // this is TextBlock default brush
         public const double DefaultSize = 16.0;
 
-        public static FontFamily GetFont(this Assembly assembly, string path, string fontTitle)
+        public static FontFamily LoadFont(this Assembly assembly, string path, string fontTitle)
         {
             return new FontFamily(BaseUri, $"./{assembly.GetName().Name};component/{path}/#{fontTitle}");
         }
@@ -73,7 +73,7 @@ namespace FontAwesome.Sharp
             return TypefaceFor(iconChar.ToChar(), out _, out _)?.FontFamily;
         }
 
-        private static readonly Uri BaseUri = new Uri($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/");
+        internal static readonly Uri BaseUri = new Uri($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/");
 
         private static readonly string[] FontTitles =
         {
@@ -87,7 +87,7 @@ namespace FontAwesome.Sharp
 
         private static Typeface GetTypeFace(string fontTitle)
         {
-            var fontFamily = Assembly.GetExecutingAssembly().GetFont("fonts", fontTitle);
+            var fontFamily = Assembly.GetExecutingAssembly().LoadFont("fonts", fontTitle);
             return new Typeface(fontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
         }
 

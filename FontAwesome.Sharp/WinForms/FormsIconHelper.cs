@@ -7,6 +7,7 @@ using System.Drawing.Text;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Application = System.Windows.Application;
@@ -108,6 +109,26 @@ namespace FontAwesome.Sharp
             return new Font(fontFamily, size, GraphicsUnit.Point);
         }
 
+        public static unsafe FontFamily LoadResourceFont(this Assembly assembly, string path, string fontFile)
+        {
+            var fonts = new PrivateFontCollection();
+            AddFont(fonts, fontFile, assembly, path);
+            return fonts.Families[0];
+        }
+
+        public static unsafe void AddFont(this PrivateFontCollection fonts, string fontFile,
+            Assembly assembly = null, string path = "fonts")
+        {
+            var fontBytes = GetFontBytes(fontFile, assembly, path);
+            fixed (byte* pFontData = fontBytes)
+            {
+                fonts.AddMemoryFont((IntPtr) pFontData, fontBytes.Length);
+                uint dummy = 0;
+                NativeMethods.AddFontMemResourceEx((IntPtr) pFontData, (uint) fontBytes.Length, IntPtr.Zero,
+                    ref dummy);
+            }
+        }
+
         private static unsafe PrivateFontCollection InitializeFonts()
         {
             var fontFiles = new[] { "fa-solid-900.ttf", /*"fa-regular-400.ttf",*/ "fa-brands-400.ttf" };
@@ -116,14 +137,7 @@ namespace FontAwesome.Sharp
             {
                 try
                 {
-                    var fontBytes = GetFontBytes(fontFile);
-                    fixed (byte* pFontData = fontBytes)
-                    {
-                        fonts.AddMemoryFont((IntPtr)pFontData, fontBytes.Length);
-                        uint dummy = 0;
-                        NativeMethods.AddFontMemResourceEx((IntPtr)pFontData, (uint)fontBytes.Length, IntPtr.Zero,
-                            ref dummy);
-                    }
+                    AddFont(fonts, fontFile);
                 }
                 catch (Exception ex)
                 {
@@ -134,12 +148,13 @@ namespace FontAwesome.Sharp
             return fonts;
         }
 
-        private static byte[] GetFontBytes(string fontFile)
+        private static byte[] GetFontBytes(string fontFile,
+            Assembly assembly = null, string path = "fonts")
         {
-            var streamInfo = Application.GetResourceStream(
-                //cf: http://stackoverflow.com/questions/6005398/uriformatexception-invalid-uri-invalid-port-specified
-                new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/FontAwesome.Sharp;component/fonts/{fontFile}",
-                    UriKind.Absolute));
+            var safeAssembly = assembly ?? Assembly.GetExecutingAssembly();
+            var relativeUri = new Uri($"./{safeAssembly.GetName().Name};component/{path}/{fontFile}", UriKind.Relative);
+            var uri = new Uri(IconHelper.BaseUri, relativeUri);
+            var streamInfo = Application.GetResourceStream(uri);
             // ReSharper disable once PossibleNullReferenceException
             using (streamInfo.Stream)
             {

@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\UtilPack.NuGet.MSBuild.2.8.0\build\UtilPack.NuGet.MSBuild.props" Condition="Exists('..\packages\UtilPack.NuGet.MSBuild.2.8.0\build\UtilPack.NuGet.MSBuild.props')" />
+  <Import Project="..\packages\NUnit.3.11.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.11.0\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -38,23 +40,56 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentAssertions, Version=5.4.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.5.4.2\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.11.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.11.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\TestWpf\MaterialDesign\MaterialIcons.cs">
+      <Link>MaterialDesign\MaterialIcons.cs</Link>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MaterialDesign\MaterialButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MaterialDesign\MaterialDropDownButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MaterialDesign\MaterialMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MaterialDesign\MaterialPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MaterialDesign\MaterialSplitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MaterialDesign\MaterialToolStripButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MaterialDesign\MaterialDesignFont.cs" />
+    <Compile Include="MaterialDesign\MaterialDesignFont_Should.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -70,6 +105,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Resource Include="..\TestWpf\fonts\materialdesignicons-webfont.ttf">
+      <Link>fonts\materialdesignicons-webfont.ttf</Link>
+    </Resource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -90,16 +128,19 @@
       <Name>FontAwesome.Sharp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets'))" />
     <Error Condition="!Exists('..\packages\OneClickBuild.1.11.5\build\OneClickBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OneClickBuild.1.11.5\build\OneClickBuild.targets'))" />
+    <Error Condition="!Exists('..\packages\NUnit.3.11.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.11.0\build\NUnit.props'))" />
+    <Error Condition="!Exists('..\packages\GitVersionTask.4.0.0\build\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.4.0.0\build\GitVersionTask.targets'))" />
+    <Error Condition="!Exists('..\packages\UtilPack.NuGet.MSBuild.2.8.0\build\UtilPack.NuGet.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UtilPack.NuGet.MSBuild.2.8.0\build\UtilPack.NuGet.MSBuild.props'))" />
   </Target>
   <Import Project="..\packages\OneClickBuild.1.11.5\build\OneClickBuild.targets" Condition="Exists('..\packages\OneClickBuild.1.11.5\build\OneClickBuild.targets')" />
+  <Import Project="..\packages\GitVersionTask.4.0.0\build\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.4.0.0\build\GitVersionTask.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
