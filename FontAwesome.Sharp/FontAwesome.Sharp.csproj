@@ -54,46 +54,49 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Awesome.cs" />
-    <Compile Include="FormsIconExtensions.cs" />
-    <Compile Include="FormsIconHelper.cs" />
-    <Compile Include="IconBase.cs" />
-    <Compile Include="IconBlockBase.cs" />
-    <Compile Include="IconButton.cs">
+    <Compile Include="WPF\Awesome.cs" />
+    <Compile Include="WinForms\FormsIconExtensions.cs" />
+    <Compile Include="WinForms\FormsIconHelper.cs" />
+    <Compile Include="WPF\IconBase.cs" />
+    <Compile Include="WPF\IconBlockBase.cs" />
+    <Compile Include="WinForms\IconButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinForms\IconButtonBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="IconChar.cs" />
-    <Compile Include="IconImageBase.cs" />
-    <Compile Include="IconToolStripButton.cs">
+    <Compile Include="WPF\IconImageBase.cs" />
+    <Compile Include="WinForms\IconToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IconDropDownButton.cs">
+    <Compile Include="WinForms\IconDropDownButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IconMenuItem.cs">
+    <Compile Include="WinForms\IconMenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IconPictureBox.cs">
+    <Compile Include="WinForms\IconPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IconToImageConverter.cs" />
-    <Compile Include="IconSplitButton.cs">
+    <Compile Include="WPF\IconToImageConverter.cs" />
+    <Compile Include="WinForms\IconSplitButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IFormsIcon.cs" />
+    <Compile Include="WinForms\IFormsIcon.cs" />
     <Compile Include="FlipOrientation.cs" />
-    <Compile Include="IconCache.cs" />
+    <Compile Include="WinForms\IconCache.cs" />
     <Compile Include="NativeMethods.cs" />
-    <Compile Include="ToText.cs" />
-    <Compile Include="IconHelper.cs" />
-    <Compile Include="IconBlock.cs" />
-    <Compile Include="Icon.cs" />
-    <Compile Include="IconSource.cs" />
-    <Compile Include="IconImage.cs" />
+    <Compile Include="WPF\ToText.cs" />
+    <Compile Include="WPF\IconHelper.cs" />
+    <Compile Include="WPF\IconBlock.cs" />
+    <Compile Include="WPF\Icon.cs" />
+    <Compile Include="WPF\IconSource.cs" />
+    <Compile Include="WPF\IconImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ToTextBase.cs" />
+    <Compile Include="WPF\ToTextBase.cs" />
     <Resource Include="fonts\fa-solid-900.ttf" />
     <Resource Include="fonts\fa-brands-400.ttf" />
     <None Include="fonts\fa-regular-400.ttf" />

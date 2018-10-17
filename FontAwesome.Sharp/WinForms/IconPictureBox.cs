@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
-    public class IconPictureBox : PictureBox, IFormsIcon
+    public class IconPictureBox : PictureBox, IFormsIcon<IconChar>
     {
         private static readonly IconCache IconCache = new IconCache();
 

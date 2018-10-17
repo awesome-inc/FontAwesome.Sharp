@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
-    public class IconToolStripButton : ToolStripButton, IFormsIcon
+    public class IconToolStripButton : ToolStripButton, IFormsIcon<IconChar>
     {
         private Color _color = Color.Black;
         private IconChar _icon = IconChar.Star;

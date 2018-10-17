@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
-    public class IconDropDownButton : ToolStripDropDownButton, IFormsIcon
+    public class IconSplitButton : ToolStripSplitButton, IFormsIcon<IconChar>
     {
         private Color _color = Color.Black;
         private IconChar _icon = IconChar.Star;
@@ -13,7 +13,7 @@ namespace FontAwesome.Sharp
         private FlipOrientation _flip = FlipOrientation.Normal;
         private double _rotation;
 
-        public IconDropDownButton()
+        public IconSplitButton()
         {
             UpdateImage();
         }

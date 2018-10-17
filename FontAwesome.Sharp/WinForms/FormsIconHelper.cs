@@ -97,7 +97,7 @@ namespace FontAwesome.Sharp
             return GetIconFont(fontFamily, smallestOnFail ? minFontSize : maxFontSize);
         }
 
-        private static FontFamily FontFamilyFor(IconChar iconChar)
+        internal static FontFamily FontFamilyFor(IconChar iconChar)
         {
             var name = IconHelper.FontFor(iconChar).FamilyNames.Values.Single();
             return Fonts.Families.FirstOrDefault(f => name.StartsWith(f.Name)) ?? Fonts.Families[0];

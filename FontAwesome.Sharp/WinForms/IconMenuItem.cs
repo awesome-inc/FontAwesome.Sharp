@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
-    public class IconButton : Button, IFormsIcon
+    public class IconMenuItem : ToolStripMenuItem, IFormsIcon<IconChar>
     {
         private Color _color = Color.Black;
         private IconChar _icon = IconChar.Star;
@@ -13,7 +13,7 @@ namespace FontAwesome.Sharp
         private FlipOrientation _flip = FlipOrientation.Normal;
         private double _rotation;
 
-        public IconButton()
+        public IconMenuItem()
         {
             UpdateImage();
         }
@@ -84,12 +84,13 @@ namespace FontAwesome.Sharp
             Image = _icon.ToBitmap(_size, _color, _rotation, _flip);
         }
 
+
         // Dont' serialize image
         // Note: Use DefaultValueAttribute or ShouldSerialize/Reset-methods for a property. Don't use both!
         // cf.: https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/defining-default-values-with-the-shouldserialize-and-reset-methods
         public bool ShouldSerializeImage() { return false; }
 
-        // hide Image in designer(we want only icon)
+        // hide Image in designer (we want only icon)
         [ReadOnly(true)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
