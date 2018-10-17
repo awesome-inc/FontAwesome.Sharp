@@ -7,7 +7,7 @@ namespace FontAwesome.Sharp
 {
     public class IconSplitButton : IconSplitButton<IconChar>
     {
-        public IconSplitButton() : base(FormsIconHelper.FontFamilyFor(IconChar.None))
+        public IconSplitButton() : base(FormsIconHelper.FontFamilyFor(IconChar.Star))
         {
         }
 

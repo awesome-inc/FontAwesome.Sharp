@@ -336,7 +336,7 @@ namespace TestForms
             // 
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripSplitButton1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.toolStripSplitButton1.IconChar = FontAwesome.Sharp.IconChar.GlassMartini;
+            this.toolStripSplitButton1.IconChar = FontAwesome.Sharp.IconChar.GlassMartiniAlt;
             this.toolStripSplitButton1.IconColor = System.Drawing.Color.DarkViolet;
             this.toolStripSplitButton1.IconSize = 16;
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;

@@ -7,7 +7,7 @@ namespace FontAwesome.Sharp
 {
     public class IconDropDownButton : IconDropDownButton<IconChar>
     {
-        public IconDropDownButton() : base(FormsIconHelper.FontFamilyFor(IconChar.None))
+        public IconDropDownButton() : base(FormsIconHelper.FontFamilyFor(IconChar.Star))
         {
         }
 

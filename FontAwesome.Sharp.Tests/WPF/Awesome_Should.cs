@@ -4,7 +4,7 @@ using FluentAssertions;
 using NEdifis.Attributes;
 using NUnit.Framework;
 
-namespace FontAwesome.Sharp.Tests
+namespace FontAwesome.Sharp.Tests.WPF
 {
     [TestFixtureFor(typeof(Awesome))]
     // ReSharper disable once InconsistentNaming

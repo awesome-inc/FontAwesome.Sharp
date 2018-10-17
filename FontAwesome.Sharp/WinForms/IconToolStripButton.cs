@@ -7,7 +7,7 @@ namespace FontAwesome.Sharp
 {
     public class IconToolStripButton : IconToolStripButton<IconChar>
     {
-        public IconToolStripButton() : base(FormsIconHelper.FontFamilyFor(IconChar.None))
+        public IconToolStripButton() : base(FormsIconHelper.FontFamilyFor(IconChar.Star))
         {
         }
 

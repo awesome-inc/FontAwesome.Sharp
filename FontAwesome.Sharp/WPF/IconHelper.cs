@@ -37,9 +37,8 @@ namespace FontAwesome.Sharp
         public static ImageSource ToImageSource(this IconChar iconChar,
             Brush foregroundBrush = null, double size = DefaultSize)
         {
-            if (TypefaceFor(iconChar.ToChar(), out var gt, out var glyphIndex) == null)
-                return null;
-            return ToImageSource(foregroundBrush, size, gt, glyphIndex);
+            var typeFace = TypefaceFor(iconChar.ToChar(), out var gt, out var glyphIndex);
+            return typeFace == null ? null : ToImageSource(foregroundBrush, size, gt, glyphIndex);
         }
 
         public static char ToChar(this IconChar iconChar)
@@ -61,11 +60,11 @@ namespace FontAwesome.Sharp
         private static Typeface TypefaceFor(this FontFamily fontFamily, char c, out GlyphTypeface gt, out ushort glyphIndex)
         {
             gt = null;
-            glyphIndex = 42;
+            glyphIndex = 0;
             foreach (var typeface in fontFamily.GetTypefaces())
                 if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
                     return typeface;
-            return SystemFonts.MessageFontFamily.GetTypefaces().FirstOrDefault();
+            return null; //SystemFonts.MessageFontFamily.GetTypefaces().FirstOrDefault();
         }
 
         internal static FontFamily FontFor(IconChar iconChar)
@@ -98,6 +97,7 @@ namespace FontAwesome.Sharp
             foreach (var typeface in Typefaces)
                 if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
                     return typeface;
+            // TODO: check icon lookup
             return null; //SystemFonts.MessageFontFamily.GetTypefaces().FirstOrDefault();
         }
 

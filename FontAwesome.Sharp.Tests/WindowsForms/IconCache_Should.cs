@@ -3,7 +3,7 @@ using FluentAssertions;
 using NEdifis.Attributes;
 using NUnit.Framework;
 
-namespace FontAwesome.Sharp.Tests
+namespace FontAwesome.Sharp.Tests.WindowsForms
 {
     [TestFixtureFor(typeof(IconCache<IconChar>))]
     // ReSharper disable once InconsistentNaming

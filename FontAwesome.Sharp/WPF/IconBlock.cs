@@ -5,7 +5,7 @@ namespace FontAwesome.Sharp
     // adapted from https://bitbucket.org/ioachim/fontawesome.wpf
     public class IconBlock: IconBlockBase<IconChar>
     {
-        public IconBlock() : base(IconHelper.FontFor(IconChar.None))
+        public IconBlock() : base(IconHelper.FontFor(IconChar.Star))
         {}
 
         protected override FontFamily FontFor(IconChar icon)

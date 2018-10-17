@@ -99,7 +99,8 @@ namespace FontAwesome.Sharp
 
         internal static FontFamily FontFamilyFor(IconChar iconChar)
         {
-            var name = IconHelper.FontFor(iconChar).FamilyNames.Values.Single();
+            var name = IconHelper.FontFor(iconChar)?.FamilyNames.Values.Single();
+            if (name == null) return Fonts.Families[0];
             return Fonts.Families.FirstOrDefault(f => name.StartsWith(f.Name)) ?? Fonts.Families[0];
         }
 

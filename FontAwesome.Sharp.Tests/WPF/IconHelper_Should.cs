@@ -5,7 +5,7 @@ using FluentAssertions;
 using NEdifis.Attributes;
 using NUnit.Framework;
 
-namespace FontAwesome.Sharp.Tests
+namespace FontAwesome.Sharp.Tests.WPF
 {
     [TestFixtureFor(typeof(IconHelper))]
     // ReSharper disable once InconsistentNaming
@@ -18,6 +18,20 @@ namespace FontAwesome.Sharp.Tests
             {
                 var expected = char.ConvertFromUtf32((int)icon).Single();
                 icon.ToChar().Should().Be(expected);
+            }
+        }
+
+        [Test]
+        public void Lookup_fonts_for_glyphs()
+        {
+            const int limit = -1;
+            var icons = Enum.GetValues(typeof(IconChar)).Cast<IconChar>().Skip(1); // 1=None
+            if (limit > 0) icons = icons.Take(limit);
+            foreach (var icon in icons)
+            {
+                var fontFamily = IconHelper.FontFor(icon);
+                fontFamily.Should().NotBeNull($"should lookup font for '{icon}'");
+                fontFamily.Source.Should().Contain("FontAwesome.Sharp");
             }
         }
 

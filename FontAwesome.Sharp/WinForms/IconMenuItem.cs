@@ -7,7 +7,7 @@ namespace FontAwesome.Sharp
 {
     public class IconMenuItem : IconMenuItem<IconChar>
     {
-        public IconMenuItem() : base(FormsIconHelper.FontFamilyFor(IconChar.None))
+        public IconMenuItem() : base(FormsIconHelper.FontFamilyFor(IconChar.Star))
         {
         }
 

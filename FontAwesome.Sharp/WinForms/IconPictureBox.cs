@@ -7,7 +7,7 @@ namespace FontAwesome.Sharp
 {
     public class IconPictureBox : IconPictureBox<IconChar>
     {
-        public IconPictureBox() : base(FormsIconHelper.FontFamilyFor(IconChar.None))
+        public IconPictureBox() : base(FormsIconHelper.FontFamilyFor(IconChar.Star))
         {
         }
 
