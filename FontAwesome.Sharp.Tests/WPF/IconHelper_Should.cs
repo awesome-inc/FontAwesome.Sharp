@@ -24,7 +24,7 @@ namespace FontAwesome.Sharp.Tests.WPF
         [Test]
         public void Lookup_fonts_for_glyphs()
         {
-            const int limit = -1;
+            var limit = -1;
             var icons = Enum.GetValues(typeof(IconChar)).Cast<IconChar>().Skip(1); // 1=None
             if (limit > 0) icons = icons.Take(limit);
             foreach (var icon in icons)
@@ -38,7 +38,7 @@ namespace FontAwesome.Sharp.Tests.WPF
         [Test]
         public void Generate_imageSources_for_icon_chars()
         {
-            const int limit = -1;
+            var limit = -1;
             var icons = Enum.GetValues(typeof(IconChar)).Cast<IconChar>().Skip(1); // 1=None
             if (limit > 0) icons = icons.Take(limit);
             foreach (var icon in icons)
@@ -47,8 +47,8 @@ namespace FontAwesome.Sharp.Tests.WPF
                 var imageSource = icon.ToImageSource(Brushes.Black, size);
                 imageSource.Should().NotBeNull($"an image should be generated for '{icon}'");
                 imageSource.Should().BeOfType<DrawingImage>();
-                imageSource.Width.Should().BeLessOrEqualTo(size);
-                imageSource.Height.Should().BeLessOrEqualTo(size);
+                Math.Round(imageSource.Width).Should().BeLessOrEqualTo(size);
+                Math.Round(imageSource.Height).Should().BeLessOrEqualTo(size);
             }
         }
 

@@ -15,7 +15,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
         [Test]
         public void Generate_bitmaps_for_icon_chars()
         {
-            const int limit = -1;
+            var limit = -1;
             var icons = Enum.GetValues(typeof(IconChar)).Cast<IconChar>().Skip(1); // 1=None
             if (limit > 0) icons = icons.Take(limit);
             foreach (var icon in icons)
