@@ -47,8 +47,8 @@ namespace FontAwesome.Sharp.Tests.WPF
                 var imageSource = icon.ToImageSource(Brushes.Black, size);
                 imageSource.Should().NotBeNull($"an image should be generated for '{icon}'");
                 imageSource.Should().BeOfType<DrawingImage>();
-                imageSource.Width).Should().BeLessOrEqualTo(size + 1);
-                imageSource.Height).Should().BeLessOrEqualTo(size + 1);
+                imageSource.Width.Should().BeLessOrEqualTo(size + 1);
+                imageSource.Height.Should().BeLessOrEqualTo(size + 1);
             }
         }
 
