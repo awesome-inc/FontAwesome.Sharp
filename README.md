@@ -39,7 +39,11 @@ For Windows Forms projects use the subclasses
 - `IconPictureBox` or
 - `IconSplitButton`,
 
-respectively. For more details including setting the application icon or using a treeview, have a look at the sample application `TestForms`.
+respectively.
+
+If you just want to generate a bitmap for an icon, use the `ToBitmap()`-extension
+
+For more details including setting the application icon or using a treeview, have a look at the sample application `TestForms`.
 
 ## WPF
 
@@ -246,11 +250,11 @@ Often you want to have the menu icons all have a consistent style (e.g. size and
 
 As of version *5.2+* it is easy to reuse the library with other icon fonts (see e.g. [Vector Icons Roundup](https://tagliala.github.io/vectoriconsroundup/) for a comparative list).
 
-See the `TestWPF` sample application for an example on how to use  [Material Design Icons](https://materialdesignicons.com/) in WPF.
+See the `TestWPF` or the `TestForms` sample application for an example on how to use  [Material Design Icons](https://materialdesignicons.com/).
 
 The steps to use your own icon font are laid out below with Google's Material Design Icons as an example:
 
-1. Download the web font, e.g. [Templarian/MaterialDesign-Webfont](https://github.com/Templarian/MaterialDesign-Webfont/releases). You will need the `.css` and the `.ttf` files.
+1. Download the web font, e.g. [Templarian/MaterialDesign-Webfont](https://github.com/Templarian/MaterialDesign-Webfont/releases). You will need the `.css` and the `.ttf` files. Alternatively use the npm font package [@mdi/font](https://www.npmjs.com/package/@mdi/font)
 2. Generate the font icon enum class using `FontEnumGenerator`
 
     ```console
@@ -283,7 +287,7 @@ The steps to use your own icon font are laid out below with Google's Material De
 
     ![Set build action to resource](img/font_as_resource.png)
 
-4. Load the font and declare icon classes using the enum and the corresponding font
+4. Load the font and declare icon classes using the enum and the corresponding font.
 
     ```csharp
     internal static class MaterialDesignFont

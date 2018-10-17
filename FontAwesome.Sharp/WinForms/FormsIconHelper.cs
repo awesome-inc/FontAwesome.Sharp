@@ -5,7 +5,6 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
-using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;

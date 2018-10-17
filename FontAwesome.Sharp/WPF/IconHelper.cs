@@ -78,7 +78,7 @@ namespace FontAwesome.Sharp
         private static readonly string[] FontTitles =
         {
             "Font Awesome 5 Free Solid",
-            //"Font Awesome 5 Free Regular",
+            "Font Awesome 5 Free Regular",
             "Font Awesome 5 Brands Regular"
         };
 
@@ -98,7 +98,7 @@ namespace FontAwesome.Sharp
             foreach (var typeface in Typefaces)
                 if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
                     return typeface;
-            return SystemFonts.MessageFontFamily.GetTypefaces().FirstOrDefault();
+            return null; //SystemFonts.MessageFontFamily.GetTypefaces().FirstOrDefault();
         }
 
         private static double PixelsToPoints(double size)
