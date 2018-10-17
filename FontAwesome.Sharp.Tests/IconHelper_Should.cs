@@ -30,7 +30,7 @@ namespace FontAwesome.Sharp.Tests
             foreach (var icon in icons)
             {
                 const int size = 16;
-                var imageSource = icon.ToImageSource(size: size);
+                var imageSource = icon.ToImageSource(Brushes.Black, size);
                 imageSource.Should().NotBeNull($"an image should be generated for '{icon}'");
                 imageSource.Should().BeOfType<DrawingImage>();
                 imageSource.Width.Should().BeLessOrEqualTo(size);

@@ -41,7 +41,15 @@ For Windows Forms projects use the subclasses
 
 respectively.
 
-If you just want to generate a bitmap for an icon, use the `ToBitmap()`-extension
+If you just want to generate a bitmap for an icon, use the `ToBitmap()/ToImageSource`-extension like this
+
+```csharp
+var bitmap = IconChar.BatteryEmpty.ToBitmap(16, Color.Black); // Windows Forms
+var image = IconChar.BatteryEmpty.ToImageSource(Brushes.Black, 16); // WPF
+
+var customFontBitmap = MyCustomFont.ToBitmap(MyEnum.SomeIcon, 16, Color.Black); // Windows Forms, custom font
+var customFontImage = MyCustomFont.ToImageSource(MyEnum.SomeIcon, Brushes.Black, 16); // WPF, custom font
+```
 
 For more details including setting the application icon or using a treeview, have a look at the sample application `TestForms`.
 

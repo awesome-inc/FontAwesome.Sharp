@@ -750,7 +750,7 @@ namespace FontAwesome.Sharp
         Motorcycle = 0xf21c,
         Mountain = 0xf6fc,
         MousePointer = 0xf245,
-        Music = 0xf001,
+        //Music = 0xf001,
         Napster = 0xf3d2,
         Neos = 0xf612,
         NetworkWired = 0xf6ff,
