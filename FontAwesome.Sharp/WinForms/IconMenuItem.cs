@@ -5,26 +5,47 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
-    public class IconMenuItem : ToolStripMenuItem, IFormsIcon<IconChar>
+    public class IconMenuItem : IconMenuItem<IconChar>
     {
+        public IconMenuItem() : base(FormsIconHelper.FontFamilyFor(IconChar.None))
+        {
+        }
+
+        protected override FontFamily FontFor(IconChar icon)
+        {
+            return FormsIconHelper.FontFamilyFor(icon);
+        }
+    }
+
+    public abstract class IconMenuItem<TEnum> : ToolStripMenuItem, IFormsIcon<TEnum>
+        where TEnum : struct, IConvertible, IComparable, IFormattable
+    {
+        private readonly FontFamily _fontFamily;
         private Color _color = Color.Black;
-        private IconChar _icon = IconChar.Star;
+        private TEnum _icon;
         private int _size = 16;
         private FlipOrientation _flip = FlipOrientation.Normal;
         private double _rotation;
 
-        public IconMenuItem()
+        protected IconMenuItem(FontFamily fontFamily = null)
         {
+            if (!typeof(TEnum).IsEnum) throw new ArgumentException("TEnum must be an enum.");
+            _fontFamily = fontFamily ?? throw new ArgumentNullException(nameof(fontFamily));
             UpdateImage();
         }
 
+        protected virtual FontFamily FontFor(TEnum icon)
+        {
+            return _fontFamily;
+        }
+
         [Category("FontAwesome")]
-        public IconChar IconChar
+        public TEnum IconChar
         {
             get => _icon;
             set
             {
-                if (_icon == value) return;
+                if (_icon.CompareTo(value) == 0) return;
                 _icon = value;
                 UpdateImage();
             }
@@ -79,18 +100,6 @@ namespace FontAwesome.Sharp
             }
         }
 
-        private void UpdateImage()
-        {
-            Image = _icon.ToBitmap(_size, _color, _rotation, _flip);
-        }
-
-
-        // Dont' serialize image
-        // Note: Use DefaultValueAttribute or ShouldSerialize/Reset-methods for a property. Don't use both!
-        // cf.: https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/defining-default-values-with-the-shouldserialize-and-reset-methods
-        public bool ShouldSerializeImage() { return false; }
-
-        // hide Image in designer (we want only icon)
         [ReadOnly(true)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -100,5 +109,12 @@ namespace FontAwesome.Sharp
             get => base.Image;
             set => base.Image = value;
         }
+
+        private void UpdateImage()
+        {
+            Image = FontFor(_icon).ToBitmap(_icon, _size, _color, _rotation, _flip);
+        }
+
+        public bool ShouldSerializeImage() { return false; }
     }
 }

@@ -5,22 +5,37 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
-    public class IconPictureBox : PictureBox, IFormsIcon<IconChar>
+    public class IconPictureBox : IconPictureBox<IconChar>
     {
-        private static readonly IconCache IconCache = new IconCache();
+        public IconPictureBox() : base(FormsIconHelper.FontFamilyFor(IconChar.None))
+        {
+        }
 
-        private const IconChar DefaultIconChar = IconChar.Star;
+        protected override FontFamily FontFor(IconChar icon)
+        {
+            return FormsIconHelper.FontFamilyFor(icon);
+        }
+    }
+
+    public abstract class IconPictureBox<TEnum> : PictureBox, IFormsIcon<TEnum>
+        where TEnum : struct, IConvertible, IComparable, IFormattable
+    {
+        private static readonly IconCache<TEnum> IconCache = new IconCache<TEnum>();
+        //private const TEnum DefaultIconChar = default(TEnum); // = IconChar.Star;
         private const int DefaultIconSize = 32;
 
+        // ReSharper disable StaticMemberInGenericType
         public new static Size DefaultSize = new Size(DefaultIconSize, DefaultIconSize);
         public new static Color DefaultForeColor = Color.Black;
         public new static Color DefaultBackColor = Color.White;
+        // ReSharper restore StaticMemberInGenericType
 
-        private IconChar _iconChar = DefaultIconChar;
-        private IconChar _lastIconChar = DefaultIconChar;
+        private readonly FontFamily _fontFamily;
+        private TEnum _iconChar; // = DefaultIconChar;
+        private TEnum _lastIconChar; // = DefaultIconChar;
 
         private int _iconSize = DefaultIconSize;
-        private int _lasticonSize = DefaultIconSize;
+        private int _lastIconSize = DefaultIconSize;
 
         private double _rotation;
         private double _lastRotation;
@@ -31,8 +46,11 @@ namespace FontAwesome.Sharp
         private Color _lastBgColor;
         private Color _lastFontColor;
 
-        public IconPictureBox()
+        protected IconPictureBox(FontFamily fontFamily = null)
         {
+            if (!typeof(TEnum).IsEnum) throw new ArgumentException("TEnum must be an enum.");
+            _fontFamily = fontFamily ?? throw new ArgumentNullException(nameof(fontFamily));
+
             Size = DefaultSize;
 
             SetStyle(
@@ -46,6 +64,11 @@ namespace FontAwesome.Sharp
             SizeChanged += IconPictureBox_SizeChanged;
             Disposed += IconPictureBox_Disposed;
             Draw();
+        }
+
+        protected virtual FontFamily FontFor(TEnum icon)
+        {
+            return _fontFamily;
         }
 
         [Category("FontAwesome")]
@@ -85,15 +108,14 @@ namespace FontAwesome.Sharp
         }
 
         [Category("FontAwesome")]
-        [DefaultValue(DefaultIconChar)]
-        public IconChar IconChar
+        //[DefaultValue(DefaultIconChar)]
+        public TEnum IconChar
         {
             get => _iconChar;
             set
             {
-                if (value == _iconChar) return;
+                if (_iconChar.CompareTo(value) == 0) return;
                 _iconChar = value;
-                char.ConvertFromUtf32((int) _iconChar);
                 Invalidate();
             }
         }
@@ -166,10 +188,10 @@ namespace FontAwesome.Sharp
         {
             if (base.Image != null)
             {
-                var changed = _iconSize != _lasticonSize ||
+                var changed = _iconSize != _lastIconSize ||
                         base.BackColor != _lastBgColor ||
                         base.ForeColor != _lastFontColor ||
-                        _iconChar != _lastIconChar ||
+                        _iconChar.CompareTo(_lastIconChar) != 0 ||
                         _flip != _lastFlip ||
                         Math.Abs(_rotation - _lastRotation) >= 0.5;
                 if (!changed) return;
@@ -178,16 +200,17 @@ namespace FontAwesome.Sharp
                     base.Image.Dispose(); // Dispose old image - in other case we will have memory leaks
             }
 
-            _lasticonSize = _iconSize;
+            _lastIconSize = _iconSize;
             _lastBgColor = base.BackColor;
             _lastFontColor = base.ForeColor;
             _lastIconChar = _iconChar;
             _lastFlip = _flip;
             _lastRotation = _rotation;
 
+            var font = FontFor(_iconChar);
             Image = UseIconCache
-                ? IconCache.Get(_iconChar, _iconSize, IconColor, BackColor)
-                : _iconChar.ToBitmapGdi(IconSize, base.ForeColor, base.BackColor);
+                ? IconCache.Get(font, _iconChar, _iconSize, IconColor, BackColor)
+                : font.ToBitmapGdi(_iconChar, IconSize, base.ForeColor, base.BackColor);
         }
 
         private void IconPictureBox_Disposed(object sender, EventArgs e)

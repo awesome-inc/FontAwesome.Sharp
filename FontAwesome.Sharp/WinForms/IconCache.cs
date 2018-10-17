@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,23 +9,25 @@ namespace FontAwesome.Sharp
     /// <summary>
     ///     Icon caching logic.
     /// </summary>
-    public class IconCache : IDisposable
+    public class IconCache<TEnum> : IDisposable
+        where TEnum : struct, IConvertible, IComparable, IFormattable
     {
         private readonly IDictionary<IconKey, Bitmap> _cache = new Dictionary<IconKey, Bitmap>();
 
         /// <summary>
         ///     Get or create icon.
         /// </summary>
+        /// <param name="fontFamily">The icon's font family</param>
         /// <param name="icon">Icon to generate</param>
         /// <param name="size">Bitmap size in pixels</param>
         /// <param name="fore">Foreground color</param>
         /// <param name="back">Background color</param>
         /// <returns></returns>
-        public Bitmap Get(IconChar icon, int size, Color fore, Color back)
+        public Bitmap Get(FontFamily fontFamily, TEnum icon, int size, Color fore, Color back)
         {
             var key = new IconKey(icon, size, fore, back);
             if (_cache.TryGetValue(key, out var bitmap)) return bitmap;
-            bitmap = icon.ToBitmapGdi(size, fore, back);
+            bitmap = fontFamily.ToBitmapGdi(icon, size, fore, back);
             _cache[key] = bitmap;
             return bitmap;
         }
@@ -43,10 +45,10 @@ namespace FontAwesome.Sharp
             private readonly uint _back;
             private readonly uint _fore;
             private readonly int _hash;
-            private readonly IconChar _icon;
+            private readonly TEnum _icon;
             private readonly int _size;
 
-            public IconKey(IconChar icon, int size, Color fore, Color back)
+            public IconKey(TEnum icon, int size, Color fore, Color back)
             {
                 _icon = icon;
                 _size = size;
@@ -56,7 +58,7 @@ namespace FontAwesome.Sharp
                 {
                     _hash = (int)_back;
                     _hash = (_hash * 397) ^ (int)_fore;
-                    _hash = (_hash * 397) ^ (int)_icon;
+                    _hash = (_hash * 397) ^ _icon.GetHashCode();
                     _hash = (_hash * 397) ^ _size;
                 }
             }
@@ -65,7 +67,9 @@ namespace FontAwesome.Sharp
             {
                 if (ReferenceEquals(null, other)) return false;
                 if (ReferenceEquals(this, other)) return true;
-                return _back == other._back && _fore == other._fore && _icon == other._icon && _size == other._size;
+                return _back == other._back && _fore == other._fore
+                                            && _icon.CompareTo(other._icon) == 0
+                                            && _size == other._size;
             }
 
             public override bool Equals(object obj)

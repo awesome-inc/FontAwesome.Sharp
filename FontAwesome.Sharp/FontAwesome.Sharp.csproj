@@ -54,6 +54,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WinForms\IconDropDownButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WPF\Awesome.cs" />
     <Compile Include="WinForms\FormsIconExtensions.cs" />
     <Compile Include="WinForms\FormsIconHelper.cs" />
@@ -62,15 +65,9 @@
     <Compile Include="WinForms\IconButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WinForms\IconButtonBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="IconChar.cs" />
     <Compile Include="WPF\IconImageBase.cs" />
     <Compile Include="WinForms\IconToolStripButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="WinForms\IconDropDownButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WinForms\IconMenuItem.cs">
@@ -86,7 +83,7 @@
     <Compile Include="WinForms\IFormsIcon.cs" />
     <Compile Include="FlipOrientation.cs" />
     <Compile Include="WinForms\IconCache.cs" />
-    <Compile Include="NativeMethods.cs" />
+    <Compile Include="WinForms\NativeMethods.cs" />
     <Compile Include="WPF\ToText.cs" />
     <Compile Include="WPF\IconHelper.cs" />
     <Compile Include="WPF\IconBlock.cs" />

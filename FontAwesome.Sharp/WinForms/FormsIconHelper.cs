@@ -172,10 +172,9 @@ namespace FontAwesome.Sharp
         /// <param name="color">Icon color</param>
         /// <param name="bgColor">Background color</param>
         /// <returns>Image</returns>
-        internal static Bitmap ToBitmapGdi(this IconChar icon, int size, Color color, Color bgColor)
+        internal static Bitmap ToBitmapGdi<TEnum>(this FontFamily fontFamily, TEnum icon, int size, Color color, Color bgColor)
+            where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            var fontFamily = FontFamilyFor(icon);
-
             // create the final image to render into
             var image = new Bitmap(size, size, PixelFormat.Format32bppArgb);
 
@@ -261,7 +260,7 @@ namespace FontAwesome.Sharp
                     memoryGraphics.SmoothingMode = SmoothingMode.HighQuality;
 
                     // Getting font and icon as text
-                    var text = char.ConvertFromUtf32((int)icon);
+                    var text = icon.ToChar().ToString();
                     var font = GetAdjustedIconFont(memoryGraphics, fontFamily, text, size, size);
 
                     // must not be transparent background 
