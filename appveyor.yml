@@ -18,18 +18,7 @@ cache:
   - C:\ProgramData\chocolatey\bin -> appveyor.yml
   - C:\ProgramData\chocolatey\lib -> appveyor.yml
 
-for:
--
-  branches:
-    only:
-      - master
-  environment:
-    BUILD_TARGET: Package
-  build_script:
-    - cmd: if "%APPVEYOR_REPO_TAG%" == "true" set BUILD_TARGET=Deploy
-    - cmd: build.bat /t:CoverageUpload;%BUILD_TARGET% /v:m
-
-# all other branches
--
-  build_script:
-    - cmd: build.bat /t:CoverageUpload;Package /v:m
+build_script:
+  - cmd: set BUILD_TARGET=Package
+  - cmd: if "%APPVEYOR_REPO_TAG%" == "true" set BUILD_TARGET=Deploy
+  - cmd: build.bat /t:CoverageUpload;%BUILD_TARGET% /v:m
