@@ -129,7 +129,7 @@ publish/
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
-# TODO: Comment the next line if you want to checkin your web deploy settings 
+# TODO: Comment the next line if you want to checkin your web deploy settings
 # but database connection strings (with potential passwords) will be unencrypted
 *.pubxml
 *.publishproj
@@ -195,12 +195,4 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 
-# generated files
-*.g.cs
-/FontAwesome.Sharp/fa.cs
-/FontAwesome.Sharp/*.nupkg
-/FontAwesome.Sharp/Content/font-awesome.min.css
-/FontAwesome.Sharp/fonts/*.otf
-/FontAwesome.Sharp/fonts/*.eot
-/FontAwesome.Sharp/fonts/*.svg
-/FontAwesome.Sharp/fonts/*.woff
+.idea/*
