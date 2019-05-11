@@ -11,10 +11,13 @@ namespace FontAwesome.Sharp.Tests.WPF
     // ReSharper disable once InconsistentNaming
     internal class IconHelper_Should
     {
+        private static readonly IconChar[] Icons = Enum.GetValues(typeof(IconChar))
+            .Cast<IconChar>().Except(IconHelper.Orphans).ToArray();
+
         [Test]
         public void Convert_icon_enums_to_characters()
         {
-            foreach (var icon in Enum.GetValues(typeof(IconChar)).Cast<IconChar>())
+            foreach (var icon in Icons)
             {
                 var expected = char.ConvertFromUtf32((int)icon).Single();
                 icon.ToChar().Should().Be(expected);
@@ -24,10 +27,7 @@ namespace FontAwesome.Sharp.Tests.WPF
         [Test]
         public void Lookup_fonts_for_glyphs()
         {
-            var limit = -1;
-            var icons = Enum.GetValues(typeof(IconChar)).Cast<IconChar>().Skip(1); // 1=None
-            if (limit > 0) icons = icons.Take(limit);
-            foreach (var icon in icons)
+            foreach (var icon in Icons)
             {
                 var fontFamily = IconHelper.FontFor(icon);
                 fontFamily.Should().NotBeNull($"should lookup font for '{icon}'");
@@ -38,10 +38,7 @@ namespace FontAwesome.Sharp.Tests.WPF
         [Test]
         public void Generate_imageSources_for_icon_chars()
         {
-            var limit = -1;
-            var icons = Enum.GetValues(typeof(IconChar)).Cast<IconChar>().Skip(1); // 1=None
-            if (limit > 0) icons = icons.Take(limit);
-            foreach (var icon in icons)
+            foreach (var icon in Icons)
             {
                 const int size = 16;
                 var imageSource = icon.ToImageSource(Brushes.Black, size);
@@ -49,6 +46,15 @@ namespace FontAwesome.Sharp.Tests.WPF
                 imageSource.Should().BeOfType<DrawingImage>();
                 Math.Round(imageSource.Width).Should().BeLessOrEqualTo(size + 1);
                 Math.Round(imageSource.Height).Should().BeLessOrEqualTo(size + 1);
+            }
+        }
+
+        [Test, Description("Some icons are not contained in any ttf-webfont!")]
+        public void Skip_orphaned_icons()
+        {
+            foreach(var icon in IconHelper.Orphans)
+            {
+                icon.ToImageSource().Should().BeNull($"{icon} is assumed to be an orphan.");
             }
         }
 

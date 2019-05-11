@@ -97,7 +97,7 @@
     <Compile Include="WPF\ToTextBase.cs" />
     <Resource Include="fonts\fa-solid-900.ttf" />
     <Resource Include="fonts\fa-brands-400.ttf" />
-    <None Include="fonts\fa-regular-400.ttf" />
+    <Resource Include="fonts\fa-regular-400.ttf" />
     <None Include="packages.config" />
     <None Include="Package.nuspec" />
     <AppDesigner Include="Properties\" />

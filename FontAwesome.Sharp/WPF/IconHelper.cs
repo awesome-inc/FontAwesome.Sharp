@@ -12,6 +12,12 @@ namespace FontAwesome.Sharp
     // * http://www.codeproject.com/Tips/634540/Using-Font-Icons
     public static class IconHelper
     {
+        public static IconChar[] Orphans = {
+            IconChar.None
+            // TODO: not contained in any of the ttf-fonts!
+            ,IconChar.FontAwesomeLogoFull
+        };
+
         public static readonly Brush DefaultBrush = SystemColors.WindowTextBrush; // this is TextBlock default brush
         public const double DefaultSize = 16.0;
 
@@ -61,15 +67,19 @@ namespace FontAwesome.Sharp
         {
             gt = null;
             glyphIndex = 0;
+            if (c == 0)
+                return null;
             foreach (var typeface in fontFamily.GetTypefaces())
                 if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
                     return typeface;
-            return null; //SystemFonts.MessageFontFamily.GetTypefaces().FirstOrDefault();
+            return null;
         }
 
         internal static FontFamily FontFor(IconChar iconChar)
         {
-            return TypefaceFor(iconChar.ToChar(), out _, out _)?.FontFamily;
+            if (Orphans.Contains(iconChar)) return null;
+            var typeFace = TypefaceFor(iconChar.ToChar(), out _, out _);
+            return typeFace?.FontFamily;
         }
 
         internal static readonly Uri BaseUri = new Uri($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/");
@@ -94,11 +104,12 @@ namespace FontAwesome.Sharp
         {
             gt = null;
             glyphIndex = 42;
+            if (c == 0)
+                return null;
             foreach (var typeface in Typefaces)
                 if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
                     return typeface;
-            // TODO: check icon lookup
-            return null; //SystemFonts.MessageFontFamily.GetTypefaces().FirstOrDefault();
+            return null;
         }
 
         private static double PixelsToPoints(double size)

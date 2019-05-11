@@ -40,6 +40,7 @@ namespace FontEnumGenerator
         private static readonly string Header = "// ReSharper disable InconsistentNaming" + Environment.NewLine +
                                                 "// ReSharper disable IdentifierTypo" + Environment.NewLine +
                                                 "// ReSharper disable UnusedMember.Global" + Environment.NewLine +
+                                                "// ReSharper disable once CheckNamespace" + Environment.NewLine +
                                                 "namespace FontAwesome.Sharp" + Environment.NewLine +
                                                 "{{" + Environment.NewLine +
                                                 "    public enum {0}" + Environment.NewLine +

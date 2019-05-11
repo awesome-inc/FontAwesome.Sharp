@@ -99,9 +99,9 @@ namespace FontAwesome.Sharp
 
         internal static FontFamily FontFamilyFor(IconChar iconChar)
         {
-            var name = IconHelper.FontFor(iconChar)?.FamilyNames.Values.Single();
+            var name = IconHelper.FontFor(iconChar)?.Source;
             if (name == null) return Fonts.Families[0];
-            return Fonts.Families.FirstOrDefault(f => name.StartsWith(f.Name)) ?? Fonts.Families[0];
+            return Fonts.Families.FirstOrDefault(f => name.EndsWith(f.Name)) ?? Fonts.Families[0];
         }
 
         private static Font GetIconFont(FontFamily fontFamily, float size)
@@ -109,7 +109,7 @@ namespace FontAwesome.Sharp
             return new Font(fontFamily, size, GraphicsUnit.Point);
         }
 
-        public static unsafe FontFamily LoadResourceFont(this Assembly assembly, string path, string fontFile)
+        public static FontFamily LoadResourceFont(this Assembly assembly, string path, string fontFile)
         {
             var fonts = new PrivateFontCollection();
             AddFont(fonts, fontFile, assembly, path);
@@ -129,9 +129,9 @@ namespace FontAwesome.Sharp
             }
         }
 
-        private static unsafe PrivateFontCollection InitializeFonts()
+        private static PrivateFontCollection InitializeFonts()
         {
-            var fontFiles = new[] { "fa-solid-900.ttf", /*"fa-regular-400.ttf",*/ "fa-brands-400.ttf" };
+            var fontFiles = new[] { "fa-solid-900.ttf", "fa-regular-400.ttf", "fa-brands-400.ttf" };
             var fonts = new PrivateFontCollection();
             foreach (var fontFile in fontFiles.Reverse())
             {
@@ -182,6 +182,7 @@ namespace FontAwesome.Sharp
         ///     with custom rendering code for transparent colors cases.
         ///     Good for big icons and when need perfect icon positioning.
         /// </summary>
+        /// <param name="fontFamily">The font family</param>
         /// <param name="icon">Icon</param>
         /// <param name="size">Size in pixels</param>
         /// <param name="color">Icon color</param>

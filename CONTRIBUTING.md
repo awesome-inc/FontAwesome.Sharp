@@ -45,4 +45,10 @@ Updating css...
 Generating IconEnum classes...
 ```
 
-Next, review and commit changes (e.g. `git diff/commit`) and probably even tag (`git tag <fontawesome-version>`)
+Next, after successfuly running all tests
+
+```console
+build.bat /v:m /t:Test
+```
+
+Review and commit changes (e.g. `git diff/commit`).

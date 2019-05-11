@@ -1,5 +1,4 @@
 using FontAwesome.Sharp;
-using TestWpf.MaterialDesign;
 
 namespace TestForms.MaterialDesign
 {
