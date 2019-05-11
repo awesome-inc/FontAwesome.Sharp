@@ -41,11 +41,11 @@ namespace FontAwesome.Sharp.Tests.WPF
             foreach (var icon in Icons)
             {
                 const int size = 16;
+                const int delta = +2;
                 var imageSource = icon.ToImageSource(Brushes.Black, size);
                 imageSource.Should().NotBeNull($"an image should be generated for '{icon}'");
                 imageSource.Should().BeOfType<DrawingImage>();
-                Math.Round(imageSource.Width).Should().BeLessOrEqualTo(size + 1);
-                Math.Round(imageSource.Height).Should().BeLessOrEqualTo(size + 1);
+                Math.Max(imageSource.Width, imageSource.Height).Should().BeLessOrEqualTo(size+delta, $"{icon} size should be less than {size}+{delta}.");
             }
         }
 
