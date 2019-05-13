@@ -12,13 +12,14 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
     // ReSharper disable once InconsistentNaming
     internal class FormsIconHelper_Should
     {
+        private static readonly IconChar[] Icons = Enum.GetValues(typeof(IconChar))
+            .Cast<IconChar>().Except(IconHelper.Orphans).ToArray();
+
+
         [Test]
         public void Generate_bitmaps_for_icon_chars()
         {
-            var limit = -1;
-            var icons = Enum.GetValues(typeof(IconChar)).Cast<IconChar>().Skip(1); // 1=None
-            if (limit > 0) icons = icons.Take(limit);
-            foreach (var icon in icons)
+            foreach (var icon in Icons)
             {
                 const int size = 16;
                 var bitmap = icon.ToBitmap(size, Color.Black);

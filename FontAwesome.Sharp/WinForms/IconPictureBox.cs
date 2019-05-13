@@ -32,24 +32,17 @@ namespace FontAwesome.Sharp
 
         private readonly FontFamily _fontFamily;
         private TEnum _iconChar; // = DefaultIconChar;
-        private TEnum _lastIconChar; // = DefaultIconChar;
-
         private int _iconSize = DefaultIconSize;
-        private int _lastIconSize = DefaultIconSize;
-
         private double _rotation;
-        private double _lastRotation;
-
         private FlipOrientation _flip = FlipOrientation.Normal;
-        private FlipOrientation _lastFlip = FlipOrientation.Normal;
-
-        private Color _lastBgColor;
-        private Color _lastFontColor;
+        private bool _useGdi;
+        private bool _useIconCache;
 
         protected IconPictureBox(FontFamily fontFamily = null)
         {
             if (!typeof(TEnum).IsEnum) throw new ArgumentException("TEnum must be an enum.");
             _fontFamily = fontFamily ?? throw new ArgumentNullException(nameof(fontFamily));
+            UpdateImage();
 
             Size = DefaultSize;
 
@@ -60,10 +53,8 @@ namespace FontAwesome.Sharp
                 true
             );
 
-            Invalidated += Draw;
             SizeChanged += IconPictureBox_SizeChanged;
             Disposed += IconPictureBox_Disposed;
-            Draw();
         }
 
         protected virtual FontFamily FontFor(TEnum icon)
@@ -73,9 +64,33 @@ namespace FontAwesome.Sharp
 
         [Category("FontAwesome")]
         [Description(
-            "Enable or disable icons caching. Usefull, when you have several controls with same large size icon and you want to save some memory. Also usefull for color change and simple fast animations. Icons is caching by icon, size, 2 colors, rotation, flip.")]
+            "Enable or disable icons caching. Useful, when you have several controls with same large size icon and you want to save some memory. Also usefull for color change and simple fast animations. Icons is caching by icon, size, 2 colors, rotation, flip.")]
         [DefaultValue(false)]
-        public bool UseIconCache { get; set; }
+        public bool UseIconCache
+        {
+            get => _useIconCache;
+            set
+            {
+                if (_useIconCache == value) return;
+                _useIconCache = value;
+                UpdateImage();
+            }
+        }
+
+        [Category("FontAwesome")]
+        [Description(
+            "Enable or disable Gdi rendering. Useful for large icons and enhanced pixel position (However unsafe).")]
+        [DefaultValue(false)]
+        public bool UseGdi
+        {
+            get => _useGdi;
+            set
+            {
+                if (_useGdi == value) return;
+                _useGdi = value;
+                UpdateImage();
+            }
+        }
 
         [Category("FontAwesome")]
         public Color IconColor { get => ForeColor; set => ForeColor = value; }
@@ -116,7 +131,7 @@ namespace FontAwesome.Sharp
             {
                 if (_iconChar.CompareTo(value) == 0) return;
                 _iconChar = value;
-                Invalidate();
+                UpdateImage();
             }
         }
 
@@ -131,7 +146,7 @@ namespace FontAwesome.Sharp
             {
                 if (value == _iconSize) return;
                 _iconSize = value;
-                Invalidate();
+                UpdateImage();
             }
         }
 
@@ -147,7 +162,7 @@ namespace FontAwesome.Sharp
             {
                 if (base.ForeColor == value) return;
                 base.ForeColor = value;
-                Invalidate();
+                UpdateImage();
             }
         }
 
@@ -162,7 +177,7 @@ namespace FontAwesome.Sharp
             {
                 if (base.BackColor == value) return;
                 base.BackColor = value;
-                Invalidate();
+                UpdateImage();
             }
         }
 
@@ -184,33 +199,17 @@ namespace FontAwesome.Sharp
             set => base.Image = value;
         }
 
-        public void Draw(object sender = null, InvalidateEventArgs e = null)
+        private void UpdateImage()
         {
-            if (base.Image != null)
-            {
-                var changed = _iconSize != _lastIconSize ||
-                        base.BackColor != _lastBgColor ||
-                        base.ForeColor != _lastFontColor ||
-                        _iconChar.CompareTo(_lastIconChar) != 0 ||
-                        _flip != _lastFlip ||
-                        Math.Abs(_rotation - _lastRotation) >= 0.5;
-                if (!changed) return;
-
-                if (!UseIconCache)
-                    base.Image.Dispose(); // Dispose old image - in other case we will have memory leaks
-            }
-
-            _lastIconSize = _iconSize;
-            _lastBgColor = base.BackColor;
-            _lastFontColor = base.ForeColor;
-            _lastIconChar = _iconChar;
-            _lastFlip = _flip;
-            _lastRotation = _rotation;
+            var image = base.Image;
+            if (image != null && !UseIconCache)
+                image.Dispose(); // Dispose old image - in other case we will have memory leaks
 
             var font = FontFor(_iconChar);
             Image = UseIconCache
-                ? IconCache.Get(font, _iconChar, _iconSize, IconColor, BackColor)
-                : font.ToBitmapGdi(_iconChar, IconSize, base.ForeColor, base.BackColor);
+                ? IconCache.Get(font, _iconChar, _iconSize, IconColor, BackColor, UseGdi)
+                : UseGdi ? font.ToBitmapGdi(_iconChar, IconSize, base.ForeColor, base.BackColor)
+                         : font.ToBitmap(_iconChar, IconSize, base.ForeColor);
         }
 
         private void IconPictureBox_Disposed(object sender, EventArgs e)
@@ -228,12 +227,8 @@ namespace FontAwesome.Sharp
         protected override void OnPaint(PaintEventArgs e)
         {
             var graphics = e.Graphics;
-
-            Draw();
-
             graphics.Flip(Flip, Width, Height);
             graphics.Rotate(Rotation, Width, Height);
-
             base.OnPaint(e);
 
             if (!Focused) return;

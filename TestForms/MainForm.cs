@@ -60,6 +60,8 @@ namespace TestForms
         private void iconButton1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("You clicked me");
+            timer1.Enabled = !timer1.Enabled;
+            boxTwitter.Flip = NextFlip(boxTwitter.Flip);
         }
 
         private void _refreshMenuItem_Click(object sender, EventArgs e)
@@ -70,10 +72,22 @@ namespace TestForms
 
         private void _flipMenuItem_Click(object sender, EventArgs e)
         {
-            var flip = (int)_flipMenuItem.Flip + 1;
-            flip %= Enum.GetValues(typeof(FlipOrientation)).Length;
-            _flipMenuItem.Flip = (FlipOrientation)flip;
+            _flipMenuItem.Flip = NextFlip(_flipMenuItem.Flip);
             _flipMenuItem.Text = $"Flip ({_flipMenuItem.Flip})";
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            // 180°/s -> 180 * interval / 1000.0
+            var delta = 180.0 * timer1.Interval / 1000.0;
+            boxTwitter.Rotation += delta;
+        }
+
+        private FlipOrientation NextFlip(FlipOrientation current)
+        {
+            var flip = (int)current + 1;
+            flip %= Enum.GetValues(typeof(FlipOrientation)).Length;
+            return (FlipOrientation)flip;
         }
     }
 }

@@ -23,11 +23,13 @@ namespace FontAwesome.Sharp
         /// <param name="fore">Foreground color</param>
         /// <param name="back">Background color</param>
         /// <returns></returns>
-        public Bitmap Get(FontFamily fontFamily, TEnum icon, int size, Color fore, Color back)
+        public Bitmap Get(FontFamily fontFamily, TEnum icon, int size, Color fore, Color back, bool useGdi = false)
         {
             var key = new IconKey(icon, size, fore, back);
             if (_cache.TryGetValue(key, out var bitmap)) return bitmap;
-            bitmap = fontFamily.ToBitmapGdi(icon, size, fore, back);
+            bitmap = useGdi
+                ? fontFamily.ToBitmapGdi(icon, size, fore, back)
+                : fontFamily.ToBitmap(icon, size, fore);
             _cache[key] = bitmap;
             return bitmap;
         }
