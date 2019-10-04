@@ -1,96 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-  <ItemGroup Condition="'$(SkipSolutionInfo)' != 'true'">
-    <Compile Include="$(SolutionDir)SolutionInfo.cs">
-      <Link>Properties\SolutionInfo.cs</Link>
-    </Compile>
-  </ItemGroup>
-
-  <!-- ## Uncomment to customize targets ## -->
-
-  <!-- ## Using NUnit (default) ##
-    <Target Name="Test" DependsOnTargets="Build;TestWithNUnit"/>
-    <Target Name="Coverage" DependsOnTargets="Build;OpenCoverWithNUnit"/>
-    -->
-
-  <!-- ## Using XUnit (default) ##
-    <Target Name="Test" DependsOnTargets="Build;TestWithXUnit"/>
-    <Target Name="Coverage" DependsOnTargets="Build;OpenCoverWithXUnit"/>
-    -->
-
-  <!-- ## Default targets ##
-    <Target Name="CoverageReport" DependsOnTargets="OpenCoverReport"/>
-    <Target Name="Package" DependsOnTargets="PackageWithNuGet"/>
-    <Target Name="Deploy" DependsOnTargets="DeployWithNuGet"/>
-    -->
-
-  <!-- ## An example to override the test project pattern, so
-                tests will be run on all assemblies in the output directory matching "*.Tests.dll" -->
-    <PropertyGroup>
-        <TestsProjectPattern>$(OutDir)*.Tests.dll</TestsProjectPattern>
-        <IsTestsAssembly>false</IsTestsAssembly>
-        <IsTestsAssembly Condition="$(AssemblyName.Contains('.Tests'))">true</IsTestsAssembly>
-    </PropertyGroup>
-    
-    <Choose>
-        <When Condition="$(IsTestsAssembly)">
-            <PropertyGroup>
-                <AssemblyToTest>$(AssemblyName.Substring(0, $(AssemblyName.LastIndexOf('.Tests'))))</AssemblyToTest>
-                <TestsAssembly>$(AssemblyName)</TestsAssembly>
-                <OpenCoverFilter>+[$(AssemblyToTest)]* -[$(TestsAssembly)]* -[FluentAssertions]*</OpenCoverFilter>
-            </PropertyGroup>
-        </When>
-    </Choose>
-    
-  <!-- ## An example to customize the 'Test' target:
-    <Target Name="Test" DependsOnTargets="MyTest" />
-    <Target Name="MyTest" >
-        <Warning Text="TODO: add steps for your favourite test runner" />
-    </Target>
-    -->
-
-  <!-- ## Let coverage succeed even when test fail (for feature branches):
-    <PropertyGroup>
-        <CoverageFailOnTargetFail>false</CoverageFailOnTargetFail>
-    </PropertyGroup>
-    -->
-
-  <!-- ## Using NUnit 2:
-    <PropertyGroup>
-        <UseNUnit2>true</UseNUnit2>
-        <NUnitResultFormat>nunit2</NUnitResultFormat>
-    </PropertyGroup>
-    -->
-
-  <!--## Specifying your repository token for coveralls.io -->
-    <PropertyGroup>
-        <CoverAllsToken>f1uGBTbW0pw5mSYz2ZP1NkviyMPusssCW</CoverAllsToken>
-    </PropertyGroup>
-
-  <!-- ## Uncomment to override the default nuget server to push packages to in the 'Deploy' target
-    <PropertyGroup>
-        <NugetSourceToDeploy>https://www.nuget.org</NugetSourceToDeploy>
-    </PropertyGroup>
-    -->
-
-  <!-- ## Uncomment to override the default filename 'Package.nuspec' of your NuGet package files:
-    <PropertyGroup>
-        <NuspecFile>Package.nuspec</NuspecFile> 
-    </PropertyGroup>
-    -->
-
-  <!-- ## An example to customize the 'Deploy' target to use ClickOnce publishing:
-    <Target Name="Deploy" DependsOnTargets="Publish" />
-    -->
-
-  <!-- ## Allowing local deployment (non build server):
-    <PropertyGroup>
-        <DeployFailOnBuildNotSet>false</DeployFailOnBuildNotSet>
-    </PropertyGroup>
-    -->
-
-  <!-- ## Automatically import project-specific overrides (place this last) -->
-  <Import Project="$(ProjectDir)\$(ProjectName).targets" Condition="Exists('$(ProjectDir)\$(ProjectName).targets')"/>
-
+    <ItemGroup Condition="'$(SkipSolutionInfo)' != 'true'">
+        <Compile Include="$(SolutionDir)SolutionInfo.cs">
+            <Link>Properties\SolutionInfo.cs</Link>
+        </Compile>
+    </ItemGroup>
+    <!-- ## Automatically import project-specific overrides (place this last) -->
+    <Import Project="$(ProjectDir)\$(ProjectName).targets" Condition="Exists('$(ProjectDir)\$(ProjectName).targets')"/>
 </Project>

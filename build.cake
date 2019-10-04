@@ -72,6 +72,8 @@ Task("Test")
 //-------------------------------------------------------------
 #tool nuget:?package=OpenCover&version=4.7.922
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.10.0
+var resultsDir = "TestResults";
+var openCoverOutput = $"{resultsDir}/coverage.opencover.xml";
 Task("TestDotNet")
     .IsDependentOn("Build")
     .Does(() =>
@@ -83,13 +85,10 @@ Task("TestDotNet")
         ArgumentCustomization = args => args.Append("-coverbytest:*.Tests.dll").Append("-mergebyhash")
     };
 
-    var resultsDir = "TestResults";
     if (!DirectoryExists(resultsDir))
         CreateDirectory(resultsDir);
     else
         CleanDirectory(resultsDir);
-
-    var openCoverOutput = $"{resultsDir}/coverage.opencover.xml";
 
     OpenCover(tool => {
             var settings = new NUnit3Settings {
@@ -110,27 +109,14 @@ Task("TestDotNet")
 });
 
 //-------------------------------------------------------------
-// cf.: https://medium.com/@pavel.sulimau/dotnetcore-xunit-coverlet-reportgenerator-cake-codecoveragereport-1ed4adf408d2
-#tool nuget:?package=ReportGenerator&version=4.2.2
-Task("CoverageReport")
+Task("CoverageUpload")
     .IsDependentOn("Test")
     .Does(() =>
 {
-    // Use "Html" value locally for performance and file size.
-    var reportTypes = inAzure ? "HtmlInline_AzurePipelines" : "Html";
-
-    var reportSettings = new ReportGeneratorSettings
+    CoverallsNet(openCoverOutput, CoverallsNetReportType.OpenCover, new CoverallsNetSettings()
     {
-        ArgumentCustomization = args => args.Append($"-reportTypes:{reportTypes}")
-    };
-
-    if (!DirectoryExists(coverageDirectory))
-        CreateDirectory(coverageDirectory);
-    else
-        CleanDirectory(coverageDirectory);
-
-    var coverageFiles = GetFiles("**/coverage.opencover.xml");
-    ReportGenerator(coverageFiles, coverageDirectory, reportSettings);
+        RepoToken = EnvironmentVariable("COVERALLS_REPO_TOKEN") ?? "-unset-";
+    });
 });
 
 //-------------------------------------------------------------
@@ -189,7 +175,7 @@ Task("Push")
     .Does(() =>
 {
     if (inAppVeyor && !isTag) {
-        Information("Skipping");
+        Information("Skipping (no tag)");
         return;
     }
     NuGetPush($"./FontAwesome.Sharp.{versionInfo.NuGetVersion}.nupkg", new NuGetPushSettings {
@@ -201,10 +187,8 @@ Task("Push")
 //-------------------------------------------------------------
 Task("CiBuild")
     .IsDependentOn("Sonar")
-    //.IsDependentOn("CoverageReport")
-    //.IsDependentOn("Package")
-    .IsDependentOn("Push")
-    ;
+    .IsDependentOn("CoverageUpload")
+    .IsDependentOn("Push");
 
 //-------------------------------------------------------------
 Task("Default")

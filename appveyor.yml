@@ -14,7 +14,9 @@ environment:
   SONAR_LOGIN:
     secure: eoiKtVWdURMgKf6VyNuycDobJKSKch7pXUtvcvIR5UW9IvZ2nIbIpUtmk8P6HZeq
   NUGET_API_KEY:
-   secure: lrwREUV4nO99AU0A6xVx/MNF0BaJc8A1B8dwEGMLqmYKGqD5E7PJ/IC9RHcle6pk
+    secure: lrwREUV4nO99AU0A6xVx/MNF0BaJc8A1B8dwEGMLqmYKGqD5E7PJ/IC9RHcle6pk
+  COVERALLS_REPO_TOKEN:
+    secure: /cH//QeEoM+oSqQidPtI2ln5f625Nd/nwqUKTMzfpDMzYD1JhYdXiwZ2sKXrny07
 
 build_script:
   - ps: build.ps1 --target=CiBuild
