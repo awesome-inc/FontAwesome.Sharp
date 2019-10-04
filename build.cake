@@ -189,7 +189,7 @@ Task("Push")
 //-------------------------------------------------------------
 Task("AppVeyor")
     .IsDependentOn("Sonar")
-    .IsDependentOn("CoverageUpload")
+    //.IsDependentOn("CoverageUpload") // coverage already in SonarQube
     .IsDependentOn("Push");
 
 //-------------------------------------------------------------
