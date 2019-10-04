@@ -1,5 +1,5 @@
 # common configuration for ALL branches
-image: Visual Studio 2017
+image: Visual Studio 2019
 install:
   - choco install gitversion.portable -pre -y
 test: off
@@ -19,6 +19,4 @@ cache:
   - C:\ProgramData\chocolatey\lib -> appveyor.yml
 
 build_script:
-  - cmd: set BUILD_TARGET=Package
-  - cmd: if "%APPVEYOR_REPO_TAG%" == "true" set BUILD_TARGET=Deploy
-  - cmd: build.bat /t:CoverageUpload;%BUILD_TARGET% /v:m
+  - ps: build.ps1

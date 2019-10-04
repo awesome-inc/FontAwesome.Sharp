@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.2",
-    "@mdi/font": "^3.6.95"
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "@mdi/font": "^4.4.95"
   }
 }

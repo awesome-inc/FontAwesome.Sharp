@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 
@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 #endif
 
 [assembly: AssemblyCompany("Awesome Inc.")]
-[assembly: AssemblyCopyright("Copyright © Awesome Inc. 2018")]
+[assembly: AssemblyCopyright("Copyright © Awesome Inc. 2015-2019")]
 [assembly: AssemblyTrademark("Awesome Inc.")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

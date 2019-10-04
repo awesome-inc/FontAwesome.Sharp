@@ -10,7 +10,6 @@ Copy-Item -Path .\node_modules\@fortawesome\fontawesome-free\css\fontawesome.css
 Copy-Item -Path .\node_modules\@mdi\font\css\materialdesignicons.css -Destination .\FontEnumGenerator\Content
 
 Write-Host Generating IconEnum classes...
-.\build.bat /v:m .\FontEnumGenerator\FontEnumGenerator.csproj
 Push-Location .\FontEnumGenerator\bin\Release
 
 .\FontEnumGenerator.exe --css .\Content\fontawesome.css --name IconChar
