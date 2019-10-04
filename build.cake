@@ -109,6 +109,8 @@ Task("TestDotNet")
 });
 
 //-------------------------------------------------------------
+#tool coveralls.io
+#addin Cake.Coveralls
 Task("CoverageUpload")
     .IsDependentOn("Test")
     .Does(() =>
