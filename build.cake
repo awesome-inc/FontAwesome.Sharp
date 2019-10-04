@@ -109,15 +109,15 @@ Task("TestDotNet")
 });
 
 //-------------------------------------------------------------
-#tool coveralls.io
-#addin Cake.Coveralls
+#tool nuget:?package=coveralls.io&version=1.4.2
+#addin nuget:?package=Cake.Coveralls&version=0.10.1
 Task("CoverageUpload")
     .IsDependentOn("Test")
     .Does(() =>
 {
     CoverallsNet(openCoverOutput, CoverallsNetReportType.OpenCover, new CoverallsNetSettings()
     {
-        RepoToken = EnvironmentVariable("COVERALLS_REPO_TOKEN") ?? "-unset-";
+        RepoToken = EnvironmentVariable("COVERALLS_REPO_TOKEN") ?? "-unset-"
     });
 });
 
@@ -187,7 +187,7 @@ Task("Push")
 });
 
 //-------------------------------------------------------------
-Task("CiBuild")
+Task("AppVeyor")
     .IsDependentOn("Sonar")
     .IsDependentOn("CoverageUpload")
     .IsDependentOn("Push");

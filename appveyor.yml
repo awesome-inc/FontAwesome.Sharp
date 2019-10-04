@@ -18,5 +18,8 @@ environment:
   COVERALLS_REPO_TOKEN:
     secure: /cH//QeEoM+oSqQidPtI2ln5f625Nd/nwqUKTMzfpDMzYD1JhYdXiwZ2sKXrny07
 
+# Note that 'ps' will continue on non-terminating errors, cf.:
+# - https://www.appveyor.com/docs/build-configuration/#interpreters-and-scripts
+# - https://github.com/SharpeRAD/Cake.Powershell/blob/master/appveyor.yml#L5
 build_script:
-  - ps: build.ps1 --target=CiBuild
+  - cmd: powershell -NoProfile -ExecutionPolicy unrestricted -Command .\build.ps1 -Target "AppVeyor"
