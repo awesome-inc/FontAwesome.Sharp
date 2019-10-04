@@ -1,18 +1,10 @@
 # common configuration for ALL branches
 image: Visual Studio 2019
-install:
-  - choco install gitversion.portable -pre -y
 test: off
 assembly_info:
   patch: false
 nuget:
   disable_publish_on_pr: true
-environment:
-  apiKey:
-    secure: lrwREUV4nO99AU0A6xVx/MNF0BaJc8A1B8dwEGMLqmYKGqD5E7PJ/IC9RHcle6pk
-before_build:
-  - ps: gitversion /l console /output buildserver
-  - nuget setapikey %apiKey% -Verbosity quiet
 cache:
   - packages -> **\packages.config
   - C:\ProgramData\chocolatey\bin -> appveyor.yml

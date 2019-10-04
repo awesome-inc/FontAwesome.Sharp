@@ -12,6 +12,9 @@ var target = Argument("target", "Default");
 // detect if running in Azure DevOps, cf.:
 // - https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables
 var inAzure = HasEnvironmentVariable("TF_BUILD");
+// detect if running in AppVeyor, cf.:
+// - https://www.appveyor.com/docs/environment-variables/
+var inAppVeyor = HasEnvironmentVariable("APPVEYOR")
 
 //-------------------------------------------------------------
 var coverageDirectory = ".coverage";
@@ -117,7 +120,7 @@ Task("CoverageReport")
 // cf.: https://github.com/AgileArchitect/Cake.Sonar
 #addin nuget:?package=Cake.Sonar&version=1.1.22
 #tool nuget:?package=MSBuild.SonarQube.Runner.Tool&version=4.6.0 //4.3.1 //4.6.0 breaks ImportBefore.targets
-var sonarLogin = "347c73b514310cf66d52f69bf3e8212a86eaca4c";
+var sonarLogin = "9d380942003e5b3e6db8f5d9c891e4553a0d823b";
 
 Task("Sonar")
     .IsDependentOn("SonarBegin")
@@ -131,10 +134,10 @@ Task("SonarBegin")
     {
         Url = "https://sonarcloud.io",
         Login = sonarLogin,
-        Organization = "tracto-technik",
-        Key = "tracto.technik.hmi",
+        Organization = "awesome-inc",
+        Key = "awesome-inc_FontAwesome.Sharp",
         Version = GitVersion().FullSemVer,
-        VsTestReportsPath = "**/*.trx", // dotnet core
+        VsTestReportsPath = "**/*.trx",
         NUnitReportsPath = "**/TestResult.xml",
         OpenCoverReportsPath = "**/coverage.opencover.xml"
     };
