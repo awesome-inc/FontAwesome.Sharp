@@ -14,7 +14,8 @@ var target = Argument("target", "Default");
 var inAzure = HasEnvironmentVariable("TF_BUILD");
 // detect if running in AppVeyor, cf.:
 // - https://www.appveyor.com/docs/environment-variables/
-var inAppVeyor = HasEnvironmentVariable("APPVEYOR")
+var inAppVeyor = HasEnvironmentVariable("APPVEYOR");
+var isTag = (EnvironmentVariable("APPVEYOR_REPO_TAG") ?? "-unset-") == "true";
 
 //-------------------------------------------------------------
 var coverageDirectory = ".coverage";
@@ -35,8 +36,24 @@ Task("Restore")
     NuGetRestore(project, new NuGetRestoreSettings { PackagesDirectory="packages"});
 });
 
+//-------------------------------------------------------------
+#tool "nuget:?package=GitVersion.CommandLine&version=5.0.1"
+GitVersion versionInfo = null;
+Task("Version")
+    .Does(() =>
+{
+    versionInfo = GitVersion(new GitVersionSettings {
+        OutputType = inAppVeyor ? GitVersionOutput.BuildServer : GitVersionOutput.Json
+        , Verbosity = GitVersionVerbosity.Warn // Error, Warn, Info, Debug
+        , UpdateAssemblyInfo = false
+    });
+    Information($"GitVersion: {versionInfo.SemVer}");
+});
+
+//-------------------------------------------------------------
 Task("Build")
     .IsDependentOn("Restore")
+    .IsDependentOn("Version")
     .Does(() =>
 {
     MSBuild(project, settings =>
@@ -120,7 +137,7 @@ Task("CoverageReport")
 // cf.: https://github.com/AgileArchitect/Cake.Sonar
 #addin nuget:?package=Cake.Sonar&version=1.1.22
 #tool nuget:?package=MSBuild.SonarQube.Runner.Tool&version=4.6.0 //4.3.1 //4.6.0 breaks ImportBefore.targets
-var sonarLogin = "9d380942003e5b3e6db8f5d9c891e4553a0d823b";
+var sonarLogin = EnvironmentVariable("SONAR_LOGIN") ?? "-unset-";
 
 Task("Sonar")
     .IsDependentOn("SonarBegin")
@@ -155,9 +172,39 @@ Task("SonarEnd")
 });
 
 //-------------------------------------------------------------
-Task("AzureBuild")
+Task("Package")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+    var nuGetPackSettings = new NuGetPackSettings{
+        Version = versionInfo.NuGetVersion,
+        ReleaseNotes = new List<string>{$"Revision: {versionInfo.Sha}"}
+
+    };
+    NuGetPack("./FontAwesome.Sharp/Package.nuspec", nuGetPackSettings);
+});
+
+Task("Push")
+    .IsDependentOn("Package")
+    .Does(() =>
+{
+    if (inAppVeyor && !isTag) {
+        Information("Skipping");
+        return;
+    }
+    NuGetPush($"./FontAwesome.Sharp.{versionInfo.NuGetVersion}.nupkg", new NuGetPushSettings {
+      Source = "https://www.nuget.org",
+      ApiKey = EnvironmentVariable("NUGET_API_KEY") ?? "-unset-"
+    });
+});
+
+//-------------------------------------------------------------
+Task("CiBuild")
     .IsDependentOn("Sonar")
-    .IsDependentOn("CoverageReport");
+    //.IsDependentOn("CoverageReport")
+    //.IsDependentOn("Package")
+    .IsDependentOn("Push")
+    ;
 
 //-------------------------------------------------------------
 Task("Default")

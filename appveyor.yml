@@ -9,6 +9,12 @@ cache:
   - packages -> **\packages.config
   - C:\ProgramData\chocolatey\bin -> appveyor.yml
   - C:\ProgramData\chocolatey\lib -> appveyor.yml
+# https://ci.appveyor.com/tools/encrypt
+environment:
+  SONAR_LOGIN:
+    secure: eoiKtVWdURMgKf6VyNuycDobJKSKch7pXUtvcvIR5UW9IvZ2nIbIpUtmk8P6HZeq
+  NUGET_API_KEY:
+   secure: lrwREUV4nO99AU0A6xVx/MNF0BaJc8A1B8dwEGMLqmYKGqD5E7PJ/IC9RHcle6pk
 
 build_script:
-  - ps: build.ps1
+  - ps: build.ps1 --target=CiBuild
