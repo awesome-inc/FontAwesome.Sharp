@@ -198,7 +198,7 @@ namespace FontAwesome.Sharp
             var isBgTransparent = bgColor == Color.Transparent;
 
             // In case when icon have 2 transparent colors - just return empty transparent image
-            if (isCTransparent & isBgTransparent)
+            if (isCTransparent && isBgTransparent)
             {
                 image.MakeTransparent();
                 return image;

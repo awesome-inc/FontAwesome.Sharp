@@ -6,15 +6,10 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
 {
     [TestFixtureFor(typeof(IconPictureBox))]
     // ReSharper disable once InconsistentNaming
-    internal class IconPictureBox_Should
+    internal class IconPictureBox_Should : FormsIconTestBase<IconPictureBox>
     {
-        [Test]
-        [TestCase(IconChar.Accusoft)]
-        public void Be_Creatable(IconChar icon)
-        {
-            var pictureBox = new IconPictureBox { IconChar = icon };
-            pictureBox.Should().NotBeNull();
-        }
+        protected override bool FlipOnPaint { get; } = true;
+        protected override bool RotateOnPaint { get; } = true;
 
         [Test,
          Issue("https://github.com/awesome-inc/FontAwesome.Sharp/issues/20", Title =
@@ -23,8 +18,8 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
         [TestCase(IconChar.Stackpath)]
         public void Display_Icons(IconChar icon)
         {
-            var pictureBox = new IconPictureBox { IconChar = icon };
-            pictureBox.Image.Should().NotBeNull();
+            using (var pictureBox = new IconPictureBox { IconChar = icon })
+                pictureBox.Image.Should().NotBeNull();
         }
     }
 }

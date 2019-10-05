@@ -116,8 +116,7 @@ namespace FontAwesome.Sharp
 
         private static object RotationCoerceValue(DependencyObject d, object value)
         {
-            var val = (double)value;
-            return val < 0 ? 0d : (val > 360 ? 360d : value);
+            return Math.Max(0.0, Math.Min(360.0, (double)value));
         }
 
         private static void FlipChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -262,12 +261,12 @@ namespace FontAwesome.Sharp
 
             var text = (string)e.NewValue ?? string.Empty;
             var pattern = GetPattern(textBlock) ?? DefaultPattern;
-            var inlines = FormatText(text, pattern).ToList();
+            var inLines = FormatText(text, pattern).ToList();
 
-            if (inlines.Any())
+            if (inLines.Any())
             {
                 textBlock.Inlines.Clear();
-                inlines.ForEach(textBlock.Inlines.Add);
+                inLines.ForEach(textBlock.Inlines.Add);
             }
             else
             {

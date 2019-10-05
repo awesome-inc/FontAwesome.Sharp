@@ -78,6 +78,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WindowsForms\FormsIconTestBase.cs" />
     <Compile Include="WindowsForms\IconButton_Should.cs" />
     <Compile Include="WindowsForms\IconDropDownButton_Should.cs" />
     <Compile Include="WindowsForms\IconMenuItem_Should.cs" />
