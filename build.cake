@@ -9,14 +9,6 @@ var configuration = Argument("configuration", "Release");
 var verbosity = Argument("verbosity", Verbosity.Minimal);
 var target = Argument("target", "Default");
 
-// detect if running in Azure DevOps, cf.:
-// - https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables
-var inAzure = HasEnvironmentVariable("TF_BUILD");
-// detect if running in AppVeyor, cf.:
-// - https://www.appveyor.com/docs/environment-variables/
-var inAppVeyor = HasEnvironmentVariable("APPVEYOR");
-var isTag = (EnvironmentVariable("APPVEYOR_REPO_TAG") ?? "-unset-") == "true";
-
 //-------------------------------------------------------------
 var coverageDirectory = ".coverage";
 
@@ -42,11 +34,18 @@ GitVersion versionInfo = null;
 Task("Version")
     .Does(() =>
 {
-    versionInfo = GitVersion(new GitVersionSettings {
-        OutputType = inAppVeyor ? GitVersionOutput.BuildServer : GitVersionOutput.Json
-        , Verbosity = GitVersionVerbosity.Warn // Error, Warn, Info, Debug
-        , UpdateAssemblyInfo = false
-    });
+    var settings = new GitVersionSettings {
+        OutputType = GitVersionOutput.Json,
+        Verbosity = GitVersionVerbosity.Warn, // Error, Warn, Info, Debug
+        UpdateAssemblyInfo = false
+    };
+    versionInfo = GitVersion(settings);
+
+    if (AppVeyor.IsRunningOnAppVeyor) {
+        settings.OutputType = GitVersionOutput.BuildServer;
+        GitVersion(settings);
+    }
+
     Information($"GitVersion: {versionInfo.SemVer}");
 });
 
@@ -92,10 +91,7 @@ Task("TestDotNet")
 
     OpenCover(tool => {
             var settings = new NUnit3Settings {
-                 NoResults = false,
-                // worakround OpenCover issue, cf.: https://github.com/OpenCover/opencover/issues/677
-                // Standard Azure Agent DS2v2 series has 2 vCPUs, cf.: https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#dsv2-series
-                AppDomainUsage = inAzure ? NUnit3AppDomainUsage.Single : NUnit3AppDomainUsage.Default
+                 NoResults = false
             };
 
             var testAssemblies = GetFiles($"*.Tests/**/bin/{configuration}/**/*.Tests.dll");
@@ -191,12 +187,8 @@ Task("Package")
     .Does(() =>
 {
     var nuGetPackSettings = new NuGetPackSettings{
-        //Version = versionInfo.NuGetVersion,
-        //ReleaseNotes = new List<string>{$"Revision: {versionInfo.Sha}"},
-        Properties = new Dictionary<string, string> {
-            { "Version", versionInfo.NuGetVersion },
-            { "Revision", versionInfo.Sha }
-        }
+        Version = versionInfo.NuGetVersion,
+        ReleaseNotes = new List<string>{$"Revision: {versionInfo.Sha}"}
     };
     NuGetPack("./FontAwesome.Sharp/Package.nuspec", nuGetPackSettings);
 });
@@ -205,10 +197,14 @@ Task("Push")
     .IsDependentOn("Package")
     .Does(() =>
 {
-    if (inAppVeyor && !isTag) {
+    var isAppVeyorBuild = AppVeyor.IsRunningOnAppVeyor;
+    // https://www.appveyor.com/docs/environment-variables/
+    var isTag = (EnvironmentVariable("APPVEYOR_REPO_TAG") ?? "-unset-") == "true";
+    if (isAppVeyorBuild && !isTag) {
         Information("Skipping (no tag)");
         return;
     }
+
     NuGetPush($"./FontAwesome.Sharp.{versionInfo.NuGetVersion}.nupkg", new NuGetPushSettings {
       Source = "https://www.nuget.org",
       ApiKey = EnvironmentVariable("NUGET_API_KEY") ?? "-unset-"

@@ -2,8 +2,8 @@
 <package>
     <metadata>
         <id>FontAwesome.Sharp</id>
-        <version>$Version$</version>
-        <releaseNotes>Revision: $Revision$</releaseNotes>
+        <!-- <version>$Version$</version>
+        <releaseNotes>Revision: $Revision$</releaseNotes> -->
         <title>FontAwesome.Sharp</title>
         <authors>Awesome Incremented and Contributors</authors>
         <owners>Awesome Incremented and Contributors</owners>
