@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace FontEnumGenerator
 {
-    internal class CssFont
+    internal static class CssFont
     {
         public static List<FontEnumItem> Parse(string cssFile, string prefix = ".fa-")
         {

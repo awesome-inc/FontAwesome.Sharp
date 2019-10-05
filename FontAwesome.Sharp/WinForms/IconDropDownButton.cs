@@ -94,7 +94,7 @@ namespace FontAwesome.Sharp
             set
             {
                 var v = value % 360.0;
-                if (Math.Abs(_rotation - v) < 0.5) return;
+                if (Math.Abs(_rotation - v) <= 0.5) return;
                 _rotation = v;
                 UpdateImage();
             }
@@ -115,6 +115,10 @@ namespace FontAwesome.Sharp
             Image = FontFor(_icon).ToBitmap(_icon, _size, _color, _rotation, _flip);
         }
 
-        public bool ShouldSerializeImage() { return false; }
+        public bool ShouldSerializeImage()
+        {
+            // https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/defining-default-values-with-the-shouldserialize-and-reset-methods
+            return false;
+        }
     }
 }

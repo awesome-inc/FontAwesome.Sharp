@@ -94,7 +94,7 @@ namespace FontAwesome.Sharp
             set
             {
                 var v = value % 360.0;
-                if (Math.Abs(_rotation - v) < 0.5) return;
+                if (Math.Abs(_rotation - v) <= 0.5) return;
                 _rotation = v;
                 UpdateImage();
             }

@@ -22,6 +22,7 @@ namespace FontAwesome.Sharp
         /// <param name="size">Bitmap size in pixels</param>
         /// <param name="fore">Foreground color</param>
         /// <param name="back">Background color</param>
+        /// <param name="useGdi">Use GDI implementation</param>
         /// <returns></returns>
         public Bitmap Get(FontFamily fontFamily, TEnum icon, int size, Color fore, Color back, bool useGdi = false)
         {
@@ -34,12 +35,18 @@ namespace FontAwesome.Sharp
             return bitmap;
         }
 
-        /// <inheritdoc />
-        public void Dispose()
+        protected virtual void Dispose(bool disposing)
         {
             var bitmaps = _cache.Values.ToList();
             _cache.Clear();
             bitmaps.ForEach(b => b.Dispose());
+        }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         private class IconKey : IEquatable<IconKey>

@@ -12,9 +12,9 @@ namespace FontAwesome.Sharp
     // * http://www.codeproject.com/Tips/634540/Using-Font-Icons
     public static class IconHelper
     {
-        public static IconChar[] Orphans = {
+        internal static readonly IconChar[] Orphans = {
             IconChar.None
-            // TODO: not contained in any of the ttf-fonts!
+            // not contained in any of the ttf-fonts!
             ,IconChar.FontAwesomeLogoFull
         };
 

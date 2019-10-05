@@ -21,17 +21,16 @@ namespace FontAwesome.Sharp
         where TEnum : struct, IConvertible, IComparable, IFormattable
     {
         private static readonly IconCache<TEnum> IconCache = new IconCache<TEnum>();
-        //private const TEnum DefaultIconChar = default(TEnum); // = IconChar.Star;
         private const int DefaultIconSize = 32;
 
         // ReSharper disable StaticMemberInGenericType
-        public new static Size DefaultSize = new Size(DefaultIconSize, DefaultIconSize);
-        public new static Color DefaultForeColor = Color.Black;
-        public new static Color DefaultBackColor = Color.White;
+        public new static readonly Size DefaultSize = new Size(DefaultIconSize, DefaultIconSize);
+        public new static readonly Color DefaultForeColor = Color.Black;
+        public new static readonly Color DefaultBackColor = Color.White;
         // ReSharper restore StaticMemberInGenericType
 
         private readonly FontFamily _fontFamily;
-        private TEnum _iconChar; // = DefaultIconChar;
+        private TEnum _iconChar;
         private int _iconSize = DefaultIconSize;
         private double _rotation;
         private FlipOrientation _flip = FlipOrientation.Normal;
@@ -116,14 +115,13 @@ namespace FontAwesome.Sharp
             set
             {
                 var v = value % 360.0;
-                if (Math.Abs(_rotation - v) < 0.5) return;
+                if (Math.Abs(_rotation - v) <= 0.5) return;
                 _rotation = v;
                 Invalidate();
             }
         }
 
         [Category("FontAwesome")]
-        //[DefaultValue(DefaultIconChar)]
         public TEnum IconChar
         {
             get => _iconChar;
@@ -224,17 +222,17 @@ namespace FontAwesome.Sharp
             Invalidate();
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs pe)
         {
-            var graphics = e.Graphics;
+            var graphics = pe.Graphics;
             graphics.Flip(Flip, Width, Height);
             graphics.Rotate(Rotation, Width, Height);
-            base.OnPaint(e);
+            base.OnPaint(pe);
 
             if (!Focused) return;
             var rc = ClientRectangle;
             rc.Inflate(-2, -2);
-            ControlPaint.DrawFocusRectangle(e.Graphics, rc);
+            ControlPaint.DrawFocusRectangle(pe.Graphics, rc);
         }
     }
 }

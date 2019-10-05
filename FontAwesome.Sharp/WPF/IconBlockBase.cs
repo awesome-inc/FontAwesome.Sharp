@@ -31,6 +31,7 @@ namespace FontAwesome.Sharp
             EventHandler handler = OnTextValueChanged;
             var descriptor = DependencyPropertyDescriptor.FromProperty(TextProperty, typeof(IconBlock));
             descriptor.AddValueChanged(this, handler);
+            // ReSharper disable once VirtualMemberCallInConstructor
             var font = FontFor(Icon);
             if (font != null) FontFamily = font;
 

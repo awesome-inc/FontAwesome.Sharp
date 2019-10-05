@@ -12,7 +12,7 @@ namespace TestWpf
     {
         private bool _isSpinning = true;
         // ReSharper disable once NotAccessedField.Local
-        private Timer _timer;
+        private readonly Timer _timer;
         private readonly Random _random = new Random();
 
         public MainViewModel()
