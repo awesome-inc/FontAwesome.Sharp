@@ -1,4 +1,3 @@
-# common configuration for ALL branches
 image: Visual Studio 2019
 test: off
 assembly_info:
@@ -7,16 +6,14 @@ nuget:
   disable_publish_on_pr: true
 cache:
   - packages -> **\packages.config
-  - C:\ProgramData\chocolatey\bin -> appveyor.yml
-  - C:\ProgramData\chocolatey\lib -> appveyor.yml
-# https://ci.appveyor.com/tools/encrypt
-environment:
+  - tools -> tools\packages.config
+environment: # https://ci.appveyor.com/tools/encrypt
   SONAR_LOGIN:
-    secure: eoiKtVWdURMgKf6VyNuycDobJKSKch7pXUtvcvIR5UW9IvZ2nIbIpUtmk8P6HZeq
+    secure: l2/mdQdg/lTP5RDqDK8CeiEqwD5OCb9xKuF6MEbZHWMost5D9CpGAeuIm303tgUk
   NUGET_API_KEY:
     secure: lrwREUV4nO99AU0A6xVx/MNF0BaJc8A1B8dwEGMLqmYKGqD5E7PJ/IC9RHcle6pk
-  COVERALLS_REPO_TOKEN:
-    secure: /cH//QeEoM+oSqQidPtI2ln5f625Nd/nwqUKTMzfpDMzYD1JhYdXiwZ2sKXrny07
+#  COVERALLS_REPO_TOKEN:
+#    secure: /cH//QeEoM+oSqQidPtI2ln5f625Nd/nwqUKTMzfpDMzYD1JhYdXiwZ2sKXrny07
 
 # Note that 'ps' will continue on non-terminating errors, cf.:
 # - https://www.appveyor.com/docs/build-configuration/#interpreters-and-scripts

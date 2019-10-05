@@ -109,17 +109,42 @@ Task("TestDotNet")
 });
 
 //-------------------------------------------------------------
-#tool nuget:?package=coveralls.io&version=1.4.2
-#addin nuget:?package=Cake.Coveralls&version=0.10.1
-Task("CoverageUpload")
-    .IsDependentOn("Test")
-    .Does(() =>
-{
-    CoverallsNet(openCoverOutput, CoverallsNetReportType.OpenCover, new CoverallsNetSettings()
-    {
-        RepoToken = EnvironmentVariable("COVERALLS_REPO_TOKEN") ?? "-unset-"
-    });
-});
+// cf.: https://medium.com/@pavel.sulimau/dotnetcore-xunit-coverlet-reportgenerator-cake-codecoveragereport-1ed4adf408d2
+// #tool nuget:?package=ReportGenerator&version=4.2.2
+// Task("CoverageReport")
+//     .IsDependentOn("Test")
+//     .Does(() =>
+// {
+//     // Use "Html" value locally for performance and file size.
+//     var reportTypes = inAzure ? "HtmlInline_AzurePipelines" : "Html";
+
+//     var reportSettings = new ReportGeneratorSettings
+//     {
+//         ArgumentCustomization = args => args.Append($"-reportTypes:{reportTypes}")
+//     };
+
+//     if (!DirectoryExists(coverageDirectory))
+//         CreateDirectory(coverageDirectory);
+//     else
+//         CleanDirectory(coverageDirectory);
+
+//     var coverageFiles = GetFiles("**/coverage.opencover.xml");
+//     ReportGenerator(coverageFiles, coverageDirectory, reportSettings);
+// });
+
+
+//-------------------------------------------------------------
+// #tool nuget:?package=coveralls.io&version=1.4.2
+// #addin nuget:?package=Cake.Coveralls&version=0.10.1
+// Task("CoverageUpload")
+//     .IsDependentOn("Test")
+//     .Does(() =>
+// {
+//     CoverallsNet(openCoverOutput, CoverallsNetReportType.OpenCover, new CoverallsNetSettings()
+//     {
+//         RepoToken = EnvironmentVariable("COVERALLS_REPO_TOKEN") ?? "-unset-"
+//     });
+// });
 
 //-------------------------------------------------------------
 // cf.: https://github.com/AgileArchitect/Cake.Sonar
@@ -144,7 +169,8 @@ Task("SonarBegin")
         Version = GitVersion().FullSemVer,
         VsTestReportsPath = "**/*.trx",
         NUnitReportsPath = "**/TestResult.xml",
-        OpenCoverReportsPath = "**/coverage.opencover.xml"
+        OpenCoverReportsPath = "**/coverage.opencover.xml",
+        Exclusions = "**/*.css" // Exclude imported CSS
     };
     SonarBegin(settings);
 });
@@ -189,7 +215,6 @@ Task("Push")
 //-------------------------------------------------------------
 Task("AppVeyor")
     .IsDependentOn("Sonar")
-    //.IsDependentOn("CoverageUpload") // coverage already in SonarQube
     .IsDependentOn("Push");
 
 //-------------------------------------------------------------
