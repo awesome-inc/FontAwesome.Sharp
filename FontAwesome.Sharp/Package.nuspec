@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>FontAwesome.Sharp</id>
-        <!-- <version>$Version$</version> -->
+        <version>$Version$</version>
         <title>FontAwesome.Sharp</title>
         <authors>Awesome Incremented and Contributors</authors>
         <owners>Awesome Incremented and Contributors</owners>
