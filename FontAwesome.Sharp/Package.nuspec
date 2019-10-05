@@ -6,7 +6,7 @@
         <title>FontAwesome.Sharp</title>
         <authors>Awesome Incremented and Contributors</authors>
         <owners>Awesome Incremented and Contributors</owners>
-        <icon>favicon.png</icon>
+        <!-- <icon>favicon.png</icon> -->
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <!--<releaseNotes>Revision: $Revision$</releaseNotes>-->
         <projectUrl>https://github.com/awesome-inc/FontAwesome.Sharp</projectUrl>
@@ -27,7 +27,7 @@
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="favicon.png" target="." />
+        <!-- <file src="favicon.png" target="." /> -->
         <file src="bin\Release\FontAwesome.Sharp.dll" target="lib\net40"/>
     </files>
 </package>
