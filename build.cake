@@ -191,9 +191,12 @@ Task("Package")
     .Does(() =>
 {
     var nuGetPackSettings = new NuGetPackSettings{
-        Version = versionInfo.NuGetVersion,
-        ReleaseNotes = new List<string>{$"Revision: {versionInfo.Sha}"}
-
+        //Version = versionInfo.NuGetVersion,
+        //ReleaseNotes = new List<string>{$"Revision: {versionInfo.Sha}"},
+        Properties = new Dictionary<string, string> {
+            { "Version", versionInfo.NuGetVersion },
+            { "Revision", versionInfo.Sha }
+        }
     };
     NuGetPack("./FontAwesome.Sharp/Package.nuspec", nuGetPackSettings);
 });
