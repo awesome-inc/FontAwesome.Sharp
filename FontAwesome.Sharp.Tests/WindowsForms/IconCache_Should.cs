@@ -1,15 +1,13 @@
 using System.Drawing;
 using FluentAssertions;
-using NEdifis.Attributes;
-using NUnit.Framework;
+using Xunit;
 
 namespace FontAwesome.Sharp.Tests.WindowsForms
 {
-    [TestFixtureFor(typeof(IconCache<IconChar>))]
     // ReSharper disable once InconsistentNaming
-    internal class IconCache_Should
+    public class IconCache_Should
     {
-        [Test]
+        [StaFact]
         public void Cache_equally_generated_bitmaps()
         {
             using (var sut = new IconCache<IconChar>())

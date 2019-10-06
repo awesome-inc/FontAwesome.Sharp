@@ -1,18 +1,16 @@
 using System.Linq;
 using System.Windows.Documents;
 using FluentAssertions;
-using NEdifis.Attributes;
-using NUnit.Framework;
+using Xunit;
 
 namespace FontAwesome.Sharp.Tests.WPF
 {
-    [TestFixtureFor(typeof(Awesome))]
     // ReSharper disable once InconsistentNaming
-    internal class Awesome_Should
+    public class Awesome_Should
     {
-        [Test]
-        [TestCase(@":(\w+):", ":Bitcoin: is a cryptocurrency. :EuroSign: is a fiat money.")]
-        [TestCase(@"{fa:(\w+)}", "{fa:Bitcoin} is a cryptocurrency. {fa:EuroSign} is a fiat money.")]
+        [Theory]
+        [InlineData(@":(\w+):", ":Bitcoin: is a cryptocurrency. :EuroSign: is a fiat money.")]
+        [InlineData(@"{fa:(\w+)}", "{fa:Bitcoin} is a cryptocurrency. {fa:EuroSign} is a fiat money.")]
         public void Format_Text(string pattern, string input)
         {
             var runs = Awesome.FormatText(input, pattern).OfType<Run>().ToList();

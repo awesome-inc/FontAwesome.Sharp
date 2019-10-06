@@ -1,20 +1,17 @@
 using System;
-using System.Threading;
 using FluentAssertions;
-using NEdifis.Attributes;
 using NSubstitute;
-using NUnit.Framework;
+using Xunit;
 
 namespace FontAwesome.Sharp.Tests.WPF
 {
-    [TestFixtureFor(typeof(Icon)), Apartment(ApartmentState.STA)]
     // ReSharper disable once InconsistentNaming
-    internal class Icon_Should
+    public class Icon_Should
     {
-        [Test]
-        [TestCase(IconChar.Accusoft)]
-        public void Be_Creatable(IconChar iconChar)
+        [WpfFact]
+        public void Be_Creatable()
         {
+            var iconChar = IconChar.Accusoft;
             var markupExtension = new Icon(iconChar);
             markupExtension.Should().NotBeNull();
            // icon.Foreground.ToString().Should().Be("foo");

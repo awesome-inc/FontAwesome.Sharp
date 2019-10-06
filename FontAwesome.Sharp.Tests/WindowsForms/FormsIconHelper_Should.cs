@@ -1,17 +1,14 @@
 using System.Drawing;
 using System.Windows.Forms;
 using FluentAssertions;
-using NEdifis.Attributes;
-using NUnit.Framework;
-
+using Xunit;
 namespace FontAwesome.Sharp.Tests.WindowsForms
 {
-    [TestFixtureFor(typeof(FormsIconHelper))]
     // ReSharper disable once InconsistentNaming
-    internal class FormsIconHelper_Should
+    public class FormsIconHelper_Should
     {
 
-        [Test]
+        [StaFact]
         public void Generate_bitmaps_for_icon_chars()
         {
             foreach (var icon in IconHelper.Icons)
@@ -25,7 +22,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
             }
         }
 
-        [Test]
+        [StaFact]
         public void Add_Icons_to_image_list()
         {
             var imageList = new ImageList();

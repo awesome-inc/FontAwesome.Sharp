@@ -1,19 +1,16 @@
 using System;
-using System.Threading;
 using System.Windows.Media;
 using FluentAssertions;
-using NEdifis.Attributes;
 using NSubstitute;
-using NUnit.Framework;
+using Xunit;
 
 namespace FontAwesome.Sharp.Tests.WPF
 {
-    [TestFixtureFor(typeof(IconSource)), Apartment(ApartmentState.STA)]
     // ReSharper disable once InconsistentNaming
-    internal class IconSource_Should
+    public class IconSource_Should
     {
-        [Test]
-        [TestCase(IconChar.Accusoft)]
+        [Theory]
+        [InlineData(IconChar.Accusoft)]
         public void Be_Creatable(IconChar iconChar)
         {
             var iconSource = new IconSource(iconChar);

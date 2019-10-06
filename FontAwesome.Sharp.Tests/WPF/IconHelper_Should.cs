@@ -1,17 +1,16 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
 using FluentAssertions;
-using NEdifis.Attributes;
-using NUnit.Framework;
+using Xunit;
 
 namespace FontAwesome.Sharp.Tests.WPF
 {
-    [TestFixtureFor(typeof(IconHelper))]
     // ReSharper disable once InconsistentNaming
-    internal class IconHelper_Should
+    public class IconHelper_Should
     {
-        [Test]
+        [Fact]
         public void Convert_icon_enums_to_characters()
         {
             foreach (var icon in IconHelper.Icons)
@@ -21,7 +20,7 @@ namespace FontAwesome.Sharp.Tests.WPF
             }
         }
 
-        [Test]
+        [Fact]
         public void Lookup_fonts_for_glyphs()
         {
             foreach (var icon in IconHelper.Icons)
@@ -32,7 +31,7 @@ namespace FontAwesome.Sharp.Tests.WPF
             }
         }
 
-        [Test]
+        [Fact]
         public void Generate_imageSources_for_icon_chars()
         {
             foreach (var icon in IconHelper.Icons)
@@ -46,7 +45,7 @@ namespace FontAwesome.Sharp.Tests.WPF
             }
         }
 
-        [Test, Description("Some icons are not contained in any ttf-webfont!")]
+        [WpfFact, Description("Some icons are not contained in any ttf-webfont!")]
         public void Skip_orphaned_icons()
         {
             foreach(var icon in IconHelper.Orphans)

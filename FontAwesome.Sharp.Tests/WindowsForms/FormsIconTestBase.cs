@@ -1,16 +1,16 @@
 using System.Drawing;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace FontAwesome.Sharp.Tests.WindowsForms
 {
-    internal abstract class FormsIconTestBase<T> where T : class, IFormsIcon<IconChar>, new()
+    public abstract class FormsIconTestBase<T> where T : class, IFormsIcon<IconChar>, new()
     {
         protected virtual bool FlipOnPaint { get; } = false;
         protected virtual bool RotateOnPaint { get; } = false;
 
-        [Test]
-        [TestCase(IconChar.Accusoft)]
+        [StaTheory]
+        [InlineData(IconChar.Accusoft)]
         public void Be_Creatable(IconChar icon)
         {
             using (var formsIcon = new T())
@@ -24,7 +24,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
             }
         }
 
-        [Test]
+        [StaFact]
         public void Skip_small_Rotation_changes()
         {
             using (var formsIcon = new T())
@@ -39,7 +39,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
             }
         }
 
-        [Test]
+        [StaFact]
         public void Update_image_on_changes()
         {
             using (var formsIcon = new T())

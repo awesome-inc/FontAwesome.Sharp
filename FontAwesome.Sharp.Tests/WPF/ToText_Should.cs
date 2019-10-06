@@ -1,25 +1,22 @@
 using System;
 using System.Linq;
-using System.Threading;
 using FluentAssertions;
-using NEdifis.Attributes;
 using NSubstitute;
-using NUnit.Framework;
+using Xunit;
 
 namespace FontAwesome.Sharp.Tests.WPF
 {
-    [TestFixtureFor(typeof(ToText)), Apartment(ApartmentState.STA)]
     // ReSharper disable once InconsistentNaming
-    internal class ToText_Should
+    public class ToText_Should
     {
-        [Test]
-        [TestCase(IconChar.Accusoft)]
+        [Theory]
+        [InlineData(IconChar.Accusoft)]
         public void Be_Creatable(IconChar iconChar)
         {
             var markupExtension = new ToText(iconChar);
             markupExtension.Should().NotBeNull();
             var serviceProvider = Substitute.For<IServiceProvider>();
-            var text = markupExtension.ProvideValue(serviceProvider) as string;
+            var text = (string)markupExtension.ProvideValue(serviceProvider);
             text.Single().Should().Be(iconChar.ToChar());
         }
     }

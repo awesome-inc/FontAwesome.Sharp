@@ -67,17 +67,17 @@ Task("Build")
 
 //-------------------------------------------------------------
 Task("Test")
-    .IsDependentOn("TestDotNet")
+    .IsDependentOn("OpenCover")
     .Does(() =>
 {
 });
 
 //-------------------------------------------------------------
 #tool nuget:?package=OpenCover&version=4.7.922
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.10.0
+#tool "nuget:?package=xunit.runner.console&version=2.4.1"
 var resultsDir = "TestResults";
 var openCoverOutput = $"{resultsDir}/coverage.opencover.xml";
-Task("TestDotNet")
+Task("OpenCover")
     .IsDependentOn("Build")
     .Does(() =>
 {
@@ -94,59 +94,58 @@ Task("TestDotNet")
         CleanDirectory(resultsDir);
 
     OpenCover(tool => {
-            var settings = new NUnit3Settings {
-                 NoResults = false,
-                // worakround OpenCover issue, cf.: https://github.com/OpenCover/opencover/issues/677
-                AppDomainUsage = isCiBuild ? NUnit3AppDomainUsage.Single : NUnit3AppDomainUsage.Default
-            };
-
-            var testAssemblies = GetFiles($"*.Tests/**/bin/{configuration}/**/*.Tests.dll");
-            tool.NUnit3(testAssemblies, settings);
+            tool.XUnit2($"*.Tests/**/bin/{configuration}/**/*.Tests.dll",
+            new XUnit2Settings {
+                ShadowCopy = false,
+                //HtmlReport = true,
+                //OutputDirectory = coverageDirectory
+            });
         },
         openCoverOutput,
         openCoverSettings
-            .WithFilter("+[FontAwesome.*]*")
+            .WithFilter("+[FontAwesome.*]FontAwesome.*")
             .WithFilter("-[*.Tests]*")
     );
 });
 
 //-------------------------------------------------------------
 // cf.: https://medium.com/@pavel.sulimau/dotnetcore-xunit-coverlet-reportgenerator-cake-codecoveragereport-1ed4adf408d2
-// #tool nuget:?package=ReportGenerator&version=4.2.2
-// Task("CoverageReport")
-//     .IsDependentOn("Test")
-//     .Does(() =>
-// {
-//     // Use "Html" value locally for performance and file size.
-//     var reportTypes = inAzure ? "HtmlInline_AzurePipelines" : "Html";
+#tool nuget:?package=ReportGenerator&version=4.2.2
+Task("CoverageReport")
+    .IsDependentOn("Test")
+    .Does(() =>
+{
+    // // Use "Html" value locally for performance and file size.
+    // var reportTypes = inAzure ? "HtmlInline_AzurePipelines" : "Html";
 
-//     var reportSettings = new ReportGeneratorSettings
-//     {
-//         ArgumentCustomization = args => args.Append($"-reportTypes:{reportTypes}")
-//     };
+    // var reportSettings = new ReportGeneratorSettings
+    // {
+    //     ArgumentCustomization = args => args.Append($"-reportTypes:{reportTypes}")
+    // };
 
-//     if (!DirectoryExists(coverageDirectory))
-//         CreateDirectory(coverageDirectory);
-//     else
-//         CleanDirectory(coverageDirectory);
+    if (!DirectoryExists(coverageDirectory))
+        CreateDirectory(coverageDirectory);
+    else
+        CleanDirectory(coverageDirectory);
 
-//     var coverageFiles = GetFiles("**/coverage.opencover.xml");
-//     ReportGenerator(coverageFiles, coverageDirectory, reportSettings);
-// });
+    var coverageFiles = GetFiles("**/coverage.opencover.xml");
+    ReportGenerator(coverageFiles, coverageDirectory); //, reportSettings);
+});
 
 
 //-------------------------------------------------------------
-// #tool nuget:?package=coveralls.io&version=1.4.2
-// #addin nuget:?package=Cake.Coveralls&version=0.10.1
-// Task("CoverageUpload")
-//     .IsDependentOn("Test")
-//     .Does(() =>
-// {
-//     CoverallsNet(openCoverOutput, CoverallsNetReportType.OpenCover, new CoverallsNetSettings()
-//     {
-//         RepoToken = EnvironmentVariable("COVERALLS_REPO_TOKEN") ?? "-unset-"
-//     });
-// });
+#tool nuget:?package=coveralls.io&version=1.4.2
+#addin nuget:?package=Cake.Coveralls&version=0.10.1
+Task("CoverageUpload")
+    .IsDependentOn("Test")
+    .Does(() =>
+{
+    var repoToken = EnvironmentVariable("COVERALLS_REPO_TOKEN") ?? "-unset-";
+    CoverallsIo(openCoverOutput, new CoverallsIoSettings()
+    {
+        RepoToken = repoToken
+    });
+});
 
 //-------------------------------------------------------------
 // cf.: https://github.com/AgileArchitect/Cake.Sonar
