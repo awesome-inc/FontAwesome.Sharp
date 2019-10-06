@@ -19,4 +19,4 @@ environment: # https://ci.appveyor.com/tools/encrypt
 # - https://www.appveyor.com/docs/build-configuration/#interpreters-and-scripts
 # - https://github.com/SharpeRAD/Cake.Powershell/blob/master/appveyor.yml#L5
 build_script:
-  - cmd: powershell -NoProfile -ExecutionPolicy unrestricted -Command .\build.ps1 -Target "AppVeyor"
+  - cmd: powershell -NoProfile -ExecutionPolicy unrestricted -Command .\build.ps1 -Target "CiBuild"

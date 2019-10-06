@@ -9,6 +9,10 @@ var configuration = Argument("configuration", "Release");
 var verbosity = Argument("verbosity", Verbosity.Minimal);
 var target = Argument("target", "Default");
 
+var isCiBuild = AppVeyor.IsRunningOnAppVeyor;
+// https://www.appveyor.com/docs/environment-variables/
+var isTag = (EnvironmentVariable("APPVEYOR_REPO_TAG") ?? "-unset-") == "true";
+
 //-------------------------------------------------------------
 var coverageDirectory = ".coverage";
 
@@ -41,7 +45,7 @@ Task("Version")
     };
     versionInfo = GitVersion(settings);
 
-    if (AppVeyor.IsRunningOnAppVeyor) {
+    if (isCiBuild) {
         settings.OutputType = GitVersionOutput.BuildServer;
         GitVersion(settings);
     }
@@ -91,7 +95,9 @@ Task("TestDotNet")
 
     OpenCover(tool => {
             var settings = new NUnit3Settings {
-                 NoResults = false
+                 NoResults = false,
+                // worakround OpenCover issue, cf.: https://github.com/OpenCover/opencover/issues/677
+                AppDomainUsage = isCiBuild ? NUnit3AppDomainUsage.Single : NUnit3AppDomainUsage.Default
             };
 
             var testAssemblies = GetFiles($"*.Tests/**/bin/{configuration}/**/*.Tests.dll");
@@ -197,10 +203,7 @@ Task("Push")
     .IsDependentOn("Package")
     .Does(() =>
 {
-    var isAppVeyorBuild = AppVeyor.IsRunningOnAppVeyor;
-    // https://www.appveyor.com/docs/environment-variables/
-    var isTag = (EnvironmentVariable("APPVEYOR_REPO_TAG") ?? "-unset-") == "true";
-    if (isAppVeyorBuild && !isTag) {
+    if (isCiBuild && !isTag) {
         Information("Skipping (no tag)");
         return;
     }
@@ -212,7 +215,7 @@ Task("Push")
 });
 
 //-------------------------------------------------------------
-Task("AppVeyor")
+Task("CiBuild")
     .IsDependentOn("Sonar")
     .IsDependentOn("Push");
 
