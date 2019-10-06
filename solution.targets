@@ -5,6 +5,17 @@
             <Link>Properties\SolutionInfo.cs</Link>
         </Compile>
     </ItemGroup>
+
+    <PropertyGroup>
+        <!-- for OpenCover we need full debug, cf.:
+        - https://stackoverflow.com/a/51685036/2592915
+        - https://blog.markvincze.com/setting-up-coveralls-for-a-net-core-project/
+        -->
+        <DebugType>full</DebugType>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
     <!-- ## Automatically import project-specific overrides (place this last) -->
     <Import Project="$(ProjectDir)\$(ProjectName).targets" Condition="Exists('$(ProjectDir)\$(ProjectName).targets')"/>
 </Project>
