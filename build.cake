@@ -83,7 +83,7 @@ Task("OpenCover")
 {
     var openCoverSettings = new OpenCoverSettings
     {
-        Register = "user",
+        //Register = "user",
         SkipAutoProps = true,
         ArgumentCustomization = args => args.Append("-coverbytest:*.Tests.dll").Append("-mergebyhash")
     };
