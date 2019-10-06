@@ -13,7 +13,7 @@ namespace TestWpf
         private bool _isSpinning = true;
         // ReSharper disable once NotAccessedField.Local
         private readonly Timer _timer;
-        private readonly Random _random = new Random();
+        private int _currentIcon;
 
         public MainViewModel()
         {
@@ -22,20 +22,20 @@ namespace TestWpf
             ToggleSpinCommand = new DelegateCommand(ToggleSpin);
 
             // create a new icon block to show there is no memory leak
-            _timer = new Timer(OnIconBlockChange, null, 1000, 200);
+            _timer = new Timer(IterateIcons, null, 1000, 100);
         }
 
-        private void OnIconBlockChange(object state)
+        private void IterateIcons(object state)
         {
-            // creating a new icon block should be on UI thread ;)
-            Application.Current.Dispatcher.Invoke(() =>
+            // creating a new icon block should be on UI thread ;-)
+            Application.Current.Dispatcher?.Invoke(() =>
             {
-                var values = Enum.GetValues(typeof(IconChar));
-                var rndIcon = (IconChar)values.GetValue(_random.Next(values.Length));
+                var icon = IconHelper.Icons[_currentIcon];
                 IconBlock = null;
                 GC.Collect();
-                IconBlock = new IconBlock { Icon = rndIcon, Height = 80, FontSize = 72 };
+                IconBlock = new IconBlock { Icon = icon, Height = 32, FontSize = 24 };
                 OnPropertyChanged(nameof(IconBlock));
+                _currentIcon = (_currentIcon + 1) % IconHelper.Icons.Length;
             });
         }
 

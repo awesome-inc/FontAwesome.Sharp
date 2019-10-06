@@ -1,6 +1,4 @@
-using System;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using FluentAssertions;
 using NEdifis.Attributes;
@@ -12,14 +10,11 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
     // ReSharper disable once InconsistentNaming
     internal class FormsIconHelper_Should
     {
-        private static readonly IconChar[] Icons = Enum.GetValues(typeof(IconChar))
-            .Cast<IconChar>().Except(IconHelper.Orphans).ToArray();
-
 
         [Test]
         public void Generate_bitmaps_for_icon_chars()
         {
-            foreach (var icon in Icons)
+            foreach (var icon in IconHelper.Icons)
             {
                 const int size = 16;
                 var bitmap = icon.ToBitmap(size, Color.Black);

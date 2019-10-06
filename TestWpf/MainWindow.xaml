@@ -155,8 +155,8 @@
                    fa:Awesome.Pattern="{}{fa:([\w,-]+)}"
                    fa:Awesome.Inline="{}{fa:bitcoin} is a cryptocurrency. {fa:eurosign} is a fiat money." />
 
-                <TextBlock Grid.Row="11" Grid.Column="0" Text="Changing Icon (now memory leak)" />
-                <ContentControl  Grid.Row="11" Grid.Column="1" Content="{Binding IconBlock}" Height="80"/>
+                <TextBlock Grid.Row="11" Grid.Column="0" Text="Changing Icon" />
+                <ContentControl  Grid.Row="11" Grid.Column="1" Content="{Binding IconBlock}" />
             </Grid>
         </TabItem>
         <TabItem Header="MaterialDesign">

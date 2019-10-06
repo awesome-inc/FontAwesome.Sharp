@@ -18,6 +18,10 @@ namespace FontAwesome.Sharp
             ,IconChar.FontAwesomeLogoFull
         };
 
+        public static readonly IconChar[] Icons = Enum.GetValues(typeof(IconChar))
+            .Cast<IconChar>().Except(Orphans).ToArray();
+
+
         public static readonly Brush DefaultBrush = SystemColors.WindowTextBrush; // this is TextBlock default brush
         public const double DefaultSize = 16.0;
 
@@ -92,6 +96,7 @@ namespace FontAwesome.Sharp
         };
 
         private static readonly Typeface[] Typefaces = FontTitles.Select(GetTypeFace).ToArray();
+        private static readonly Typeface FallbackTypeface = Typefaces[0];
         private static readonly int Dpi = GetDpi();
 
         private static Typeface GetTypeFace(string fontTitle)

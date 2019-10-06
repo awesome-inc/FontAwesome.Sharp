@@ -16,6 +16,7 @@ namespace FontAwesome.Sharp
     public static class FormsIconHelper
     {
         private static readonly PrivateFontCollection Fonts = InitializeFonts();
+        private static readonly FontFamily FallbackFont = Fonts.Families[0];
 
         public static Bitmap ToBitmap<TEnum>(this FontFamily fontFamily, TEnum icon, int size, Color color,
             double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
@@ -100,8 +101,8 @@ namespace FontAwesome.Sharp
         internal static FontFamily FontFamilyFor(IconChar iconChar)
         {
             var name = IconHelper.FontFor(iconChar)?.Source;
-            if (name == null) return Fonts.Families[0];
-            return Fonts.Families.FirstOrDefault(f => name.EndsWith(f.Name)) ?? Fonts.Families[0];
+            if (name == null) return FallbackFont;
+            return Fonts.Families.FirstOrDefault(f => name.EndsWith(f.Name)) ?? FallbackFont;
         }
 
         private static Font GetIconFont(FontFamily fontFamily, float size)

@@ -11,13 +11,10 @@ namespace FontAwesome.Sharp.Tests.WPF
     // ReSharper disable once InconsistentNaming
     internal class IconHelper_Should
     {
-        private static readonly IconChar[] Icons = Enum.GetValues(typeof(IconChar))
-            .Cast<IconChar>().Except(IconHelper.Orphans).ToArray();
-
         [Test]
         public void Convert_icon_enums_to_characters()
         {
-            foreach (var icon in Icons)
+            foreach (var icon in IconHelper.Icons)
             {
                 var expected = char.ConvertFromUtf32((int)icon).Single();
                 icon.ToChar().Should().Be(expected);
@@ -27,7 +24,7 @@ namespace FontAwesome.Sharp.Tests.WPF
         [Test]
         public void Lookup_fonts_for_glyphs()
         {
-            foreach (var icon in Icons)
+            foreach (var icon in IconHelper.Icons)
             {
                 var fontFamily = IconHelper.FontFor(icon);
                 fontFamily.Should().NotBeNull($"should lookup font for '{icon}'");
@@ -38,7 +35,7 @@ namespace FontAwesome.Sharp.Tests.WPF
         [Test]
         public void Generate_imageSources_for_icon_chars()
         {
-            foreach (var icon in Icons)
+            foreach (var icon in IconHelper.Icons)
             {
                 const int size = 16;
                 const int delta = +2;
