@@ -354,6 +354,21 @@ In production, however, we needed to support
 
 Add the controls to the toolbox as described in this SO answer: [How do I add my new User Control to the Toolbox or a new Winform?](http://stackoverflow.com/questions/8931328/how-do-i-add-my-new-user-control-to-the-toolbox-or-a-new-winform#8931414)
 
+### My Windows Forms application gets rescaled once a FontAwesome-item is created
+
+Windows 10 (.NET 4.7+) you can enable DPI awareness in your windows forms application by adding
+
+```xml
+<System.Windows.Forms.ApplicationConfigurationSection>
+  <add key="DpiAwareness" value="PerMonitorV2" />
+</System.Windows.Forms.ApplicationConfigurationSection>
+```
+
+to your `app.config`. For more information see
+
+- [Configuring your Windows Forms app for high DPI support](https://docs.microsoft.com/en-us/dotnet/framework/winforms/high-dpi-support-in-windows-forms#configuring-your-windows-forms-app-for-high-dpi-support)
+- [FontAwesome.Sharp/issues/23](https://github.com/awesome-inc/FontAwesome.Sharp/issues/23)
+
 ### Strong name Signing (e.g. for ClickOnce Publishing)
 
 We don't think Strong Name Signing is still a good thing to do. Here is one possible rationale for this:
