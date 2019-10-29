@@ -18,22 +18,29 @@ namespace FontAwesome.Sharp
         private static readonly PrivateFontCollection Fonts = InitializeFonts();
         private static readonly FontFamily FallbackFont = Fonts.Families[0];
 
-        public static Bitmap ToBitmap<TEnum>(this FontFamily fontFamily, TEnum icon, int size, Color color,
+        public static Bitmap ToBitmap<TEnum>(this FontFamily fontFamily, TEnum icon, int width, int height, Color color,
             double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
             where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            var bitmap = new Bitmap(size, size);
+            var bitmap = new Bitmap(width, height);
             using (var graphics = Graphics.FromImage(bitmap))
             {
                 var text = icon.ToChar().ToString();
-                var font = GetAdjustedIconFont(graphics, fontFamily, text, size, size);
-                graphics.Rotate(rotation, size, size);
+                var font = GetAdjustedIconFont(graphics, fontFamily, text, width, height);
+                graphics.Rotate(rotation, width, height);
                 var brush = new SolidBrush(color);
-                DrawIcon(graphics, font, text, size, size, brush);
+                DrawIcon(graphics, font, text, width, height, brush);
             }
 
             bitmap.Flip(flip);
             return bitmap;
+        }
+
+        public static Bitmap ToBitmap<TEnum>(this FontFamily fontFamily, TEnum icon, int size, Color color,
+            double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
+            where TEnum : struct, IConvertible, IComparable, IFormattable
+        {
+            return ToBitmap<TEnum>(fontFamily, icon, size, size, color, rotation, flip);
         }
 
         /// <summary>
@@ -44,7 +51,18 @@ namespace FontAwesome.Sharp
             double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
         {
             var fontFamily = FontFamilyFor(icon);
-            return fontFamily.ToBitmap(icon, size, color, rotation, flip);
+            return fontFamily.ToBitmap(icon, size, size, color, rotation, flip);
+        }
+
+        /// <summary>
+        ///     Convert icon to bitmap image with GDI+ API - positioning of icon isn't perfect, but aliasing is good. Good for
+        ///     small icons.
+        /// </summary>
+        public static Bitmap ToBitmap(this IconChar icon, int width, int height, Color color,
+            double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
+        {
+            var fontFamily = FontFamilyFor(icon);
+            return fontFamily.ToBitmap(icon, width, height, color, rotation, flip);
         }
 
         public static void DrawIcon(this Graphics graphics, Font font, string text, int width, int height, Brush brush)
