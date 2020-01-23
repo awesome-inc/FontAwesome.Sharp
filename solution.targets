@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <ItemGroup Condition="'$(SkipSolutionInfo)' != 'true'">
-        <Compile Include="$(SolutionDir)SolutionInfo.cs">
-            <Link>Properties\SolutionInfo.cs</Link>
-        </Compile>
-    </ItemGroup>
-
     <PropertyGroup>
-        <!-- for OpenCover we need full debug, cf.:
-        - https://stackoverflow.com/a/51685036/2592915
-        - https://blog.markvincze.com/setting-up-coveralls-for-a-net-core-project/
-        -->
+        <Authors>Awesome Incremented and Contributors</Authors>
+        <Company>Awesome Incremented</Company>
+        <Product>FontAwesome.Sharp</Product>
+        <NeutralLanguage>en</NeutralLanguage>
+        <Copyright>Copyright © Awesome Incremented 2015-2019</Copyright>
+    </PropertyGroup>
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
         <DebugType>full</DebugType>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>

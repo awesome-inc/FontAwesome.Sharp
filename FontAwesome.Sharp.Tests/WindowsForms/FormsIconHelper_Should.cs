@@ -8,7 +8,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
     public class FormsIconHelper_Should
     {
 
-        [StaFact]
+        [Fact]
         public void Generate_bitmaps_for_icon_chars()
         {
             foreach (var icon in IconHelper.Icons)
@@ -22,7 +22,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
             }
         }
 
-        [StaFact]
+        [Fact]
         public void Add_Icons_to_image_list()
         {
             var imageList = new ImageList();

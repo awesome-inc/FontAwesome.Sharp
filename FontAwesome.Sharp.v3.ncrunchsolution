@@ -1,5 +1,8 @@
 ﻿<SolutionConfiguration>
   <Settings>
+    <AdditionalFilesToIncludeForSolution>
+      <Value>.git/**</Value>
+    </AdditionalFilesToIncludeForSolution>
     <AllowParallelTestExecution>True</AllowParallelTestExecution>
     <MetricsExclusionList>
       <Value>TestForms\TestForms.csproj</Value>

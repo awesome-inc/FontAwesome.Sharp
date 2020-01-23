@@ -2,9 +2,11 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 
+[assembly: InternalsVisibleTo("FontAwesome.Sharp.Tests")]
 namespace FontAwesome.Sharp
 {
     // cf.: 
