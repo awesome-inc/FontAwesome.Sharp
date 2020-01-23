@@ -21,4 +21,4 @@ using System.Runtime.InteropServices;
 //------ Updated by cake/GitVersion ----------------
 [assembly: AssemblyVersion("5.11.3.0")]
 [assembly: AssemblyFileVersion("5.11.3.0")]
-[assembly: AssemblyInformationalVersion("5.11.3-netcore.1+10.Branch.netcore.Sha.d5dc921bd4771b2c95086b3b50b08d4336801be9")]
+[assembly: AssemblyInformationalVersion("5.11.3-netcore.1+11.Branch.netcore.Sha.4f0c3b8d5c551053518d45115fe937d6e6750adb")]

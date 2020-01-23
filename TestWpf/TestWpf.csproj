@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
 
     <PropertyGroup>
         <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
-        <TargetFrameworks>net48</TargetFrameworks>
+        <TargetFrameworks>net48;netcoreapp3.0</TargetFrameworks>
         <UseWpf>true</UseWpf>
         <OutputType>WinExe</OutputType>
         <IsPackable>false</IsPackable>
