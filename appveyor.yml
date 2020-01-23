@@ -13,6 +13,9 @@ environment: # https://ci.appveyor.com/tools/encrypt
     secure: lrwREUV4nO99AU0A6xVx/MNF0BaJc8A1B8dwEGMLqmYKGqD5E7PJ/IC9RHcle6pk
 #  COVERALLS_REPO_TOKEN:
 #    secure: /cH//QeEoM+oSqQidPtI2ln5f625Nd/nwqUKTMzfpDMzYD1JhYdXiwZ2sKXrny07
+before_build:
+  - ps: gitversion /l console /output buildserver
+#  - nuget setapikey %apiKey% -Verbosity quiet
 
 # Note that 'ps' will continue on non-terminating errors, cf.:
 # - https://www.appveyor.com/docs/build-configuration/#interpreters-and-scripts
