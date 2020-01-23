@@ -43,12 +43,16 @@ Task("Restore")
 Task("Version")
     .Does(() =>
 {
+    if (isCiBuild)
+        GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.BuildServer });
+
     gitVersion = GitVersion(new GitVersionSettings {
-        OutputType = isCiBuild ? GitVersionOutput.Json : GitVersionOutput.BuildServer
-        , Verbosity = isCiBuild ? GitVersionVerbosity.Info : GitVersionVerbosity.Warn // Error, Warn, Info, Debug
+        OutputType = GitVersionOutput.Json
+        , Verbosity = GitVersionVerbosity.Warn // Error, Warn, Info, Debug
         , UpdateAssemblyInfo = true
         , UpdateAssemblyInfoFilePath = "./SolutionInfo.cs" // must exist
     });
+    
     Information($"GitVersion: {gitVersion.SemVer}");
 });
 
