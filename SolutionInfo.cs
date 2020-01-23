@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 
@@ -17,3 +17,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: NeutralResourcesLanguage("en", UltimateResourceFallbackLocation.MainAssembly)]
+
+//------ Updated by cake/GitVersion ----------------
+[assembly: AssemblyVersion("5.11.3.0")]
+[assembly: AssemblyFileVersion("5.11.3.0")]
+[assembly: AssemblyInformationalVersion("5.11.3-netcore.1+10.Branch.netcore.Sha.d5dc921bd4771b2c95086b3b50b08d4336801be9")]

@@ -3,6 +3,7 @@
         <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
         <OutputType>Exe</OutputType>
         <TargetFramework>net48</TargetFramework>
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>

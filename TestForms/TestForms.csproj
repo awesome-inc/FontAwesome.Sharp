@@ -5,6 +5,7 @@
         <TargetFrameworks>net48</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <OutputType>WinExe</OutputType>
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
     <Import Project="$(SolutionDir)solution.targets" />
 

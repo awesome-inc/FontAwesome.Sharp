@@ -5,7 +5,6 @@ assembly_info:
 nuget:
   disable_publish_on_pr: true
 cache:
-  - packages -> **\packages.config
   - tools -> tools\packages.config
 environment: # https://ci.appveyor.com/tools/encrypt
   SONAR_LOGIN:
