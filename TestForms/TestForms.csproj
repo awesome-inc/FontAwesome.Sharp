@@ -125,7 +125,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj">
+      <Project>{dbfb4ad9-ed5e-437a-a4fa-d01461f3f630}</Project>
+      <Name>FontAwesome.Sharp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
