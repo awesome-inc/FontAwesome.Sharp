@@ -171,7 +171,12 @@ Task("Package")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    DotNetCorePack(project);
+    var settings = new DotNetCorePackSettings
+     {
+         Configuration = configuration,
+         OutputDirectory = "./artifacts/"
+     };
+    DotNetCorePack(project, settings);
 });
 
 Task("Push")
