@@ -1,24 +1,24 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
     <PropertyGroup>
         <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
-        <!-- <TargetFrameworks>net45;netcoreapp3.0</TargetFrameworks> -->
-        <TargetFrameworks>net45</TargetFrameworks>
+        <!-- <TargetFrameworks>net45;netcoreapp3.1</TargetFrameworks> -->
+        <TargetFrameworks>net48</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
-        <UseWPF>true</UseWPF>
+        <UseWpf>true</UseWpf>
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentAssertions" Version="5.9.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+        <PackageReference Include="FluentAssertions" Version="5.10.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
         <PackageReference Include="NSubstitute" Version="4.2.1" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="coverlet.collector" Version="1.1.0">
+        <PackageReference Include="coverlet.collector" Version="1.2.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
