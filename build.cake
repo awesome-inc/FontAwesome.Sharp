@@ -45,7 +45,7 @@ Task("Version")
 {
     gitVersion = GitVersion(new GitVersionSettings {
         OutputType = isCiBuild ? GitVersionOutput.Json : GitVersionOutput.BuildServer
-        , Verbosity = GitVersionVerbosity.Warn // Error, Warn, Info, Debug
+        , Verbosity = isCiBuild ? GitVersionVerbosity.Info : GitVersionVerbosity.Warn // Error, Warn, Info, Debug
         , UpdateAssemblyInfo = true
         , UpdateAssemblyInfoFilePath = "./SolutionInfo.cs" // must exist
     });
