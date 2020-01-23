@@ -44,7 +44,7 @@ Task("Version")
     .Does(() =>
 {
     gitVersion = GitVersion(new GitVersionSettings {
-        OutputType = GitVersionOutput.Json
+        OutputType = isCiBuild ? GitVersionOutput.Json : GitVersionOutput.BuildServer
         , Verbosity = GitVersionVerbosity.Warn // Error, Warn, Info, Debug
         , UpdateAssemblyInfo = true
         , UpdateAssemblyInfoFilePath = "./SolutionInfo.cs" // must exist
