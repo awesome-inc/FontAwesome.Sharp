@@ -12,6 +12,11 @@ Here is a screenshot from the sample application
 
 ![Screenshot](img/FontAwesome.Sharp.png)
 
+Don't miss out the community tutorials on YouTube, e.g.
+
+- RJ Code Advance EN: [C#/ Modern Flat UI + Font Awesome Icons, Multicolor, Highlight button, WinForm](https://www.youtube.com/watch?v=5AsJJl7Bhvc)
+- RJ Code Advance EN: [VB/ Form Moderno + Iconos Font Awesome, Multicolor, Resaltar botón, WinForm-Visual Basic .NET](https://www.youtube.com/watch?v=1BYqAopxpfg)
+
 How to
 
 - [Install](#installation)
