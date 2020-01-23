@@ -1,4 +1,3 @@
-using System;
 using FluentAssertions;
 using Xunit;
 
@@ -7,7 +6,7 @@ namespace FontAwesome.Sharp.Tests.WPF
     // ReSharper disable once InconsistentNaming
     public class IconBlock_Should
     {
-        [StaFact]
+        [WpfFact]
         public void Be_Creatable()
         {
             var iconChar = IconChar.Accusoft;
