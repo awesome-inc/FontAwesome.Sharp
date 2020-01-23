@@ -43,14 +43,8 @@ Task("Restore")
 Task("Version")
     .Does(() =>
 {
-    if (isCiBuild)
-        GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.BuildServer });
-
     gitVersion = GitVersion(new GitVersionSettings {
-        OutputType = GitVersionOutput.Json
-        , Verbosity = GitVersionVerbosity.Warn // Error, Warn, Info, Debug
-        , UpdateAssemblyInfo = true
-        , UpdateAssemblyInfoFilePath = "./SolutionInfo.cs" // must exist
+        OutputType = isCiBuild ? GitVersionOutput.BuildServer : GitVersionOutput.Json
     });
     
     Information($"GitVersion: {gitVersion.SemVer}");
@@ -188,7 +182,7 @@ Task("Push")
         return;
     }
 
-    DotNetCoreNuGetPush($"./FontAwesome.Sharp.{gitVersion.NuGetVersion}.nupkg", new DotNetCoreNuGetPushSettings {
+    DotNetCoreNuGetPush($"./artifacts/FontAwesome.Sharp.{gitVersion.NuGetVersion}.nupkg", new DotNetCoreNuGetPushSettings {
       Source = "https://www.nuget.org",
       ApiKey = EnvironmentVariable("NUGET_API_KEY") ?? "-unset-"
     });
