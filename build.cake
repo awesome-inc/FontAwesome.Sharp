@@ -220,6 +220,6 @@ Task("CiBuild")
 
 //-------------------------------------------------------------
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("Test");
 
 RunTarget(target);
