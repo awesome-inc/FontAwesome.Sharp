@@ -43,10 +43,8 @@ Task("Restore")
 Task("Version")
     .Does(() =>
 {
-    gitVersion = GitVersion(new GitVersionSettings {
-        OutputType = isCiBuild ? GitVersionOutput.BuildServer : GitVersionOutput.Json
-    });
-    
+    if (isCiBuild) GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.BuildServer });
+    gitVersion = GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.Json });
     Information($"GitVersion: {gitVersion.SemVer}");
 });
 
