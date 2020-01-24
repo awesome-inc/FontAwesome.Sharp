@@ -10,13 +10,16 @@ Write-Host Updating css...
 Copy-Item -Path .\node_modules\@fortawesome\fontawesome-free\css\fontawesome.css -Destination .\FontEnumGenerator\Content
 Copy-Item -Path .\node_modules\@mdi\font\css\materialdesignicons.css -Destination .\FontEnumGenerator\Content
 
+Write-Host Rebuild .\FontEnumGenerator
+dotnet build .\FontEnumGenerator -c Release
+
 Write-Host Generating IconEnum classes...
-Push-Location .\FontEnumGenerator\bin\Release
+Push-Location .\FontEnumGenerator\bin\Release\net48
 
 .\FontEnumGenerator.exe --css .\Content\fontawesome.css --name IconChar
-Copy-Item -Path .\IconChar.cs -Destination ..\..\..\FontAwesome.Sharp
+Copy-Item -Path .\IconChar.cs -Destination ..\..\..\..\FontAwesome.Sharp
 
 .\FontEnumGenerator.exe --css .\Content\materialdesignicons.css --prefix .mdi- --name MaterialIcons
-Copy-Item -Path .\MaterialIcons.cs -Destination ..\..\..\TestWpf\MaterialDesign
+Copy-Item -Path .\MaterialIcons.cs -Destination ..\..\..\..\TestWpf\MaterialDesign
 
 Pop-Location
