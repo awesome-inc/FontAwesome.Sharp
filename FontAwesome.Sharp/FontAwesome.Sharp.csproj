@@ -12,6 +12,8 @@
         <DefineConstants>$(TargetFramework.ToUpperInvariant())</DefineConstants>
         <!-- For unsafe windows forms code -->
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <!-- Workaround GitVersionTask failing to load Newtonsoft.Json=12, cf. https://gitter.im/GitTools/GitVersion# -->
+        <WriteVersionInfoToBuildLog>false</WriteVersionInfoToBuildLog>
     </PropertyGroup>
 
     <PropertyGroup>
