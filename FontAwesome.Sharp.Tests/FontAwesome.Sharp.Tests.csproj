@@ -2,7 +2,11 @@
 
     <PropertyGroup>
         <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
-        <!-- <TargetFrameworks>net45;netcoreapp3.1</TargetFrameworks> -->
+    </PropertyGroup>
+    <Import Project="$(SolutionDir)\solution.targets" />
+
+    <PropertyGroup>
+        <!--<TargetFrameworks>net48;netcoreapp3.0</TargetFrameworks>-->
         <TargetFrameworks>net48</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <UseWpf>true</UseWpf>
@@ -28,6 +32,4 @@
     <ItemGroup>
         <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj" />
     </ItemGroup>
-
-    <Import Project="$(SolutionDir)\solution.targets" />
 </Project>

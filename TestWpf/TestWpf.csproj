@@ -2,12 +2,15 @@
 
     <PropertyGroup>
         <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
+    </PropertyGroup>
+    <Import Project="$(SolutionDir)\solution.targets" />
+
+    <PropertyGroup>
         <TargetFrameworks>net48;netcoreapp3.0</TargetFrameworks>
         <UseWpf>true</UseWpf>
         <OutputType>WinExe</OutputType>
         <IsPackable>false</IsPackable>
     </PropertyGroup>
-    <Import Project="$(SolutionDir)solution.targets" />
     <ItemGroup>
         <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj" />
     </ItemGroup>

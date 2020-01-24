@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -62,9 +63,11 @@ namespace FontAwesome.Sharp
         {
             var fontSize = PixelsToPoints(size);
             var width = gt.AdvanceWidths[glyphIndex];
+            #pragma warning disable CS0618 // Deprecated constructor
             var glyphRun = new GlyphRun(gt, 0, false, fontSize,
                 new[] { glyphIndex }, new Point(0, 0), new[] { width },
                 null, null, null, null, null, null);
+            #pragma warning restore CS0618
             var glyphRunDrawing = new GlyphRunDrawing(foregroundBrush ?? DefaultBrush, glyphRun);
             return new DrawingImage(glyphRunDrawing);
         }
@@ -98,7 +101,6 @@ namespace FontAwesome.Sharp
         };
 
         private static readonly Typeface[] Typefaces = FontTitles.Select(GetTypeFace).ToArray();
-        private static readonly Typeface FallbackTypeface = Typefaces[0];
         private static readonly int Dpi = GetDpi();
 
         private static Typeface GetTypeFace(string fontTitle)
@@ -125,6 +127,7 @@ namespace FontAwesome.Sharp
             return size * (72.0 / Dpi);
         }
 
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         private static int GetDpi()
         {
             // How can I get the DPI in WPF?, cf.: http://stackoverflow.com/a/12487917/2592915

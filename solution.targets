@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <DebugType>full</DebugType>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <!-- https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties -->
         <Authors>Awesome Incremented and Contributors</Authors>
         <Company>Awesome Incremented</Company>
         <Product>FontAwesome.Sharp</Product>
         <NeutralLanguage>en</NeutralLanguage>
         <Copyright>Copyright © Awesome Incremented 2015-2020</Copyright>
-    </PropertyGroup>
-    <PropertyGroup>
-        <LangVersion>latest</LangVersion>
-        <DebugType>full</DebugType>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
+        <Description>A library for embbeding Font Awesome icons in WPF &amp; Windows Forms applications</Description>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <!-- See GitHub project tags -->
+        <PackageTags>fontawesome;icon;material-design;dotnet-core;wpf;windows-forms</PackageTags>
+        <RepositoryUrl>https://github.com/awesome-inc/FontAwesome.Sharp</RepositoryUrl>
+        <!-- Workaround GitVersionTask failing to load Newtonsoft.Json=12, cf. https://gitter.im/GitTools/GitVersion# -->
+        <WriteVersionInfoToBuildLog>false</WriteVersionInfoToBuildLog>
     </PropertyGroup>
 </Project>

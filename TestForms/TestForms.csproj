@@ -2,13 +2,16 @@
 
     <PropertyGroup>
         <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
+    </PropertyGroup>
+    <Import Project="$(SolutionDir)\solution.targets" />
+
+    <PropertyGroup>
         <TargetFrameworks>net48;netcoreapp3.0</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <OutputType>WinExe</OutputType>
         <IsPackable>false</IsPackable>
         <StartupObject>TestForms.Program</StartupObject>
     </PropertyGroup>
-    <Import Project="$(SolutionDir)solution.targets" />
 
     <ItemGroup>
         <Compile Include="..\TestWpf\MaterialDesign\MaterialIcons.cs">

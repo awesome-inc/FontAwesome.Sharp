@@ -2,30 +2,18 @@
 
     <PropertyGroup>
         <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
-        <!--<TargetFrameworks>net40;net45;net47;netcoreapp3.0</TargetFrameworks>-->
-        <!-- <TargetFrameworks>net45;netcoreapp3.0</TargetFrameworks> -->
-        <TargetFrameworks>net45;netcoreapp3.0</TargetFrameworks>
+    </PropertyGroup>
+    <Import Project="$(SolutionDir)\solution.targets" />
+
+    <PropertyGroup>
+        <TargetFrameworks>net40;net45;net472;net48;netcoreapp3.0</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <UseWPF>true</UseWPF>
         <RootNamespace>FontAwesome.Sharp</RootNamespace>
         <AssemblyName>FontAwesome.Sharp</AssemblyName>
-        <DefineConstants>$(TargetFramework.ToUpperInvariant())</DefineConstants>
+        <!--<DefineConstants>$(TargetFramework.ToUpperInvariant())</DefineConstants>-->
         <!-- For unsafe windows forms code -->
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <!-- Workaround GitVersionTask failing to load Newtonsoft.Json=12, cf. https://gitter.im/GitTools/GitVersion# -->
-        <WriteVersionInfoToBuildLog>false</WriteVersionInfoToBuildLog>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <PackageId>FontAwesome.Sharp</PackageId>
-        <Description>A library for embbeding Font Awesome icons in WPF &amp; Windows Forms applications</Description>
-        <PackageLicenseUrl>License URL</PackageLicenseUrl>
-        <PackageProjectUrl>https://github.com/awesome-inc/FontAwesome.Sharp</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/awesome-inc/FontAwesome.Sharp</RepositoryUrl>
-        <!-- <PackageIconUrl>Icon URL</PackageIconUrl>
-        <RepositoryType>Repo type</RepositoryType>
-        <PackageTags>Tags</PackageTags>
-        <PackageReleaseNotes>Release</PackageReleaseNotes> -->
     </PropertyGroup>
 
     <ItemGroup>
@@ -40,6 +28,4 @@
         <Resource Include="fonts\fa-regular-400.ttf" />
         <Resource Include="fonts\fa-solid-900.ttf" />
     </ItemGroup>
-
-    <Import Project="$(SolutionDir)\solution.targets" />
 </Project>
