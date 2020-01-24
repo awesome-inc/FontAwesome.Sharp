@@ -1,6 +1,13 @@
 ﻿<SolutionConfiguration>
   <Settings>
+    <AdditionalFilesToIncludeForSolution>
+      <Value>global.json</Value>
+    </AdditionalFilesToIncludeForSolution>
     <AllowParallelTestExecution>True</AllowParallelTestExecution>
+    <CustomBuildProperties>
+      <Value>TargetFramework = netcoreapp3.0</Value>
+      <Value>DisableGitVersionTask = true</Value>
+    </CustomBuildProperties>
     <MetricsExclusionList>
       <Value>TestForms\TestForms.csproj</Value>
       <Value>TestWpf\TestWpf.csproj</Value>

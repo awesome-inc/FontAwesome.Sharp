@@ -1,13 +1,12 @@
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace TestForms.MaterialDesign
 {
-    [TestFixture]
     // ReSharper disable once InconsistentNaming
-    internal class MaterialDesignFont_Should
+    public class MaterialDesignFont_Should
     {
-        [Test]
+        [Fact]
         public void Load_Font()
         {
             var font = MaterialDesignFont.FontFamily;

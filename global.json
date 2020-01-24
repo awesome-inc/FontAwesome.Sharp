@@ -1,0 +1,6 @@
+{
+  "sdk": {
+    // workaround wpf compile error https://github.com/dotnet/runtime/issues/730
+    "version": "3.0.100"
+  }
+}

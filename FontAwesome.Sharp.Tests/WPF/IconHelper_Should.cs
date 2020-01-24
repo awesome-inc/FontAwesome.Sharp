@@ -45,7 +45,8 @@ namespace FontAwesome.Sharp.Tests.WPF
             }
         }
 
-        [WpfFact, Description("Some icons are not contained in any ttf-webfont!")]
+        [Fact]
+        [Description("Some icons are not contained in any ttf-webfont!")]
         public void Skip_orphaned_icons()
         {
             foreach(var icon in IconHelper.Orphans)

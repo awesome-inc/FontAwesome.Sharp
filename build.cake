@@ -6,12 +6,17 @@
 
 var project = Argument("project", "./FontAwesome.Sharp.sln");
 var configuration = Argument("configuration", "Release");
-var verbosity = Argument("verbosity", Verbosity.Minimal);
+var verbosity = Argument("verbosity", DotNetCoreVerbosity.Minimal);
 var target = Argument("target", "Default");
 
 var isCiBuild = AppVeyor.IsRunningOnAppVeyor;
 // https://www.appveyor.com/docs/environment-variables/
 var isTag = (EnvironmentVariable("APPVEYOR_REPO_TAG") ?? "-unset-") == "true";
+//---
+// detect if running in Azure DevOps, cf.:
+// - https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables
+var inAzure = HasEnvironmentVariable("TF_BUILD");
+GitVersion gitVersion = null;
 
 //-------------------------------------------------------------
 var coverageDirectory = ".coverage";
@@ -29,28 +34,20 @@ Task("Restore")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-    NuGetRestore(project, new NuGetRestoreSettings { PackagesDirectory="packages"});
+    DotNetCoreRestore();
 });
 
 //-------------------------------------------------------------
-#tool "nuget:?package=GitVersion.CommandLine&version=5.0.1"
-GitVersion versionInfo = null;
+// https://www.nuget.org/packages/GitVersion.CommandLine
+#tool nuget:?package=GitVersion.CommandLine&version=5.1.3
 Task("Version")
     .Does(() =>
 {
-    var settings = new GitVersionSettings {
-        OutputType = GitVersionOutput.Json,
-        Verbosity = GitVersionVerbosity.Warn, // Error, Warn, Info, Debug
-        UpdateAssemblyInfo = false
-    };
-    versionInfo = GitVersion(settings);
-
-    if (isCiBuild) {
-        settings.OutputType = GitVersionOutput.BuildServer;
-        GitVersion(settings);
-    }
-
-    Information($"GitVersion: {versionInfo.SemVer}");
+    gitVersion = GitVersion(new GitVersionSettings {
+        OutputType = isCiBuild ? GitVersionOutput.BuildServer : GitVersionOutput.Json
+    });
+    
+    Information($"GitVersion: {gitVersion.SemVer}");
 });
 
 //-------------------------------------------------------------
@@ -59,53 +56,43 @@ Task("Build")
     .IsDependentOn("Version")
     .Does(() =>
 {
-    MSBuild(project, settings =>
-        settings.SetConfiguration(configuration)
-            .UseToolVersion(MSBuildToolVersion.VS2019)
-            .SetVerbosity(verbosity));
+    // cf.: https://cakebuild.net/api/Cake.Common.Tools.DotNetCore.Build/DotNetCoreBuildSettings/
+    var settings = new DotNetCoreBuildSettings
+    {
+        NoRestore = true,
+        Configuration = configuration,
+        Verbosity = verbosity
+    };
+    DotNetCoreBuild(project, settings);
 });
 
 //-------------------------------------------------------------
 Task("Test")
-    .IsDependentOn("OpenCover")
-    .Does(() =>
-{
-});
-
-//-------------------------------------------------------------
-#tool nuget:?package=OpenCover&version=4.7.922
-#tool "nuget:?package=xunit.runner.console&version=2.4.1"
-var resultsDir = "TestResults";
-var openCoverOutput = $"{resultsDir}/coverage.opencover.xml";
-Task("OpenCover")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    var openCoverSettings = new OpenCoverSettings
+    var runSettings = MakeAbsolute(File("./coverage.runsettings"));
+    var settings = new DotNetCoreTestSettings
     {
-        //Register = "user",
-        SkipAutoProps = true,
-        ArgumentCustomization = args => args.Append("-coverbytest:*.Tests.dll").Append("-mergebyhash")
+        Configuration = configuration,
+        NoBuild = true, // avoid a second build, we already depend on build (see above)
+        //NoRestore = true, // implied with `NoBuild`
+        Verbosity = verbosity,
+        // https://github.com/Microsoft/vstest-docs/blob/master/RFCs/0021-CodeCoverageForNetCore.md
+        ArgumentCustomization = args => args
+            .Append("--blame")
+            .Append("--logger").Append("trx")
+            .Append("--collect").AppendQuoted("Code Coverage")
+            // cf.: https://github.com/tonerdo/coverlet#vstest-integration
+            .Append("--collect:\"XPlat Code Coverage\"")
+            // - https://github.com/Microsoft/vstest/issues/1917
+            // - https://docs.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file?view=vs-2019#example-runsettings-file
+            // - https://github.com/tonerdo/coverlet/blob/master/Documentation/VSTestIntegration.md#advanced-options-supported-via-runsettings
+            .Append($"--settings:{runSettings.FullPath}")
     };
 
-    if (!DirectoryExists(resultsDir))
-        CreateDirectory(resultsDir);
-    else
-        CleanDirectory(resultsDir);
+    DotNetCoreTest(project, settings);
 
-    OpenCover(tool => {
-            tool.XUnit2($"*.Tests/**/bin/{configuration}/**/*.Tests.dll",
-            new XUnit2Settings {
-                ShadowCopy = false,
-                //HtmlReport = true,
-                //OutputDirectory = coverageDirectory
-            });
-        },
-        openCoverOutput,
-        openCoverSettings
-            .WithFilter("+[FontAwesome.*]FontAwesome.*")
-            .WithFilter("-[*.Tests]*")
-    );
 });
 
 //-------------------------------------------------------------
@@ -132,21 +119,6 @@ Task("CoverageReport")
     ReportGenerator(coverageFiles, coverageDirectory); //, reportSettings);
 });
 
-
-//-------------------------------------------------------------
-#tool nuget:?package=coveralls.io&version=1.4.2
-#addin nuget:?package=Cake.Coveralls&version=0.10.1
-Task("CoverageUpload")
-    .IsDependentOn("Test")
-    .Does(() =>
-{
-    var repoToken = EnvironmentVariable("COVERALLS_REPO_TOKEN") ?? "-unset-";
-    CoverallsIo(openCoverOutput, new CoverallsIoSettings()
-    {
-        RepoToken = repoToken
-    });
-});
-
 //-------------------------------------------------------------
 // cf.: https://github.com/AgileArchitect/Cake.Sonar
 #addin nuget:?package=Cake.Sonar&version=1.1.22
@@ -159,30 +131,32 @@ Task("Sonar")
     .IsDependentOn("SonarEnd");
 
 Task("SonarBegin")
+    .IsDependentOn("Version")
     .Does(() =>
 {
     var settings = new SonarBeginSettings
     {
-        Url = "https://sonarcloud.io",
-        Login = sonarLogin,
-        Organization = "awesome-inc",
         Key = "awesome-inc_FontAwesome.Sharp",
-        Version = GitVersion().FullSemVer,
+        Name = "FontAwesome.Sharp",
+        Version = gitVersion.FullSemVer,
         VsTestReportsPath = "**/*.trx",
-        NUnitReportsPath = "**/TestResult.xml",
         OpenCoverReportsPath = "**/coverage.opencover.xml",
         Exclusions = "**/*.css" // Exclude imported CSS
     };
+    if (!string.IsNullOrEmpty(sonarLogin)) {
+        settings.Url = "https://sonarcloud.io";
+        settings.Login = sonarLogin;
+        settings.Organization = "awesome-inc";
+        settings.Branch = gitVersion.BranchName;
+    }
     SonarBegin(settings);
 });
 
 Task("SonarEnd")
     .Does(() =>
 {
-    var settings = new SonarEndSettings
-    {
-        Login = sonarLogin
-    };
+    var settings = new SonarEndSettings();
+    if (!string.IsNullOrEmpty(sonarLogin)) settings.Login = sonarLogin;
     SonarEnd(settings);
 });
 
@@ -191,11 +165,12 @@ Task("Package")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    var nuGetPackSettings = new NuGetPackSettings{
-        Version = versionInfo.NuGetVersion,
-        ReleaseNotes = new List<string>{$"Revision: {versionInfo.Sha}"}
-    };
-    NuGetPack("./FontAwesome.Sharp/Package.nuspec", nuGetPackSettings);
+    var settings = new DotNetCorePackSettings
+     {
+         Configuration = configuration,
+         OutputDirectory = "./artifacts/"
+     };
+    DotNetCorePack(project, settings);
 });
 
 Task("Push")
@@ -207,7 +182,7 @@ Task("Push")
         return;
     }
 
-    NuGetPush($"./FontAwesome.Sharp.{versionInfo.NuGetVersion}.nupkg", new NuGetPushSettings {
+    DotNetCoreNuGetPush($"./artifacts/FontAwesome.Sharp.{gitVersion.NuGetVersion}.nupkg", new DotNetCoreNuGetPushSettings {
       Source = "https://www.nuget.org",
       ApiKey = EnvironmentVariable("NUGET_API_KEY") ?? "-unset-"
     });
@@ -220,6 +195,8 @@ Task("CiBuild")
 
 //-------------------------------------------------------------
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("Test");
+
+//-------------------------------------------------------------
 
 RunTarget(target);

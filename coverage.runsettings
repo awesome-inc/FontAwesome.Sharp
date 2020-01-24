@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings files, cf.:
+ - https://docs.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file?view=vs-2019#elements-of-a-runsettings-file
+ - https://github.com/tonerdo/coverlet/blob/master/Documentation/VSTestIntegration.md#advanced-options-supported-via-runsettings 
+-->
+<RunSettings>
+    <!-- Disable parallelization (WPF!) -->
+    <!--<MaxCpuCount>1</MaxCpuCount>-->
+
+    <!-- Configurations for data collectors -->
+    <DataCollectionRunSettings>
+        <DataCollectors>
+            <DataCollector friendlyName="XPlat code coverage">
+                <Configuration>
+                    <Format>opencover</Format>
+                    <!-- [Assembly-Filter]Type-Filter -->
+                    <Include>[FontAwesome.*]FontAwesome.*</Include>
+                    <Exclude>[*.Tests]*</Exclude>
+                    <SingleHit>true</SingleHit> -->
+                </Configuration>
+            </DataCollector>
+        </DataCollectors>
+    </DataCollectionRunSettings>
+    <!-- coverlet > 1.x bug, cf.:
+        - https://github.com/tonerdo/coverlet/blob/master/Documentation/KnowIssues.md
+        - https://github.com/microsoft/vstest/issues/2205 -->
+    <InProcDataCollectionRunSettings>
+        <InProcDataCollectors>
+        <InProcDataCollector assemblyQualifiedName="Coverlet.Collector.DataCollection.CoverletInProcDataCollector, coverlet.collector, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null"
+                        friendlyName="XPlat Code Coverage"
+                        enabled="True"
+                        codebase="coverlet.collector.dll" />
+        </InProcDataCollectors>
+  </InProcDataCollectionRunSettings>    
+</RunSettings>

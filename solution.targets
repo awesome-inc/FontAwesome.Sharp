@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <ItemGroup Condition="'$(SkipSolutionInfo)' != 'true'">
-        <Compile Include="$(SolutionDir)SolutionInfo.cs">
-            <Link>Properties\SolutionInfo.cs</Link>
-        </Compile>
-    </ItemGroup>
-
     <PropertyGroup>
-        <!-- for OpenCover we need full debug, cf.:
-        - https://stackoverflow.com/a/51685036/2592915
-        - https://blog.markvincze.com/setting-up-coveralls-for-a-net-core-project/
-        -->
+        <LangVersion>latest</LangVersion>
         <DebugType>full</DebugType>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
 
-    <!-- ## Automatically import project-specific overrides (place this last) -->
-    <Import Project="$(ProjectDir)\$(ProjectName).targets" Condition="Exists('$(ProjectDir)\$(ProjectName).targets')"/>
+    <PropertyGroup>
+        <!-- https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties -->
+        <Authors>Awesome Incremented and Contributors</Authors>
+        <Company>Awesome Incremented</Company>
+        <Product>FontAwesome.Sharp</Product>
+        <NeutralLanguage>en</NeutralLanguage>
+        <Copyright>Copyright © Awesome Incremented 2015-2020</Copyright>
+        <Description>A library for embbeding Font Awesome icons in WPF &amp; Windows Forms applications</Description>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <!-- See GitHub project tags -->
+        <PackageTags>fontawesome;icon;material-design;dotnet-core;wpf;windows-forms</PackageTags>
+        <RepositoryUrl>https://github.com/awesome-inc/FontAwesome.Sharp</RepositoryUrl>
+        <!-- Workaround GitVersionTask failing to load Newtonsoft.Json=12, cf. https://gitter.im/GitTools/GitVersion# -->
+        <WriteVersionInfoToBuildLog>false</WriteVersionInfoToBuildLog>
+    </PropertyGroup>
 </Project>

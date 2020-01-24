@@ -2,8 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome.Sharp", "FontAwesome.Sharp\FontAwesome.Sharp.csproj", "{9098C25A-A6DC-4412-8DEF-DD0262FBFBD7}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{81C8E36E-2CF4-4ECA-B177-71E361EECFAF}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -17,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CONTRIBUTING.md = CONTRIBUTING.md
 		FontAwesome.Sharp.png = FontAwesome.Sharp.png
 		GitVersion.yml = GitVersion.yml
+		global.json = global.json
 		LICENSE = LICENSE
 		package-lock.json = package-lock.json
 		package.json = package.json
@@ -25,13 +24,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		SolutionInfo.cs = SolutionInfo.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "TestWpf\TestWpf.csproj", "{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontEnumGenerator", "FontEnumGenerator\FontEnumGenerator.csproj", "{F570BCCB-D937-4D7F-815A-348612602025}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontAwesome.Sharp", "FontAwesome.Sharp\FontAwesome.Sharp.csproj", "{DBFB4AD9-ED5E-437A-A4FA-D01461F3F630}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontAwesome.Sharp.Tests", "FontAwesome.Sharp.Tests\FontAwesome.Sharp.Tests.csproj", "{05A166B4-0EF2-4125-BB55-79C5271B5CE8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{482C8EF2-CE3B-4F02-A1CE-8711A3650A5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForms", "TestForms\TestForms.csproj", "{E658D377-C50B-416A-9FC8-128036AC6977}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome.Sharp.Tests", "FontAwesome.Sharp.Tests\FontAwesome.Sharp.Tests.csproj", "{68723D84-3DE1-42FF-8FBC-9CEEA6485CE3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontEnumGenerator", "FontEnumGenerator\FontEnumGenerator.csproj", "{F570BCCB-D937-4D7F-815A-348612602025}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "TestWpf\TestWpf.csproj", "{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,29 +42,33 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9098C25A-A6DC-4412-8DEF-DD0262FBFBD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9098C25A-A6DC-4412-8DEF-DD0262FBFBD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9098C25A-A6DC-4412-8DEF-DD0262FBFBD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9098C25A-A6DC-4412-8DEF-DD0262FBFBD7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E658D377-C50B-416A-9FC8-128036AC6977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E658D377-C50B-416A-9FC8-128036AC6977}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E658D377-C50B-416A-9FC8-128036AC6977}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E658D377-C50B-416A-9FC8-128036AC6977}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68723D84-3DE1-42FF-8FBC-9CEEA6485CE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68723D84-3DE1-42FF-8FBC-9CEEA6485CE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68723D84-3DE1-42FF-8FBC-9CEEA6485CE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68723D84-3DE1-42FF-8FBC-9CEEA6485CE3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F570BCCB-D937-4D7F-815A-348612602025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F570BCCB-D937-4D7F-815A-348612602025}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F570BCCB-D937-4D7F-815A-348612602025}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F570BCCB-D937-4D7F-815A-348612602025}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBFB4AD9-ED5E-437A-A4FA-D01461F3F630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBFB4AD9-ED5E-437A-A4FA-D01461F3F630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBFB4AD9-ED5E-437A-A4FA-D01461F3F630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBFB4AD9-ED5E-437A-A4FA-D01461F3F630}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05A166B4-0EF2-4125-BB55-79C5271B5CE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05A166B4-0EF2-4125-BB55-79C5271B5CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05A166B4-0EF2-4125-BB55-79C5271B5CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05A166B4-0EF2-4125-BB55-79C5271B5CE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E658D377-C50B-416A-9FC8-128036AC6977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E658D377-C50B-416A-9FC8-128036AC6977}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E658D377-C50B-416A-9FC8-128036AC6977}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E658D377-C50B-416A-9FC8-128036AC6977}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E658D377-C50B-416A-9FC8-128036AC6977} = {482C8EF2-CE3B-4F02-A1CE-8711A3650A5F}
+		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38} = {482C8EF2-CE3B-4F02-A1CE-8711A3650A5F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5715E097-E80B-4B5B-8D03-B9EA5DDB1C14}
