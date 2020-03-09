@@ -175,7 +175,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="TextBlock '0xF002' (Unicode)" />
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="&#xf002;" FontFamily="{StaticResource MaterialDesign}"
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="&#xF0002;" FontFamily="{StaticResource MaterialDesign}"
                            Foreground="Chartreuse" TextAlignment="Center" FontSize="24" />
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="IconBlock:" />
