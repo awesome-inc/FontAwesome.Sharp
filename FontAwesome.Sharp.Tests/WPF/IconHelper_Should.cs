@@ -15,7 +15,7 @@ namespace FontAwesome.Sharp.Tests.WPF
         {
             foreach (var icon in IconHelper.Icons)
             {
-                var expected = char.ConvertFromUtf32((int)icon).Single();
+                var expected = char.ConvertFromUtf32((int)icon).First();
                 icon.ToChar().Should().Be(expected);
             }
         }

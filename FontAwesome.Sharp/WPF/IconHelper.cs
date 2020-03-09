@@ -44,7 +44,7 @@ namespace FontAwesome.Sharp
 
         public static char ToChar<TEnum>(this TEnum icon, IFormatProvider formatProvider = null) where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            return char.ConvertFromUtf32(icon.ToInt32(formatProvider ?? CultureInfo.InvariantCulture)).Single();
+            return char.ConvertFromUtf32(icon.ToInt32(formatProvider ?? CultureInfo.InvariantCulture)).First();
         }
 
         public static ImageSource ToImageSource(this IconChar iconChar,

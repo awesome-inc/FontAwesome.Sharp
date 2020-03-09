@@ -60,7 +60,7 @@ namespace FontAwesome.Sharp
         private void OnTextValueChanged(object sender, EventArgs e)
         {
             var str = Text;
-            if (str.Length != 1 || !Enum.IsDefined(typeof(TEnum), char.ConvertToUtf32(str, 0)))
+            if (string.IsNullOrEmpty(str) || str.Length > 2 || !Enum.IsDefined(typeof(TEnum), char.ConvertToUtf32(str, 0)))
                 throw new FormatException();
         }
     }
