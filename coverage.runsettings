@@ -16,7 +16,7 @@
                     <!-- [Assembly-Filter]Type-Filter -->
                     <Include>[FontAwesome.*]FontAwesome.*</Include>
                     <Exclude>[*.Tests]*</Exclude>
-                    <SingleHit>true</SingleHit> -->
+                    <SingleHit>true</SingleHit>
                 </Configuration>
             </DataCollector>
         </DataCollectors>
