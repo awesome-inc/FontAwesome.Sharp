@@ -1,6 +1,10 @@
 {
-  "sdk": {
-    // workaround wpf compile error https://github.com/dotnet/runtime/issues/730
-    "version": "3.0.100"
+    "sdk": {
+        // workaround wpf compile error, cf.:
+        // - https://github.com/dotnet/wpf/issues/2274
+        // - https://github.com/dotnet/runtime/issues/730
+        // Workaround: Install sdk 3.0.x (https://dotnet.microsoft.com/download/dotnet-core/3.0)
+        // and pin version here
+        "version": "3.0.103"
   }
 }

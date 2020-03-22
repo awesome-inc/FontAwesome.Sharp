@@ -39,7 +39,7 @@ Task("Restore")
 
 //-------------------------------------------------------------
 // https://www.nuget.org/packages/GitVersion.CommandLine
-#tool nuget:?package=GitVersion.CommandLine&version=5.1.3
+#tool nuget:?package=GitVersion.CommandLine&version=5.2.4
 Task("Version")
     .Does(() =>
 {
