@@ -95,8 +95,8 @@ namespace FontAwesome.Sharp
 
         private static readonly string[] FontTitles =
         {
-            "Font Awesome 5 Free Solid",
             "Font Awesome 5 Free Regular",
+            "Font Awesome 5 Free Solid",
             "Font Awesome 5 Brands Regular"
         };
 
