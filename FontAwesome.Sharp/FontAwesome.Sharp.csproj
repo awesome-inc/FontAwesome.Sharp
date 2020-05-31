@@ -6,7 +6,7 @@
     <Import Project="$(SolutionDir)\solution.targets" />
 
     <PropertyGroup>
-        <TargetFrameworks>net40;net45;net472;net48;netcoreapp3.0</TargetFrameworks>
+        <TargetFrameworks>net40;net45;net472;net48;netcoreapp3.1</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <UseWPF>true</UseWPF>
         <RootNamespace>FontAwesome.Sharp</RootNamespace>
