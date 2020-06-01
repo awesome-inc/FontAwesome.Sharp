@@ -4,6 +4,7 @@
 [![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/)
 [![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=awesome-inc_FontAwesome.Sharp&metric=alert_status)](https://sonarcloud.io/dashboard?id=awesome-inc_FontAwesome.Sharp)
+
 <!-- [![Coverage Status](https://coveralls.io/repos/github/awesome-inc/FontAwesome.Sharp/badge.svg)](https://coveralls.io/github/awesome-inc/FontAwesome.Sharp) -->
 
 A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF & Windows Forms applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
@@ -61,6 +62,15 @@ For more details including setting the application icon or using a treeview, hav
 
 ## WPF
 
+After installation, add the XAML namespace and you are good to go
+
+```xml
+<Window
+  xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp">
+...
+</Window>
+```
+
 If you use WPF you may remove the references to
 
 - `System.Windows.Forms`
@@ -80,7 +90,7 @@ More details are given below. Be sure to have a look at the sample application `
 
 ### Text
 
-The most rudimentary way is to use *FontAwesome* directly with a `TextBlock` like
+The most rudimentary way is to use _FontAwesome_ directly with a `TextBlock` like
 
 ```xml
 <TextBlock Grid.Column="1" Text="&#xf042;"
@@ -107,9 +117,9 @@ Usually, you will bind some text from your view model, say
 <TextBlock fa:Awesome.Inline="{Binding MyInlineText}" />
 ```
 
-where `MyViewModel.MyInlineText` may be some text like *":Bitcoin: is a cryptocurrency. :EuroSign: is a fiat money."*.
+where `MyViewModel.MyInlineText` may be some text like _":Bitcoin: is a cryptocurrency. :EuroSign: is a fiat money."_.
 
-This works by creating inline [Runs](https://msdn.microsoft.com/en-us/library/system.windows.documents.run(v=vs.110).aspx) switching fonts to **FontAwesome** while preserving
+This works by creating inline [Runs](<https://msdn.microsoft.com/en-us/library/system.windows.documents.run(v=vs.110).aspx>) switching fonts to **FontAwesome** while preserving
 all other font related properties of the `TextBlock` like color, weight and size.
 
 The default RegEx pattern for parsing the icon names is `:(\w+):`.
@@ -125,7 +135,7 @@ It can be customized using the `Awesome.Pattern`-property. Any pattern with the 
 
 #### `<fa:IconBlock />`
 
-To use *FontAwesome*-icons in text you can use the `IconBlock` which subclasses the standard WPF [TextBlock](http://msdn.microsoft.com/en-us/library/system.windows.controls.textblock.aspx). You can the set the corresponding *Font Awesome* icon via the `Icon`-property:
+To use _FontAwesome_-icons in text you can use the `IconBlock` which subclasses the standard WPF [TextBlock](http://msdn.microsoft.com/en-us/library/system.windows.controls.textblock.aspx). You can the set the corresponding _Font Awesome_ icon via the `Icon`-property:
 
 ```xml
 <fa:IconBlock Icon="Home" Foreground="Blue" />
@@ -189,7 +199,9 @@ And here a default style
 
 #### `<fa:IconImage />`
 
-Use this control when you are restricted to images and cannot you `IconBlock`. It subclasses the standard WPF [Image](http://msdn.microsoft.com/en-us/library/system.windows.controls.image(v=vs.110).aspx) for convenience. Again, you can set the corresponding Font Awesome element via the `Icon`-property like this
+Use this control when you are restricted to images and cannot use `IconBlock`.
+It subclasses the standard WPF [Image](<http://msdn.microsoft.com/en-us/library/system.windows.controls.image(v=vs.110).aspx>)
+for convenience. Again, you can set the corresponding Font Awesome element via the `Icon`-property like this
 
 ```xml
 <fa:IconImage Icon="Ambulance" Foreground="Red" Width="24" Height="24"/>
@@ -201,7 +213,8 @@ You can additionally change the color with the `Foreground`-property.
 
 #### `{fa:IconSource [Icon]}`
 
-When you are restricted to [ImageSource](http://msdn.microsoft.com/en-us/library/system.windows.media.imagesource(v=vs.110).aspx) like with the WPF [Ribbon](http://msdn.microsoft.com/en-us/library/ff799534(v=vs.110).aspx) control you can use the `IconSource` markup extension like:
+When you are restricted to [ImageSource](<http://msdn.microsoft.com/en-us/library/system.windows.media.imagesource(v=vs.110).aspx>>>) like with the WPF [Ribbon](<http://msdn.microsoft.com/en-us/library/ff799534(v=vs.110).aspx>)
+control you can use the `IconSource` markup extension like:
 
 ```xml
 <RibbonButton SmallImageSource="{fa:IconSource InfoCircle, Foreground=Red"/>
@@ -262,18 +275,18 @@ Often you want to have the menu icons all have a consistent style (e.g. size and
 
 ## Using custom fonts
 
-As of version *5.2+* it is easy to reuse the library with other icon fonts (see e.g. [Vector Icons Roundup](https://tagliala.github.io/vectoriconsroundup/) for a comparative list).
+As of version _5.2+_ it is easy to reuse the library with other icon fonts (see e.g. [Vector Icons Roundup](https://tagliala.github.io/vectoriconsroundup/) for a comparative list).
 
-See the `TestWPF` or the `TestForms` sample application for an example on how to use  [Material Design Icons](https://materialdesignicons.com/).
+See the `TestWPF` or the `TestForms` sample application for an example on how to use [Material Design Icons](https://materialdesignicons.com/).
 
 The steps to use your own icon font are laid out below with Google's Material Design Icons as an example:
 
 1. Download the web font, e.g. [Templarian/MaterialDesign-Webfont](https://github.com/Templarian/MaterialDesign-Webfont/releases). You will need the `.css` and the `.ttf` files. Alternatively use the npm font package [@mdi/font](https://www.npmjs.com/package/@mdi/font)
 2. Generate the font icon enum class using `FontEnumGenerator`
 
-    ```console
-    FontEnumGenerator.exe --css Content\materialdesignicons.css --prefix .mdi- --name MaterialIcons
-    ```
+   ```console
+   FontEnumGenerator.exe --css Content\materialdesignicons.css --prefix .mdi- --name MaterialIcons
+   ```
 
    This will parse the `.css` file and generate an enumeration class `MaterialIcons.cs` with the UTF8-codes of all css-items matching the specified prefix `.mdi-*-before`, cf.
 
@@ -299,44 +312,44 @@ The steps to use your own icon font are laid out below with Google's Material De
 
 3. Add the generated class and the font file (`.ttf`) to your project. Check that `Build Action` is set to `Resource` for the font file.
 
-    ![Set build action to resource](img/font_as_resource.png)
+   ![Set build action to resource](img/font_as_resource.png)
 
 4. Load the font and declare icon classes using the enum and the corresponding font.
 
-    ```csharp
-    internal static class MaterialDesignFont
-    {
-        internal static readonly FontFamily FontFamily =
-            Assembly.GetExecutingAssembly().GetFont("fonts", "Material Design Icons");
-    }
-    ...
-    public class IconBlock : IconBlockBase<MaterialIcons>
-    {
-        public IconBlock() : base(MaterialDesignFont.FontFamily)
-        {
-        }
-    }
-    ...
-    ```
+   ```csharp
+   internal static class MaterialDesignFont
+   {
+       internal static readonly FontFamily FontFamily =
+           Assembly.GetExecutingAssembly().GetFont("fonts", "Material Design Icons");
+   }
+   ...
+   public class IconBlock : IconBlockBase<MaterialIcons>
+   {
+       public IconBlock() : base(MaterialDesignFont.FontFamily)
+       {
+       }
+   }
+   ...
+   ```
 
-    You can find the font title by inspecting the File properties.
+   You can find the font title by inspecting the File properties.
 
-    ![Font Title](img/font_title.png)
+   ![Font Title](img/font_title.png)
 
 5. Use your custom classes, e.g. with Xaml
 
-    ```xml
-    <Window x:Class="TestWpf.MainWindow"
-        ...
-        xmlns:mdi="clr-namespace:TestWpf.MaterialDesign">
-        ...
-        <mdi:IconBlock Icon="AccessPointNetwork" FontSize="24" Foreground="DarkSlateBlue" />
-        ...
-    ```
+   ```xml
+   <Window x:Class="TestWpf.MainWindow"
+       ...
+       xmlns:mdi="clr-namespace:TestWpf.MaterialDesign">
+       ...
+       <mdi:IconBlock Icon="AccessPointNetwork" FontSize="24" Foreground="DarkSlateBlue" />
+       ...
+   ```
 
-    which will look like this
+   which will look like this
 
-    ![Material Design Icon: Access Point Network](img/mdi-access-point-network.png)
+   ![Material Design Icon: Access Point Network](img/mdi-access-point-network.png)
 
 ## Related Projects
 
