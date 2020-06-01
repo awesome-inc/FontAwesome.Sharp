@@ -47,16 +47,16 @@ namespace FontAwesome.Sharp
             return char.ConvertFromUtf32(icon.ToInt32(formatProvider ?? CultureInfo.InvariantCulture));
         }
 
+        public static string ToChar(this IconChar iconChar)
+        {
+            return ToChar<IconChar>(iconChar);
+        }
+
         public static ImageSource ToImageSource(this IconChar iconChar,
             Brush foregroundBrush = null, double size = DefaultSize)
         {
             var typeFace = TypefaceFor(iconChar.ToChar(), out var gt, out var glyphIndex);
             return typeFace == null ? null : ToImageSource(foregroundBrush, size, gt, glyphIndex);
-        }
-
-        public static string ToChar(this IconChar iconChar)
-        {
-            return ToChar<IconChar>(iconChar);
         }
 
         private static ImageSource ToImageSource(Brush foregroundBrush, double size, GlyphTypeface gt, ushort glyphIndex)

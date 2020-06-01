@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
@@ -9,7 +8,7 @@ namespace FontAwesome.Sharp.Tests.WPF
     // ReSharper disable once InconsistentNaming
     public class ToText_Should
     {
-        [Theory]
+        [WpfTheory]
         [InlineData(IconChar.Accusoft)]
         public void Be_Creatable(IconChar iconChar)
         {

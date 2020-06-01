@@ -9,7 +9,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
         protected virtual bool FlipOnPaint { get; } = false;
         protected virtual bool RotateOnPaint { get; } = false;
 
-        [Theory]
+        [StaTheory]
         [InlineData(IconChar.Accusoft)]
         public void Be_Creatable(IconChar icon)
         {
@@ -22,7 +22,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
                 .BeFalse("Image should not be serialized in .resx since generated");
         }
 
-        [Fact]
+        [StaFact]
         public void Skip_small_Rotation_changes()
         {
             using var formsIcon = new T();
@@ -35,7 +35,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
             formsIcon.Rotation.Should().Be(1);
         }
 
-        [Fact]
+        [StaFact]
         public void Update_image_on_changes()
         {
             using var formsIcon = new T();

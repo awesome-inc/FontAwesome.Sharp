@@ -9,7 +9,7 @@ namespace FontAwesome.Sharp.Tests.WPF
     // ReSharper disable once InconsistentNaming
     public class IconSource_Should
     {
-        [Theory]
+        [WpfTheory]
         [InlineData(IconChar.Accusoft)]
         public void Be_Creatable(IconChar iconChar)
         {

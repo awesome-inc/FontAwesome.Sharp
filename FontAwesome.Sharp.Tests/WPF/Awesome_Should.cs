@@ -8,7 +8,7 @@ namespace FontAwesome.Sharp.Tests.WPF
     // ReSharper disable once InconsistentNaming
     public class Awesome_Should
     {
-        [Theory]
+        [WpfTheory]
         [InlineData(@":(\w+):", ":Bitcoin: is a cryptocurrency. :EuroSign: is a fiat money.")]
         [InlineData(@"{fa:(\w+)}", "{fa:Bitcoin} is a cryptocurrency. {fa:EuroSign} is a fiat money.")]
         public void Format_Text(string pattern, string input)

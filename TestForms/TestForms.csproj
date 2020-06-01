@@ -25,6 +25,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Xunit.StaFact" Version="1.0.33-beta" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj" />

@@ -7,7 +7,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
     // ReSharper disable once InconsistentNaming
     public class IconCache_Should
     {
-        [Fact]
+        [StaFact]
         public void Cache_equally_generated_bitmaps()
         {
             using var sut = new IconCache<IconChar>();

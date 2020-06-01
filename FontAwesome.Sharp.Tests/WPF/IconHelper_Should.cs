@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Media;
 using FluentAssertions;
 using Xunit;
@@ -20,7 +19,7 @@ namespace FontAwesome.Sharp.Tests.WPF
             }
         }
 
-        [Fact]
+        [WpfFact]
         public void Lookup_fonts_for_glyphs()
         {
             foreach (var icon in IconHelper.Icons)
@@ -31,7 +30,7 @@ namespace FontAwesome.Sharp.Tests.WPF
             }
         }
 
-        [Fact]
+        [WpfFact]
         public void Generate_imageSources_for_icon_chars()
         {
             foreach (var icon in IconHelper.Icons)
@@ -45,7 +44,7 @@ namespace FontAwesome.Sharp.Tests.WPF
             }
         }
 
-        [Fact]
+        [WpfFact]
         [Description("Some icons are not contained in any ttf-webfont!")]
         public void Skip_orphaned_icons()
         {
