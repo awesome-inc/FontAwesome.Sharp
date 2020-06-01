@@ -15,6 +15,6 @@
         <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <Resource Include="fonts\materialdesignicons-webfont.ttf" />
+        <Resource Include="fonts\*.ttf" />
     </ItemGroup>
 </Project>

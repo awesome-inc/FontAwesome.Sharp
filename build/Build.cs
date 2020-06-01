@@ -26,6 +26,7 @@ class Build : NukeBuild
 
     public static int Main() => Execute<Build>(x => x.Test);
 
+    #region Parameters
     const string Framework = "netcoreapp3.1";
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
@@ -34,15 +35,34 @@ class Build : NukeBuild
     [Solution] readonly Solution Solution;
     [GitVersion(Framework = Framework)] readonly GitVersion GitVersion;
 
-    [Parameter("The SonarQube login token")] readonly string SonarLogin = Environment.GetEnvironmentVariable("SONAR_LOGIN");
-    [Parameter("The SonarQube server")] readonly string SonarServer = IsLocalBuild ? "http://localhost:9000" : "https://sonarcloud.io";
-    [Parameter("The SonarQube organization")] readonly string SonarOrganization = "awesome-inc";
+    [Parameter("The SonarQube login token")]
+    readonly string SonarLogin = Environment.GetEnvironmentVariable("SONAR_LOGIN");
+
+    [Parameter("The SonarQube server")]
+    readonly string SonarServer = IsLocalBuild ? "http://localhost:9000" : "https://sonarcloud.io";
+
+    [Parameter("The SonarQube organization")]
+    readonly string SonarOrganization = "awesome-inc";
 
 
-    [Parameter("Enable coverlet diagnostics (log.*.txt)")] readonly bool CoverletDiag;
+    [Parameter("Enable coverlet diagnostics (log.*.txt)")]
+    readonly bool CoverletDiag;
+
+    [Parameter("Is CI Build (AppVeyor)")]
+    readonly bool IsCiBuild = Host == HostType.AppVeyor;
+    [Parameter("Push built NuGet package")]
+    readonly bool IsPushTag = (Environment.GetEnvironmentVariable("APPVEYOR_REPO_TAG") ?? "-unset-") == "true";
+
+    [Parameter("NuGet API Key")]
+    readonly string NuGetApiKey = Environment.GetEnvironmentVariable("NUGET_API_KEY");
+    [Parameter("NuGet Source")]
+    readonly string NuGetSource = "https://www.nuget.org";
+
     static AbsolutePath TestsDirectory => RootDirectory / "tests";
+    #endregion
 
 
+    //-------------------------------------------------------------
     // ReSharper disable once UnusedMember.Local
     Target Clean => _ => _
         .Before(Restore)
@@ -74,6 +94,7 @@ class Build : NukeBuild
             );
         });
 
+    //-------------------------------------------------------------
     Target Test => _ => _
         .DependsOn(Compile)
         .Executes(() =>
@@ -105,6 +126,7 @@ class Build : NukeBuild
 
         });
 
+    //-------------------------------------------------------------
     Target Sonar => _ => _
             .Description("SonarQube analysis")
             .DependsOn(SonarBegin)
@@ -157,13 +179,42 @@ class Build : NukeBuild
             );
         });
 
-// ReSharper disable once UnusedMember.Local
-    Target DevOpsBuild => _ => _
+    //-------------------------------------------------------------
+    Target Package => _ => _
+        .DependsOn(Compile)
+        .Executes(() =>
+        {
+            DotNetPack(settings => settings
+                    .SetOutputDirectory("./artifacts/")
+                    .SetConfiguration(Configuration)
+                    .SetNoWarns(5105)
+            );
+        });
+
+    Target Push => _ => _
+        .DependsOn(Package)
+        .Executes(() =>
+        {
+            if (IsCiBuild && !IsPushTag)
+            {
+                Logger.Info("Skipping (no tag)");
+                return;
+            }
+
+
+            // $"./artifacts/FontAwesome.Sharp.{gitVersion.NuGetVersion}.nupkg"
+            DotNetNuGetPush(settings => settings
+                .SetApiKey(NuGetApiKey)
+                .SetSource(NuGetSource)
+                );
+        });
+    //-------------------------------------------------------------
+    // ReSharper disable once UnusedMember.Local
+    Target CiBuild => _ => _
         .Description("DevOps build target")
         .DependsOn(Sonar)
-        //.DependsOn(Push)
+        .DependsOn(Push)
         .Executes(() =>
         {
         });
-
 }

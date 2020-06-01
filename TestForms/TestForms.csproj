@@ -14,9 +14,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="..\TestWpf\MaterialDesign\MaterialIcons.cs">
-            <Link>MaterialDesign\MaterialIcons.cs</Link>
-        </Compile>
         <PackageReference Include="coverlet.collector" Version="1.3.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -28,11 +25,17 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <Resource Include="..\TestWpf\fonts\materialdesignicons-webfont.ttf">
-            <Link>fonts\materialdesignicons-webfont.ttf</Link>
-        </Resource>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="..\TestWpf\MaterialDesign\MaterialIcons.cs">
+            <Link>MaterialDesign\MaterialIcons.cs</Link>
+        </Compile>
+        <Resource Include="..\TestWpf\fonts\materialdesignicons-webfont.ttf">
+            <Link>fonts\materialdesignicons-webfont.ttf</Link>
+        </Resource>
     </ItemGroup>
 </Project>

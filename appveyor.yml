@@ -7,6 +7,7 @@ nuget:
 cache:
   - tools -> tools\packages.config
 environment: # https://ci.appveyor.com/tools/encrypt
+
   SONAR_LOGIN:
     secure: l2/mdQdg/lTP5RDqDK8CeiEqwD5OCb9xKuF6MEbZHWMost5D9CpGAeuIm303tgUk
   NUGET_API_KEY:

@@ -11,7 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		appveyor.yml = appveyor.yml
 		build.cake = build.cake
 		build.ps1 = build.ps1
-		cake.config = cake.config
 		CONTRIBUTING.md = CONTRIBUTING.md
 		FontAwesome.Sharp.png = FontAwesome.Sharp.png
 		FontAwesome.Sharp.v3.ncrunchsolution = FontAwesome.Sharp.v3.ncrunchsolution
@@ -36,6 +35,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestForms", "TestForms\TestForms.csproj", "{E658D377-C50B-416A-9FC8-128036AC6977}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWpf", "TestWpf\TestWpf.csproj", "{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{05F18261-6B1E-4352-9D25-0B5F6DAF80F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +64,8 @@ Global
 		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05F18261-6B1E-4352-9D25-0B5F6DAF80F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05F18261-6B1E-4352-9D25-0B5F6DAF80F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
