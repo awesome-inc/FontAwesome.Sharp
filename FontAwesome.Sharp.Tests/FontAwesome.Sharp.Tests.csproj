@@ -6,7 +6,7 @@
     <Import Project="$(SolutionDir)\solution.targets" />
 
     <PropertyGroup>
-        <TargetFrameworks>net48;netcoreapp3.1</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <UseWpf>true</UseWpf>
         <IsPackable>false</IsPackable>
@@ -25,7 +25,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Xunit.StaFact" Version="1.0.19-beta" />
+        <PackageReference Include="Xunit.StaFact" Version="1.0.33-beta" />
     </ItemGroup>
 
     <ItemGroup>

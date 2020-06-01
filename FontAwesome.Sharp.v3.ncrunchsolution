@@ -3,11 +3,10 @@
     <AdditionalFilesToIncludeForSolution>
       <Value>global.json</Value>
     </AdditionalFilesToIncludeForSolution>
-    <AllowParallelTestExecution>True</AllowParallelTestExecution>
+    <AllowParallelTestExecution>False</AllowParallelTestExecution>
     <!--<InstrumentationMode>Legacy</InstrumentationMode>-->
     <CustomBuildProperties>
       <Value>TargetFramework = netcoreapp3.1</Value>
-      <Value>DisableGitVersionTask = true</Value>
     </CustomBuildProperties>
     <MetricsExclusionList>
       <Value>TestForms\TestForms.csproj</Value>

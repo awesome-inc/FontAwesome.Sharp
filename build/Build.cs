@@ -193,13 +193,14 @@ class Build : NukeBuild
 
     //-------------------------------------------------------------
     Target Package => _ => _
-        .DependsOn(Compile)
+        .DependsOn(Test)
         .Produces(RootDirectory / ".artifacts/*.nupkg")
         .Executes(() =>
         {
             DotNetPack(settings => settings
                     .SetOutputDirectory("./artifacts/")
                     .SetConfiguration(Configuration)
+                    .SetVersion(GitVersion.NuGetVersion)
                     .SetNoWarns(5105)
             );
         });

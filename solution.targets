@@ -19,7 +19,5 @@
         <!-- See GitHub project tags -->
         <PackageTags>fontawesome;icon;material-design;dotnet-core;wpf;windows-forms</PackageTags>
         <RepositoryUrl>https://github.com/awesome-inc/FontAwesome.Sharp</RepositoryUrl>
-        <!-- Workaround GitVersionTask failing to load Newtonsoft.Json=12, cf. https://gitter.im/GitTools/GitVersion# -->
-        <WriteVersionInfoToBuildLog>false</WriteVersionInfoToBuildLog>
     </PropertyGroup>
 </Project>
