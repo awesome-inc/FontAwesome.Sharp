@@ -17,15 +17,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="GitVersionTask" Version="5.2.4">
+      <PackageReference Include="GitVersionTask" Version="5.3.5">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-        <Resource Include="fonts\fa-brands-400.ttf" />
-        <Resource Include="fonts\fa-regular-400.ttf" />
-        <Resource Include="fonts\fa-solid-900.ttf" />
+        <Resource Include="fonts\*.ttf" />
     </ItemGroup>
 </Project>

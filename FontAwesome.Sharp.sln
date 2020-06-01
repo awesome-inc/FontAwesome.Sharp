@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		cake.config = cake.config
 		CONTRIBUTING.md = CONTRIBUTING.md
 		FontAwesome.Sharp.png = FontAwesome.Sharp.png
+		FontAwesome.Sharp.v3.ncrunchsolution = FontAwesome.Sharp.v3.ncrunchsolution
 		GitVersion.yml = GitVersion.yml
 		global.json = global.json
 		LICENSE = LICENSE
@@ -32,9 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontAwesome.Sharp.Tests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{482C8EF2-CE3B-4F02-A1CE-8711A3650A5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForms", "TestForms\TestForms.csproj", "{E658D377-C50B-416A-9FC8-128036AC6977}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestForms", "TestForms\TestForms.csproj", "{E658D377-C50B-416A-9FC8-128036AC6977}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "TestWpf\TestWpf.csproj", "{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWpf", "TestWpf\TestWpf.csproj", "{5AD193B1-62F1-4062-8EE1-DD6F5E845F38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

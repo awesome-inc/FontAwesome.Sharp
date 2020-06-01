@@ -1,9 +1,10 @@
-﻿<SolutionConfiguration>
+<SolutionConfiguration>
   <Settings>
     <AdditionalFilesToIncludeForSolution>
       <Value>global.json</Value>
     </AdditionalFilesToIncludeForSolution>
     <AllowParallelTestExecution>True</AllowParallelTestExecution>
+    <!--<InstrumentationMode>Legacy</InstrumentationMode>-->
     <CustomBuildProperties>
       <Value>TargetFramework = netcoreapp3.1</Value>
       <Value>DisableGitVersionTask = true</Value>
