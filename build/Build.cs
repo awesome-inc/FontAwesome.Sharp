@@ -1,5 +1,8 @@
 using System;
 using Nuke.Common;
+using Nuke.Common.CI;
+using Nuke.Common.CI.AppVeyor;
+using Nuke.Common.CI.AzurePipelines;
 using Nuke.Common.Execution;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
@@ -15,6 +18,15 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
+// NUKE CI Integration: http://www.nuke.build/docs/authoring-builds/ci-integration.html
+// cf.: https://github.com/nuke-build/nuke/blob/develop/azure-pipelines.yml
+[AzurePipelines(AzurePipelinesImage.WindowsLatest,
+    AutoGenerate = false,
+    InvokedTargets = new []{ nameof(CiBuild)})]
+// cf.: https://github.com/nuke-build/nuke/blob/develop/appveyor.yml
+[AppVeyor(AppVeyorImage.VisualStudioLatest,
+    AutoGenerate = false,
+    InvokedTargets = new []{nameof(CiBuild)})]
 // ReSharper disable once CheckNamespace
 class Build : NukeBuild
 {
@@ -182,6 +194,7 @@ class Build : NukeBuild
     //-------------------------------------------------------------
     Target Package => _ => _
         .DependsOn(Compile)
+        .Produces(RootDirectory / ".artifacts/*.nupkg")
         .Executes(() =>
         {
             DotNetPack(settings => settings
@@ -208,6 +221,7 @@ class Build : NukeBuild
                 .SetSource(NuGetSource)
                 );
         });
+
     //-------------------------------------------------------------
     // ReSharper disable once UnusedMember.Local
     Target CiBuild => _ => _
