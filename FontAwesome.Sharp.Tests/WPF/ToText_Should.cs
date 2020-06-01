@@ -17,7 +17,7 @@ namespace FontAwesome.Sharp.Tests.WPF
             markupExtension.Should().NotBeNull();
             var serviceProvider = Substitute.For<IServiceProvider>();
             var text = (string)markupExtension.ProvideValue(serviceProvider);
-            text.Single().Should().Be(iconChar.ToChar());
+            text.Should().Be(iconChar.ToChar());
         }
     }
 }

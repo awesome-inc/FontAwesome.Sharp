@@ -9,7 +9,7 @@ namespace FontAwesome.Sharp
 
         public ToTextBase(TEnum icon)
         {
-            _text = new string(icon.ToChar(), 1);
+            _text = icon.ToChar();
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)

@@ -299,7 +299,7 @@ namespace FontAwesome.Sharp
             if (string.IsNullOrWhiteSpace(token))
                 throw new ArgumentException("token must not be null, empty or whitespace");
             return Enum.TryParse<IconChar>(token, true, out var icon)
-                ? new Run(new string(icon.ToChar(), 1)) { FontFamily = IconHelper.FontFor(icon) }
+                ? new Run(icon.ToChar()) { FontFamily = IconHelper.FontFor(icon) }
                 : new Run(token);
         }
 

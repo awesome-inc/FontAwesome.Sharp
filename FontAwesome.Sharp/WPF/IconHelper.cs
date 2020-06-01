@@ -42,9 +42,9 @@ namespace FontAwesome.Sharp
             return ToImageSource(foregroundBrush, size, gt, glyphIndex);
         }
 
-        public static char ToChar<TEnum>(this TEnum icon, IFormatProvider formatProvider = null) where TEnum : struct, IConvertible, IComparable, IFormattable
+        public static string ToChar<TEnum>(this TEnum icon, IFormatProvider formatProvider = null) where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            return char.ConvertFromUtf32(icon.ToInt32(formatProvider ?? CultureInfo.InvariantCulture)).First();
+            return char.ConvertFromUtf32(icon.ToInt32(formatProvider ?? CultureInfo.InvariantCulture));
         }
 
         public static ImageSource ToImageSource(this IconChar iconChar,
@@ -54,7 +54,7 @@ namespace FontAwesome.Sharp
             return typeFace == null ? null : ToImageSource(foregroundBrush, size, gt, glyphIndex);
         }
 
-        public static char ToChar(this IconChar iconChar)
+        public static string ToChar(this IconChar iconChar)
         {
             return ToChar<IconChar>(iconChar);
         }
@@ -63,24 +63,25 @@ namespace FontAwesome.Sharp
         {
             var fontSize = PixelsToPoints(size);
             var width = gt.AdvanceWidths[glyphIndex];
-            #pragma warning disable CS0618 // Deprecated constructor
+#pragma warning disable CS0618 // Deprecated constructor
             var glyphRun = new GlyphRun(gt, 0, false, fontSize,
                 new[] { glyphIndex }, new Point(0, 0), new[] { width },
                 null, null, null, null, null, null);
-            #pragma warning restore CS0618
+#pragma warning restore CS0618
             var glyphRunDrawing = new GlyphRunDrawing(foregroundBrush ?? DefaultBrush, glyphRun);
             return new DrawingImage(glyphRunDrawing);
         }
 
-        private static Typeface TypefaceFor(this FontFamily fontFamily, char c, out GlyphTypeface gt, out ushort glyphIndex)
+        private static Typeface TypefaceFor(this FontFamily fontFamily, string iconText, out GlyphTypeface gt, out ushort glyphIndex)
         {
             gt = null;
             glyphIndex = 0;
-            if (c == 0)
+            if (string.IsNullOrEmpty(iconText))
                 return null;
-            foreach (var typeface in fontFamily.GetTypefaces())
-                if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
-                    return typeface;
+            foreach (var c in iconText)
+                foreach (var typeface in fontFamily.GetTypefaces())
+                    if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
+                        return typeface;
             return null;
         }
 
@@ -109,15 +110,16 @@ namespace FontAwesome.Sharp
             return new Typeface(fontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
         }
 
-        private static Typeface TypefaceFor(char c, out GlyphTypeface gt, out ushort glyphIndex)
+        private static Typeface TypefaceFor(string iconText, out GlyphTypeface gt, out ushort glyphIndex)
         {
             gt = null;
             glyphIndex = 42;
-            if (c == 0)
+            if (string.IsNullOrEmpty(iconText))
                 return null;
-            foreach (var typeface in Typefaces)
-                if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
-                    return typeface;
+            foreach (var c in iconText)
+                foreach (var typeface in Typefaces)
+                    if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
+                        return typeface;
             return null;
         }
 
