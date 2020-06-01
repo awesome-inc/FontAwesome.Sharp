@@ -1,3 +1,7 @@
+# Ignore FontAwesome Pro files
+*-pro.css
+*-pro.ttf
+
 # Ignore coverage reports
 ./coverage/*
 
