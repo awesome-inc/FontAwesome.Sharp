@@ -7,18 +7,22 @@ using System.Text.RegularExpressions;
 
 namespace FontEnumGenerator
 {
-    internal static class CssFont
+    internal class FontParser
     {
-        public static List<FontEnumItem> Parse(string cssFile, string prefix = ".fa-")
-        {
-            var css = File.ReadAllText(cssFile);
-            // http://derekslager.com/blog/posts/2007/09/a-better-dotnet-regular-expression-tester.ashx
-            // NOTE: avoid double quotes on the website
-            var pattern = Regex.Escape(prefix) + @"(.+):before\s*\{\s*content:\s*""\\(.+)"";\s*}";
-            var regEx = new Regex(pattern, RegexOptions.Multiline);
+        public string CssFile { get; set; }
+        public string Pattern { get; set; } = @"\.fa-(.+):before";
 
-            var items = regEx.Matches(css).OfType<Match>()
-                .Select(match => new FontEnumItem {Class = ValidIdentifier(match.Groups[1].Value), Code = match.Groups[2].Value})
+        private const string ContentPattern = @"\s*\{\s*content:\s*""\\(.+)"";\s*}";
+
+        public List<FontEnumItem> Parse()
+        {
+            var css = File.ReadAllText(CssFile);
+
+            var allPattern = Pattern + ContentPattern;
+            var regEx = new Regex(allPattern, RegexOptions.Multiline);
+
+            var items = regEx.Matches(css)
+                .Select(match => new FontEnumItem { Class = ValidIdentifier(match.Groups[1].Value), Code = match.Groups[2].Value })
                 .OrderBy(x => x.Class)
                 .ToList();
 

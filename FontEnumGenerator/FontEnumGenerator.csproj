@@ -13,10 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="Content\fontawesome.css">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="Content\materialdesignicons.css">
+        <Content Include="Content\*.css">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>

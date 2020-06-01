@@ -273,6 +273,20 @@ Often you want to have the menu icons all have a consistent style (e.g. size and
     ImageStyle="{StaticResource FaImageStyle}"/>
 ```
 
+## Using FontAwesome Pro
+
+The prebuilt packages has been built using
+
+```console
+$ FontEnumGenerator.exe --css Content\fontawesome-pro.css --name ProIcons --namespace FontAwesome.Sharp.Pro
+Matched 2293 icons from 'Content\fontawesome-pro.css' using '\.fa-(.+):before'
+Generated 'ProIcons.cs'.
+
+$ FontEnumGenerator.exe --css Content\duotone-pro.css --pattern "\.fad.fa-(.+):after" --namespace FontAwesome.Sharp.Pro
+Matched 1851 icons from 'Content\duotone-pro.css' using '\.fad.fa-(.+):after'
+Generated 'DuoToneIcons.cs'.
+```
+
 ## Using custom fonts
 
 As of version _5.2+_ it is easy to reuse the library with other icon fonts (see e.g. [Vector Icons Roundup](https://tagliala.github.io/vectoriconsroundup/) for a comparative list).
@@ -285,7 +299,9 @@ The steps to use your own icon font are laid out below with Google's Material De
 2. Generate the font icon enum class using `FontEnumGenerator`
 
    ```console
-   FontEnumGenerator.exe --css Content\materialdesignicons.css --prefix .mdi- --name MaterialIcons
+   $ FontEnumGenerator.exe --css Content\materialdesignicons.css --pattern "\.mdi-(.+):before" --name MaterialIcons
+   Matched 5345 icons from 'Content\materialdesignicons.css' using '\.mdi-(.+):before'
+   Generated 'MaterialIcons.cs'.
    ```
 
    This will parse the `.css` file and generate an enumeration class `MaterialIcons.cs` with the UTF8-codes of all css-items matching the specified prefix `.mdi-*-before`, cf.
