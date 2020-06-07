@@ -170,7 +170,7 @@ namespace FontAwesome.Sharp
         private static byte[] GetFontBytes(string fontFile,
             Assembly assembly = null, string path = "fonts")
         {
-            var safeAssembly = assembly ?? Assembly.GetExecutingAssembly();
+            var safeAssembly = assembly ?? typeof(FormsIconHelper).Assembly;
             var relativeUri = new Uri($"./{safeAssembly.GetName().Name};component/{path}/{fontFile}", UriKind.Relative);
             var uri = new Uri(IconHelper.BaseUri, relativeUri);
             var streamInfo = Application.GetResourceStream(uri);

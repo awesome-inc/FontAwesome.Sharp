@@ -113,7 +113,7 @@ namespace FontAwesome.Sharp
             "Font Awesome 5 Brands Regular" // fa-brands-400.ttf
         };
 
-        private static readonly Typeface[] Typefaces = Assembly.GetExecutingAssembly().LoadTypefaces("fonts", FontTitles);
+        private static readonly Typeface[] Typefaces = typeof(IconHelper).Assembly.LoadTypefaces("fonts", FontTitles);
         private static readonly int Dpi = GetDpi();
 
         private static double PixelsToPoints(double size)
