@@ -1,13 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 
-[assembly: InternalsVisibleTo("FontAwesome.Sharp.Tests")]
 namespace FontAwesome.Sharp
 {
     // cf.: 
@@ -37,7 +36,7 @@ namespace FontAwesome.Sharp
             Brush foregroundBrush = null, double size = DefaultSize)
             where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            if (fontFamily.TypefaceFor(icon.ToChar(), out var gt, out var glyphIndex) == null)
+            if (fontFamily.Find(icon.ToChar(), out var gt, out var glyphIndex) == null)
                 return null;
             return ToImageSource(foregroundBrush, size, gt, glyphIndex);
         }
@@ -55,8 +54,34 @@ namespace FontAwesome.Sharp
         public static ImageSource ToImageSource(this IconChar iconChar,
             Brush foregroundBrush = null, double size = DefaultSize)
         {
-            var typeFace = TypefaceFor(iconChar.ToChar(), out var gt, out var glyphIndex);
+            var typeFace = Typefaces.Find(iconChar.ToChar(), out var gt, out var glyphIndex);
             return typeFace == null ? null : ToImageSource(foregroundBrush, size, gt, glyphIndex);
+        }
+
+
+        public static Typeface[] LoadTypefaces(this Assembly assembly, string path,
+            params string[] fontTitles)
+        {
+            return fontTitles.Select(fontTitle =>
+            {
+                var fontFamily = assembly.LoadFont(path, fontTitle);
+                return new Typeface(fontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+            }).ToArray();
+        }
+
+
+        public static Typeface Find(this IList<Typeface> typefaces,
+            string iconText, out GlyphTypeface gt, out ushort glyphIndex)
+        {
+            gt = null;
+            glyphIndex = 42;
+            if (string.IsNullOrEmpty(iconText))
+                return null;
+            foreach (var c in iconText)
+            foreach (var typeface in typefaces)
+                if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
+                    return typeface;
+            return null;
         }
 
         private static ImageSource ToImageSource(Brush foregroundBrush, double size, GlyphTypeface gt, ushort glyphIndex)
@@ -72,7 +97,7 @@ namespace FontAwesome.Sharp
             return new DrawingImage(glyphRunDrawing);
         }
 
-        private static Typeface TypefaceFor(this FontFamily fontFamily, string iconText, out GlyphTypeface gt, out ushort glyphIndex)
+        private static Typeface Find(this FontFamily fontFamily, string iconText, out GlyphTypeface gt, out ushort glyphIndex)
         {
             gt = null;
             glyphIndex = 0;
@@ -88,7 +113,7 @@ namespace FontAwesome.Sharp
         internal static FontFamily FontFor(IconChar iconChar)
         {
             if (Orphans.Contains(iconChar)) return null;
-            var typeFace = TypefaceFor(iconChar.ToChar(), out _, out _);
+            var typeFace = Typefaces.Find(iconChar.ToChar(), out _, out _);
             return typeFace?.FontFamily;
         }
 
@@ -101,27 +126,8 @@ namespace FontAwesome.Sharp
             "Font Awesome 5 Brands Regular"
         };
 
-        private static readonly Typeface[] Typefaces = FontTitles.Select(GetTypeFace).ToArray();
+        private static readonly Typeface[] Typefaces = Assembly.GetExecutingAssembly().LoadTypefaces("fonts", FontTitles);
         private static readonly int Dpi = GetDpi();
-
-        private static Typeface GetTypeFace(string fontTitle)
-        {
-            var fontFamily = Assembly.GetExecutingAssembly().LoadFont("fonts", fontTitle);
-            return new Typeface(fontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
-        }
-
-        private static Typeface TypefaceFor(string iconText, out GlyphTypeface gt, out ushort glyphIndex)
-        {
-            gt = null;
-            glyphIndex = 42;
-            if (string.IsNullOrEmpty(iconText))
-                return null;
-            foreach (var c in iconText)
-                foreach (var typeface in Typefaces)
-                    if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
-                        return typeface;
-            return null;
-        }
 
         private static double PixelsToPoints(double size)
         {

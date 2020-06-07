@@ -12,6 +12,7 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
     <ItemGroup>
+        <ProjectReference Include="..\FontAwesome.Sharp.Pro\FontAwesome.Sharp.Pro.csproj" />
         <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj" />
     </ItemGroup>
     <ItemGroup>

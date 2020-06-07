@@ -28,7 +28,7 @@ namespace TestWpf
         private void IterateIcons(object state)
         {
             // creating a new icon block should be on UI thread ;-)
-            Application.Current.Dispatcher?.Invoke(() =>
+            Application.Current?.Dispatcher?.Invoke(() =>
             {
                 var icon = IconHelper.Icons[_currentIcon];
                 IconBlock = null;
