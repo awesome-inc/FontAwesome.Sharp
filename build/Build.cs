@@ -70,7 +70,9 @@ class Build : NukeBuild
     [Parameter("NuGet Source")]
     readonly string NuGetSource = "https://www.nuget.org";
 
-    static AbsolutePath TestsDirectory => RootDirectory / "tests";
+    static readonly AbsolutePath TestsDirectory = RootDirectory / "tests";
+    static readonly AbsolutePath ArtifactsDir = RootDirectory / ".artifacts";
+
     #endregion
 
 
@@ -192,18 +194,21 @@ class Build : NukeBuild
         });
 
     //-------------------------------------------------------------
-    Target Package => _ => _
-        .DependsOn(Test)
-        .Produces(RootDirectory / ".artifacts/*.nupkg")
-        .Executes(() =>
-        {
-            DotNetPack(settings => settings
-                    .SetOutputDirectory("./artifacts/")
+    Target Package => _ =>
+    {
+        return _
+            .DependsOn(Test)
+            .Produces(ArtifactsDir / "*.nupkg")
+            .Executes(() =>
+            {
+                DotNetPack(settings => settings
+                    .SetOutputDirectory(ArtifactsDir)
                     .SetConfiguration(Configuration)
                     .SetVersion(GitVersion.NuGetVersion)
                     .SetNoWarns(5105)
-            );
-        });
+                );
+            });
+    };
 
     Target Push => _ => _
         .DependsOn(Package)
@@ -216,8 +221,8 @@ class Build : NukeBuild
             }
 
 
-            // $"./artifacts/FontAwesome.Sharp.{gitVersion.NuGetVersion}.nupkg"
             DotNetNuGetPush(settings => settings
+                .SetTargetPath(ArtifactsDir / "*.nupkg")
                 .SetApiKey(NuGetApiKey)
                 .SetSource(NuGetSource)
                 );
