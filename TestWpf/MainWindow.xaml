@@ -56,16 +56,15 @@
         <fa:IconToImageConverter x:Key="IconToImage" Foreground="{StaticResource FaBrush}"
                                  ImageStyle="{StaticResource FaImageStyle}" />
 
-        <Style TargetType="fa:IconImage">
+        <Style TargetType="Image" x:Key="ImageStyle">
             <Setter Property="Width" Value="32" />
             <Setter Property="Height" Value="32" />
             <Setter Property="Margin" Value="8,0,8,0" />
         </Style>
-        <Style TargetType="mdi:IconImage">
-            <Setter Property="Width" Value="32" />
-            <Setter Property="Height" Value="32" />
-            <Setter Property="Margin" Value="8,0,8,0" />
-        </Style>
+
+        <Style TargetType="fa:IconImage" BasedOn="{StaticResource ImageStyle}"/>
+        <Style TargetType="faPro:IconImage" BasedOn="{StaticResource ImageStyle}"/>
+        <Style TargetType="mdi:IconImage" BasedOn="{StaticResource ImageStyle}"/>
 
         <Style TargetType="RowDefinition">
             <Setter Property="MinHeight" Value="48" />
@@ -189,39 +188,37 @@
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="&#xf779;" FontFamily="{StaticResource FontAwesomePro}"
                    Foreground="Chartreuse" TextAlignment="Center" FontSize="24" />
 
-                <!--
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="IconBlock:" />
-                <faPro:Icon Grid.Row="1" Grid.Column="1" Icon="AirFreshener"
+                <faPro:IconBlock Grid.Row="1" Grid.Column="1" Icon="AmpGuitar"
                       Foreground="DarkSlateBlue" TextAlignment="Center"
                       FontSize="24" VerticalAlignment="Center" />
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="{}{Icon} Button" />
-                <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource FaButtonStyle}"
-                Content="{faPro:Icon Meetup, Foreground={StaticResource FaBrush}}" />
+                <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource FaProButtonStyle}"
+                Content="{faPro:Icon Acorn, Foreground={StaticResource FaBrush}}" />
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="IconImage:" />
-                <faPro:IconImage Grid.Row="3" Grid.Column="1" Icon="Markdown" Foreground="Red"
+                <faPro:IconImage Grid.Row="3" Grid.Column="1" Icon="BatteryBolt" Foreground="Red"
                       fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{IconSource} Ribbon, Click for spinning" />
                 <RibbonButton Grid.Row="4" Grid.Column="1"
                       ToolTip="Click to toggle spinning (Spinning 4 sec., rotated 45° &amp; flipped vertically)"
-                      LargeImageSource="{faPro:IconSource TwitterSquare, Foreground=CornflowerBlue, Size=48}"
+                      LargeImageSource="{faPro:IconSource BasketballHoop, Foreground=CornflowerBlue, Size=48}"
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                       Width="48" Height="48"
                       Command="{Binding ToggleSpinCommand}"
                       fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="4"
                       fa:Awesome.Rotation="45"
                       fa:Awesome.Flip="Vertical" />
-                -->
 
-                <TextBlock Grid.Row="5" Grid.Column="0" Text="{}{ToText} Button" />
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="{}{ToText} Button (Alicorn)" />
                 <Button Grid.Row="5" Grid.Column="1" Content="{faPro:ToText Alicorn}" Command="{Binding PlayCommand}"
                 ToolTip="Click me!"  Style="{StaticResource FaProButtonStyle}" />
 
-                <TextBlock Grid.Row="6" Grid.Column="0" Text="Stacking Icons" />
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="Stacking Icons (Analytics / Ban)" />
                 <Grid Grid.Row="6" Grid.Column="1" ToolTip="Two icons stacked in a grid">
-                    <faPro:IconImage Icon="Camera" Width="16" Height="16" />
+                    <faPro:IconImage Icon="Analytics" Width="16" Height="16" />
                     <faPro:IconImage Icon="Ban" Foreground="Red" />
                 </Grid>
 

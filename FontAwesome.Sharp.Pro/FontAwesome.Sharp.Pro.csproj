@@ -14,15 +14,4 @@
     <ItemGroup>
         <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-        <Resource Include="fonts\*.ttf" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="Pro\**" />
-      <EmbeddedResource Remove="Pro\**" />
-      <None Remove="Pro\**" />
-      <Page Remove="Pro\**" />
-    </ItemGroup>
 </Project>

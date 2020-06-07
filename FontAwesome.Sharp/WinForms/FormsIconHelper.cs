@@ -25,7 +25,7 @@ namespace FontAwesome.Sharp
             var bitmap = new Bitmap(width, height);
             using (var graphics = Graphics.FromImage(bitmap))
             {
-                var text = icon.ToChar().ToString();
+                var text = icon.ToChar();
                 var font = GetAdjustedIconFont(graphics, fontFamily, text, width, height);
                 graphics.Rotate(rotation, width, height);
                 var brush = new SolidBrush(color);
@@ -40,7 +40,7 @@ namespace FontAwesome.Sharp
             double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
             where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            return ToBitmap<TEnum>(fontFamily, icon, size, size, color, rotation, flip);
+            return ToBitmap(fontFamily, icon, size, size, color, rotation, flip);
         }
 
         /// <summary>
@@ -295,7 +295,7 @@ namespace FontAwesome.Sharp
                     memoryGraphics.SmoothingMode = SmoothingMode.HighQuality;
 
                     // Getting font and icon as text
-                    var text = icon.ToChar().ToString();
+                    var text = icon.ToChar();
                     var font = GetAdjustedIconFont(memoryGraphics, fontFamily, text, size, size);
 
                     // must not be transparent background 

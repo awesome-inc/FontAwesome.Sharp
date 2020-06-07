@@ -1,53 +1,14 @@
-using System;
-using System.Windows.Markup;
-using System.Windows.Media;
-
 namespace FontAwesome.Sharp
 {
-    public class IconSource : MarkupExtension
+    public class IconSource : IconSourceBase<IconChar>
     {
-        private readonly IconChar _icon;
-        private Brush _foreground = IconHelper.DefaultBrush;
-        private ImageSource _imageSource;
-        private double _size = IconHelper.DefaultSize;
-
-
-        public IconSource(IconChar icon)
+        public IconSource(IconChar icon) : base(icon)
         {
-            _icon = icon;
-            _imageSource = _icon.ToImageSource(_foreground, _size);
         }
 
-        public Brush Foreground
+        protected override void UpdateImageSource()
         {
-            get => _foreground;
-            set
-            {
-                if (_foreground.Equals(value)) return;
-                _foreground = value;
-                UpdateImageSource();
-            }
-        }
-
-        public double Size
-        {
-            get => _size;
-            set
-            {
-                if (Math.Abs(_size - value) < 0.5) return;
-                _size = value;
-                UpdateImageSource();
-            }
-        }
-
-        private void UpdateImageSource()
-        {
-            _imageSource = _icon.ToImageSource(_foreground, _size);
-        }
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return _imageSource;
+            ImageSource = Icon.ToImageSource(Foreground, Size);
         }
     }
 }

@@ -36,25 +36,26 @@ namespace FontAwesome.Sharp
             Brush foregroundBrush = null, double size = DefaultSize)
             where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            if (fontFamily.Find(icon.ToChar(), out var gt, out var glyphIndex) == null)
+            if (fontFamily.GetTypefaces().Find(icon, out var gt, out var glyphIndex) == null)
                 return null;
             return ToImageSource(foregroundBrush, size, gt, glyphIndex);
         }
 
-        public static string ToChar<TEnum>(this TEnum icon, IFormatProvider formatProvider = null) where TEnum : struct, IConvertible, IComparable, IFormattable
+        public static string ToChar<TEnum>(this TEnum icon) where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            return char.ConvertFromUtf32(icon.ToInt32(formatProvider ?? CultureInfo.InvariantCulture));
+            return char.ConvertFromUtf32(icon.UniCode());
         }
 
-        public static string ToChar(this IconChar iconChar)
+        private static int UniCode<TEnum>(this TEnum icon)
+            where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            return ToChar<IconChar>(iconChar);
+            return icon.ToInt32(CultureInfo.InvariantCulture);
         }
 
         public static ImageSource ToImageSource(this IconChar iconChar,
             Brush foregroundBrush = null, double size = DefaultSize)
         {
-            var typeFace = Typefaces.Find(iconChar.ToChar(), out var gt, out var glyphIndex);
+            var typeFace = Typefaces.Find(iconChar, out var gt, out var glyphIndex);
             return typeFace == null ? null : ToImageSource(foregroundBrush, size, gt, glyphIndex);
         }
 
@@ -69,17 +70,16 @@ namespace FontAwesome.Sharp
             }).ToArray();
         }
 
-
-        public static Typeface Find(this IList<Typeface> typefaces,
-            string iconText, out GlyphTypeface gt, out ushort glyphIndex)
+        public static Typeface Find<TEnum>(this IEnumerable<Typeface> typefaces,
+            TEnum icon, out GlyphTypeface gt, out ushort glyphIndex)
+            where TEnum : struct, IConvertible, IComparable, IFormattable
         {
             gt = null;
             glyphIndex = 42;
-            if (string.IsNullOrEmpty(iconText))
-                return null;
-            foreach (var c in iconText)
+            var iconCode = icon.UniCode();
             foreach (var typeface in typefaces)
-                if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
+                if (typeface.TryGetGlyphTypeface(out gt) &&
+                    gt.CharacterToGlyphMap.TryGetValue(iconCode, out glyphIndex))
                     return typeface;
             return null;
         }
@@ -97,23 +97,10 @@ namespace FontAwesome.Sharp
             return new DrawingImage(glyphRunDrawing);
         }
 
-        private static Typeface Find(this FontFamily fontFamily, string iconText, out GlyphTypeface gt, out ushort glyphIndex)
-        {
-            gt = null;
-            glyphIndex = 0;
-            if (string.IsNullOrEmpty(iconText))
-                return null;
-            foreach (var c in iconText)
-                foreach (var typeface in fontFamily.GetTypefaces())
-                    if (typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(c, out glyphIndex))
-                        return typeface;
-            return null;
-        }
-
         internal static FontFamily FontFor(IconChar iconChar)
         {
             if (Orphans.Contains(iconChar)) return null;
-            var typeFace = Typefaces.Find(iconChar.ToChar(), out _, out _);
+            var typeFace = Typefaces.Find(iconChar.UniCode(), out _, out _);
             return typeFace?.FontFamily;
         }
 
@@ -121,9 +108,9 @@ namespace FontAwesome.Sharp
 
         private static readonly string[] FontTitles =
         {
-            "Font Awesome 5 Free Regular",
-            "Font Awesome 5 Free Solid",
-            "Font Awesome 5 Brands Regular"
+            "Font Awesome 5 Free Regular", // fa-regular-400.ttf
+            "Font Awesome 5 Free Solid", // fa-solid-900.ttf
+            "Font Awesome 5 Brands Regular" // fa-brands-400.ttf
         };
 
         private static readonly Typeface[] Typefaces = Assembly.GetExecutingAssembly().LoadTypefaces("fonts", FontTitles);

@@ -10,9 +10,10 @@ namespace FontAwesome.Sharp.Pro
 
         private static readonly string[] FontTitles =
         {
-            "Font Awesome 5 Pro Regular",
-            "Font Awesome 5 Pro Solid",
-            //"Font Awesome 5 Duotone Solid",
+            "Font Awesome 5 Pro Regular", // fa-regular-400-pro.ttf
+            "Font Awesome 5 Pro Solid", // fa-solid-900-pro.ttf
+            "Font Awesome 5 Pro Light", // fa-light-300-pro.ttf
+            //"Font Awesome 5 Duotone Solid", // fa-duotone-900-pro.ttf
         };
 
         private static Typeface[] _typefaces;
@@ -36,7 +37,7 @@ namespace FontAwesome.Sharp.Pro
 
         internal static FontFamily For(ProIcons icon)
         {
-            var typeFace = Typefaces.Find(icon.ToChar(), out _, out _);
+            var typeFace = Typefaces.Find(icon, out _, out _);
             return typeFace?.FontFamily;
         }
     }

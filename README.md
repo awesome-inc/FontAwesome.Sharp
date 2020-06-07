@@ -9,9 +9,16 @@
 
 A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF & Windows Forms applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
 
-Here is a screenshot from the sample application
+Here is a screenshot from the sample applications
 
-![Screenshot](img/FontAwesome.Sharp.png)
+![Using the Font Awesome in WPF and Windows Forms](img/FontAwesome.Sharp.png)
+
+Here is a screenshot from the WPF sample application show-casing using also other icon fonts like
+
+- **FontAwesome Pro** and
+- **MaterialDesign**:
+
+![Using Font Awesome Pro and Material Design Icons](img/pro_and_mdi.png)
 
 Don't miss out the community tutorials on YouTube, e.g.
 
@@ -20,12 +27,15 @@ Don't miss out the community tutorials on YouTube, e.g.
 
 How to
 
-- [Install](#installation)
+- [Installation](#installation)
 - Use with [WPF](#wpf)
 - Use with [Windows Forms](#windows-forms)
-- [Use custom fonts](#using-custom-fonts) other than Font Awesome, e.g. [Material Design Icons](https://materialdesignicons.com/).
+- Use [Font Awesome Pro](#using-fontawesome-pro)
+- [Use custom fonts](#using-custom-fonts) other than Font Awesome, e.g. [Material Design Icons](https://materialdesignicons.com/)
 
-Or see the [FAQ](#faq).
+See also
+
+- [Frequently Asked Questions (FAQ)](#faq).
 
 ## Installation
 
@@ -275,7 +285,17 @@ Often you want to have the menu icons all have a consistent style (e.g. size and
 
 ## Using FontAwesome Pro
 
-The prebuilt packages has been built using
+To use your licensed version of [Font Awesome Pro](https://fontawesome.com/pro) just add the respective
+[TrueType](https://en.wikipedia.org/wiki/TrueType) font files as embedded resources.
+
+**NOTE:** The prebuilt package `FontAwesome.Sharp.Pro` contains only the generated icon-Enumerations
+
+- `ProIcons`
+- `DuoToneIcons`
+
+See the `TestWPF` sample application for an example on how to use icons from **Font Awesome Pro**.
+
+They have been generated from the css-Definitions like any other [Custom font](#using-custom-fonts) (see below):
 
 ```console
 $ FontEnumGenerator.exe --css Content\fontawesome-pro.css --name ProIcons --namespace FontAwesome.Sharp.Pro
@@ -286,6 +306,8 @@ $ FontEnumGenerator.exe --css Content\duotone-pro.css --pattern "\.fad.fa-(.+):a
 Matched 1851 icons from 'Content\duotone-pro.css' using '\.fad.fa-(.+):after'
 Generated 'DuoToneIcons.cs'.
 ```
+
+The actual fonts are
 
 ## Using custom fonts
 
@@ -383,6 +405,20 @@ In production, however, we needed to support
 - and finally `Windows.Forms` as well.
 
 ## FAQ
+
+### How does it work?
+
+Rendering Glyph Fonts / Font icons basically works by looking up the [Glyph](https://en.wikipedia.org/wiki/Glyph)-symbols from the respective fonts using their [Unicode](https://en.wikipedia.org/wiki/List_of_Unicode_characters) and
+drawing them as text.
+
+In the Web this has been a simple and effective design option for quite a long time.
+However, for most Desktop application frameworks there is no or only little support.
+
+The way we support icon fonts in Desktop Application Frameworks like [WPF](https://en.wikipedia.org/wiki/Windows_Presentation_Foundation) and [Windows Forms](https://en.wikipedia.org/wiki/Windows_Forms) is by
+
+1. Embedding the [TrueType (.ttf)](https://en.wikipedia.org/wiki/TrueType) as [Embbedded Resources](https://docs.microsoft.com/en-us/dotnet/framework/resources/creating-resource-files-for-desktop-apps),
+2. Generating [Enumeration types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/enum) from the web glyph definitions (usually in [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)) and
+3. Providing Interop-code between Text-Rednering and the UI-Primitives of the Desktop Application Framework.
 
 ### Windows Forms Designer: I cannot find any controls in the Toolbox
 
