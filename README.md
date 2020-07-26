@@ -424,6 +424,8 @@ The way we support icon fonts in Desktop Application Frameworks like [WPF](https
 
 Add the controls to the toolbox as described in this SO answer: [How do I add my new User Control to the Toolbox or a new Winform?](http://stackoverflow.com/questions/8931328/how-do-i-add-my-new-user-control-to-the-toolbox-or-a-new-winform#8931414)
 
+Note that with recent NuGet versions you will usually find installed NuGet packages in `%USERPROFILE%\.nuget\packages`.
+
 ### My Windows Forms application gets rescaled once a FontAwesome-item is created
 
 Windows 10 (.NET 4.7+) you can enable DPI awareness in your windows forms application by adding
