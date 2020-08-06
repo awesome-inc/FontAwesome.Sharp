@@ -75,7 +75,7 @@ namespace FontAwesome.Sharp
 
 
             // Measure string so that we can center the icon.
-            var stringSize = graphics.MeasureString(text, font, width);
+            var stringSize = graphics.MeasureString(text, font, new SizeF(width, height), StringFormat.GenericTypographic);
             var w = stringSize.Width;
             var h = stringSize.Height;
 
