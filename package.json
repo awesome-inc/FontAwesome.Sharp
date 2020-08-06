@@ -1,7 +1,7 @@
 {
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
-    "@mdi/font": "^5.3.45",
+    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@mdi/font": "^5.4.55",
     "prettier": "2.0.5"
   },
   "name": "fontawesome.sharp",
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/awesome-inc/FontAwesome.Sharp/issues"
   },
-  "homepage": "https://github.com/awesome-inc/FontAwesome.Sharp#readme"
+  "homepage": "https://github.com/awesome-inc/FontAwesome.Sharp#readme",
+  "dependencies": {
+    "npm-check-updates": "^7.0.2"
+  }
 }

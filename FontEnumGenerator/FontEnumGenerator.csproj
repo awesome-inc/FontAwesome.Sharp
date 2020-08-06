@@ -4,6 +4,7 @@
         <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
         <OutputType>Exe</OutputType>
         <IsPackable>false</IsPackable>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
     <Import Project="$(SolutionDir)solution.targets" />
 

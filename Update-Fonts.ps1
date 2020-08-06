@@ -32,12 +32,12 @@ Write-Host Rebuild .\FontEnumGenerator
 dotnet build .\FontEnumGenerator -c Release
 
 Write-Host Generating IconEnum classes...
-Push-Location .\FontEnumGenerator\bin\Release\net48
+Push-Location .\FontEnumGenerator\bin\Release
 
 .\FontEnumGenerator.exe --css .\Content\fontawesome.css --name IconChar
-Copy-Item -Path .\IconChar.cs -Destination ..\..\..\..\FontAwesome.Sharp
+Copy-Item -Path .\IconChar.cs -Destination ..\..\..\FontAwesome.Sharp
 
-.\FontEnumGenerator.exe --css .\Content\materialdesignicons.css --prefix .mdi- --name MaterialIcons
-Copy-Item -Path .\MaterialIcons.cs -Destination ..\..\..\..\TestWpf\MaterialDesign
+.\FontEnumGenerator.exe --css .\Content\materialdesignicons.css --pattern "\.mdi-(.+):before" --name MaterialIcons
+Copy-Item -Path .\MaterialIcons.cs -Destination ..\..\..\TestWpf\MaterialDesign
 
 Pop-Location
