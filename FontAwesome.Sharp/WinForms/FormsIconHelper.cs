@@ -118,6 +118,7 @@ namespace FontAwesome.Sharp
 
         internal static FontFamily FontFamilyFor(IconChar iconChar)
         {
+            if (Fonts == null) throw new InvalidOperationException("FontAwesome source font files not found!");
             var name = IconHelper.FontFor(iconChar)?.Source;
             if (name == null) return FallbackFont;
             return Fonts.Families.FirstOrDefault(f => name.EndsWith(f.Name)) ?? FallbackFont;
