@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
-    public class IconPictureBox : IconPictureBox<IconChar>, IHaveFontStyle
+    public class IconPictureBox : IconPictureBox<IconChar>, IHaveIconFont
     {
         public IconPictureBox() : base(IconChar.Star.FontFamilyFor())
         {
@@ -13,17 +13,19 @@ namespace FontAwesome.Sharp
 
         protected override FontFamily FontFor(IconChar icon)
         {
-            return icon.FontFamilyFor(_fontStyle);
+            return icon.FontFamilyFor(_iconFont);
         }
 
-        private FontStyle _fontStyle = FontStyle.Auto;
-        public FontStyle FontStyle
+        private IconFont _iconFont = Sharp.IconFont.Auto;
+
+        [Category("FontAwesome")]
+        public IconFont IconFont
         {
-            get => _fontStyle;
+            get => _iconFont;
             set
             {
-                if (_fontStyle.CompareTo(value) == 0) return;
-                _fontStyle = value;
+                if (_iconFont.CompareTo(value) == 0) return;
+                _iconFont = value;
                 UpdateImage();
 
             }
@@ -135,6 +137,7 @@ namespace FontAwesome.Sharp
         }
 
         [Category("FontAwesome")]
+        [TypeConverter(typeof(IconConverter))]
         public TEnum IconChar
         {
             get => _iconChar;

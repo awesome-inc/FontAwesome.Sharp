@@ -149,13 +149,13 @@ namespace FontAwesome.Sharp
             return Fonts.Families.FirstOrDefault(f => name.EndsWith(f.Name, StringComparison.InvariantCultureIgnoreCase)) ?? FallbackFont;
         }
 
-        internal static FontFamily FontFamilyFor(this IconChar iconChar, FontStyle fontStyle)
+        internal static FontFamily FontFamilyFor(this IconChar iconChar, IconFont iconFont)
         {
-            if (fontStyle == FontStyle.Auto) return FontFamilyFor(iconChar);
-            var key = (int)fontStyle;
+            if (iconFont == IconFont.Auto) return FontFamilyFor(iconChar);
+            var key = (int)iconFont;
             if (FontForStyle.TryGetValue(key, out var fontFamily)) return fontFamily;
             fontFamily = Fonts.Families.FirstOrDefault(f =>
-                f.Name.IndexOf(fontStyle.ToString(), StringComparison.InvariantCultureIgnoreCase) >= 0);
+                f.Name.IndexOf(iconFont.ToString(), StringComparison.InvariantCultureIgnoreCase) >= 0);
             FontForStyle.Add(key, fontFamily);
             return fontFamily;
         }
