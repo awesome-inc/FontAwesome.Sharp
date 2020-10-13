@@ -6,11 +6,13 @@
     <Import Project="$(SolutionDir)\solution.targets" />
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+        <!--<TargetFrameworks>netcoreapp3.1</TargetFrameworks>-->
+        <TargetFrameworks>net5.0</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <OutputType>WinExe</OutputType>
         <IsPackable>false</IsPackable>
         <StartupObject>TestForms.Program</StartupObject>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     </PropertyGroup>
 
     <ItemGroup>
