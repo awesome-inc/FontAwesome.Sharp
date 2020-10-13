@@ -149,17 +149,17 @@ namespace FontAwesome.Sharp
             return Fonts.Families.FirstOrDefault(f => name.EndsWith(f.Name, StringComparison.InvariantCultureIgnoreCase)) ?? FallbackFont;
         }
 
-        private static readonly Dictionary<int, FontFamily> FontForStyle = new Dictionary<int, FontFamily>();
         internal static FontFamily FontFamilyFor(this IconChar iconChar, FontStyle fontStyle)
         {
             if (fontStyle == FontStyle.Auto) return FontFamilyFor(iconChar);
             var key = (int)fontStyle;
             if (FontForStyle.TryGetValue(key, out var fontFamily)) return fontFamily;
             fontFamily = Fonts.Families.FirstOrDefault(f =>
-                f.Name.IndexOf(fontStyle.ToString(), StringComparison.InvariantCultureIgnoreCase) > 0);
+                f.Name.IndexOf(fontStyle.ToString(), StringComparison.InvariantCultureIgnoreCase) >= 0);
             FontForStyle.Add(key, fontFamily);
             return fontFamily;
         }
+        private static readonly Dictionary<int, FontFamily> FontForStyle = new Dictionary<int, FontFamily>();
 
         private static Font GetIconFont(FontFamily fontFamily, float size)
         {

@@ -8,7 +8,7 @@ using FontAwesome.Sharp;
 
 namespace TestWpf
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged, IDisposable
     {
         private bool _isSpinning = true;
         // ReSharper disable once NotAccessedField.Local
@@ -78,6 +78,11 @@ namespace TestWpf
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Dispose()
+        {
+            _timer?.Dispose();
         }
     }
 }
