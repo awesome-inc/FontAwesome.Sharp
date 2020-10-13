@@ -497,4 +497,4 @@ this._openMenuItem.IconFont = IconFont.Solid;
 this._openMenuItem.Name = "_openMenuItem";
 ```
 
-![File Open with regular and solid style](explicit_font_style.png)
+![File Open with regular and solid style](img/explicit_font_style.png)
