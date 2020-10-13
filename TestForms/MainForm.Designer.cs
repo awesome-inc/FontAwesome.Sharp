@@ -119,7 +119,6 @@ namespace TestForms
             this.iconMenuItem1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.iconMenuItem1.IconChar = FontAwesome.Sharp.IconChar.Wpforms;
             this.iconMenuItem1.IconColor = System.Drawing.Color.Black;
-            this.iconMenuItem1.IconSize = 16;
             this.iconMenuItem1.Name = "iconMenuItem1";
             this.iconMenuItem1.Rotation = 0D;
             this.iconMenuItem1.Size = new System.Drawing.Size(185, 26);
@@ -151,7 +150,6 @@ namespace TestForms
             this.mnuHome.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.mnuHome.IconChar = FontAwesome.Sharp.IconChar.Home;
             this.mnuHome.IconColor = System.Drawing.Color.DarkBlue;
-            this.mnuHome.IconSize = 16;
             this.mnuHome.Name = "mnuHome";
             this.mnuHome.Rotation = 0D;
             this.mnuHome.Size = new System.Drawing.Size(64, 24);
@@ -162,8 +160,6 @@ namespace TestForms
             this._openMenuItem.BackColor = System.Drawing.Color.Transparent;
             this._openMenuItem.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this._openMenuItem.IconChar = FontAwesome.Sharp.IconChar.File;
-            this._openMenuItem.IconColor = System.Drawing.Color.Black;
-            this._openMenuItem.IconSize = 16;
             this._openMenuItem.Name = "_openMenuItem";
             this._openMenuItem.Rotation = 0D;
             this._openMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
@@ -175,8 +171,6 @@ namespace TestForms
             this._flipMenuItem.BackColor = System.Drawing.Color.Transparent;
             this._flipMenuItem.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this._flipMenuItem.IconChar = FontAwesome.Sharp.IconChar.ExchangeAlt;
-            this._flipMenuItem.IconColor = System.Drawing.Color.Black;
-            this._flipMenuItem.IconSize = 16;
             this._flipMenuItem.Name = "_flipMenuItem";
             this._flipMenuItem.Rotation = 45D;
             this._flipMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
@@ -189,8 +183,6 @@ namespace TestForms
             this._rotateMenuItem.BackColor = System.Drawing.Color.Transparent;
             this._rotateMenuItem.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this._rotateMenuItem.IconChar = FontAwesome.Sharp.IconChar.Redo;
-            this._rotateMenuItem.IconColor = System.Drawing.Color.Black;
-            this._rotateMenuItem.IconSize = 16;
             this._rotateMenuItem.Name = "_rotateMenuItem";
             this._rotateMenuItem.Rotation = 0D;
             this._rotateMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
@@ -202,8 +194,6 @@ namespace TestForms
             // 
             this._saveMenuItem.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this._saveMenuItem.IconChar = FontAwesome.Sharp.IconChar.Save;
-            this._saveMenuItem.IconColor = System.Drawing.Color.Black;
-            this._saveMenuItem.IconSize = 16;
             this._saveMenuItem.Name = "_saveMenuItem";
             this._saveMenuItem.Rotation = 0D;
             this._saveMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
@@ -219,8 +209,6 @@ namespace TestForms
             // 
             this._quitMenuItem.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this._quitMenuItem.IconChar = FontAwesome.Sharp.IconChar.TimesCircle;
-            this._quitMenuItem.IconColor = System.Drawing.Color.Black;
-            this._quitMenuItem.IconSize = 16;
             this._quitMenuItem.Name = "_quitMenuItem";
             this._quitMenuItem.Rotation = 0D;
             this._quitMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
@@ -232,7 +220,6 @@ namespace TestForms
             this._iconMenuItem1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this._iconMenuItem1.IconChar = FontAwesome.Sharp.IconChar.QuestionCircle;
             this._iconMenuItem1.IconColor = System.Drawing.Color.DarkBlue;
-            this._iconMenuItem1.IconSize = 17;
             this._iconMenuItem1.Name = "_iconMenuItem1";
             this._iconMenuItem1.Rotation = 0D;
             this._iconMenuItem1.Size = new System.Drawing.Size(73, 24);
@@ -254,8 +241,6 @@ namespace TestForms
             // 
             this.btnSignIn.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.btnSignIn.IconChar = FontAwesome.Sharp.IconChar.SignInAlt;
-            this.btnSignIn.IconColor = System.Drawing.Color.Black;
-            this.btnSignIn.IconSize = 16;
             this.btnSignIn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSignIn.Name = "btnSignIn";
             this.btnSignIn.Rotation = 0D;
@@ -315,7 +300,6 @@ namespace TestForms
             this.iconDropDown.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.iconDropDown.IconChar = FontAwesome.Sharp.IconChar.Cog;
             this.iconDropDown.IconColor = System.Drawing.Color.DimGray;
-            this.iconDropDown.IconSize = 16;
             this.iconDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.iconDropDown.Name = "iconDropDown";
             this.iconDropDown.Rotation = 0D;
@@ -326,8 +310,6 @@ namespace TestForms
             // 
             this.iconMenuItem2.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.iconMenuItem2.IconChar = FontAwesome.Sharp.IconChar.Star;
-            this.iconMenuItem2.IconColor = System.Drawing.Color.Black;
-            this.iconMenuItem2.IconSize = 16;
             this.iconMenuItem2.Name = "iconMenuItem2";
             this.iconMenuItem2.Rotation = 0D;
             this.iconMenuItem2.Size = new System.Drawing.Size(187, 26);
@@ -339,7 +321,6 @@ namespace TestForms
             this.toolStripSplitButton1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.toolStripSplitButton1.IconChar = FontAwesome.Sharp.IconChar.GlassMartiniAlt;
             this.toolStripSplitButton1.IconColor = System.Drawing.Color.DarkViolet;
-            this.toolStripSplitButton1.IconSize = 16;
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Rotation = 0D;
@@ -517,8 +498,6 @@ namespace TestForms
             this.materialMenuItem2});
             this.materialSplitButton1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.materialSplitButton1.IconChar = FontAwesome.Sharp.MaterialIcons.BookOpenVariant;
-            this.materialSplitButton1.IconColor = System.Drawing.Color.Black;
-            this.materialSplitButton1.IconSize = 16;
             this.materialSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.materialSplitButton1.Name = "materialSplitButton1";
             this.materialSplitButton1.Rotation = 0D;
@@ -530,7 +509,6 @@ namespace TestForms
             this.materialMenuItem2.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.materialMenuItem2.IconChar = FontAwesome.Sharp.MaterialIcons.NaturePeople;
             this.materialMenuItem2.IconColor = System.Drawing.Color.Maroon;
-            this.materialMenuItem2.IconSize = 16;
             this.materialMenuItem2.Name = "materialMenuItem2";
             this.materialMenuItem2.Rotation = 0D;
             this.materialMenuItem2.Size = new System.Drawing.Size(214, 26);
@@ -543,8 +521,6 @@ namespace TestForms
             this.materialMenuItem1});
             this.materialDropDownButton1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.materialDropDownButton1.IconChar = FontAwesome.Sharp.MaterialIcons.Division;
-            this.materialDropDownButton1.IconColor = System.Drawing.Color.Black;
-            this.materialDropDownButton1.IconSize = 16;
             this.materialDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.materialDropDownButton1.Name = "materialDropDownButton1";
             this.materialDropDownButton1.Rotation = 0D;
@@ -555,8 +531,6 @@ namespace TestForms
             // 
             this.materialMenuItem1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.materialMenuItem1.IconChar = FontAwesome.Sharp.MaterialIcons.Dice6;
-            this.materialMenuItem1.IconColor = System.Drawing.Color.Black;
-            this.materialMenuItem1.IconSize = 16;
             this.materialMenuItem1.Name = "materialMenuItem1";
             this.materialMenuItem1.Rotation = 0D;
             this.materialMenuItem1.Size = new System.Drawing.Size(214, 26);
@@ -567,8 +541,6 @@ namespace TestForms
             this.materialToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.materialToolStripButton1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.materialToolStripButton1.IconChar = FontAwesome.Sharp.MaterialIcons.Bowling;
-            this.materialToolStripButton1.IconColor = System.Drawing.Color.Black;
-            this.materialToolStripButton1.IconSize = 16;
             this.materialToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.materialToolStripButton1.Name = "materialToolStripButton1";
             this.materialToolStripButton1.Rotation = 0D;

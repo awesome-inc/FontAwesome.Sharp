@@ -23,7 +23,7 @@ namespace FontAwesome.Sharp
         private readonly FontFamily _fontFamily;
         private Color _color = Color.Black;
         private TEnum _icon;
-        private int _size = 16;
+        private int _size = IconHelper.DefaultSize;
         private FlipOrientation _flip = FlipOrientation.Normal;
         private double _rotation;
 

@@ -14,7 +14,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
             foreach (var icon in IconHelper.Icons)
             {
                 const int size = 16;
-                var bitmap = icon.ToBitmap(size, Color.Black);
+                var bitmap = icon.ToBitmap(Color.Black, size);
                 bitmap.Should().BeOfType<Bitmap>($"an image should be generated for '{icon}'");
                 bitmap.Should().NotBeNull();
                 bitmap.Size.Width.Should().Be(size);
@@ -25,9 +25,10 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
         [StaFact]
         public void Add_Icons_to_image_list()
         {
+            const int size = 16;
             var imageList = new ImageList();
-            imageList.AddIcon(IconChar.AccessibleIcon, 16, Color.Black);
-            imageList.AddIcons(16, Color.Black, IconChar.AddressBook, IconChar.AirFreshener);
+            imageList.AddIcon(IconChar.AccessibleIcon, Color.Black, size);
+            imageList.AddIcons(Color.Black, size,IconChar.AddressBook, IconChar.AirFreshener);
             imageList.Images.Should().HaveCount(3);
         }
     }

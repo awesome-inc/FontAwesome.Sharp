@@ -14,7 +14,7 @@ namespace TestForms
         {
             InitializeComponent();
 
-            Icon = Icon.FromHandle(IconChar.Flag.ToBitmap(16, Color.Black).GetHicon());
+            Icon = Icon.FromHandle(IconChar.Flag.ToBitmap(Color.Black).GetHicon());
 
             InitTreeIcons();
 
@@ -40,7 +40,7 @@ namespace TestForms
                 .Take(10)
                 .ToArray();
 
-            imageList1.AddIcons(16, Color.Black, icons);
+            imageList1.AddIcons(Color.Black, IconHelper.DefaultSize, icons);
 
             var count = 0;
             SetTreeViewIcons(ref count, treeView1.Nodes);

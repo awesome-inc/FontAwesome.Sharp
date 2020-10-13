@@ -25,7 +25,7 @@ namespace FontAwesome.Sharp
 
 
         public static readonly Brush DefaultBrush = SystemColors.WindowTextBrush; // this is TextBlock default brush
-        public const double DefaultSize = 16.0;
+        public const int DefaultSize = 48;
 
         public static FontFamily LoadFont(this Assembly assembly, string path, string fontTitle)
         {
@@ -36,9 +36,9 @@ namespace FontAwesome.Sharp
             Brush foregroundBrush = null, double size = DefaultSize)
             where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            if (fontFamily.GetTypefaces().Find(icon, out var gt, out var glyphIndex) == null)
-                return null;
-            return ToImageSource(foregroundBrush, size, gt, glyphIndex);
+            return fontFamily.GetTypefaces().Find(icon, out var gt, out var glyphIndex) != null
+                ? ToImageSource(foregroundBrush, size, gt, glyphIndex)
+                : null;
         }
 
         public static string ToChar<TEnum>(this TEnum icon) where TEnum : struct, IConvertible, IComparable, IFormattable

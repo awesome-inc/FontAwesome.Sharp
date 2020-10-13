@@ -26,7 +26,7 @@ namespace FontAwesome.Sharp
             using (var graphics = Graphics.FromImage(bitmap))
             {
                 var text = icon.ToChar();
-                var font = GetAdjustedIconFont(graphics, fontFamily, text, width, height);
+                var font = graphics.GetAdjustedIconFont(fontFamily, text, new SizeF(width, height));
                 graphics.Rotate(rotation, width, height);
                 var brush = new SolidBrush(color);
                 DrawIcon(graphics, font, text, width, height, brush);
@@ -47,8 +47,8 @@ namespace FontAwesome.Sharp
         ///     Convert icon to bitmap image with GDI+ API - positioning of icon isn't perfect, but aliasing is good. Good for
         ///     small icons.
         /// </summary>
-        public static Bitmap ToBitmap(this IconChar icon, int size, Color color,
-            double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
+        public static Bitmap ToBitmap(this IconChar icon, Color color,
+            int size = IconHelper.DefaultSize, double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
         {
             var fontFamily = FontFamilyFor(icon);
             return fontFamily.ToBitmap(icon, size, size, color, rotation, flip);
@@ -72,43 +72,67 @@ namespace FontAwesome.Sharp
             graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
             graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
             graphics.SmoothingMode = SmoothingMode.HighQuality;
+            graphics.PageUnit = GraphicsUnit.Pixel;
 
+            var topLeft = graphics.GetTopLeft(text, font, new SizeF(width, height));
 
-            // Measure string so that we can center the icon.
-            var stringSize = graphics.MeasureString(text, font, new SizeF(width, height), StringFormat.GenericTypographic);
-            var w = stringSize.Width;
-            var h = stringSize.Height;
-
-            // center icon
-            var left = (width - w) / 2;
-            var top = (height - h) / 2;
-
-            // Draw string to screen.
-            graphics.DrawString(text, font, brush, new PointF(left, top));
+            graphics.DrawString(text, font, brush, topLeft);
         }
 
-        public static void AddIcon(this ImageList imageList, IconChar icon, int size, Color color)
+        public static void AddIcon(this ImageList imageList, IconChar icon, Color color, int size = IconHelper.DefaultSize)
         {
-            imageList.Images.Add(icon.ToString(), icon.ToBitmap(size, color));
+            imageList.Images.Add(icon.ToString(), icon.ToBitmap(color, size));
         }
 
-        public static void AddIcons(this ImageList imageList, int size, Color color, params IconChar[] icons)
+        public static void AddIcons(this ImageList imageList, Color color, int size = IconHelper.DefaultSize, params IconChar[] icons)
         {
             foreach (var icon in icons)
-                imageList.AddIcon(icon, size, color);
+                imageList.AddIcon(icon, color, size);
+        }
+
+        private static PointF GetTopLeft(this Graphics graphics, string text, Font font, SizeF size)
+        {
+            // cf.: https://www.codeproject.com/Articles/2118/Bypass-Graphics-MeasureString-limitations
+            // 1.
+            var iconSize = graphics.GetIconSize(text, font, size);
+
+            // 2.
+            //var rect = new RectangleF(0, 0, size.Width, size.Height);
+            //var regions = graphics.MeasureCharacterRanges(text, font, rect, format);
+            //rect = regions[0].GetBounds(graphics);
+            ////return new PointF(rect.Left, rect.Top);
+            //iconSize = new SizeF(rect.Right, rect.Bottom);
+
+            // 3.
+            //iconSize = TextRenderer.MeasureText(text, font);
+
+            // center icon
+            var left = Math.Max(0f, (size.Width - iconSize.Width) / 2);
+            var top = Math.Max(0f, (size.Height - iconSize.Height) / 2);
+            return new PointF(left, top);
+        }
+
+        private static SizeF GetIconSize(this Graphics graphics, string text, Font font, SizeF size)
+        {
+            var format = new StringFormat();
+            var ranges = new[] {new CharacterRange(0, text.Length)};
+            format.SetMeasurableCharacterRanges(ranges);
+            format.Alignment = StringAlignment.Center;
+            var iconSize = graphics.MeasureString(text, font, size, format);
+            return iconSize;
         }
 
         private static Font GetAdjustedIconFont(this Graphics g, FontFamily fontFamily, string text,
-            int width, int height, int maxFontSize = 0, int minFontSize = 4, bool smallestOnFail = true)
+            SizeF size, int maxFontSize = 0, int minFontSize = 4, bool smallestOnFail = true)
         {
-            var safeMaxFontSize = maxFontSize > 0 ? maxFontSize : height;
-            for (double adjustedSize = safeMaxFontSize; adjustedSize >= minFontSize; adjustedSize = adjustedSize - 0.5)
+            var safeMaxFontSize = maxFontSize > 0 ? maxFontSize : size.Height;
+            for (double adjustedSize = safeMaxFontSize; adjustedSize >= minFontSize; adjustedSize -= 0.5)
             {
-                var testFont = GetIconFont(fontFamily, (float)adjustedSize);
+                var font = GetIconFont(fontFamily, (float)adjustedSize);
                 // Test the string with the new size
-                var adjustedSizeNew = g.MeasureString(text, testFont);
-                if (width > adjustedSizeNew.Width && height > adjustedSizeNew.Height)
-                    return testFont;
+                var iconSize = g.GetIconSize(text, font, size);
+                if (iconSize.Width < size.Width && iconSize.Height < size.Height)
+                    return font;
             }
 
             // Could not find a font size
@@ -142,9 +166,9 @@ namespace FontAwesome.Sharp
             var fontBytes = GetFontBytes(fontFile, assembly, path);
             fixed (byte* pFontData = fontBytes)
             {
-                fonts.AddMemoryFont((IntPtr) pFontData, fontBytes.Length);
+                fonts.AddMemoryFont((IntPtr)pFontData, fontBytes.Length);
                 uint dummy = 0;
-                NativeMethods.AddFontMemResourceEx((IntPtr) pFontData, (uint) fontBytes.Length, IntPtr.Zero,
+                NativeMethods.AddFontMemResourceEx((IntPtr)pFontData, (uint)fontBytes.Length, IntPtr.Zero,
                     ref dummy);
             }
         }
@@ -297,7 +321,7 @@ namespace FontAwesome.Sharp
 
                     // Getting font and icon as text
                     var text = icon.ToChar();
-                    var font = GetAdjustedIconFont(memoryGraphics, fontFamily, text, size, size);
+                    var font = memoryGraphics.GetAdjustedIconFont(fontFamily, text, new SizeF(size, size));
 
                     // must not be transparent background 
                     memoryGraphics.Clear(renBgColor);
@@ -314,12 +338,10 @@ namespace FontAwesome.Sharp
                 }
 
                 // copy from memory buffer to image
-                using (var imageGraphics = Graphics.FromImage(image))
-                {
-                    var imgHdc = imageGraphics.GetHdc();
-                    NativeMethods.BitBlt(imgHdc, 0, 0, image.Width, image.Height, memoryHdc, 0, 0, 0x00CC0020);
-                    imageGraphics.ReleaseHdc(imgHdc);
-                }
+                using var imageGraphics = Graphics.FromImage(image);
+                var imgHdc = imageGraphics.GetHdc();
+                NativeMethods.BitBlt(imgHdc, 0, 0, image.Width, image.Height, memoryHdc, 0, 0, 0x00CC0020);
+                imageGraphics.ReleaseHdc(imgHdc);
             }
             finally
             {
@@ -362,7 +384,7 @@ namespace FontAwesome.Sharp
                                 currentRow[x] = (
                                                     (uint)Math.Abs(
                                                         (int)c -
-                                                        alphaReverse) // Setting alfa: from bg to icon or from icon to bg
+                                                        alphaReverse) // Setting alpha: from bg to icon or from icon to bg
                                                     << 24) // 0xAA -> 0xAA000000
                                                 | visibleColorRgb // 0xAA000000 + 0x00RRGGBB
                                     ;
