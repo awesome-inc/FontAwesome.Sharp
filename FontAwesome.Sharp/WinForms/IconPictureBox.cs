@@ -5,15 +5,28 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
-    public class IconPictureBox : IconPictureBox<IconChar>
+    public class IconPictureBox : IconPictureBox<IconChar>, IHaveFontStyle
     {
-        public IconPictureBox() : base(FormsIconHelper.FontFamilyFor(IconChar.Star))
+        public IconPictureBox() : base(IconChar.Star.FontFamilyFor())
         {
         }
 
         protected override FontFamily FontFor(IconChar icon)
         {
-            return FormsIconHelper.FontFamilyFor(icon);
+            return icon.FontFamilyFor(_fontStyle);
+        }
+
+        private FontStyle _fontStyle = FontStyle.Auto;
+        public FontStyle FontStyle
+        {
+            get => _fontStyle;
+            set
+            {
+                if (_fontStyle.CompareTo(value) == 0) return;
+                _fontStyle = value;
+                UpdateImage();
+
+            }
         }
     }
 
@@ -197,7 +210,7 @@ namespace FontAwesome.Sharp
             set => base.Image = value;
         }
 
-        private void UpdateImage()
+        protected void UpdateImage()
         {
             var image = base.Image;
             if (image != null && !UseIconCache)

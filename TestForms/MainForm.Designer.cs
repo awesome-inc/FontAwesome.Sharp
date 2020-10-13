@@ -387,6 +387,7 @@ namespace TestForms
             this.btnXing.IconChar = FontAwesome.Sharp.IconChar.XingSquare;
             this.btnXing.IconColor = System.Drawing.Color.DarkSlateGray;
             this.btnXing.IconSize = 32;
+            this.btnXing.FontStyle = FontStyle.Brands;
             this.btnXing.Location = new System.Drawing.Point(161, 149);
             this.btnXing.Margin = new System.Windows.Forms.Padding(4);
             this.btnXing.Name = "btnXing";
@@ -403,6 +404,7 @@ namespace TestForms
             this.btnGooglePlus.IconChar = FontAwesome.Sharp.IconChar.GooglePlusSquare;
             this.btnGooglePlus.IconColor = System.Drawing.Color.Red;
             this.btnGooglePlus.IconSize = 32;
+            this.btnGooglePlus.FontStyle = FontStyle.Brands;
             this.btnGooglePlus.Location = new System.Drawing.Point(19, 149);
             this.btnGooglePlus.Margin = new System.Windows.Forms.Padding(4);
             this.btnGooglePlus.Name = "btnGooglePlus";

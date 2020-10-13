@@ -5,15 +5,28 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
-    public class IconSplitButton : IconSplitButton<IconChar>
+    public class IconSplitButton : IconSplitButton<IconChar>, IHaveFontStyle
     {
-        public IconSplitButton() : base(FormsIconHelper.FontFamilyFor(IconChar.Star))
+        public IconSplitButton() : base(IconChar.Star.FontFamilyFor())
         {
         }
 
         protected override FontFamily FontFor(IconChar icon)
         {
-            return FormsIconHelper.FontFamilyFor(icon);
+            return icon.FontFamilyFor(_fontStyle);
+        }
+
+        private FontStyle _fontStyle = FontStyle.Auto;
+        public FontStyle FontStyle
+        {
+            get => _fontStyle;
+            set
+            {
+                if (_fontStyle.CompareTo(value) == 0) return;
+                _fontStyle = value;
+                UpdateImage();
+
+            }
         }
     }
 
@@ -100,7 +113,7 @@ namespace FontAwesome.Sharp
             }
         }
 
-        private void UpdateImage()
+        protected void UpdateImage()
         {
             Image = FontFor(_icon).ToBitmap(_icon, _size, _color, _rotation, _flip);
         }
