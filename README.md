@@ -483,3 +483,18 @@ Here is an MSBuild snippet/example of how i got this working in 2015 with `Stron
 ```
 
 Include this in your `.csproj` and you should be good to go!
+
+### All icons seem to be rendered with Regular style. How to render solid icons
+
+In fontawesome, **regular** and **solid** icons use different font/ttf-files. Since **regular/solid** have overlapping icons and **regular** is the first font in the list
+the glyphs in the regular-font will be preferred.
+
+As of 5.15+ the font style can be explicitly set, e.g.
+
+```csharp
+this._openMenuItem.IconChar = FontAwesome.Sharp.IconChar.File;
+this._openMenuItem.FontStyle = FontStyle.Solid;
+this._openMenuItem.Name = "_openMenuItem";
+```
+
+![File Open with regular and solid style](explicit_font_style.png)

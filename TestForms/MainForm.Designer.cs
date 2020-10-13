@@ -160,6 +160,7 @@ namespace TestForms
             this._openMenuItem.BackColor = System.Drawing.Color.Transparent;
             this._openMenuItem.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this._openMenuItem.IconChar = FontAwesome.Sharp.IconChar.File;
+            this._openMenuItem.FontStyle = FontStyle.Solid;
             this._openMenuItem.Name = "_openMenuItem";
             this._openMenuItem.Rotation = 0D;
             this._openMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
