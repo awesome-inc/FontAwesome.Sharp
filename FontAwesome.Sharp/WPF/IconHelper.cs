@@ -14,62 +14,91 @@ namespace FontAwesome.Sharp
     // * http://www.codeproject.com/Tips/634540/Using-Font-Icons
     public static class IconHelper
     {
-        internal static readonly IconChar[] Orphans = {
+        #region Public
+        public static readonly IconChar[] Orphans = {
             IconChar.None
             // not contained in any of the ttf-fonts!
             ,IconChar.FontAwesomeLogoFull
         };
 
+        /// <summary>
+        /// All valid icons.
+        /// </summary>
         public static readonly IconChar[] Icons = Enum.GetValues(typeof(IconChar))
             .Cast<IconChar>().Except(Orphans).ToArray();
+
+        /// <summary>
+        /// Default brush / color.
+        /// </summary>
         public static readonly Brush DefaultBrush = SystemColors.WindowTextBrush; // this is TextBlock default brush
+
+        /// <summary>
+        /// Default icon size in pixels.
+        /// </summary>
         public const int DefaultSize = 48;
 
+        /// <summary>
+        /// Load the specified font from assembly resource stream
+        /// </summary>
+        /// <param name="assembly">The assembly to load from</param>
+        /// <param name="path">The resource path in the assembly</param>
+        /// <param name="fontTitle">The resource name</param>
+        /// <returns></returns>
         public static FontFamily LoadFont(this Assembly assembly, string path, string fontTitle)
         {
             return new FontFamily(BaseUri, $"./{assembly.GetName().Name};component/{path}/#{fontTitle}");
         }
 
+        /// <summary>
+        /// Renders an image for the specified font and icon
+        /// </summary>
+        /// <typeparam name="TEnum">The icon enum type</typeparam>
+        /// <param name="fontFamily">The icon font</param>
+        /// <param name="icon">The icon to render</param>
+        /// <param name="brush">The icon brush / color</param>
+        /// <param name="size">The icon size in pixels</param>
+        /// <returns>The rendered image</returns>
         public static ImageSource ToImageSource<TEnum>(this FontFamily fontFamily, TEnum icon,
-            Brush foregroundBrush = null, double size = DefaultSize)
+            Brush brush = null, double size = DefaultSize)
             where TEnum : struct, IConvertible, IComparable, IFormattable
         {
             return fontFamily.GetTypefaces().Find(icon, out var gt, out var glyphIndex) != null
-                ? ToImageSource(foregroundBrush, size, gt, glyphIndex)
+                ? ToImageSource(brush, size, gt, glyphIndex)
                 : null;
         }
 
+        /// <summary>
+        /// Renders an image for the specified font and icon
+        /// </summary>
+        /// <param name="iconChar">The icon to render</param>
+        /// <param name="brush">The icon brush / color</param>
+        /// <param name="size">The icon size in pixels</param>
+        /// <returns>The rendered image</returns>
         public static ImageSource ToImageSource(this IconChar iconChar,
-            Brush foregroundBrush = null, double size = DefaultSize)
+            Brush brush = null, double size = DefaultSize)
         {
             var typeFace = Typefaces.Find(iconChar, out var gt, out var glyphIndex);
-            return typeFace == null ? null : ToImageSource(foregroundBrush, size, gt, glyphIndex);
+            return typeFace == null ? null : ToImageSource(brush, size, gt, glyphIndex);
         }
 
-        private static ImageSource ToImageSource(Brush foregroundBrush, double size, GlyphTypeface gt, ushort glyphIndex)
-        {
-            var fontSize = PixelsToPoints(size);
-            var width = gt.AdvanceWidths[glyphIndex];
-#pragma warning disable CS0618 // Deprecated constructor
-            var glyphRun = new GlyphRun(gt, 0, false, fontSize,
-                new[] { glyphIndex }, new Point(0, 0), new[] { width },
-                null, null, null, null, null, null);
-#pragma warning restore CS0618
-            var glyphRunDrawing = new GlyphRunDrawing(foregroundBrush ?? DefaultBrush, glyphRun);
-            return new DrawingImage(glyphRunDrawing);
-        }
-
+        /// <summary>
+        /// Convert icon code to UTF-32 unicode character
+        /// </summary>
+        /// <typeparam name="TEnum">The icon enum type</typeparam>
+        /// <param name="icon">The icon</param>
+        /// <returns>Character code</returns>
         public static string ToChar<TEnum>(this TEnum icon) where TEnum : struct, IConvertible, IComparable, IFormattable
         {
             return char.ConvertFromUtf32(icon.UniCode());
         }
 
-        private static int UniCode<TEnum>(this TEnum icon)
-            where TEnum : struct, IConvertible, IComparable, IFormattable
-        {
-            return icon.ToInt32(CultureInfo.InvariantCulture);
-        }
-
+        /// <summary>
+        /// Load typefaces from assembly resources
+        /// </summary>
+        /// <param name="assembly">The assembly to load from</param>
+        /// <param name="path">The resource path (directory)</param>
+        /// <param name="fontTitles">The font resource item names</param>
+        /// <returns>The loaded typefaces</returns>
         public static Typeface[] LoadTypefaces(this Assembly assembly, string path,
             params string[] fontTitles)
         {
@@ -80,6 +109,15 @@ namespace FontAwesome.Sharp
             }).ToArray();
         }
 
+        /// <summary>
+        /// Find the typeface containing the specified icon
+        /// </summary>
+        /// <typeparam name="TEnum">The icon enum type</typeparam>
+        /// <param name="typefaces"></param>
+        /// <param name="icon">The icon</param>
+        /// <param name="gt">The found font face</param>
+        /// <param name="glyphIndex">The glyph index into the font face for the specified icon</param>
+        /// <returns></returns>
         public static Typeface Find<TEnum>(this IEnumerable<Typeface> typefaces,
             TEnum icon, out GlyphTypeface gt, out ushort glyphIndex)
             where TEnum : struct, IConvertible, IComparable, IFormattable
@@ -94,6 +132,9 @@ namespace FontAwesome.Sharp
             return null;
         }
 
+        #endregion
+
+        #region Internal
         internal static FontFamily FontFor(IconChar iconChar)
         {
             if (Orphans.Contains(iconChar)) return null;
@@ -102,6 +143,28 @@ namespace FontAwesome.Sharp
         }
 
         internal static readonly Uri BaseUri = new Uri($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/");
+
+        #endregion
+
+        #region Private
+        private static ImageSource ToImageSource(Brush foregroundBrush, double size, GlyphTypeface gt, ushort glyphIndex)
+        {
+            var fontSize = PixelsToPoints(size);
+            var width = gt.AdvanceWidths[glyphIndex];
+#pragma warning disable CS0618 // Deprecated constructor
+            var glyphRun = new GlyphRun(gt, 0, false, fontSize,
+                new[] { glyphIndex }, new Point(0, 0), new[] { width },
+                null, null, null, null, null, null);
+#pragma warning restore CS0618
+            var glyphRunDrawing = new GlyphRunDrawing(foregroundBrush ?? DefaultBrush, glyphRun);
+            return new DrawingImage(glyphRunDrawing);
+        }
+
+        private static int UniCode<TEnum>(this TEnum icon)
+            where TEnum : struct, IConvertible, IComparable, IFormattable
+        {
+            return icon.ToInt32(CultureInfo.InvariantCulture);
+        }
 
         private static readonly string[] FontTitles =
         {
@@ -126,5 +189,6 @@ namespace FontAwesome.Sharp
             var dpiProperty = typeof(SystemParameters).GetProperty("Dpi", BindingFlags.NonPublic | BindingFlags.Static);
             return (int)dpiProperty.GetValue(null, null);
         }
+        #endregion
     }
 }

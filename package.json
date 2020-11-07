@@ -1,8 +1,8 @@
 {
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
-    "@mdi/font": "^5.6.55",
-    "npm-check-updates": "^9.0.4",
+    "@mdi/font": "^5.8.55",
+    "npm-check-updates": "^9.2.4",
     "prettier": "2.1.2"
   },
   "name": "fontawesome.sharp",

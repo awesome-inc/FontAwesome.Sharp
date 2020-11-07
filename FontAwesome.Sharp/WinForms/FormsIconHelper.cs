@@ -16,10 +16,21 @@ namespace FontAwesome.Sharp
 {
     public static class FormsIconHelper
     {
-        private static readonly PrivateFontCollection Fonts = InitializeFonts();
-        private static readonly FontFamily FallbackFont = Fonts.Families[0];
-
-        public static Bitmap ToBitmap<TEnum>(this FontFamily fontFamily, TEnum icon, int width, int height, Color color,
+        #region Public
+        /// <summary>
+        /// Returns a bitmap for the specified font and icon
+        /// </summary>
+        /// <typeparam name="TEnum">icon enum type (for custom fonts)</typeparam>
+        /// <param name="fontFamily">The icon font</param>
+        /// <param name="icon">The icon</param>
+        /// <param name="width">Width of destination bitmap in pixels</param>
+        /// <param name="height">Height of destination bitmap in pixels</param>
+        /// <param name="color">Icon color</param>
+        /// <param name="rotation">Icon rotation in degrees</param>
+        /// <param name="flip">Icon flip</param>
+        /// <returns>The rendered bitmap</returns>
+        public static Bitmap ToBitmap<TEnum>(this FontFamily fontFamily, TEnum icon,
+            int width, int height, Color? color = null,
             double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
             where TEnum : struct, IConvertible, IComparable, IFormattable
         {
@@ -29,7 +40,7 @@ namespace FontAwesome.Sharp
                 var text = icon.ToChar();
                 var font = graphics.GetAdjustedIconFont(fontFamily, text, new SizeF(width, height));
                 graphics.Rotate(rotation, width, height);
-                var brush = new SolidBrush(color);
+                var brush = color.HasValue ? new SolidBrush(color.Value) : DefaultBrush;
                 DrawIcon(graphics, font, text, width, height, brush);
             }
 
@@ -37,7 +48,19 @@ namespace FontAwesome.Sharp
             return bitmap;
         }
 
-        public static Bitmap ToBitmap<TEnum>(this FontFamily fontFamily, TEnum icon, int size, Color color,
+        /// <summary>
+        /// Returns a bitmap for the specified font and icon
+        /// </summary>
+        /// <typeparam name="TEnum">icon enum type (for custom fonts)</typeparam>
+        /// <param name="fontFamily">The icon font</param>
+        /// <param name="icon">The icon</param>
+        /// <param name="size">Size of destination bitmap in pixels</param>
+        /// <param name="color">Icon color</param>
+        /// <param name="rotation">Icon rotation in degrees</param>
+        /// <param name="flip">Icon flip</param>
+        /// <returns>The rendered bitmap</returns>
+        public static Bitmap ToBitmap<TEnum>(this FontFamily fontFamily, TEnum icon,
+            int size = DefaultSize, Color? color = null,
             double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
             where TEnum : struct, IConvertible, IComparable, IFormattable
         {
@@ -45,28 +68,68 @@ namespace FontAwesome.Sharp
         }
 
         /// <summary>
-        ///     Convert icon to bitmap image with GDI+ API - positioning of icon isn't perfect, but aliasing is good. Good for
-        ///     small icons.
+        /// Returns a bitmap for the specified font awesome style and icon
         /// </summary>
-        public static Bitmap ToBitmap(this IconChar icon, Color color,
-            int size = IconHelper.DefaultSize, double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
+        /// <param name="icon">The icon</param>
+        /// <param name="iconFont">The font awesome style / font to use</param>
+        /// <param name="size">Size of destination bitmap in pixels</param>
+        /// <param name="color">Icon color</param>
+        /// <param name="rotation">Icon rotation in degrees</param>
+        /// <param name="flip">Icon flip</param>
+        /// <returns>The rendered bitmap</returns>
+        public static Bitmap ToBitmap(this IconChar icon, IconFont iconFont = IconFont.Auto,
+            int size = DefaultSize, Color? color = null,
+            double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
+        {
+            var fontFamily = icon.FontFamilyFor(iconFont);
+            return fontFamily.ToBitmap(icon, size, color, rotation, flip);
+        }
+
+        /// <summary>
+        /// Renders an icon to a bitmap image using GDI+ API - positioning of icon isn't perfect, but aliasing is good. Good for small icons.
+        /// </summary>
+        /// <param name="icon">The icon</param>
+        /// <param name="size">Size of destination bitmap in pixels</param>
+        /// <param name="color">Icon color</param>
+        /// <param name="rotation">Icon rotation in degrees</param>
+        /// <param name="flip">Icon flip</param>
+        /// <returns>The rendered bitmap</returns>
+        public static Bitmap ToBitmap(this IconChar icon, Color? color = null,
+            int size = DefaultSize, double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
         {
             var fontFamily = FontFamilyFor(icon);
             return fontFamily.ToBitmap(icon, size, size, color, rotation, flip);
         }
 
         /// <summary>
-        ///     Convert icon to bitmap image with GDI+ API - positioning of icon isn't perfect, but aliasing is good. Good for
-        ///     small icons.
+        /// Renders an icon to a bitmap image using GDI+ API - positioning of icon isn't perfect, but aliasing is good. Good for small icons.
         /// </summary>
-        public static Bitmap ToBitmap(this IconChar icon, int width, int height, Color color,
+        /// <param name="icon">The icon</param>
+        /// <param name="width">Width of destination bitmap in pixels</param>
+        /// <param name="height">Height of destination bitmap in pixels</param>
+        /// <param name="color">Icon color</param>
+        /// <param name="rotation">Icon rotation in degrees</param>
+        /// <param name="flip">Icon flip</param>
+        /// <returns>The rendered bitmap</returns>
+        public static Bitmap ToBitmap(this IconChar icon,
+            int width = DefaultSize, int height = DefaultSize, Color? color = null,
             double rotation = 0.0, FlipOrientation flip = FlipOrientation.Normal)
         {
             var fontFamily = FontFamilyFor(icon);
             return fontFamily.ToBitmap(icon, width, height, color, rotation, flip);
         }
 
-        public static void DrawIcon(this Graphics graphics, Font font, string text, int width, int height, Brush brush)
+        /// <summary>
+        /// Renders a text centered to the specified graphics.
+        /// </summary>
+        /// <param name="graphics">The graphics to draw the icon text into</param>
+        /// <param name="text">The text to render</param>
+        /// <param name="width">Width of graphics in pixels</param>
+        /// <param name="height">Height of graphics in pixels</param>
+        /// <param name="font">The font to use</param>
+        /// <param name="brush">The color brush to use</param>
+        public static void DrawIcon(this Graphics graphics, Font font, string text,
+            int width = DefaultSize, int height = DefaultSize, Brush brush = null)
         {
             // Set best quality
             graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
@@ -77,19 +140,43 @@ namespace FontAwesome.Sharp
 
             var topLeft = graphics.GetTopLeft(text, font, new SizeF(width, height));
 
-            graphics.DrawString(text, font, brush, topLeft);
+            graphics.DrawString(text, font, brush ?? DefaultBrush, topLeft);
         }
 
-        public static void AddIcon(this ImageList imageList, IconChar icon, Color color, int size = IconHelper.DefaultSize)
+        /// <summary>
+        /// Shortcut helper method to quickly add a rendered icon to the specified image list
+        /// </summary>
+        /// <param name="imageList">The image list to add to</param>
+        /// <param name="icon">The icon to render and add</param>
+        /// <param name="color">The icon color</param>
+        /// <param name="size">The icon size in pixels</param>
+        public static void AddIcon(this ImageList imageList, IconChar icon,
+            Color? color = null, int size = IconHelper.DefaultSize)
         {
             imageList.Images.Add(icon.ToString(), icon.ToBitmap(color, size));
         }
 
-        public static void AddIcons(this ImageList imageList, Color color, int size = IconHelper.DefaultSize, params IconChar[] icons)
+        /// <summary>
+        /// Shortcut helper method to quickly add rendered icons to the specified image list
+        /// </summary>
+        /// <param name="imageList">The image list to add to</param>
+        /// <param name="color">The icon color</param>
+        /// <param name="size">The icon size in pixels</param>
+        /// <param name="icons">The icons to render and add</param>
+        public static void AddIcons(this ImageList imageList,
+            Color? color = null, int size = IconHelper.DefaultSize, params IconChar[] icons)
         {
             foreach (var icon in icons)
                 imageList.AddIcon(icon, color, size);
         }
+        #endregion
+
+        #region Private
+        private static readonly Lazy<PrivateFontCollection> Fonts = new Lazy<PrivateFontCollection>(InitializeFonts);
+        private static readonly Lazy<FontFamily> FallbackFont = new Lazy<FontFamily>(() => Fonts.Value.Families[0]);
+        internal const int DefaultSize = IconHelper.DefaultSize;
+        private static readonly Color DefaultColor = SystemColors.WindowText;
+        private static readonly Brush DefaultBrush = new SolidBrush(DefaultColor);
 
         private static PointF GetTopLeft(this Graphics graphics, string text, Font font, SizeF size)
         {
@@ -143,10 +230,10 @@ namespace FontAwesome.Sharp
 
         internal static FontFamily FontFamilyFor(this IconChar iconChar)
         {
-            if (Fonts == null) throw new InvalidOperationException("FontAwesome source font files not found!");
+            if (Fonts.Value == null) throw new InvalidOperationException("FontAwesome source font files not found!");
             var name = IconHelper.FontFor(iconChar)?.Source;
-            if (name == null) return FallbackFont;
-            return Fonts.Families.FirstOrDefault(f => name.EndsWith(f.Name, StringComparison.InvariantCultureIgnoreCase)) ?? FallbackFont;
+            if (name == null) return FallbackFont.Value;
+            return Fonts.Value.Families.FirstOrDefault(f => name.EndsWith(f.Name, StringComparison.InvariantCultureIgnoreCase)) ?? FallbackFont.Value;
         }
 
         internal static FontFamily FontFamilyFor(this IconChar iconChar, IconFont iconFont)
@@ -154,7 +241,7 @@ namespace FontAwesome.Sharp
             if (iconFont == IconFont.Auto) return FontFamilyFor(iconChar);
             var key = (int)iconFont;
             if (FontForStyle.TryGetValue(key, out var fontFamily)) return fontFamily;
-            fontFamily = Fonts.Families.FirstOrDefault(f =>
+            fontFamily = Fonts.Value.Families.FirstOrDefault(f =>
                 f.Name.IndexOf(iconFont.ToString(), StringComparison.InvariantCultureIgnoreCase) >= 0);
             FontForStyle.Add(key, fontFamily);
             return fontFamily;
@@ -392,6 +479,7 @@ namespace FontAwesome.Sharp
                             int x;
                             for (x = 0; x < size; x++)
                             {
+                                // ReSharper disable once PossibleNullReferenceException
                                 var c = currentRow[x] &
                                         0x000000FF; // imageData.Stride / 4 ; 4 = bytes per pixel, as result stride is equals width in pixels
                                 currentRow[x] = (
@@ -431,5 +519,6 @@ namespace FontAwesome.Sharp
 
             return memoryHdc;
         }
+        #endregion
     }
 }

@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
+    /// <summary>
+    /// A windows forms split button supporting font awesome icons
+    /// </summary>
     public class IconSplitButton : IconSplitButton<IconChar>, IHaveIconFont
     {
         public IconSplitButton() : base(IconChar.Star.FontFamilyFor())
@@ -16,7 +19,7 @@ namespace FontAwesome.Sharp
             return icon.FontFamilyFor(_iconFont);
         }
 
-        private IconFont _iconFont = Sharp.IconFont.Auto;
+        private IconFont _iconFont = IconFont.Auto;
 
         [Category("FontAwesome")]
         public IconFont IconFont
@@ -32,6 +35,10 @@ namespace FontAwesome.Sharp
         }
     }
 
+    /// <summary>
+    /// A windows forms split button for the specified icon enum type
+    /// </summary>
+    /// <typeparam name="TEnum">The icon enum</typeparam>
     public abstract class IconSplitButton<TEnum> : ToolStripSplitButton, IFormsIcon<TEnum>
         where TEnum : struct, IConvertible, IComparable, IFormattable
     {
@@ -49,6 +56,12 @@ namespace FontAwesome.Sharp
             UpdateImage();
         }
 
+        /// <summary>
+        /// Lookup the font to use for the specified icon. Usually only one static font.
+        /// Override in case you need special logic.
+        /// </summary>
+        /// <param name="icon">The icon</param>
+        /// <returns>The font for this icon</returns>
         protected virtual FontFamily FontFor(TEnum icon)
         {
             return _fontFamily;

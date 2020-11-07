@@ -43,8 +43,10 @@ namespace FontAwesome.Sharp
             public short biBitCount;
             public int biCompression;
             public int biSizeImage;
+            // ReSharper disable IdentifierTypo
             public int biXPelsPerMeter;
             public int biYPelsPerMeter;
+            // ReSharper restore IdentifierTypo
             public int biClrUsed;
             public int biClrImportant;
             public byte bmiColors_rgbBlue;

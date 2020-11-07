@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace FontAwesome.Sharp
 {
+    /// <summary>
+    /// A windows forms picture box supporting font awesome icons
+    /// </summary>
     public class IconPictureBox : IconPictureBox<IconChar>, IHaveIconFont
     {
         public IconPictureBox() : base(IconChar.Star.FontFamilyFor())
@@ -16,9 +19,9 @@ namespace FontAwesome.Sharp
             return icon.FontFamilyFor(_iconFont);
         }
 
-        private IconFont _iconFont = Sharp.IconFont.Auto;
+        private IconFont _iconFont = IconFont.Auto;
 
-        [Category("FontAwesome")]
+        [Category("FontAwesome"), Description("The font awesome style")]
         public IconFont IconFont
         {
             get => _iconFont;
@@ -32,6 +35,10 @@ namespace FontAwesome.Sharp
         }
     }
 
+    /// <summary>
+    /// A windows forms picture box for the specified icon enum type
+    /// </summary>
+    /// <typeparam name="TEnum">The icon enum</typeparam>
     public abstract class IconPictureBox<TEnum> : PictureBox, IFormsIcon<TEnum>
         where TEnum : struct, IConvertible, IComparable, IFormattable
     {
@@ -71,6 +78,12 @@ namespace FontAwesome.Sharp
             Disposed += IconPictureBox_Disposed;
         }
 
+        /// <summary>
+        /// Lookup the font to use for the specified icon. Usually only one static font.
+        /// Override in case you need special logic.
+        /// </summary>
+        /// <param name="icon">The icon</param>
+        /// <returns>The font for this icon</returns>
         protected virtual FontFamily FontFor(TEnum icon)
         {
             return _fontFamily;
@@ -106,11 +119,10 @@ namespace FontAwesome.Sharp
             }
         }
 
-        [Category("FontAwesome")]
+        [Category("FontAwesome"), Description("The icon color")]
         public Color IconColor { get => ForeColor; set => ForeColor = value; }
 
-        [Category("FontAwesome")]
-        [DefaultValue(FlipOrientation.Normal)]
+        [Category("FontAwesome"), Description("The icon flip"), DefaultValue(FlipOrientation.Normal)]
         public FlipOrientation Flip
         {
             get => _flip;
@@ -122,8 +134,7 @@ namespace FontAwesome.Sharp
             }
         }
 
-        [Category("FontAwesome")]
-        [DefaultValue(0.0)]
+        [Category("FontAwesome"), Description("The icon rotation angle in degrees"), DefaultValue(0.0)]
         public double Rotation
         {
             get => _rotation;
@@ -136,8 +147,7 @@ namespace FontAwesome.Sharp
             }
         }
 
-        [Category("FontAwesome")]
-        [TypeConverter(typeof(IconConverter))]
+        [Category("FontAwesome"), Description("The icon"), TypeConverter(typeof(IconConverter))]
         public TEnum IconChar
         {
             get => _iconChar;

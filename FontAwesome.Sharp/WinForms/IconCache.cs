@@ -5,9 +5,8 @@ using System.Linq;
 
 namespace FontAwesome.Sharp
 {
-    /// <inheritdoc />
     /// <summary>
-    ///     Icon caching logic.
+    /// An icon cache for optimizing rendering performance for commonly used icons
     /// </summary>
     public class IconCache<TEnum> : IDisposable
         where TEnum : struct, IConvertible, IComparable, IFormattable
@@ -15,7 +14,7 @@ namespace FontAwesome.Sharp
         private readonly IDictionary<IconKey, Bitmap> _cache = new Dictionary<IconKey, Bitmap>();
 
         /// <summary>
-        ///     Get or create icon.
+        /// Get or create icon.
         /// </summary>
         /// <param name="fontFamily">The icon's font family</param>
         /// <param name="icon">Icon to generate</param>
