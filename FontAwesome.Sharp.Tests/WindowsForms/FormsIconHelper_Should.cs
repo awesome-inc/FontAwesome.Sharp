@@ -31,5 +31,14 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
             imageList.AddIcons(Color.Black, size,IconChar.AddressBook, IconChar.AirFreshener);
             imageList.Images.Should().HaveCount(3);
         }
+
+        [StaFact]
+        public void Support_Font_Styles()
+        {
+            // see issue #54
+            const IconChar brandIcon = IconChar.GoogleDrive;
+            var bitmap = brandIcon.ToBitmap(IconFont.Brands);
+            bitmap.Should().BeOfType<Bitmap>($"an image should be generated for '{brandIcon}'");
+        }
     }
 }
