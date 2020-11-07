@@ -498,3 +498,9 @@ this._openMenuItem.Name = "_openMenuItem";
 ```
 
 ![File Open with regular and solid style](img/explicit_font_style.png)
+
+To render an icon directly to a bitmap using a specific font style
+
+```csharp
+var bitmap = IconChar.GoogleDrive.ToBitmap(IconFont.Brands);
+```
