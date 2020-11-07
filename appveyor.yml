@@ -30,3 +30,9 @@ build_script:
 
 artifacts:
   - path: .artifacts/*.nupkg
+
+#-----
+skip_commits:
+  files:
+    - img/*
+    - "**/*.md"
