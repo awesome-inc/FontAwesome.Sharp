@@ -1,6 +1,4 @@
-using FontAwesome.Sharp;
-
-namespace TestWpf.MaterialDesign
+namespace FontAwesome.Sharp.Material
 {
     public class ToText : ToTextBase<MaterialIcons>
     {

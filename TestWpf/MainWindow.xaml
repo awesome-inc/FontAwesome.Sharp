@@ -6,7 +6,7 @@
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         xmlns:faPro="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp.pro"
         xmlns:testWpf="clr-namespace:TestWpf"
-        xmlns:mdi="clr-namespace:TestWpf.MaterialDesign"
+        xmlns:faMaterial="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp.material"
         mc:Ignorable="d"
         Icon="{fa:IconSource Flag}"
         Title="TestWpf" Height="700" Width="800" d:DataContext="{d:DesignInstance testWpf:MainViewModel}">
@@ -64,7 +64,7 @@
 
         <Style TargetType="fa:IconImage" BasedOn="{StaticResource ImageStyle}"/>
         <Style TargetType="faPro:IconImage" BasedOn="{StaticResource ImageStyle}"/>
-        <Style TargetType="mdi:IconImage" BasedOn="{StaticResource ImageStyle}"/>
+        <Style TargetType="faMaterial:IconImage" BasedOn="{StaticResource ImageStyle}"/>
 
         <Style TargetType="RowDefinition">
             <Setter Property="MinHeight" Value="48" />
@@ -244,39 +244,39 @@
                            Foreground="Chartreuse" TextAlignment="Center" FontSize="24" />
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="IconBlock:" />
-                <mdi:IconBlock Grid.Row="1" Grid.Column="1" Icon="AccessPointNetwork"
+                <faMaterial:IconBlock Grid.Row="1" Grid.Column="1" Icon="AccessPointNetwork"
                               Foreground="DarkSlateBlue" TextAlignment="Center"
                               FontSize="24" VerticalAlignment="Center" />
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="IconImage:" />
-                <mdi:IconImage Grid.Row="2" Grid.Column="1" Icon="AccountBoxMultiple" Foreground="Red"
+                <faMaterial:IconImage Grid.Row="2" Grid.Column="1" Icon="AccountBoxMultiple" Foreground="Red"
                                fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="{}{Icon} Button" />
                 <Button Grid.Row="3" Grid.Column="1"  Style="{StaticResource MdiButtonStyle}"
                         ToolTip="Click to toggle spinning"
-                        Content="{mdi:Icon AirplaneLanding, Foreground={StaticResource FaBrush}}"
+                        Content="{faMaterial:Icon AirplaneLanding, Foreground={StaticResource FaBrush}}"
                         Command="{Binding ToggleSpinCommand}"
                         fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="4"/>
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{ToText} Button" />
                 <Button Grid.Row="4" Grid.Column="1"
                         Command="{Binding PlayCommand}"
-                        Content="{mdi:ToText Play}" Style="{StaticResource MdiButtonStyle}" />
+                        Content="{faMaterial:ToText Play}" Style="{StaticResource MdiButtonStyle}" />
 
                 <TextBlock Grid.Row="5" Grid.Column="0" Text="Spinning Icons" />
                 <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <mdi:IconImage Icon="Sync" fa:Awesome.Spin="{Binding IsSpinning}" Foreground="SlateGray" />
-                    <mdi:IconBlock Icon="ProgressUpload" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2"
+                    <faMaterial:IconImage Icon="Sync" fa:Awesome.Spin="{Binding IsSpinning}" Foreground="SlateGray" />
+                    <faMaterial:IconBlock Icon="ProgressUpload" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2"
                                   Foreground="DarkSlateBlue" FontSize="32" />
-                    <mdi:IconBlock Icon="ProgressDownload" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="4"
+                    <faMaterial:IconBlock Icon="ProgressDownload" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="4"
                                   Foreground="DarkMagenta" FontSize="32" />
                 </StackPanel>
 
                 <TextBlock Grid.Row="6" Grid.Column="0" Text="Stacking Icons" />
                 <Grid Grid.Row="6" Grid.Column="1" ToolTip="Two icons stacked in a grid">
-                    <mdi:IconImage Icon="Camera" Width="16" Height="16" />
-                    <mdi:IconImage Icon="Cancel" Foreground="Red" />
+                    <faMaterial:IconImage Icon="Camera" Width="16" Height="16" />
+                    <faMaterial:IconImage Icon="Cancel" Foreground="Red" />
                 </Grid>
             </Grid>
         </TabItem>

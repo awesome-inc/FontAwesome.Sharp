@@ -22,7 +22,7 @@ Write-Host Updating web fonts...
 #Get-ChildItem -Recurse -Path .\node_modules\@fortawesome\*.ttf | $.LastWriteTime = $lastWrite | Copy-Item -Destination .\FontAwesome.Sharp\fonts
 #Get-ChildItem -Recurse -Path .\node_modules\@mdi\*.ttf | $.LastWriteTime = $lastWrite | Copy-Item -Destination .\TestWpf\fonts
 Update-Files .\node_modules\@fortawesome\*.ttf .\FontAwesome.Sharp\fonts
-Update-Files .\node_modules\@mdi\*.ttf .\TestWpf\fonts
+Update-Files .\node_modules\@mdi\*.ttf .\FontAwesome.Sharp.Material\fonts
 
 Write-Host Updating css...
 Update-Files .\node_modules\@fortawesome\fontawesome-free\css\fontawesome.css  .\FontEnumGenerator\Content
@@ -38,6 +38,6 @@ Push-Location .\FontEnumGenerator\bin\Release
 Copy-Item -Path .\IconChar.cs -Destination ..\..\..\FontAwesome.Sharp
 
 .\FontEnumGenerator.exe --css .\Content\materialdesignicons.css --pattern "\.mdi-(.+):before" --name MaterialIcons
-Copy-Item -Path .\MaterialIcons.cs -Destination ..\..\..\TestWpf\MaterialDesign
+Copy-Item -Path .\MaterialIcons.cs -Destination ..\..\..\FontAwesome.Sharp.Material
 
 Pop-Location

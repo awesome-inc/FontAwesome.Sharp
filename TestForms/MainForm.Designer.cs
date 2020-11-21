@@ -69,13 +69,13 @@ namespace TestForms
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.materialSplitButton1 = new TestForms.MaterialDesign.MaterialSplitButton();
-            this.materialMenuItem2 = new TestForms.MaterialDesign.MaterialMenuItem();
-            this.materialDropDownButton1 = new TestForms.MaterialDesign.MaterialDropDownButton();
-            this.materialMenuItem1 = new TestForms.MaterialDesign.MaterialMenuItem();
-            this.materialToolStripButton1 = new TestForms.MaterialDesign.MaterialToolStripButton();
-            this._materialPictureBox1 = new TestForms.MaterialDesign.MaterialPictureBox();
-            this._materialButton1 = new TestForms.MaterialDesign.MaterialButton();
+            this.materialSplitButton1 = new FontAwesome.Sharp.Material.MaterialSplitButton();
+            this.materialMenuItem2 = new FontAwesome.Sharp.Material.MaterialMenuItem();
+            this.materialDropDownButton1 = new FontAwesome.Sharp.Material.MaterialDropDownButton();
+            this.materialMenuItem1 = new FontAwesome.Sharp.Material.MaterialMenuItem();
+            this.materialToolStripButton1 = new FontAwesome.Sharp.Material.MaterialToolStripButton();
+            this._materialPictureBox1 = new FontAwesome.Sharp.Material.MaterialPictureBox();
+            this._materialButton1 = new FontAwesome.Sharp.Material.MaterialButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -718,14 +718,14 @@ namespace TestForms
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private MaterialDesign.MaterialButton _materialButton1;
-        private MaterialDesign.MaterialPictureBox _materialPictureBox1;
+        private FontAwesome.Sharp.Material.MaterialButton _materialButton1;
+        private FontAwesome.Sharp.Material.MaterialPictureBox _materialPictureBox1;
         private System.Windows.Forms.ToolStrip toolStrip2;
-        private MaterialDesign.MaterialSplitButton materialSplitButton1;
-        private MaterialDesign.MaterialMenuItem materialMenuItem2;
-        private MaterialDesign.MaterialDropDownButton materialDropDownButton1;
-        private MaterialDesign.MaterialMenuItem materialMenuItem1;
-        private MaterialDesign.MaterialToolStripButton materialToolStripButton1;
+        private FontAwesome.Sharp.Material.MaterialSplitButton materialSplitButton1;
+        private FontAwesome.Sharp.Material.MaterialMenuItem materialMenuItem2;
+        private FontAwesome.Sharp.Material.MaterialDropDownButton materialDropDownButton1;
+        private FontAwesome.Sharp.Material.MaterialMenuItem materialMenuItem1;
+        private FontAwesome.Sharp.Material.MaterialToolStripButton materialToolStripButton1;
         private System.Windows.Forms.Timer timer1;
     }
 }

@@ -13,7 +13,7 @@
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\FontAwesome.Sharp.Pro\FontAwesome.Sharp.Pro.csproj" />
-        <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj" />
+        <ProjectReference Include="..\FontAwesome.Sharp.Material\FontAwesome.Sharp.Material.csproj" />
     </ItemGroup>
     <ItemGroup>
         <Resource Include="fonts\*.ttf" />

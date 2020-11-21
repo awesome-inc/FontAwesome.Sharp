@@ -29,6 +29,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj" />
+        <ProjectReference Include="..\FontAwesome.Sharp.Material\FontAwesome.Sharp.Material.csproj" />
     </ItemGroup>
 </Project>

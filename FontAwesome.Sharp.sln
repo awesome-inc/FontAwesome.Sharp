@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 		solution.targets = solution.targets
 		SolutionInfo.cs = SolutionInfo.cs
+		Update-Fonts.ps1 = Update-Fonts.ps1
 		xunit.runner.json = xunit.runner.json
 	EndProjectSection
 EndProject
@@ -39,7 +40,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWpf", "TestWpf\TestWpf.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{05F18261-6B1E-4352-9D25-0B5F6DAF80F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome.Sharp.Pro", "FontAwesome.Sharp.Pro\FontAwesome.Sharp.Pro.csproj", "{151777B2-780C-46C0-A9A3-36E047939EA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontAwesome.Sharp.Pro", "FontAwesome.Sharp.Pro\FontAwesome.Sharp.Pro.csproj", "{151777B2-780C-46C0-A9A3-36E047939EA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome.Sharp.Material", "FontAwesome.Sharp.Material\FontAwesome.Sharp.Material.csproj", "{2702D34B-05B9-44C1-830F-00FF2CDB5176}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +76,10 @@ Global
 		{151777B2-780C-46C0-A9A3-36E047939EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{151777B2-780C-46C0-A9A3-36E047939EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{151777B2-780C-46C0-A9A3-36E047939EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2702D34B-05B9-44C1-830F-00FF2CDB5176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2702D34B-05B9-44C1-830F-00FF2CDB5176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2702D34B-05B9-44C1-830F-00FF2CDB5176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2702D34B-05B9-44C1-830F-00FF2CDB5176}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
