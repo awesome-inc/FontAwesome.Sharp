@@ -23,4 +23,18 @@
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>$(SolutionDir)\key.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
+
+
+    <!-- Need to conditionally bring in references for .NET Framework, cf.:
+     - https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-multitarget
+    -->
+    <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
+        <!-- WPF -->
+        <Reference Include="System.Xaml" />
+        <Reference Include="WindowsBase" />
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
+        <!-- Windows Forms -->
+        <Reference Include="System.Windows.Forms" />
+    </ItemGroup>
 </Project>

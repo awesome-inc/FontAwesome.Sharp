@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
@@ -6,7 +6,7 @@
     <Import Project="$(SolutionDir)\solution.targets" />
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+        <TargetFrameworks>net5.0-windows</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <UseWpf>true</UseWpf>
         <IsPackable>false</IsPackable>

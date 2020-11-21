@@ -6,7 +6,7 @@
     <AllowParallelTestExecution>False</AllowParallelTestExecution>
     <!--<InstrumentationMode>Legacy</InstrumentationMode>-->
     <CustomBuildProperties>
-      <Value>TargetFramework = netcoreapp3.1</Value>
+      <Value>TargetFramework = net5.0-windows</Value>
     </CustomBuildProperties>
     <MetricsExclusionList>
       <Value>TestForms\TestForms.csproj</Value>

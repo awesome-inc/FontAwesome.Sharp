@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
@@ -6,9 +6,9 @@
     <Import Project="$(SolutionDir)\solution.targets" />
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
-        <UseWindowsForms>true</UseWindowsForms>
+        <TargetFrameworks>net5.0-windows</TargetFrameworks>
         <OutputType>WinExe</OutputType>
+        <UseWindowsForms>true</UseWindowsForms>
         <IsPackable>false</IsPackable>
         <StartupObject>TestForms.Program</StartupObject>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
