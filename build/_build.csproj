@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nuke.Common" Version="0.24.11" />
+    <PackageReference Include="Nuke.Common" Version="5.0.0" />
     <PackageDownload Include="GitVersion.Tool" Version="[5.3.4]" />
     <PackageDownload Include="NuGet.CommandLine" Version="[5.5.1]" />
     <PackageDownload Include="dotnet-sonarscanner" Version="[4.9.0]" />

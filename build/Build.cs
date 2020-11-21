@@ -42,7 +42,7 @@ class Build : NukeBuild
     const string Framework = "netcoreapp3.1";
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+    readonly string Configuration = IsLocalBuild ? "Debug" : "Release";
 
     [Solution] readonly Solution Solution;
     [GitVersion(Framework = Framework)] readonly GitVersion GitVersion;
@@ -163,7 +163,7 @@ class Build : NukeBuild
                     .SetFramework("netcoreapp3.0")
                     .SetLogin(SonarLogin) // TODO: should be secret -> SetArgument
                     .SetServer(SonarServer)
-                    .SetArgumentConfigurator(args =>
+                    .SetProcessArgumentConfigurator(args =>
                     {
                         // monorepo hack: tell Sonar to scan sub-project only
                         args.Add($"/d:sonar.projectBaseDir={RootDirectory}");
