@@ -17,6 +17,7 @@ function Update-Files {
 Write-Host Updating node packages...
 npm i
 ncu -u
+npm i
 
 Write-Host Updating web fonts...
 #Get-ChildItem -Recurse -Path .\node_modules\@fortawesome\*.ttf | $.LastWriteTime = $lastWrite | Copy-Item -Destination .\FontAwesome.Sharp\fonts
