@@ -45,7 +45,7 @@ class Build : NukeBuild
     readonly string Configuration = IsLocalBuild ? "Debug" : "Release";
 
     [Solution] readonly Solution Solution;
-    [GitVersion(Framework = Framework)] readonly GitVersion GitVersion;
+    [GitVersion(Framework = Framework, NoFetch = true)] readonly GitVersion GitVersion;
 
     [Parameter("The SonarQube login token")]
     readonly string SonarLogin = Environment.GetEnvironmentVariable("SONAR_LOGIN");
