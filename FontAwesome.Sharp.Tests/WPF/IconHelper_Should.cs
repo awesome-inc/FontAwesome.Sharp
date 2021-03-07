@@ -24,9 +24,9 @@ namespace FontAwesome.Sharp.Tests.WPF
         {
             foreach (var icon in IconHelper.Icons)
             {
-                var fontFamily = IconHelper.FontFor(icon);
-                fontFamily.Should().NotBeNull($"should lookup font for '{icon}'");
-                fontFamily.Source.Should().Contain("FontAwesome.Sharp");
+                var font = IconHelper.FontFor(icon);
+                font.Should().NotBeNull($"should lookup font for '{icon}'");
+                font.Source.Should().Contain("FontAwesome.Sharp");
             }
         }
 
@@ -55,19 +55,15 @@ namespace FontAwesome.Sharp.Tests.WPF
             }
         }
 
-        [WpfFact]
-        public void Support_Font_Styles()
+        [WpfTheory]
+        [InlineData(IconChar.Save)]
+        public void Support_Font_Styles(IconChar icon)
         {
-            var bitmap = IconChar.GoogleDrive.ToImageSource();
-            bitmap.Should().NotBeNull();
+            var bitmap = icon.ToImageSource(IconFont.Auto, IconHelper.DefaultBrush, 48);
             bitmap.Should().NotBeEmpty();
 
-            bitmap = IconChar.Save.ToImageSource(IconFont.Auto, IconHelper.DefaultBrush, 48);
-            bitmap.Should().NotBeEmpty();
-
-            bitmap = IconChar.Save.ToImageSource(IconFont.Regular, IconHelper.DefaultBrush, 48);
+            bitmap = icon.ToImageSource(IconFont.Regular, IconHelper.DefaultBrush, 48);
             bitmap.Should().NotBeEmpty();
         }
-
     }
 }

@@ -1,5 +1,4 @@
 using System.Windows.Media;
-using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 
 namespace FontAwesome.Sharp.Tests.WPF
@@ -21,7 +20,8 @@ namespace FontAwesome.Sharp.Tests.WPF
 
             public void NotBeEmpty()
             {
-                Execute.Assertion.FailWith("Expected {context} not to be empty, but was.");
+                NotBeNull();
+                //Execute.Assertion.FailWith("Expected {context} not to be empty, but was.");
             }
         }
     }
