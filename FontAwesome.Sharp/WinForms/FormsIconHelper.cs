@@ -233,7 +233,7 @@ namespace FontAwesome.Sharp
 
         internal static FontFamily FontFamilyFor(this IconChar iconChar)
         {
-            if (Fonts.Value == null) return Throw<FontFamily>("FontAwesome source font files not found!");
+            if (Fonts.Value == null) return Throw("FontAwesome source font files not found!");
             var name = IconHelper.FontFor(iconChar)?.Source;
             if (name == null) return FallbackFont.Value;
             return Fonts.Value.Families.FirstOrDefault(f => name.EndsWith(f.Name, StringComparison.InvariantCultureIgnoreCase)) ?? FallbackFont.Value;
@@ -245,17 +245,17 @@ namespace FontAwesome.Sharp
             var key = (int)iconFont;
             if (FontForStyle.TryGetValue(key, out var fontFamily)) return fontFamily;
             if (!IconHelper.FontTitles.TryGetValue((int)iconFont, out var name))
-                return Throw<FontFamily>($"No font loaded for style: {iconFont}");
+                return Throw($"No font loaded for style: {iconFont}");
 
             fontFamily = Fonts.Value.Families.FirstOrDefault(f => f.Name.Equals(name));
             if (fontFamily == null)
-                return Throw<FontFamily>($"No font loaded for '{name}'");
+                return Throw($"No font loaded for '{name}'");
 
             FontForStyle.Add(key, fontFamily);
             return fontFamily;
         }
 
-        internal static T Throw<T>(string message)
+        internal static FontFamily Throw(string message)
         {
             if (ThrowOnNullFonts) throw new InvalidOperationException(message);
             return default;

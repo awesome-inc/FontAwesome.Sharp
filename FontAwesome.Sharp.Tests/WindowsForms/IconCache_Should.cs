@@ -1,5 +1,4 @@
 using System.Drawing;
-using FluentAssertions;
 using Xunit;
 
 namespace FontAwesome.Sharp.Tests.WindowsForms
