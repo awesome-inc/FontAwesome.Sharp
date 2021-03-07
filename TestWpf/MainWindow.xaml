@@ -102,14 +102,18 @@
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="&#xf042;" FontFamily="{StaticResource FontAwesome}"
                    Foreground="Chartreuse" TextAlignment="Center" FontSize="24" />
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="IconBlock:" />
-                <fa:IconBlock Grid.Row="1" Grid.Column="1" Icon="AirFreshener"
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="IconBlock, Click to toggle font style:" />
+                <fa:IconBlock Grid.Row="1" Grid.Column="1" Icon="{Binding Icon}" IconFont="{Binding IconFont}"
                       Foreground="DarkSlateBlue" TextAlignment="Center"
-                      FontSize="24" VerticalAlignment="Center" />
+                      FontSize="24" VerticalAlignment="Center">
+                    <fa:IconBlock.InputBindings>
+                        <MouseBinding Command="{Binding ToggleFontCommand}" MouseAction="LeftClick"/>
+                    </fa:IconBlock.InputBindings>
+                </fa:IconBlock>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="{}{Icon} Button" />
                 <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource FaButtonStyle}"
-                Content="{fa:Icon Meetup, Foreground={StaticResource FaBrush}}" />
+                        Content="{fa:Icon Meetup, Foreground={StaticResource FaBrush}, IconFont=Brands}" />
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="IconImage:" />
                 <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="Markdown" Foreground="Red"
@@ -118,7 +122,7 @@
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{IconSource} Ribbon, Click for spinning" />
                 <RibbonButton Grid.Row="4" Grid.Column="1"
                       ToolTip="Click to toggle spinning (Spinning 4 sec., rotated 45° &amp; flipped vertically)"
-                      LargeImageSource="{fa:IconSource TwitterSquare, Foreground=CornflowerBlue, Size=48}"
+                      LargeImageSource="{fa:IconSource TwitterSquare, IconFont=Brands, Foreground=CornflowerBlue, Size=48}"
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                       Width="48" Height="48"
                       Command="{Binding ToggleSpinCommand}"
@@ -132,8 +136,8 @@
 
                 <TextBlock Grid.Row="6" Grid.Column="0" Text="Stacking Icons" />
                 <Grid Grid.Row="6" Grid.Column="1" ToolTip="Two icons stacked in a grid">
-                    <fa:IconImage Icon="Camera" Width="16" Height="16" />
-                    <fa:IconImage Icon="Ban" Foreground="Red" />
+                    <fa:IconImage Icon="Camera" IconFont="{Binding IconFont}" Width="16" Height="16" />
+                    <fa:IconImage Icon="Ban"  IconFont="{Binding IconFont}" Foreground="Red" />
                 </Grid>
 
                 <TextBlock Grid.Row="7" Grid.Column="0" Text="Spinning Icons" />

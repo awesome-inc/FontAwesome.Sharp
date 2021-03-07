@@ -8,18 +8,18 @@ using System.Windows.Media;
 namespace FontAwesome.Sharp
 {
     [ValueConversion(typeof(IconChar), typeof(Image))]
-    public class IconToImageConverter : IValueConverter
+    public class IconToImageConverter : IValueConverter, IHaveIconFont
     {
         public Brush Foreground { get; set; }
         public Style ImageStyle { get; set; }
-
+        public IconFont IconFont { get; set; } = IconFont.Auto;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var icon = (IconChar) value;
             var image = new IconImage
             {
-                Icon = icon
+                Icon = icon, IconFont = IconFont
             };
 
             if (Foreground != null)

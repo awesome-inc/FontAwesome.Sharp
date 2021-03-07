@@ -8,11 +8,11 @@ namespace FontAwesome.Sharp
         where TIconBlock : IconBlockBase<TIcon>, new()
         where TIcon : struct, IConvertible, IComparable, IFormattable
     {
-        private readonly TIconBlock _iconBlock;
+        protected readonly TIconBlock IconBlock;
 
         protected IconBase(TIcon icon)
         {
-            _iconBlock = new TIconBlock
+            IconBlock = new TIconBlock
             {
                 Icon = icon
             };
@@ -20,13 +20,13 @@ namespace FontAwesome.Sharp
 
         public Brush Foreground
         {
-            get => _iconBlock.Foreground;
-            set => _iconBlock.Foreground = value;
+            get => IconBlock.Foreground;
+            set => IconBlock.Foreground = value;
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return _iconBlock;
+            return IconBlock;
         }
     }
 }

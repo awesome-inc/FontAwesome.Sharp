@@ -15,6 +15,8 @@ namespace FontAwesome.Sharp.Tests.WPF
         {
             var iconSource = new IconSource(iconChar);
             iconSource.Should().NotBeNull();
+            iconSource.Should().BeAssignableTo<IHaveIconFont>();
+            iconSource.IconFont.Should().Be(IconFont.Auto);
             var serviceProvider = Substitute.For<IServiceProvider>();
             var imageSource = (ImageSource)iconSource.ProvideValue(serviceProvider);
             imageSource.Should().NotBeNull();

@@ -15,6 +15,9 @@ namespace FontAwesome.Sharp
     public static class IconHelper
     {
         #region Public
+
+        public static bool ThrowOnNullFonts = false;
+
         public static readonly IconChar[] Orphans = {
             IconChar.None
             // not contained in any of the ttf-fonts!
@@ -82,6 +85,22 @@ namespace FontAwesome.Sharp
         }
 
         /// <summary>
+        /// Renders an image for the specified font, style and icon
+        /// </summary>
+        /// <param name="iconChar">The icon to render</param>
+        /// <param name="iconFont">The icon font style</param>
+        /// <param name="brush">The icon brush / color</param>
+        /// <param name="size">The icon size in pixels</param>
+        /// <returns>The rendered image</returns>
+        public static ImageSource ToImageSource(this IconChar iconChar, IconFont iconFont,
+            Brush brush = null, double size = DefaultSize)
+        {
+            var typeface = TypefaceFor(iconChar, iconFont);
+            if (typeface == null) return null;
+            return typeface.TryFind(iconChar.UniCode(), out var gt, out var glyphIndex) ? ToImageSource(brush, size, gt, glyphIndex) : null;
+        }
+
+        /// <summary>
         /// Convert icon code to UTF-32 unicode character
         /// </summary>
         /// <typeparam name="TEnum">The icon enum type</typeparam>
@@ -122,14 +141,23 @@ namespace FontAwesome.Sharp
             TEnum icon, out GlyphTypeface gt, out ushort glyphIndex)
             where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            gt = null;
-            glyphIndex = 42;
             var iconCode = icon.UniCode();
+            gt = null;
+            glyphIndex = NoSuchGlyph;
             foreach (var typeface in typefaces)
-                if (typeface.TryGetGlyphTypeface(out gt) &&
-                    gt.CharacterToGlyphMap.TryGetValue(iconCode, out glyphIndex))
+            {
+                if (typeface.TryFind(iconCode, out gt, out glyphIndex))
                     return typeface;
+            }
             return null;
+        }
+
+        private const ushort NoSuchGlyph = 42;
+        private static bool TryFind(this Typeface typeface, int iconCode, out GlyphTypeface gt, out ushort glyphIndex)
+        {
+            gt = null;
+            glyphIndex = NoSuchGlyph;
+            return typeface.TryGetGlyphTypeface(out gt) && gt.CharacterToGlyphMap.TryGetValue(iconCode, out glyphIndex);
         }
 
         #endregion
@@ -137,9 +165,42 @@ namespace FontAwesome.Sharp
         #region Internal
         internal static FontFamily FontFor(IconChar iconChar)
         {
-            if (Orphans.Contains(iconChar)) return null;
-            var typeFace = Typefaces.Find(iconChar.UniCode(), out _, out _);
-            return typeFace?.FontFamily;
+            return TypefaceFor(iconChar)?.FontFamily;
+        }
+
+        internal static FontFamily FontFor(IconChar iconChar, IconFont iconFont)
+        {
+            return TypefaceFor(iconChar, iconFont)?.FontFamily;
+        }
+
+        internal static Typeface TypefaceFor(IconChar iconChar)
+        {
+            return Orphans.Contains(iconChar) ? null : Typefaces.Find(iconChar.UniCode(), out _, out _);
+        }
+
+
+        internal static Typeface TypefaceFor(IconChar iconChar, IconFont iconFont)
+        {
+            if (iconFont == IconFont.Auto) return TypefaceFor(iconChar);
+            var key = (int)iconFont;
+            if (TypefaceForStyle.TryGetValue(key, out var typeFace)) return typeFace;
+            if (!FontTitles.TryGetValue(key, out var name))
+                return Throw($"No font loaded for style: {iconFont}");
+
+            typeFace = Typefaces.FirstOrDefault(t => t.FontFamily.Source.EndsWith(name));
+            if (typeFace == null)
+                return Throw($"No font loaded for '{name}'");
+
+            TypefaceForStyle.Add(key, typeFace);
+            return typeFace;
+
+        }
+        private static readonly Dictionary<int, Typeface> TypefaceForStyle = new();
+
+        internal static Typeface Throw(string message)
+        {
+            if (ThrowOnNullFonts) throw new InvalidOperationException(message);
+            return default;
         }
 
         internal static readonly Uri BaseUri = new($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/");

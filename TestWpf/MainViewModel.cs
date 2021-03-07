@@ -14,12 +14,15 @@ namespace TestWpf
         // ReSharper disable once NotAccessedField.Local
         private readonly Timer _timer;
         private int _currentIcon;
+        private IconFont _iconFont = IconFont.Auto;
+        private IconChar _icon;
 
         public MainViewModel()
         {
             OpenCommand = new DelegateCommand(DoOpen);
             PlayCommand = new DelegateCommand(DoPlay);
             ToggleSpinCommand = new DelegateCommand(ToggleSpin);
+            ToggleFontCommand = new DelegateCommand(ToggleFont);
 
             // create a new icon block to show there is no memory leak
             _timer = new Timer(IterateIcons, null, 1000, 100);
@@ -39,12 +42,34 @@ namespace TestWpf
             });
         }
 
-        public IconChar Icon { get; set; }
+        public IconChar Icon
+        {
+            get => _icon;
+            set
+            {
+                if (_icon == value) return;
+                _icon = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand OpenCommand { get; }
         public ICommand PlayCommand { get; }
         public ICommand ToggleSpinCommand { get; }
+        public ICommand ToggleFontCommand { get; }
 
         public IconBlock IconBlock { get; set; }
+
+        public IconFont IconFont
+        {
+            get => _iconFont;
+            set
+            {
+                if (_iconFont == value) return;
+                _iconFont = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool IsSpinning
         {
@@ -62,7 +87,8 @@ namespace TestWpf
 
         private void DoOpen()
         {
-            MessageBox.Show("Clicked Open", "Info");
+            Icon = IconHelper.Icons[_currentIcon];
+            MessageBox.Show($"Clicked Open (Icon: {Icon}, Font: {IconFont})", "Info");
         }
 
         private void DoPlay()
@@ -74,6 +100,14 @@ namespace TestWpf
         {
             IsSpinning = !IsSpinning;
         }
+
+        private static readonly IconFont[] IconFonts = Enum.GetValues<IconFont>();
+        private void ToggleFont()
+        {
+            var i = ((int)IconFont +1) % IconFonts.Length;
+            IconFont = IconFonts[i];
+        }
+
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

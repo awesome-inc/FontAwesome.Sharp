@@ -1,7 +1,8 @@
-﻿using FontAwesome.Sharp;
+using FontAwesome.Sharp;
 
 namespace TestWpf
 {
+    // ReSharper disable once UnusedMember.Global
     public partial class MainWindow
     {
         public MainWindow()

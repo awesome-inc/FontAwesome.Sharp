@@ -12,7 +12,9 @@ namespace FontAwesome.Sharp.Tests.WPF
             var iconChar = IconChar.Accusoft;
             var iconBlock = new IconBlock { Icon = iconChar };
             iconBlock.Should().NotBeNull();
+            iconBlock.Should().BeAssignableTo<IHaveIconFont>();
             iconBlock.Icon.Should().Be(iconChar);
+            iconBlock.IconFont.Should().Be(IconFont.Auto);
         }
     }
 }

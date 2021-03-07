@@ -12,12 +12,14 @@ namespace FontAwesome.Sharp.Tests.WPF
         public void Be_Creatable()
         {
             var iconChar = IconChar.Accusoft;
-            var markupExtension = new Icon(iconChar);
-            markupExtension.Should().NotBeNull();
+            var icon = new Icon(iconChar);
+            icon.Should().NotBeNull();
            // icon.Foreground.ToString().Should().Be("foo");
+           icon.Should().BeAssignableTo<IHaveIconFont>();
+           icon.IconFont.Should().Be(IconFont.Auto);
 
             var serviceProvider = Substitute.For<IServiceProvider>();
-            var iconBlock = markupExtension.ProvideValue(serviceProvider) as IconBlock;
+            var iconBlock = icon.ProvideValue(serviceProvider) as IconBlock;
             iconBlock.Should().NotBeNull();
             iconBlock.Icon.Should().Be(iconChar);
         }

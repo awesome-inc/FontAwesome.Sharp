@@ -40,7 +40,8 @@ namespace FontAwesome.Sharp.Tests.WPF
                 var imageSource = icon.ToImageSource(Brushes.Black, size);
                 imageSource.Should().NotBeNull($"an image should be generated for '{icon}'");
                 imageSource.Should().BeOfType<DrawingImage>();
-                Math.Max(imageSource.Width, imageSource.Height).Should().BeLessOrEqualTo(size+delta, $"{icon} size should be less than {size}+{delta}.");
+                Math.Max(imageSource.Width, imageSource.Height).Should().BeLessOrEqualTo(size + delta,
+                    $"{icon} size should be less than {size}+{delta}.");
             }
         }
 
@@ -48,10 +49,24 @@ namespace FontAwesome.Sharp.Tests.WPF
         [Description("Some icons are not contained in any ttf-webfont!")]
         public void Skip_orphaned_icons()
         {
-            foreach(var icon in IconHelper.Orphans)
+            foreach (var icon in IconHelper.Orphans)
             {
                 icon.ToImageSource().Should().BeNull($"{icon} is assumed to be an orphan.");
             }
+        }
+
+        [WpfFact]
+        public void Support_Font_Styles()
+        {
+            var bitmap = IconChar.GoogleDrive.ToImageSource();
+            bitmap.Should().NotBeNull();
+            bitmap.Should().NotBeEmpty();
+
+            bitmap = IconChar.Save.ToImageSource(IconFont.Auto, IconHelper.DefaultBrush, 48);
+            bitmap.Should().NotBeEmpty();
+
+            bitmap = IconChar.Save.ToImageSource(IconFont.Regular, IconHelper.DefaultBrush, 48);
+            bitmap.Should().NotBeEmpty();
         }
 
     }
