@@ -241,8 +241,13 @@ namespace FontAwesome.Sharp
             if (iconFont == IconFont.Auto) return FontFamilyFor(iconChar);
             var key = (int)iconFont;
             if (FontForStyle.TryGetValue(key, out var fontFamily)) return fontFamily;
-            fontFamily = Fonts.Value.Families.FirstOrDefault(f =>
-                f.Name.IndexOf(iconFont.ToString(), StringComparison.InvariantCultureIgnoreCase) >= 0);
+            if (!IconHelper.FontTitles.TryGetValue((int)iconFont, out var name))
+                throw new InvalidOperationException($"No font loaded for style: {iconFont}");
+
+            fontFamily = Fonts.Value.Families.FirstOrDefault(f => f.Name.Equals(name));
+            if (fontFamily == null)
+                throw new InvalidOperationException($"No font loaded for '{name}'");
+
             FontForStyle.Add(key, fontFamily);
             return fontFamily;
         }

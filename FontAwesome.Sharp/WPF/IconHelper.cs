@@ -100,7 +100,7 @@ namespace FontAwesome.Sharp
         /// <param name="fontTitles">The font resource item names</param>
         /// <returns>The loaded typefaces</returns>
         public static Typeface[] LoadTypefaces(this Assembly assembly, string path,
-            params string[] fontTitles)
+            IEnumerable<string> fontTitles)
         {
             return fontTitles.Select(fontTitle =>
             {
@@ -166,14 +166,15 @@ namespace FontAwesome.Sharp
             return icon.ToInt32(CultureInfo.InvariantCulture);
         }
 
-        private static readonly string[] FontTitles =
+        internal static readonly Dictionary<int, string> FontTitles = new Dictionary<int, string>()
         {
-            "Font Awesome 5 Free Regular", // fa-regular-400.ttf
-            "Font Awesome 5 Free Solid", // fa-solid-900.ttf
-            "Font Awesome 5 Brands Regular" // fa-brands-400.ttf
+            { (int)IconFont.Regular,  "Font Awesome 5 Free Regular"}, // fa-regular-400.ttf
+            { (int)IconFont.Solid, "Font Awesome 5 Free Solid"}, // fa-solid-900.ttf
+            { (int)IconFont.Brands, "Font Awesome 5 Brands Regular"} // fa-brands-400.ttf
         };
+        //internal static Dictionary<int, String> FontForStyle
 
-        private static readonly Typeface[] Typefaces = typeof(IconHelper).Assembly.LoadTypefaces("fonts", FontTitles);
+        private static readonly Typeface[] Typefaces = typeof(IconHelper).Assembly.LoadTypefaces("fonts", FontTitles.Values);
         private static readonly int Dpi = GetDpi();
 
         private static double PixelsToPoints(double size)
