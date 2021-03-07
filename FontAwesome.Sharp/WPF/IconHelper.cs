@@ -46,7 +46,7 @@ namespace FontAwesome.Sharp
         /// <returns></returns>
         public static FontFamily LoadFont(this Assembly assembly, string path, string fontTitle)
         {
-            return new FontFamily(BaseUri, $"./{assembly.GetName().Name};component/{path}/#{fontTitle}");
+            return new(BaseUri, $"./{assembly.GetName().Name};component/{path}/#{fontTitle}");
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace FontAwesome.Sharp
             return typeFace?.FontFamily;
         }
 
-        internal static readonly Uri BaseUri = new Uri($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/");
+        internal static readonly Uri BaseUri = new($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/");
 
         #endregion
 

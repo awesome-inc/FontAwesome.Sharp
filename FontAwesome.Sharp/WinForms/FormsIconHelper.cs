@@ -172,8 +172,8 @@ namespace FontAwesome.Sharp
         #endregion
 
         #region Private
-        private static readonly Lazy<PrivateFontCollection> Fonts = new Lazy<PrivateFontCollection>(InitializeFonts);
-        private static readonly Lazy<FontFamily> FallbackFont = new Lazy<FontFamily>(() => Fonts.Value.Families[0]);
+        private static readonly Lazy<PrivateFontCollection> Fonts = new(InitializeFonts);
+        private static readonly Lazy<FontFamily> FallbackFont = new(() => Fonts.Value.Families[0]);
         internal const int DefaultSize = IconHelper.DefaultSize;
         private static readonly Color DefaultColor = SystemColors.WindowText;
         private static readonly Brush DefaultBrush = new SolidBrush(DefaultColor);
@@ -246,11 +246,11 @@ namespace FontAwesome.Sharp
             FontForStyle.Add(key, fontFamily);
             return fontFamily;
         }
-        private static readonly Dictionary<int, FontFamily> FontForStyle = new Dictionary<int, FontFamily>();
+        private static readonly Dictionary<int, FontFamily> FontForStyle = new();
 
         private static Font GetIconFont(FontFamily fontFamily, float size)
         {
-            return new Font(fontFamily, size, GraphicsUnit.Point);
+            return new(fontFamily, size, GraphicsUnit.Point);
         }
 
         public static FontFamily LoadResourceFont(this Assembly assembly, string path, string fontFile)

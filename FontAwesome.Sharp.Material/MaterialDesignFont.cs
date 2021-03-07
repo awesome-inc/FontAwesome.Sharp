@@ -7,8 +7,8 @@ namespace FontAwesome.Sharp.Material
     using WpfFont = System.Windows.Media.FontFamily;
     internal static class MaterialDesignFont
     {
-        public static readonly Lazy<WinFormsFont> WinForms = new Lazy<WinFormsFont>(LodWinFormsFont);
-        public static readonly Lazy<WpfFont> Wpf = new Lazy<WpfFont>(LoadWpfFont);
+        public static readonly Lazy<WinFormsFont> WinForms = new(LodWinFormsFont);
+        public static readonly Lazy<WpfFont> Wpf = new(LoadWpfFont);
 
         private static readonly Assembly FontAssembly = typeof(MaterialDesignFont).Assembly;
         private static WpfFont LoadWpfFont()

@@ -42,11 +42,11 @@ namespace FontAwesome.Sharp
     public abstract class IconPictureBox<TEnum> : PictureBox, IFormsIcon<TEnum>
         where TEnum : struct, IConvertible, IComparable, IFormattable
     {
-        private static readonly IconCache<TEnum> IconCache = new IconCache<TEnum>();
+        private static readonly IconCache<TEnum> IconCache = new();
         private const int DefaultIconSize = 32;
 
         // ReSharper disable StaticMemberInGenericType
-        public new static readonly Size DefaultSize = new Size(DefaultIconSize, DefaultIconSize);
+        public new static readonly Size DefaultSize = new(DefaultIconSize, DefaultIconSize);
         public new static readonly Color DefaultForeColor = Color.Black;
         public new static readonly Color DefaultBackColor = Color.White;
         // ReSharper restore StaticMemberInGenericType

@@ -31,7 +31,7 @@ namespace FontEnumGenerator
 
         // c.f.: http://blog.visualt4.com/2009/02/creating-valid-c-identifiers.html
         private static readonly CodeDomProvider Csharp = CodeDomProvider.CreateProvider("C#");
-        private static readonly Regex InvalidChars = new Regex(@"[^\p{Ll}\p{Lu}\p{Lt}\p{Lo}\p{Nd}\p{Nl}\p{Mn}\p{Mc}\p{Cf}\p{Pc}\p{Lm}]", RegexOptions.Compiled);
+        private static readonly Regex InvalidChars = new(@"[^\p{Ll}\p{Lu}\p{Lt}\p{Lo}\p{Nd}\p{Nl}\p{Mn}\p{Mc}\p{Cf}\p{Pc}\p{Lm}]", RegexOptions.Compiled);
         private static readonly TextInfo TextInfo = new CultureInfo("en-US", false).TextInfo;
 
         private static string ValidIdentifier(string value)
