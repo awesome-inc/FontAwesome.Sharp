@@ -169,14 +169,11 @@ class Build : NukeBuild
                         args.Add($"/d:sonar.projectBaseDir={RootDirectory}");
                         // generic coverage data, cf.: https://docs.sonarqube.org/latest/analysis/generic-test/
                         args.Add($"/d:sonar.coverageReportPaths=.coverage/SonarQube.xml");
-                        if (!string.IsNullOrWhiteSpace(SonarLogin))
-                        {
-                            // set organization & branch name, cf.:
-                            // - https://github.com/nuke-build/nuke/issues/304#issuecomment-522250591
-                            // - http://www.nuke.build/docs/authoring-builds/cli-tools.html#custom-arguments
-                            args.Add($"/o:{SonarOrganization}")
-                                .Add($"/d:sonar.branch.name={GitVersion.BranchName}");
-                        }
+                        // set organization & branch name, cf.:
+                        // - https://github.com/nuke-build/nuke/issues/304#issuecomment-522250591
+                        // - http://www.nuke.build/docs/authoring-builds/cli-tools.html#custom-arguments
+                        args.Add($"/o:{SonarOrganization}")
+                            .Add($"/d:sonar.branch.name={GitVersion.BranchName}");
                         return args;
                     })
             );
