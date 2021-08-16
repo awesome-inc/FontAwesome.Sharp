@@ -1,9 +1,9 @@
 {
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.2",
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "@mdi/font": "^5.9.55",
-    "npm-check-updates": "^11.1.10",
-    "prettier": "2.2.1"
+    "npm-check-updates": "^11.8.3",
+    "prettier": "2.3.2"
   },
   "name": "fontawesome.sharp",
   "description": "[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp)\r [![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/)\r [![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)\r [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=awesome-inc_FontAwesome.Sharp&metric=alert_status)](https://sonarcloud.io/dashboard?id=awesome-inc_FontAwesome.Sharp)\r <!-- [![Coverage Status](https://coveralls.io/repos/github/awesome-inc/FontAwesome.Sharp/badge.svg)](https://coveralls.io/github/awesome-inc/FontAwesome.Sharp) -->",
