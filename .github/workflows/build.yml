@@ -2,19 +2,22 @@ name: build
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: '0' # Use all history for gitversion, cf.: https://github.com/actions/checkout/issues/113
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: "0" # Use all history for gitversion, cf.: https://github.com/actions/checkout/issues/113
 
-    - name: Build
-      run: .\build.ps1 CiBuild
+      - name: Build
+        run: .\build.ps1 CiBuild
+        env:
+          SONAR_LOGIN: "${{ secrets.SONAR_LOGIN }}"
+          NUGET_API_KEY: "${{ secrets.NUGET_API_KEY }}"
