@@ -11,13 +11,19 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           fetch-depth: "0" # Use all history for gitversion, cf.: https://github.com/actions/checkout/issues/113
 
-      - name: Build
-        run: .\build.ps1 CiBuild
+      # - uses: actions/setup-java@v2 # Setup Java 11 for Sonar
+      #   with:
+      #       distribution: 'adopt'
+      #       java-version: '11'
+
+      - run: .\build.ps1 CiBuild
         env:
           SONAR_LOGIN: "${{ secrets.SONAR_LOGIN }}"
           NUGET_API_KEY: "${{ secrets.NUGET_API_KEY }}"
+          # Use Java 1 for Sonar Scanner, Pre-installed on windows-latest
+          # cf.: https://github.com/actions/virtual-environments/blob/main/images/win/Windows2019-Readme.md#java
+          JAVA_HOME: "${{ env.JAVA_HOME_11_X64 }}"
