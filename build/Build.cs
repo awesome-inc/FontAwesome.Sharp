@@ -1,8 +1,8 @@
 using System;
 using Nuke.Common;
-using Nuke.Common.CI;
 using Nuke.Common.CI.AppVeyor;
 using Nuke.Common.CI.AzurePipelines;
+using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Execution;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
@@ -60,10 +60,10 @@ class Build : NukeBuild
     [Parameter("Enable coverlet diagnostics (log.*.txt)")]
     readonly bool CoverletDiag;
 
-    [Parameter("Is CI Build (AppVeyor)")]
-    readonly bool IsCiBuild = Host == HostType.AppVeyor;
+    [Parameter("Is CI Build")]
+    readonly bool IsCiBuild = Host is GitHubActions;
     [Parameter("Push built NuGet package")]
-    readonly bool IsPushTag = (Environment.GetEnvironmentVariable("APPVEYOR_REPO_TAG") ?? "-unset-") == "true";
+    readonly bool IsPushTag = (Environment.GetEnvironmentVariable("GITHUB_REF") ?? "-unset-").StartsWith("refs/tags/");
 
     [Parameter("NuGet API Key")]
     readonly string NuGetApiKey = Environment.GetEnvironmentVariable("NUGET_API_KEY");
@@ -118,7 +118,7 @@ class Build : NukeBuild
                 .SetConfiguration(Configuration)
                 .EnableNoBuild()
                 .EnableBlameMode()
-                .SetLogger("trx")
+                .AddLoggers("trx")
                 .EnableCollectCoverage()
                 .SetDataCollector("XPlat Code Coverage")
                 .SetSettingsFile("coverage.runsettings")
