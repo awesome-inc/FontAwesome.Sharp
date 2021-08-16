@@ -29,7 +29,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
             var imageList = new ImageList();
             imageList.AddIcon(IconChar.AccessibleIcon, Color.Black, size);
             imageList.AddIcons(Color.Black, size,IconChar.AddressBook, IconChar.AirFreshener);
-            imageList.Images.Should().HaveCount(3);
+            imageList.Images.Count.Should().Be(3);
         }
 
         [StaFact]
