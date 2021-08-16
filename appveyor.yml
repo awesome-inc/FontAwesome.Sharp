@@ -22,7 +22,7 @@ environment: # https://ci.appveyor.com/tools/encrypt
   SONAR_LOGIN:
     secure: l2/mdQdg/lTP5RDqDK8CeiEqwD5OCb9xKuF6MEbZHWMost5D9CpGAeuIm303tgUk
   NUGET_API_KEY:
-    secure: 1gZfYXDnZKFT1JddFudQ6YWtaY3b5dd9TRyGgMWAvDcaemYinhdGIzRa21VKSGx5
+    secure: +g3nI05zuZ/hNuLtGc057QXU7wIfjMdiU41RJUZ34ZDUQ+MAlMxxEdR4mVU5RoLh
 #-----
 
 build_script:
