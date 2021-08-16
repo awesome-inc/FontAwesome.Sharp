@@ -1,6 +1,6 @@
 # FontAwesome.Sharp
 
-[![Build status](https://ci.appveyor.com/api/projects/status/1ablv5ai1ydpqs5y?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fontawesome-sharp)
+[![Build status](https://github.com/awesome-inc/FontAwesome.Sharp/actions/workflows/build.yml/badge.svg)](https://github.com/awesome-inc/FontAwesome.Sharp/actions/workflows/build.yml)
 [![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/FontAwesome.Sharp/)
 [![NuGet](https://img.shields.io/nuget/dt/FontAwesome.Sharp.svg?style=flat-square)](https://www.nuget.org/packages/FontAwesome.Sharp/)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=awesome-inc_FontAwesome.Sharp&metric=alert_status)](https://sonarcloud.io/dashboard?id=awesome-inc_FontAwesome.Sharp)
