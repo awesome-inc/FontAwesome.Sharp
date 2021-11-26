@@ -19,9 +19,9 @@
         <!-- See GitHub project tags -->
         <PackageTags>fontawesome;icon;material-design;dotnet-core;wpf;windows-forms</PackageTags>
         <RepositoryUrl>https://github.com/awesome-inc/FontAwesome.Sharp</RepositoryUrl>
-
+        <AssemblyOriginatorKeyFile>$(SolutionDir)key.snk</AssemblyOriginatorKeyFile>
         <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>$(SolutionDir)\key.snk</AssemblyOriginatorKeyFile>
+        <PublicSign>true</PublicSign>
     </PropertyGroup>
 
 
