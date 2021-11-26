@@ -125,7 +125,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             ReportGeneratorTasks.ReportGenerator(settings => settings
-                .SetFramework("netcoreapp3.0")
+                .SetFramework("net5.0")
                 .SetReports("**/coverage.opencover.xml")
                 .SetReportTypes(ReportTypes.Cobertura, ReportTypes.SonarQube, ReportTypes.Html)
                 .SetTargetDirectory(".coverage/")
@@ -225,7 +225,7 @@ class Build : NukeBuild
     // ReSharper disable once UnusedMember.Local
     Target CiBuild => _ => _
         .Description("DevOps build target")
-        .DependsOn(Sonar)
+        .DependsOn(Test)
         .DependsOn(Push)
         .Executes(() =>
         {
