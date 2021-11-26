@@ -1307,7 +1307,6 @@ namespace FontAwesome.Sharp
         TrashRestoreAlt = 0xf82a,
         Tree = 0xf1bb,
         Trello = 0xf181,
-        Tripadvisor = 0xf262,
         Trophy = 0xf091,
         Truck = 0xf0d1,
         TruckLoading = 0xf4de,
