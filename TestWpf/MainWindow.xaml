@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-        xmlns:faPro="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp.pro"
         xmlns:testWpf="clr-namespace:TestWpf"
         xmlns:faMaterial="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp.material"
         mc:Ignorable="d"
@@ -18,7 +17,6 @@
             <Setter Property="Margin" Value="4" />
         </Style>
         <FontFamily x:Key="FontAwesome">/FontAwesome.Sharp;component/fonts/#Font Awesome 5 Free Solid</FontFamily>
-        <FontFamily x:Key="FontAwesomePro">/TestWpf;component/fonts/#Font Awesome 5 Pro Solid</FontFamily>
         <FontFamily x:Key="MaterialDesign">/TestWpf;component/fonts/#Material Design Icons</FontFamily>
         <Brush x:Key="FaBrush">DarkOrchid</Brush>
 
@@ -42,9 +40,6 @@
         <Style TargetType="Button" x:Key="FaButtonStyle" BasedOn="{StaticResource ButtonStyle}">
             <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
         </Style>
-        <Style TargetType="Button" x:Key="FaProButtonStyle" BasedOn="{StaticResource ButtonStyle}">
-            <Setter Property="FontFamily" Value="{StaticResource FontAwesomePro}" />
-        </Style>
         <Style TargetType="Button" x:Key="MdiButtonStyle" BasedOn="{StaticResource FaButtonStyle}">
             <Setter Property="FontFamily" Value="{StaticResource MaterialDesign}" />
         </Style>
@@ -63,7 +58,6 @@
         </Style>
 
         <Style TargetType="fa:IconImage" BasedOn="{StaticResource ImageStyle}"/>
-        <Style TargetType="faPro:IconImage" BasedOn="{StaticResource ImageStyle}"/>
         <Style TargetType="faMaterial:IconImage" BasedOn="{StaticResource ImageStyle}"/>
 
         <Style TargetType="RowDefinition">
@@ -167,65 +161,6 @@
 
                 <TextBlock Grid.Row="11" Grid.Column="0" Text="Changing Icon" />
                 <ContentControl  Grid.Row="11" Grid.Column="1" Content="{Binding IconBlock}" />
-            </Grid>
-        </TabItem>
-        <TabItem Header="FontAwesomePro">
-            <Grid Margin="8">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Text="TextBlock '0xf779' (Angel, Unicode)" />
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="&#xf779;" FontFamily="{StaticResource FontAwesomePro}"
-                   Foreground="Chartreuse" TextAlignment="Center" FontSize="24" />
-
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="IconBlock:" />
-                <faPro:IconBlock Grid.Row="1" Grid.Column="1" Icon="AmpGuitar"
-                      Foreground="DarkSlateBlue" TextAlignment="Center"
-                      FontSize="24" VerticalAlignment="Center" />
-
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="{}{Icon} Button" />
-                <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource FaProButtonStyle}"
-                Content="{faPro:Icon Acorn, Foreground={StaticResource FaBrush}}" />
-
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="IconImage:" />
-                <faPro:IconImage Grid.Row="3" Grid.Column="1" Icon="BatteryBolt" Foreground="Red"
-                      fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
-
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{IconSource} Ribbon, Click for spinning" />
-                <RibbonButton Grid.Row="4" Grid.Column="1"
-                      ToolTip="Click to toggle spinning (Spinning 4 sec., rotated 45° &amp; flipped vertically)"
-                      LargeImageSource="{faPro:IconSource BasketballHoop, Foreground=CornflowerBlue, Size=48}"
-                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
-                      Width="48" Height="48"
-                      Command="{Binding ToggleSpinCommand}"
-                      fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="4"
-                      fa:Awesome.Rotation="45"
-                      fa:Awesome.Flip="Vertical" />
-
-                <TextBlock Grid.Row="5" Grid.Column="0" Text="{}{ToText} Button (Alicorn)" />
-                <Button Grid.Row="5" Grid.Column="1" Content="{faPro:ToText Alicorn}" Command="{Binding PlayCommand}"
-                ToolTip="Click me!"  Style="{StaticResource FaProButtonStyle}" />
-
-                <TextBlock Grid.Row="6" Grid.Column="0" Text="Stacking Icons (Analytics / Ban)" />
-                <Grid Grid.Row="6" Grid.Column="1" ToolTip="Two icons stacked in a grid">
-                    <faPro:IconImage Icon="Analytics" Width="16" Height="16" />
-                    <faPro:IconImage Icon="Ban" Foreground="Red" />
-                </Grid>
-
             </Grid>
         </TabItem>
         <TabItem Header="MaterialDesign">
