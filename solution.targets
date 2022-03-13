@@ -13,15 +13,15 @@
         <Company>Awesome Incremented</Company>
         <Product>FontAwesome.Sharp</Product>
         <NeutralLanguage>en</NeutralLanguage>
-        <Copyright>Copyright © Awesome Incremented 2015-2020</Copyright>
+        <Copyright>Copyright © Awesome Incremented 2015-2022</Copyright>
         <Description>A library for embbeding Font Awesome icons in WPF &amp; Windows Forms applications</Description>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <!-- See GitHub project tags -->
         <PackageTags>fontawesome;icon;material-design;dotnet-core;wpf;windows-forms</PackageTags>
         <RepositoryUrl>https://github.com/awesome-inc/FontAwesome.Sharp</RepositoryUrl>
-        <AssemblyOriginatorKeyFile>$(SolutionDir)key.snk</AssemblyOriginatorKeyFile>
+
         <SignAssembly>true</SignAssembly>
-        <PublicSign>true</PublicSign>
+        <AssemblyOriginatorKeyFile>$(SolutionDir)\key.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
 

@@ -6,7 +6,7 @@
     <Import Project="$(SolutionDir)\solution.targets"/>
 
     <PropertyGroup>
-        <TargetFrameworks>net40;net45;net472;net48;netcoreapp3.1;net5.0-windows</TargetFrameworks>
+        <TargetFrameworks>net6.0-windows;net5.0-windows;net48;net472;net45;net40;netcoreapp3.1;</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <UseWPF>true</UseWPF>
     </PropertyGroup>

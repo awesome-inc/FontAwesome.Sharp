@@ -6,7 +6,7 @@
     <Import Project="$(SolutionDir)\solution.targets" />
 
     <PropertyGroup>
-        <TargetFrameworks>net5.0-windows</TargetFrameworks>
+        <TargetFramework>net6.0-windows</TargetFramework>
         <OutputType>WinExe</OutputType>
         <UseWindowsForms>true</UseWindowsForms>
         <IsPackable>false</IsPackable>

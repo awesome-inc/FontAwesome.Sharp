@@ -8,7 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		.whitesource = .whitesource
-		appveyor.yml = appveyor.yml
 		build.ps1 = build.ps1
 		CONTRIBUTING.md = CONTRIBUTING.md
 		FontAwesome.Sharp.v3.ncrunchsolution = FontAwesome.Sharp.v3.ncrunchsolution
@@ -19,9 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		package.json = package.json
 		README.md = README.md
 		solution.targets = solution.targets
-		SolutionInfo.cs = SolutionInfo.cs
 		Update-Fonts.ps1 = Update-Fonts.ps1
-		xunit.runner.json = xunit.runner.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontEnumGenerator", "FontEnumGenerator\FontEnumGenerator.csproj", "{F570BCCB-D937-4D7F-815A-348612602025}"
