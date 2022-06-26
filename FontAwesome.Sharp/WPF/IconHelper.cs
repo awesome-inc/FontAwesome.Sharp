@@ -246,7 +246,7 @@ public static class IconHelper
     }
 
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-    private static int GetDpi()
+    public static int GetDpi()
     {
         // How can I get the DPI in WPF?, cf.: http://stackoverflow.com/a/12487917/2592915
         var dpiProperty = typeof(SystemParameters).GetProperty("Dpi", BindingFlags.NonPublic | BindingFlags.Static);

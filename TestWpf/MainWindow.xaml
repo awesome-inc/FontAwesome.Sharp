@@ -84,6 +84,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                     <RowDefinition Height="80" />
                     <RowDefinition Height="80" />
                 </Grid.RowDefinitions>
@@ -113,8 +114,12 @@
                 <fa:IconImage Grid.Row="3" Grid.Column="1" Icon="Markdown" Foreground="Red"
                       fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
 
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{IconSource} Ribbon, Click for spinning" />
-                <RibbonButton Grid.Row="4" Grid.Column="1"
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="ToGeometry:" />
+                <Path Grid.Row="4" MaxWidth="40" MaxHeight="40" Grid.Column="1" Stretch="UniformToFill" Data="{fa:ToGeometry SearchPlus}" Fill="CornflowerBlue"
+                              fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
+
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="{}{IconSource} Ribbon, Click for spinning" />
+                <RibbonButton Grid.Row="5" Grid.Column="1"
                       ToolTip="Click to toggle spinning (Spinning 4 sec., rotated 45° &amp; flipped vertically)"
                       LargeImageSource="{fa:IconSource TwitterSquare, IconFont=Brands, Foreground=CornflowerBlue, Size=48}"
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
@@ -124,18 +129,18 @@
                       fa:Awesome.Rotation="45"
                       fa:Awesome.Flip="Vertical" />
 
-                <TextBlock Grid.Row="5" Grid.Column="0" Text="{}{ToText} Button" />
-                <Button Grid.Row="5" Grid.Column="1" Content="{fa:ToText Play}" Command="{Binding PlayCommand}"
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="{}{ToText} Button" />
+                <Button Grid.Row="6" Grid.Column="1" Content="{fa:ToText Play}" Command="{Binding PlayCommand}"
                 ToolTip="Click me!"  Style="{StaticResource FaButtonStyle}" />
 
-                <TextBlock Grid.Row="6" Grid.Column="0" Text="Stacking Icons" />
-                <Grid Grid.Row="6" Grid.Column="1" ToolTip="Two icons stacked in a grid">
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="Stacking Icons" />
+                <Grid Grid.Row="7" Grid.Column="1" ToolTip="Two icons stacked in a grid">
                     <fa:IconImage Icon="Camera" IconFont="{Binding IconFont}" Width="16" Height="16" />
                     <fa:IconImage Icon="Ban"  IconFont="{Binding IconFont}" Foreground="Red" />
                 </Grid>
 
-                <TextBlock Grid.Row="7" Grid.Column="0" Text="Spinning Icons" />
-                <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="Spinning Icons" />
+                <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <fa:IconImage Icon="Sync" fa:Awesome.Spin="{Binding IsSpinning}" Foreground="SlateGray" />
                     <fa:IconBlock Icon="Cog" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2"
                           Foreground="DarkSlateBlue" FontSize="32" />
@@ -143,29 +148,30 @@
                           Foreground="DarkMagenta" FontSize="32" />
                 </StackPanel>
 
-                <TextBlock Grid.Row="8" Grid.Column="0" Text="Rotated &amp; flipped" />
-                <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Grid.Row="9" Grid.Column="0" Text="Rotated &amp; flipped" />
+                <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <fa:IconImage Icon="ShieldAlt" fa:Awesome.Rotation="45" ToolTip="Rotated 45°" />
                     <fa:IconBlock Icon="ShieldAlt" fa:Awesome.Flip="Horizontal" FontSize="32" ToolTip="Flipped horizontally" />
                     <fa:IconImage Icon="ShieldAlt" fa:Awesome.Flip="Vertical" ToolTip="Flipped vertically" />
                 </StackPanel>
 
-                <TextBlock Grid.Row="9" Grid.Column="0" Text="Inline (:icon:)" />
-                <TextBlock Grid.Row="9" Grid.Column="1" fa:Awesome.Inline=":bitcoin: is a cryptocurrency. :eurosign: is a fiat money." />
+                <TextBlock Grid.Row="10" Grid.Column="0" Text="Inline (:icon:)" />
+                <TextBlock Grid.Row="10" Grid.Column="1" fa:Awesome.Inline=":bitcoin: is a cryptocurrency. :eurosign: is a fiat money." />
 
-                <TextBlock Grid.Row="10" Grid.Column="0" Text="Inline ({fa:Icon})" />
-                <TextBlock Grid.Row="10" Grid.Column="1" VerticalAlignment="Stretch"
+                <TextBlock Grid.Row="11" Grid.Column="0" Text="Inline ({fa:Icon})" />
+                <TextBlock Grid.Row="11" Grid.Column="1" VerticalAlignment="Stretch"
                    Foreground="BlueViolet" FontWeight="Bold" FontSize="24" FontStretch="ExtraExpanded"
                    fa:Awesome.Pattern="{}{fa:([\w,-]+)}"
                    fa:Awesome.Inline="{}{fa:bitcoin} is a cryptocurrency. {fa:eurosign} is a fiat money." />
 
-                <TextBlock Grid.Row="11" Grid.Column="0" Text="Changing Icon" />
-                <ContentControl  Grid.Row="11" Grid.Column="1" Content="{Binding IconBlock}" />
+                <TextBlock Grid.Row="12" Grid.Column="0" Text="Changing Icon" />
+                <ContentControl  Grid.Row="12" Grid.Column="1" Content="{Binding IconBlock}" />
             </Grid>
         </TabItem>
         <TabItem Header="MaterialDesign">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
@@ -191,20 +197,26 @@
                 <faMaterial:IconImage Grid.Row="2" Grid.Column="1" Icon="AccountBoxMultiple" Foreground="Red"
                                fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
 
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="{}{Icon} Button" />
-                <Button Grid.Row="3" Grid.Column="1"  Style="{StaticResource MdiButtonStyle}"
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="ToGeometry:" />
+                <Path Grid.Row="3" MaxWidth="40" MaxHeight="40" Grid.Column="1" Stretch="UniformToFill"
+                      Data="{faMaterial:ToGeometry SearchWeb}" Fill="CornflowerBlue"
+                      fa:Awesome.Flip="Horizontal" ToolTip="Flipped horizontally" />
+
+
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{Icon} Button" />
+                <Button Grid.Row="4" Grid.Column="1"  Style="{StaticResource MdiButtonStyle}"
                         ToolTip="Click to toggle spinning"
                         Content="{faMaterial:Icon AirplaneLanding, Foreground={StaticResource FaBrush}}"
                         Command="{Binding ToggleSpinCommand}"
                         fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="4"/>
 
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="{}{ToText} Button" />
-                <Button Grid.Row="4" Grid.Column="1"
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="{}{ToText} Button" />
+                <Button Grid.Row="5" Grid.Column="1"
                         Command="{Binding PlayCommand}"
                         Content="{faMaterial:ToText Play}" Style="{StaticResource MdiButtonStyle}" />
 
-                <TextBlock Grid.Row="5" Grid.Column="0" Text="Spinning Icons" />
-                <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="Spinning Icons" />
+                <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <faMaterial:IconImage Icon="Sync" fa:Awesome.Spin="{Binding IsSpinning}" Foreground="SlateGray" />
                     <faMaterial:IconBlock Icon="ProgressUpload" fa:Awesome.Spin="{Binding IsSpinning}" fa:Awesome.SpinDuration="2"
                                   Foreground="DarkSlateBlue" FontSize="32" />
@@ -212,8 +224,8 @@
                                   Foreground="DarkMagenta" FontSize="32" />
                 </StackPanel>
 
-                <TextBlock Grid.Row="6" Grid.Column="0" Text="Stacking Icons" />
-                <Grid Grid.Row="6" Grid.Column="1" ToolTip="Two icons stacked in a grid">
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="Stacking Icons" />
+                <Grid Grid.Row="7" Grid.Column="1" ToolTip="Two icons stacked in a grid">
                     <faMaterial:IconImage Icon="Camera" Width="16" Height="16" />
                     <faMaterial:IconImage Icon="Cancel" Foreground="Red" />
                 </Grid>
