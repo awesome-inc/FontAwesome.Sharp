@@ -103,7 +103,7 @@ class Build : NukeBuild
                 .SetVersion(GitVersion.FullSemVer)
                 .SetVSTestReports("**/*.trx")
                 // cf.: https://github.com/nuke-build/nuke/issues/377#issuecomment-595276623
-                .SetFramework("net5.0") //Framework)
+                .SetFramework("net5.0") // Framework
                 .SetLogin(SonarLogin) // TODO: should be secret -> SetArgument
                 .SetServer(SonarServer)
                 .SetProcessArgumentConfigurator(args =>
