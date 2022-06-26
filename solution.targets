@@ -5,6 +5,7 @@
         <DebugType>full</DebugType>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+        <NoWarn>CS1616</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup>
