@@ -8,6 +8,9 @@ namespace FontAwesome.Sharp;
 /// <summary>
 /// A windows forms split button supporting font awesome icons
 /// </summary>
+[ToolboxItem(true)]
+[DesignTimeVisible(true)]
+[Description("A windows forms split button supporting font awesome icons")]
 public class IconSplitButton : IconSplitButton<IconChar>, IHaveIconFont
 {
     public IconSplitButton() : base(IconChar.Star.FontFamilyFor())

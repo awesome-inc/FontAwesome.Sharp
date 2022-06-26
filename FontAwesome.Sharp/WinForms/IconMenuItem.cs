@@ -8,6 +8,9 @@ namespace FontAwesome.Sharp;
 /// <summary>
 /// A windows forms menu item supporting font awesome icons
 /// </summary>
+[ToolboxItem(true)]
+[DesignTimeVisible(true)]
+[Description("A windows forms menu item supporting font awesome icons")]
 public class IconMenuItem : IconMenuItem<IconChar>, IHaveIconFont
 {
     public IconMenuItem() : base(IconChar.Star.FontFamilyFor())

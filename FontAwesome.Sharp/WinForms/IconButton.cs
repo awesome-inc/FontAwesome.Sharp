@@ -8,6 +8,9 @@ namespace FontAwesome.Sharp;
 /// <summary>
 /// A windows forms button supporting font awesome icons
 /// </summary>
+[ToolboxItem(true)]
+[DesignTimeVisible(true)]
+[Description("A windows forms button supporting font awesome icons")]
 public class IconButton : IconButton<IconChar>, IHaveIconFont
 {
     public IconButton() : base(IconChar.Star.FontFamilyFor())

@@ -8,6 +8,9 @@ namespace FontAwesome.Sharp;
 /// <summary>
 /// A windows forms picture box supporting font awesome icons
 /// </summary>
+[ToolboxItem(true)]
+[DesignTimeVisible(true)]
+[Description("A windows forms picture box supporting font awesome icons")]
 public class IconPictureBox : IconPictureBox<IconChar>, IHaveIconFont
 {
     public IconPictureBox() : base(IconChar.Star.FontFamilyFor())

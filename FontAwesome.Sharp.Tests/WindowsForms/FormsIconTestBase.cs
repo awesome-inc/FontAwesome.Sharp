@@ -1,10 +1,11 @@
+using System.ComponentModel;
 using System.Drawing;
 using FluentAssertions;
 using Xunit;
 
 namespace FontAwesome.Sharp.Tests.WindowsForms;
 
-public abstract class FormsIconTestBase<T> where T : class, IFormsIcon<IconChar>, new()
+public abstract class FormsIconTestBase<T> where T : class, IFormsIcon<IconChar>, IComponent, new()
 {
     protected virtual bool FlipOnPaint { get; } = false;
     protected virtual bool RotateOnPaint { get; } = false;
@@ -70,5 +71,11 @@ public abstract class FormsIconTestBase<T> where T : class, IFormsIcon<IconChar>
         formsIcon.Rotation.Should().Be(0);
         formsIcon.Rotation = 22.5;
         if (!RotateOnPaint) formsIcon.Image.Should().NotBe(image);
+    }
+
+    [Fact]
+    public void Be_Visible_In_Toolbox()
+    {
+        TestExtensions.ShouldBeToolboxItem<T>();
     }
 }

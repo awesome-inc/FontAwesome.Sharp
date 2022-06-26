@@ -88,6 +88,7 @@ You can add iconic items to your views in the following ways
 - `<IconBlock />`,
 - `{fa:Icon [Icon]}`,
 - `{fa:ToText [Icon]}`,
+- `{fa:Geometry [Icon]}`,
 - `<fa:IconImage />`,
 - `{fa:IconSource [Icon]}`
 - `<fa:IconToImageConverter />`

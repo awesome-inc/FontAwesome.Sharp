@@ -8,6 +8,9 @@ namespace FontAwesome.Sharp;
 /// <summary>
 /// A windows forms tool strip button supporting font awesome icons
 /// </summary>
+[ToolboxItem(true)]
+[DesignTimeVisible(true)]
+[Description("A windows forms tool strip button supporting font awesome icons")]
 public class IconToolStripButton : IconToolStripButton<IconChar>, IHaveIconFont
 {
     public IconToolStripButton() : base(IconChar.Star.FontFamilyFor())

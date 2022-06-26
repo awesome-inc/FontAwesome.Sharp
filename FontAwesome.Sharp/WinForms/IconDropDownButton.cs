@@ -8,6 +8,9 @@ namespace FontAwesome.Sharp;
 /// <summary>
 /// A windows forms dropdown button supporting font awesome icons
 /// </summary>
+[ToolboxItem(true)]
+[DesignTimeVisible(true)]
+[Description("A windows forms dropdown button supporting font awesome icons")]
 public class IconDropDownButton : IconDropDownButton<IconChar>, IHaveIconFont
 {
     public IconDropDownButton() : base(IconChar.Star.FontFamilyFor())

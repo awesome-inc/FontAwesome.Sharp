@@ -1,4 +1,7 @@
+using System;
+using System.ComponentModel;
 using System.Drawing;
+using FluentAssertions;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 
@@ -47,5 +50,40 @@ internal static class TestExtensions
 
             Execute.Assertion.FailWith("Expected {context} not to be empty, but was.");
         }
+    }
+
+    public static void ShouldBeToolboxItem<T>() where T : class, IComponent, new()
+    {
+        typeof(T).ShouldBeToolboxItem();
+        // Make custom controls automatically visible in Visual Studio Toolbox, cf.
+        // - https://github.com/awesome-inc/FontAwesome.Sharp/issues/62
+        // - https://github.com/awesome-inc/FontAwesome.Sharp/issues/91
+        // - https://github.com/NuGet/Home/issues/6440#issuecomment-434827530
+        // - https://github.com/NuGet/Home/wiki/Converting-Extension-SDKs-into-NuGet-Packages
+        // - https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.toolboxitemattribute?view=net-6.0
+        typeof(T).Should()
+            .BeDecoratedWith<ToolboxItemAttribute>().Which.IsDefaultAttribute().Should().BeTrue();
+        typeof(T).Should()
+            .BeDecoratedWith<DesignTimeVisibleAttribute>().Which.Visible.Should().BeTrue();
+        typeof(T).Should()
+            .BeDecoratedWith<DescriptionAttribute>().Which.Description.Should().MatchRegex("A windows forms (.+) supporting font awesome icons");
+
+    }
+
+    public static void ShouldBeToolboxItem(this Type type)
+    {
+        // Make custom controls automatically visible in Visual Studio Toolbox, cf.
+        // - https://github.com/awesome-inc/FontAwesome.Sharp/issues/62
+        // - https://github.com/awesome-inc/FontAwesome.Sharp/issues/91
+        // - https://github.com/NuGet/Home/issues/6440#issuecomment-434827530
+        // - https://github.com/NuGet/Home/wiki/Converting-Extension-SDKs-into-NuGet-Packages
+        // - https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.toolboxitemattribute?view=net-6.0
+        type.Should().BeAssignableTo<IComponent>();
+        type.Should()
+            .BeDecoratedWith<ToolboxItemAttribute>().Which.IsDefaultAttribute().Should().BeTrue();
+        type.Should()
+            .BeDecoratedWith<DesignTimeVisibleAttribute>().Which.Visible.Should().BeTrue();
+        type.Should()
+            .BeDecoratedWith<DescriptionAttribute>().Which.Description.Should().MatchRegex("A windows forms (?<component>.+) supporting (?<font>.+) icons");
     }
 }
