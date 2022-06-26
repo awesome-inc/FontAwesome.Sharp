@@ -7,7 +7,7 @@
 
 <!-- [![Coverage Status](https://coveralls.io/repos/github/awesome-inc/FontAwesome.Sharp/badge.svg)](https://coveralls.io/github/awesome-inc/FontAwesome.Sharp) -->
 
-A library for embbeding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF & Windows Forms applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
+A library for embedding [Font Awesome](http://fortawesome.github.io/Font-Awesome/) icons in WPF & Windows Forms applications via [NuGet](http://www.nuget.org/). Inspired by [ioachim/fontawesome.wpf (BitBucket)](https://bitbucket.org/ioachim/fontawesome.wpf) and [Using Font Icons (CodeProject)](http://www.codeproject.com/Tips/634540/Using-Font-Icons).
 
 Here is a screenshot from the sample applications
 
@@ -39,11 +39,7 @@ See also
 
 ## Installation
 
-Add the NuGet package to your WPF or Windows Forms application or library. From the Package Manager Console type
-
-```powershell
-Install-Package FontAwesome.Sharp
-```
+Add the NuGet package to your WPF or Windows Forms application or library.
 
 ## Windows Forms
 
@@ -104,7 +100,7 @@ The most rudimentary way is to use _FontAwesome_ directly with a `TextBlock` lik
 
 ```xml
 <TextBlock Grid.Column="1" Text="&#xf042;"
-    FontFamily="/FontAwesome.Sharp;component/fonts/#Font Awesome 5 Free Solid"
+    FontFamily="/FontAwesome.Sharp;component/fonts/#Font Awesome 6 Free Solid"
     Foreground="Chartreuse"
     TextAlignment="Center" />
 ```
@@ -185,7 +181,7 @@ And here a default style
 
 ```xml
 <Style TargetType="Button">
-    <Setter Property="FontFamily" Value="/FontAwesome.Sharp;component/fonts/#Font Awesome 5 Free Solid"/>
+    <Setter Property="FontFamily" Value="/FontAwesome.Sharp;component/fonts/#Font Awesome 6 Free Solid"/>
     <Setter Property="FontSize" Value="18" />
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -440,49 +436,6 @@ to your `app.config`. For more information see
 
 - [Configuring your Windows Forms app for high DPI support](https://docs.microsoft.com/en-us/dotnet/framework/winforms/high-dpi-support-in-windows-forms#configuring-your-windows-forms-app-for-high-dpi-support)
 - [FontAwesome.Sharp/issues/23](https://github.com/awesome-inc/FontAwesome.Sharp/issues/23)
-
-### Strong name Signing (e.g. for ClickOnce Publishing)
-
-We don't think Strong Name Signing is still a good thing to do. Here is one possible rationale for this:
-
-- [Still Strong-Naming your Assemblies? You do know it’s 2016, right?](https://www.pedrolamas.com/2016/03/01/still-strong-naming-your-assemblies-you-do-know-its-2016-right/)
-
-If you do need to strong name your software (e.g. you do ClickOnce Publishing), here are some alternatives:
-
-- Merge into your project using [Fody/Costura](https://github.com/Fody/Costura)
-- Post-Build Strong Name Signing using [brutaldev/StrongNameSigner](https://github.com/brutaldev/StrongNameSigner)
-
-Here is an MSBuild snippet/example of how i got this working in 2015 with `StrongNameSigner` (no warranty of still working)
-
-```xml
-<!--Strong naming assemblies -->
-<ItemGroup>
-    <!--strong name font awesome sharp -->
-    <StrongNameAssembly Include="$(SolutionDir)packages\FontAwesome.Sharp.*\lib\**\*.dll" />
-</ItemGroup>
-
-<!-- Strong naming dependencies -->
-<Target Name="StrongName" BeforeTargets="PrepareForBuild" Condition="'$(NCrunch)' != '1'">
-    <PropertyGroup>
-        <StrongNameSignerPath>$(SolutionDir)packages\Brutal.Dev.StrongNameSigner.*\tools\StrongNameSigner.Console.exe</StrongNameSignerPath>
-    </PropertyGroup>
-    <ItemGroup>
-        <StrongNameSigner Include="$(StrongNameSignerPath)"/>
-        <StrongNameDirs Include="@(StrongNameAssembly->DirectoryName())"/>
-        <UniqueDirs Include="@(StrongNameDirs->Distinct())"/>
-    </ItemGroup>
-    <PropertyGroup>
-        <StrongNameArgs>&quot;@(UniqueDirs,'|')&quot;</StrongNameArgs>
-    </PropertyGroup>
-
-    <Message Condition="'$(StrongNameArgs)' != '&quot;&quot;'"
-        Text="Strong name signing $(StrongNameArgs)..." Importance="High"/>
-    <Exec Condition="'$(StrongNameArgs)' != '&quot;&quot;'" ContinueOnError="false"
-        Command="&quot;@(StrongNameSigner->'%(FullPath)')&quot; -in $(StrongNameArgs) > strongName.log" />
-</Target>
-```
-
-Include this in your `.csproj` and you should be good to go!
 
 ### All icons seem to be rendered with Regular style. How to render solid or brand icons
 

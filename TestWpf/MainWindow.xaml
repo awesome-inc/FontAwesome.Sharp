@@ -17,7 +17,7 @@
             <Setter Property="Margin" Value="4" />
         </Style>
         <FontFamily x:Key="FontAwesome">/FontAwesome.Sharp;component/fonts/#Font Awesome 6 Free Solid</FontFamily>
-        <FontFamily x:Key="MaterialDesign">/TestWpf;component/fonts/#Material Design Icons</FontFamily>
+        <FontFamily x:Key="MaterialDesign">/FontAwesome.Sharp.Material;component/fonts/#Material Design Icons</FontFamily>
         <Brush x:Key="FaBrush">DarkOrchid</Brush>
 
         <Style TargetType="Button" x:Key="ButtonStyle">
