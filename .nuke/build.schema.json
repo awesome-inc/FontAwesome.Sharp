@@ -39,9 +39,13 @@
             "VSCode"
           ]
         },
+        "IsPullRequest": {
+          "type": "boolean",
+          "description": "True if pull request"
+        },
         "IsPushTag": {
           "type": "boolean",
-          "description": "Push built NuGet package"
+          "description": "True if release tag"
         },
         "NoLogo": {
           "type": "boolean",
@@ -85,6 +89,7 @@
               "Compile",
               "Coverage",
               "Package",
+              "PackageVersion",
               "Push",
               "Restore",
               "Sonar",
@@ -121,6 +126,7 @@
               "Compile",
               "Coverage",
               "Package",
+              "PackageVersion",
               "Push",
               "Restore",
               "Sonar",

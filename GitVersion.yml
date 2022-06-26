@@ -1,2 +1,3 @@
+# https://gitversion.net/docs/reference/configuration
 mode: ContinuousDelivery
 branches: {}

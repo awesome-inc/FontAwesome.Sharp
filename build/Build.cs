@@ -10,6 +10,7 @@ using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.ReportGenerator;
 using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Utilities.Collections;
+using Serilog;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
@@ -22,6 +23,9 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 // ReSharper disable once ClassNeverInstantiated.Global
 class Build : NukeBuild
 {
+    //-------------------------------------------------------------
+    string NugetVersion;
+
     //-------------------------------------------------------------
     // ReSharper disable once UnusedMember.Local
     Target Clean => _ => _
@@ -136,18 +140,35 @@ class Build : NukeBuild
             );
         });
 
-    //-------------------------------------------------------------
+    Target PackageVersion => _ => _
+        .Executes(() =>
+        {
+            NugetVersion = GitVersion.SemVer;
+            if (IsPullRequest)
+            {
+                var commits = GitVersion.CommitsSinceVersionSourcePadded;
+                Log.Information(
+                    "Branch spec {BranchSpec} is a pull request. Adding {Commits}",
+                    GitVersion.BranchName, commits);
+
+                NugetVersion += $"-r{commits}";
+            }
+
+            Log.Information("SemVer = {SemVer}", NugetVersion);
+        });
+
     Target Package => _ =>
     {
         return _
             .DependsOn(Test)
+            .DependsOn(PackageVersion)
             .Produces(ArtifactsDir / "*.nupkg")
             .Executes(() =>
             {
                 DotNetPack(settings => settings
                     .SetOutputDirectory(ArtifactsDir)
                     .SetConfiguration(Configuration)
-                    .SetVersion(GitVersion.NuGetVersion)
+                    .SetVersion(NugetVersion)
                     .SetNoWarns(5105)
                 );
             });
@@ -198,8 +219,11 @@ class Build : NukeBuild
 
     [Parameter("The SonarQube organization")] readonly string SonarOrganization = "awesome-inc";
 
-    [Parameter("Push built NuGet package")]
-    readonly bool IsPushTag = (Environment.GetEnvironmentVariable("GITHUB_REF") ?? "-unset-").StartsWith("refs/tags/");
+    [Parameter("True if release tag")]
+    readonly bool IsPushTag = Environment.GetEnvironmentVariable("GITHUB_REF")?.StartsWith("refs/tags/") == true;
+
+    [Parameter("True if pull request")]
+    readonly bool IsPullRequest = Environment.GetEnvironmentVariable("GITHUB_BASE_REF")?.Contains("pull") == true;
 
     [Parameter("NuGet API Key")] readonly string NuGetApiKey = Environment.GetEnvironmentVariable("NUGET_API_KEY");
 
