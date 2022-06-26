@@ -3,7 +3,7 @@
     <PropertyGroup>
         <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
     </PropertyGroup>
-    <Import Project="$(SolutionDir)\solution.targets"/>
+    <Import Project="$(SolutionDir)\solution.targets" />
 
     <PropertyGroup>
         <TargetFrameworks>net6.0-windows;net5.0-windows;net48;net472;net45;net40;netcoreapp3.1;</TargetFrameworks>
@@ -12,6 +12,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj"/>
+        <ProjectReference Include="..\FontAwesome.Sharp\FontAwesome.Sharp.csproj" />
     </ItemGroup>
 </Project>

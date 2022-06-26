@@ -7,7 +7,7 @@ public class IconSource : IconSourceBase<ProIcons>
 
     protected override void UpdateImageSource()
     {
-        ImageSource = ProFonts.For(Icon)
+        ImageSource = ProFonts.WpfFontFor(Icon)
             .ToImageSource(Icon, Foreground, Size);
     }
 }
