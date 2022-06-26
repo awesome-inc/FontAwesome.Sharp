@@ -1,28 +1,27 @@
 using System.Windows.Media;
 using FluentAssertions.Primitives;
 
-namespace FontAwesome.Sharp.Tests.WPF
+namespace FontAwesome.Sharp.Tests.WPF;
+
+internal static class TestExtensions
 {
-    internal static class TestExtensions
+    public static ImageSourceAssertions Should(this ImageSource imageSource)
     {
-        public static ImageSourceAssertions Should(this ImageSource imageSource)
+        return new ImageSourceAssertions(imageSource);
+    }
+
+    internal class ImageSourceAssertions : ReferenceTypeAssertions<ImageSource, ImageSourceAssertions>
+    {
+        public ImageSourceAssertions(ImageSource imageSource) : base(imageSource)
         {
-            return new ImageSourceAssertions(imageSource);
         }
 
-        internal class ImageSourceAssertions : ReferenceTypeAssertions<ImageSource, ImageSourceAssertions>
+        protected override string Identifier => nameof(ImageSource);
+
+        public void NotBeEmpty()
         {
-            public ImageSourceAssertions(ImageSource imageSource) : base(imageSource)
-            {
-            }
-
-            protected override string Identifier => nameof(ImageSource);
-
-            public void NotBeEmpty()
-            {
-                NotBeNull();
-                //Execute.Assertion.FailWith("Expected {context} not to be empty, but was.");
-            }
+            NotBeNull();
+            //Execute.Assertion.FailWith("Expected {context} not to be empty, but was.");
         }
     }
 }

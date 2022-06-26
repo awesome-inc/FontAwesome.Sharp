@@ -1,9 +1,8 @@
-namespace FontAwesome.Sharp
+namespace FontAwesome.Sharp;
+
+public enum FlipOrientation
 {
-    public enum FlipOrientation
-    {
-        Normal = 0,
-        Horizontal,
-        Vertical
-    }
+    Normal = 0,
+    Horizontal,
+    Vertical
 }

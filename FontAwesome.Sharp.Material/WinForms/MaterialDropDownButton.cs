@@ -1,9 +1,8 @@
-namespace FontAwesome.Sharp.Material
+namespace FontAwesome.Sharp.Material;
+
+public class MaterialDropDownButton : IconDropDownButton<MaterialIcons>
 {
-    public class MaterialDropDownButton : IconDropDownButton<MaterialIcons>
+    public MaterialDropDownButton() : base(MaterialDesignFont.WinForms.Value)
     {
-        public MaterialDropDownButton() : base(MaterialDesignFont.WinForms.Value)
-        {
-        }
     }
 }

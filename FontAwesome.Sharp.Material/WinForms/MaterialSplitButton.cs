@@ -1,9 +1,8 @@
-namespace FontAwesome.Sharp.Material
+namespace FontAwesome.Sharp.Material;
+
+public class MaterialSplitButton : IconSplitButton<MaterialIcons>
 {
-    public class MaterialSplitButton : IconSplitButton<MaterialIcons>
+    public MaterialSplitButton() : base(MaterialDesignFont.WinForms.Value)
     {
-        public MaterialSplitButton() : base(MaterialDesignFont.WinForms.Value)
-        {
-        }
     }
 }

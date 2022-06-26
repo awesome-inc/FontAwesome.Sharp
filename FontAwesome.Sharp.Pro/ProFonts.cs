@@ -2,43 +2,42 @@ using System;
 using System.Reflection;
 using System.Windows.Media;
 
-namespace FontAwesome.Sharp.Pro
+namespace FontAwesome.Sharp.Pro;
+
+internal static class ProFonts
 {
-    internal static class ProFonts
+    private static bool _isInitialized;
+
+    private static readonly string[] FontTitles =
     {
-        private static bool _isInitialized;
+        "Font Awesome 6 Pro Regular", // fa-regular-400-pro.ttf
+        "Font Awesome 6 Pro Solid", // fa-solid-900-pro.ttf
+        "Font Awesome 6 Pro Light", // fa-light-300-pro.ttf
+        //"Font Awesome 6 Duotone Solid", // fa-duotone-900-pro.ttf
+    };
 
-        private static readonly string[] FontTitles =
+    private static Typeface[] _typefaces;
+
+    public static Typeface[] Typefaces
+    {
+        get
         {
-            "Font Awesome 6 Pro Regular", // fa-regular-400-pro.ttf
-            "Font Awesome 6 Pro Solid", // fa-solid-900-pro.ttf
-            "Font Awesome 6 Pro Light", // fa-light-300-pro.ttf
-            //"Font Awesome 6 Duotone Solid", // fa-duotone-900-pro.ttf
-        };
-
-        private static Typeface[] _typefaces;
-
-        public static Typeface[] Typefaces
-        {
-            get
-            {
-                if (!_isInitialized) Initialize();
-                return _typefaces;
-            }
+            if (!_isInitialized) Initialize();
+            return _typefaces;
         }
+    }
 
-        public static void Initialize(Assembly fontsAssembly = null, string path = "fonts")
-        {
-            if (_isInitialized) throw new InvalidOperationException("Already initialized");
-            var assembly = fontsAssembly ?? Assembly.GetEntryAssembly();
-            _typefaces = assembly.LoadTypefaces(path, FontTitles);
-            _isInitialized = true;
-        }
+    public static void Initialize(Assembly fontsAssembly = null, string path = "fonts")
+    {
+        if (_isInitialized) throw new InvalidOperationException("Already initialized");
+        var assembly = fontsAssembly ?? Assembly.GetEntryAssembly();
+        _typefaces = assembly.LoadTypefaces(path, FontTitles);
+        _isInitialized = true;
+    }
 
-        internal static FontFamily For(ProIcons icon)
-        {
-            var typeFace = Typefaces.Find(icon, out _, out _);
-            return typeFace?.FontFamily;
-        }
+    internal static FontFamily For(ProIcons icon)
+    {
+        var typeFace = Typefaces.Find(icon, out _, out _);
+        return typeFace?.FontFamily;
     }
 }

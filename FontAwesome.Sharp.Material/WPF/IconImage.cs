@@ -1,14 +1,13 @@
 using System;
 using System.Windows.Media;
 
-namespace FontAwesome.Sharp.Material
+namespace FontAwesome.Sharp.Material;
+
+public class IconImage : IconImageBase<MaterialIcons>
 {
-    public class IconImage : IconImageBase<MaterialIcons>
+    protected override ImageSource ImageSourceFor(MaterialIcons icon)
     {
-        protected override ImageSource ImageSourceFor(MaterialIcons icon)
-        {
-            var size = Math.Max(IconHelper.DefaultSize, Math.Max(ActualWidth, ActualHeight));
-            return MaterialDesignFont.Wpf.Value.ToImageSource(icon, Foreground, size);
-        }
+        var size = Math.Max(IconHelper.DefaultSize, Math.Max(ActualWidth, ActualHeight));
+        return MaterialDesignFont.Wpf.Value.ToImageSource(icon, Foreground, size);
     }
 }

@@ -1,9 +1,8 @@
-namespace FontAwesome.Sharp.Material
+namespace FontAwesome.Sharp.Material;
+
+public class MaterialButton : IconButton<MaterialIcons>
 {
-    public class MaterialButton : IconButton<MaterialIcons>
+    public MaterialButton() : base(MaterialDesignFont.WinForms.Value)
     {
-        public MaterialButton() : base(MaterialDesignFont.WinForms.Value)
-        {
-        }
     }
 }

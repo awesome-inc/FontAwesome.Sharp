@@ -1,9 +1,8 @@
-namespace FontAwesome.Sharp.Material
+namespace FontAwesome.Sharp.Material;
+
+public class MaterialMenuItem : IconMenuItem<MaterialIcons>
 {
-    public class MaterialMenuItem : IconMenuItem<MaterialIcons>
+    public MaterialMenuItem() : base(MaterialDesignFont.WinForms.Value)
     {
-        public MaterialMenuItem() : base(MaterialDesignFont.WinForms.Value)
-        {
-        }
     }
 }

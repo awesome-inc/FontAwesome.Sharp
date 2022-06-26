@@ -1,8 +1,7 @@
-namespace FontEnumGenerator
+namespace FontEnumGenerator;
+
+internal class FontEnumItem
 {
-    internal class FontEnumItem
-    {
-        public string Class { get; set; }
-        public string Code { get; set; }
-    }
+    public string Class { get; set; }
+    public string Code { get; set; }
 }

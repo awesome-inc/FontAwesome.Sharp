@@ -1,7 +1,6 @@
-namespace FontAwesome.Sharp
+namespace FontAwesome.Sharp;
+
+public interface IHaveIconFont
 {
-    public interface IHaveIconFont
-    {
-        IconFont IconFont { get; set; }
-    }
+    IconFont IconFont { get; set; }
 }

@@ -1,9 +1,8 @@
-namespace FontAwesome.Sharp.Material
+namespace FontAwesome.Sharp.Material;
+
+public class Icon : IconBase<IconBlock, MaterialIcons>
 {
-    public class Icon : IconBase<IconBlock, MaterialIcons>
+    public Icon(MaterialIcons icon) : base(icon)
     {
-        public Icon(MaterialIcons icon) : base(icon)
-        {
-        }
     }
 }

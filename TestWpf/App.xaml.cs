@@ -1,6 +1,5 @@
-﻿namespace TestWpf
+﻿namespace TestWpf;
+
+public partial class App
 {
-    public partial class App
-    {
-    }
 }

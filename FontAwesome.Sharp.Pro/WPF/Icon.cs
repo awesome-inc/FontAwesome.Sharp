@@ -1,9 +1,8 @@
-namespace FontAwesome.Sharp.Pro
+namespace FontAwesome.Sharp.Pro;
+
+public class Icon : IconBase<IconBlock, ProIcons>
 {
-    public class Icon : IconBase<IconBlock, ProIcons>
+    public Icon(ProIcons icon) : base(icon)
     {
-        public Icon(ProIcons icon) : base(icon)
-        {
-        }
     }
 }

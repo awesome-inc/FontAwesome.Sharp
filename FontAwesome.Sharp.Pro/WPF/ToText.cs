@@ -1,9 +1,8 @@
-namespace FontAwesome.Sharp.Pro
+namespace FontAwesome.Sharp.Pro;
+
+public class ToText : ToTextBase<ProIcons>
 {
-    public class ToText : ToTextBase<ProIcons>
+    public ToText(ProIcons icon) : base(icon)
     {
-        public ToText(ProIcons icon) : base(icon)
-        {
-        }
     }
 }

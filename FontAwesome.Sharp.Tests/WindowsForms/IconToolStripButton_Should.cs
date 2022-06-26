@@ -1,8 +1,7 @@
 
-namespace FontAwesome.Sharp.Tests.WindowsForms
+namespace FontAwesome.Sharp.Tests.WindowsForms;
+
+// ReSharper disable once InconsistentNaming
+public class IconToolStripButton_Should : FormsIconTestBase<IconToolStripButton>
 {
-    // ReSharper disable once InconsistentNaming
-    public class IconToolStripButton_Should : FormsIconTestBase<IconToolStripButton>
-    {
-    }
 }
