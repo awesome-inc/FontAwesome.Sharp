@@ -8,7 +8,7 @@ namespace FontAwesome.Sharp.Tests.WindowsForms
     {
         public static BitmapAssertions Should(this Bitmap bitmap)
         {
-            return new(bitmap);
+            return new BitmapAssertions(bitmap);
         }
 
         //public static ColorAssertions Should(this Color color)

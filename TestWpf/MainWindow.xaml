@@ -16,7 +16,7 @@
             <Setter Property="TextWrapping" Value="Wrap" />
             <Setter Property="Margin" Value="4" />
         </Style>
-        <FontFamily x:Key="FontAwesome">/FontAwesome.Sharp;component/fonts/#Font Awesome 5 Free Solid</FontFamily>
+        <FontFamily x:Key="FontAwesome">/FontAwesome.Sharp;component/fonts/#Font Awesome 6 Free Solid</FontFamily>
         <FontFamily x:Key="MaterialDesign">/TestWpf;component/fonts/#Material Design Icons</FontFamily>
         <Brush x:Key="FaBrush">DarkOrchid</Brush>
 

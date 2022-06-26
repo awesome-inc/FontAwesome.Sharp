@@ -20,6 +20,7 @@ namespace FontAwesome.Sharp
         /// <summary>
         /// Brand icons
         /// </summary>
-        Brands
+        Brands,
+        //V4Compatibility
     }
 }

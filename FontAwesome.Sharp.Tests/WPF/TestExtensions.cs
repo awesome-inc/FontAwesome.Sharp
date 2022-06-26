@@ -7,7 +7,7 @@ namespace FontAwesome.Sharp.Tests.WPF
     {
         public static ImageSourceAssertions Should(this ImageSource imageSource)
         {
-            return new(imageSource);
+            return new ImageSourceAssertions(imageSource);
         }
 
         internal class ImageSourceAssertions : ReferenceTypeAssertions<ImageSource, ImageSourceAssertions>

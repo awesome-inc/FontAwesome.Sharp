@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace FontAwesome.Sharp
 {
-    // cf.: 
+    // cf.:
     // * http://stackoverflow.com/questions/23108181/changing-font-icon-in-wpf-using-font-awesome
     // * http://www.codeproject.com/Tips/634540/Using-Font-Icons
     public static class IconHelper
@@ -21,7 +21,7 @@ namespace FontAwesome.Sharp
         public static readonly IconChar[] Orphans = {
             IconChar.None
             // not contained in any of the ttf-fonts!
-            ,IconChar.FontAwesomeLogoFull
+            //,IconChar.FontAwesomeLogoFull
         };
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace FontAwesome.Sharp
         /// <returns></returns>
         public static FontFamily LoadFont(this Assembly assembly, string path, string fontTitle)
         {
-            return new(BaseUri, $"./{assembly.GetName().Name};component/{path}/#{fontTitle}");
+            return new FontFamily(BaseUri, $"./{assembly.GetName().Name};component/{path}/#{fontTitle}");
         }
 
         /// <summary>
@@ -227,11 +227,12 @@ namespace FontAwesome.Sharp
             return icon.ToInt32(CultureInfo.InvariantCulture);
         }
 
-        internal static readonly Dictionary<int, string> FontTitles = new Dictionary<int, string>()
+        internal static readonly Dictionary<int, string> FontTitles = new()
         {
-            { (int)IconFont.Regular,  "Font Awesome 5 Free Regular"}, // fa-regular-400.ttf
-            { (int)IconFont.Solid, "Font Awesome 5 Free Solid"}, // fa-solid-900.ttf
-            { (int)IconFont.Brands, "Font Awesome 5 Brands Regular"} // fa-brands-400.ttf
+            { (int)IconFont.Regular,  "Font Awesome 6 Free Regular"}, // fa-regular-400.ttf
+            { (int)IconFont.Solid, "Font Awesome 6 Free Solid"}, // fa-solid-900.ttf
+            { (int)IconFont.Brands, "Font Awesome 6 Brands Regular"}, // fa-brands-400.ttf
+            //{ (int)IconFont.Brands, "Font Awesome v4 Compatibility Regular"} // fa-v4compatibility.ttf
         };
         //internal static Dictionary<int, String> FontForStyle
 

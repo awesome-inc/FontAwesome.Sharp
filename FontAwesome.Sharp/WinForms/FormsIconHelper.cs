@@ -265,7 +265,7 @@ namespace FontAwesome.Sharp
 
         private static Font GetIconFont(FontFamily fontFamily, float size)
         {
-            return new(fontFamily, size, GraphicsUnit.Point);
+            return new Font(fontFamily, size, GraphicsUnit.Point);
         }
 
         public static FontFamily LoadResourceFont(this Assembly assembly, string path, string fontFile)

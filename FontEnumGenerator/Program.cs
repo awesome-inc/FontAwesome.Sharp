@@ -17,7 +17,7 @@ namespace FontEnumGenerator
         // ReSharper disable UnusedAutoPropertyAccessor.Local
         private class Options
         {
-            [Option(Default = @"Content\fontawesome.css", HelpText = "Input font css file to be processed.")]
+            [Option(Default = @"Content\all.css", HelpText = "Input font css file to be processed.")]
             public string Css { get; set; }
 
             [Option(Default = "\\.fa.(.+):before", HelpText = "RegEx Pattern to match a font icon class.")]
