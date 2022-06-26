@@ -12,7 +12,7 @@
         <!-- https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties -->
         <Authors>Awesome Incremented and Contributors</Authors>
         <Company>Awesome Incremented</Company>
-        <Product>FontAwesome.Sharp</Product>
+        <Product Condition="'$(Product)' == ''">$(AssemblyName)</Product>
         <NeutralLanguage>en</NeutralLanguage>
         <Copyright>Copyright © Awesome Incremented 2015-2022</Copyright>
         <Description>A library for embbeding Font Awesome icons in WPF &amp; Windows Forms applications</Description>
