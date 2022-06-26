@@ -1,10 +1,6 @@
-// ReSharper disable InconsistentNaming
-// ReSharper disable IdentifierTypo
-// ReSharper disable UnusedMember.Global
-// ReSharper disable once CheckNamespace
-
 namespace FontAwesome.Sharp;
 
+// ReSharper disable All
 public enum IconChar
 {
     None = 0,
@@ -2421,5 +2417,5 @@ public enum IconChar
     YoutubeSquare = 0xf431,
     Z = 0x5a,
     Zap = 0xf0e7,
-    Zhihu = 0xf63f
+    Zhihu = 0xf63f,
 }

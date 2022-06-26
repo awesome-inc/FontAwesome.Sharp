@@ -16,9 +16,12 @@ public static class IconHelper
 {
     #region Public
 
-    public static bool ThrowOnNullFonts = false;
+    [field: SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+    public static bool ThrowOnNullFonts { get; } = false;
 
-    public static readonly IconChar[] Orphans = {
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+    public static IEnumerable<IconChar> Orphans { get; } = new[] {
         IconChar.None
         // not contained in any of the ttf-fonts!
         //,IconChar.FontAwesomeLogoFull
@@ -27,7 +30,7 @@ public static class IconHelper
     /// <summary>
     /// All valid icons.
     /// </summary>
-    public static readonly IconChar[] Icons = Enum.GetValues(typeof(IconChar))
+    public static readonly IEnumerable<IconChar> Icons = Enum.GetValues(typeof(IconChar))
         .Cast<IconChar>().Except(Orphans).ToArray();
 
     /// <summary>
@@ -173,6 +176,7 @@ public static class IconHelper
         return TypefaceFor(iconChar, iconFont)?.FontFamily;
     }
 
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     internal static Typeface TypefaceFor(IconChar iconChar)
     {
         return Orphans.Contains(iconChar) ? null : Typefaces.Find(iconChar.UniCode(), out _, out _);

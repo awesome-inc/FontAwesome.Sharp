@@ -1,9 +1,6 @@
-// ReSharper disable InconsistentNaming
-// ReSharper disable IdentifierTypo
-// ReSharper disable UnusedMember.Global
-// ReSharper disable once CheckNamespace
 namespace FontAwesome.Sharp;
 
+// ReSharper disable All
 public enum MaterialIcons
 {
     None = 0,

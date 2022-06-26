@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -14,11 +15,13 @@ using Application = System.Windows.Application;
 
 namespace FontAwesome.Sharp;
 
+[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
 public static class FormsIconHelper
 {
     #region Public
 
-    public static bool ThrowOnNullFonts = true;
+    [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
+    public static bool ThrowOnNullFonts { get; set; } = true;
 
     /// <summary>
     /// Returns a bitmap for the specified font and icon
@@ -184,19 +187,7 @@ public static class FormsIconHelper
     private static PointF GetTopLeft(this Graphics graphics, string text, Font font, SizeF size)
     {
         // cf.: https://www.codeproject.com/Articles/2118/Bypass-Graphics-MeasureString-limitations
-        // 1.
         var iconSize = graphics.GetIconSize(text, font, size);
-
-        // 2.
-        //var rect = new RectangleF(0, 0, size.Width, size.Height);
-        //var regions = graphics.MeasureCharacterRanges(text, font, rect, format);
-        //rect = regions[0].GetBounds(graphics);
-        ////return new PointF(rect.Left, rect.Top);
-        //iconSize = new SizeF(rect.Right, rect.Bottom);
-
-        // 3.
-        //iconSize = TextRenderer.MeasureText(text, font);
-
         // center icon
         var left = Math.Max(0f, (size.Width - iconSize.Width) / 2);
         var top = Math.Max(0f, (size.Height - iconSize.Height) / 2);
@@ -375,8 +366,8 @@ public static class FormsIconHelper
         var alphaReverse = 0xFF;
 
         // Reasons for constant colors rendering for transparent color support:
-        // TextRenderer - is old GDI API (not GDI+) and have weak support for 
-        // transparent colors. Result will be with artifacts on colors blend. 
+        // TextRenderer - is old GDI API (not GDI+) and have weak support for
+        // transparent colors. Result will be with artifacts on colors blend.
         // This is why need to render icon with 2 constant colors.
 
         // 100% transparent color = 0x00rrggbb, 0% transparent color = 0xFFrrggbb
@@ -438,7 +429,7 @@ public static class FormsIconHelper
                 var text = icon.ToChar();
                 var font = memoryGraphics.GetAdjustedIconFont(fontFamily, text, new SizeF(size, size));
 
-                // must not be transparent background 
+                // must not be transparent background
                 memoryGraphics.Clear(renBgColor);
 
                 // Text rendering
@@ -469,7 +460,7 @@ public static class FormsIconHelper
         if (isTransparentRendering)
             unsafe
             {
-                // Image prepare 
+                // Image prepare
                 var imageData = image.LockBits(
                     new Rectangle(0, 0, size, size),
                     ImageLockMode.ReadWrite,
@@ -484,7 +475,7 @@ public static class FormsIconHelper
                     var currentRow = (uint*)imageData.Scan0;
                     var lastRow = currentRow + size * stride;
 
-                    // Here is 2 cycles because bmp format can contain 
+                    // Here is 2 cycles because bmp format can contain
                     // empty bytes in the end of pixels horizontal string
                     // and I'm not sure if bytes in memory can or not can
                     // have similar structure.

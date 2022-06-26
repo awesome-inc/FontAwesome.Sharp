@@ -15,7 +15,7 @@ internal class Program
 
     // ReSharper disable once ClassNeverInstantiated.Local
     // ReSharper disable UnusedAutoPropertyAccessor.Local
-    private class Options
+    private sealed class Options
     {
         [Option(Default = @"Content\all.css", HelpText = "Input font css file to be processed.")]
         public string Css { get; set; }
@@ -23,6 +23,8 @@ internal class Program
         [Option(Default = "\\.fa.(.+):before", HelpText = "RegEx Pattern to match a font icon class.")]
         public string Pattern { get; set; }
 
+        [Option(Default = false, HelpText = "Have distinct enum codes (skip duplicates).")]
+        public bool Distinct { get; set; } = false;
 
         [Option(Default = "IconChar", HelpText = "Class & Output file to be generated.")]
         public string Name { get; set; }
@@ -34,8 +36,7 @@ internal class Program
 
     private static void GenerateFontEnum(Options opts)
     {
-        var fontParser = new FontParser {CssFile = opts.Css, Pattern = opts.Pattern};
-
+        var fontParser = new FontParser {CssFile = opts.Css, Pattern = opts.Pattern, Distinct = opts.Distinct};
         var items = fontParser.Parse();
         Console.WriteLine($"Matched {items.Count} icons from '{fontParser.CssFile}' using '{fontParser.Pattern}'");
 
@@ -49,16 +50,11 @@ internal class Program
         Console.WriteLine($"Generated '{path}'.");
     }
 
-    private static readonly string Header = "// ReSharper disable InconsistentNaming" + Environment.NewLine +
-                                            "// ReSharper disable IdentifierTypo" + Environment.NewLine +
-                                            "// ReSharper disable UnusedMember.Global" + Environment.NewLine +
-                                            "// ReSharper disable once CheckNamespace" + Environment.NewLine +
+    private static readonly string Header = "namespace {1};" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "namespace {1};" + Environment.NewLine +
-                                            Environment.NewLine +
+                                            "// ReSharper disable All" + Environment.NewLine +
                                             "public enum {0}" + Environment.NewLine +
                                             "{{" + Environment.NewLine +
                                             "    None = 0,";
-
     private static readonly string Footer = "}";
 }

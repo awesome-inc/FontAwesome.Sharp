@@ -1,3 +1,4 @@
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,6 +12,7 @@ internal class FontParser
 {
     public string CssFile { get; set; }
     public string Pattern { get; set; } = @"\.fa-(.+):before";
+    public bool Distinct { get; set; }
 
     private const string ContentPattern = @"\s*\{\s*content:\s*""\\(.+)"";\s*}";
 
@@ -22,10 +24,16 @@ internal class FontParser
         var regEx = new Regex(allPattern, RegexOptions.Multiline);
 
         var items = regEx.Matches(css)
-            .Select(match => new FontEnumItem { Class = ValidIdentifier(match.Groups[1].Value), Code = match.Groups[2].Value })
+            .Select(match =>
+                new FontEnumItem {Class = ValidIdentifier(match.Groups[1].Value), Code = match.Groups[2].Value})
             .OrderBy(x => x.Class)
             .ToList();
 
+        var distinct = items.DistinctBy(item => item.Code).ToList();
+        var duplicates = items.Count - distinct.Count;
+        Console.WriteLine($"Parsed {items.Count} Enum values ({duplicates} duplicates).");
+        if (Distinct)
+            items = distinct;
         return items;
     }
 

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
@@ -28,17 +29,18 @@ public class MainViewModel : INotifyPropertyChanged, IDisposable
         _timer = new Timer(IterateIcons, null, 1000, 100);
     }
 
+    private static readonly IconChar[] AllIcons = IconHelper.Icons.ToArray();
     private void IterateIcons(object state)
     {
         // creating a new icon block should be on UI thread ;-)
         Application.Current?.Dispatcher?.Invoke(() =>
         {
-            var icon = IconHelper.Icons[_currentIcon];
+            var icon = AllIcons[_currentIcon];
             IconBlock = null;
             GC.Collect();
             IconBlock = new IconBlock { Icon = icon, Height = 32, FontSize = 24 };
             OnPropertyChanged(nameof(IconBlock));
-            _currentIcon = (_currentIcon + 1) % IconHelper.Icons.Length;
+            _currentIcon = (_currentIcon + 1) % AllIcons.Length;
         });
     }
 
@@ -87,7 +89,7 @@ public class MainViewModel : INotifyPropertyChanged, IDisposable
 
     private void DoOpen()
     {
-        Icon = IconHelper.Icons[_currentIcon];
+        Icon = AllIcons[_currentIcon];
         MessageBox.Show($"Clicked Open (Icon: {Icon}, Font: {IconFont})", "Info");
     }
 
