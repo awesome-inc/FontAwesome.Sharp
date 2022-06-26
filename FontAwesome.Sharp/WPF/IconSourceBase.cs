@@ -4,6 +4,7 @@ using System.Windows.Media;
 
 namespace FontAwesome.Sharp;
 
+[MarkupExtensionReturnType(typeof(ImageSource))]
 public abstract class IconSourceBase<TEnum> : MarkupExtension
     where TEnum : struct, IConvertible, IComparable, IFormattable
 {

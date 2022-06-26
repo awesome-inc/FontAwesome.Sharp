@@ -36,7 +36,7 @@ public partial class MainForm : Form
     {
         var icons = Enum.GetValues(typeof(IconChar))
             .OfType<IconChar>()
-            .Skip(1)
+            .Skip(Array.IndexOf(Enum.GetValues<IconChar>(), IconChar.Airbnb))
             .Take(10)
             .ToArray();
 

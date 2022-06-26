@@ -3,6 +3,7 @@ using System.Windows.Markup;
 
 namespace FontAwesome.Sharp;
 
+[MarkupExtensionReturnType(typeof(string))]
 public class ToTextBase<TEnum> : MarkupExtension where TEnum : struct, IConvertible, IComparable, IFormattable
 {
     private readonly string _text;

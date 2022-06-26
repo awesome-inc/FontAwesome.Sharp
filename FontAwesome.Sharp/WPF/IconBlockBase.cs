@@ -47,9 +47,9 @@ public abstract class IconBlockBase<TEnum> : TextBlock
 
     private static void OnIconPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (!(d is IconBlockBase<TEnum> iconBlock)) return;
+        if (d is not IconBlockBase<TEnum> iconBlock) return;
 #if NET40
-            iconBlock.SetValue(TextOptions.TextRenderingModeProperty, TextRenderingMode.ClearType);
+        iconBlock.SetValue(TextOptions.TextRenderingModeProperty, TextRenderingMode.ClearType);
 #endif
         iconBlock.SetValue(FontFamilyProperty, iconBlock.FontFor(iconBlock.Icon));
         iconBlock.SetValue(TextAlignmentProperty, TextAlignment.Center);

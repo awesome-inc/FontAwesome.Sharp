@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
+        <Nullable>disable</Nullable> <!-- TODO: enable -->
     </PropertyGroup>
     <Import Project="$(SolutionDir)\solution.targets" />
 

@@ -28,5 +28,4 @@ public class IconImage : IconImageBase<IconChar>, IHaveIconFont
         get => (IconFont)GetValue(IconFontProperty);
         set => SetValue(IconFontProperty, value);
     }
-
 }
