@@ -22,6 +22,8 @@ public class IconConverter : EnumConverter
         var values = Enum.GetValues(EnumType)
             .Cast<object>()
             .OrderBy(v => v.ToString())
+            .GroupBy(v => v.ToString())
+            .Select(g => g.First())
             .ToArray();
         Values = new StandardValuesCollection(values);
 
