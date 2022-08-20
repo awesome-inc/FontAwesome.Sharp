@@ -10,11 +10,11 @@ namespace FontEnumGenerator;
 
 internal class FontParser
 {
-    public string CssFile { get; set; }
-    public string Pattern { get; set; } = @"\.fa-(.+):before";
-    public bool Distinct { get; set; }
+    public string CssFile { get; init; }
+    public string Pattern { get; init; } = @"\.fa-(.+):before";
+    public bool Distinct { get; init; }
 
-    private const string ContentPattern = @"\s*\{\s*content:\s*""\\(.+)"";\s*}";
+    private const string ContentPattern = @"\s*\{\s*content:\s*""(.+)"";\s*}";
 
     public List<FontEnumItem> Parse()
     {
@@ -25,7 +25,7 @@ internal class FontParser
 
         var items = regEx.Matches(css)
             .Select(match =>
-                new FontEnumItem {Class = ValidIdentifier(match.Groups[1].Value), Code = match.Groups[2].Value})
+                new FontEnumItem {Class = ValidIdentifier(match.Groups[1].Value), Code = ToHex(match.Groups[2].Value)})
             .OrderBy(x => x.Class)
             .ToList();
 
@@ -36,6 +36,8 @@ internal class FontParser
             items = distinct;
         return items;
     }
+
+    private static string ToHex(string content) => $"0x{content.Replace("\\", string.Empty)}";
 
     // c.f.: http://blog.visualt4.com/2009/02/creating-valid-c-identifiers.html
     private static readonly CodeDomProvider Csharp = CodeDomProvider.CreateProvider("C#");

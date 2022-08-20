@@ -19,7 +19,8 @@ internal static class ProFonts
         "Font Awesome 6 Pro Regular", // fa-regular-400-pro.ttf
         "Font Awesome 6 Pro Solid", // fa-solid-900-pro.ttf
         "Font Awesome 6 Pro Light", // fa-light-300-pro.ttf
-        //"Font Awesome 6 Duotone Solid", // fa-duotone-900-pro.ttf
+        "Font Awesome 6 Pro Thin", // fa-thin-100-pro.ttf
+        "Font Awesome 6 Duotone Solid", // fa-duotone-900-pro.ttf
     };
 
     private static bool _wpfInitialized;
@@ -54,8 +55,9 @@ internal static class ProFonts
     {
         "fa-regular-400-pro.ttf",
         "fa-solid-900-pro.ttf",
-        "fa-light-300-pro.ttf"
-        //"fa-duotone-900-pro.ttf"
+        "fa-light-300-pro.ttf",
+        "fa-thin-100-pro.ttf",
+        "fa-duotone-900-pro.ttf"
     };
     private static bool _winFormsInitialized;
     private static PrivateFontCollection _winFormsFonts;

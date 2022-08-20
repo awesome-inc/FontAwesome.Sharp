@@ -295,12 +295,14 @@ See the `TestWPF` sample application for an example on how to use icons from **F
 They have been generated from the css-Definitions like any other [Custom font](#using-custom-fonts) (see below):
 
 ```console
-$ FontEnumGenerator.exe --css Content\fontawesome-pro.css --name ProIcons --namespace FontAwesome.Sharp.Pro
-Matched 2293 icons from 'Content\fontawesome-pro.css' using '\.fa-(.+):before'
+$ FontEnumGenerator.exe --css Content\all-pro.css --namespace FontAwesome.Sharp.Pro --name ProIcons
+Parsed 4613 Enum values (1014 duplicates).
+Matched 4613 icons from 'Content\all-pro.css' using '\.fa.(.+):before'
 Generated 'ProIcons.cs'.
 
-$ FontEnumGenerator.exe --css Content\duotone-pro.css --pattern "\.fad.fa-(.+):after" --namespace FontAwesome.Sharp.Pro
-Matched 1851 icons from 'Content\duotone-pro.css' using '\.fad.fa-(.+):after'
+$ FontEnumGenerator.exe --css Content\duotone-pro.css --pattern "\.fad.fa-(.+):after" --namespace FontAwesome.Sharp.Pro  --name DuoToneIcons
+Parsed 4114 Enum values (980 duplicates).
+Matched 4114 icons from 'Content\duotone-pro.css' using '\.fad.fa-(.+):after'
 Generated 'DuoToneIcons.cs'.
 ```
 

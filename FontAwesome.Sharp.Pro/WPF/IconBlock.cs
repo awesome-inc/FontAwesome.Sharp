@@ -4,12 +4,12 @@ namespace FontAwesome.Sharp.Pro;
 
 public class IconBlock : IconBlockBase<ProIcons>
 {
-    public IconBlock() : base(ProFonts.WpfFontFor(ProIcons.Abacus))
+    public IconBlock() : base(ProIcons.Abacus.WpfFontFor())
     {
     }
 
     protected override FontFamily FontFor(ProIcons icon)
     {
-        return ProFonts.WpfFontFor(icon);
+        return icon.WpfFontFor();
     }
 }

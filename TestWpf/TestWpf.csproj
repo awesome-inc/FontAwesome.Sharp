@@ -13,8 +13,10 @@
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\FontAwesome.Sharp.Material\FontAwesome.Sharp.Material.csproj" />
+        <ProjectReference Include="..\FontAwesome.Sharp.Pro\FontAwesome.Sharp.Pro.csproj" />
     </ItemGroup>
     <ItemGroup>
+        <!-- Include pro fonts (git-ignore) -->
         <Resource Include="fonts\*.ttf" />
     </ItemGroup>
 </Project>

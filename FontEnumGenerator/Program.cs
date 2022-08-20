@@ -42,7 +42,7 @@ internal static class Program
 
         var builder = new StringBuilder();
         builder.AppendLine(string.Format(Header, opts.Name, opts.NameSpace));
-        items.ForEach(item => builder.AppendLine($"    {item.Class} = 0x{item.Code},"));
+        items.ForEach(item => builder.AppendLine($"    {item.Class} = {item.Code},"));
         builder.AppendLine(Footer);
 
         var path = $"{opts.Name}.cs";
@@ -53,7 +53,7 @@ internal static class Program
     private static readonly string Header = "namespace {1};" + Environment.NewLine +
                                             Environment.NewLine +
                                             "// ReSharper disable All" + Environment.NewLine +
-                                            "public enum {0}" + Environment.NewLine +
+                                            "public enum {0} : uint" + Environment.NewLine +
                                             "{{" + Environment.NewLine +
                                             "    None = 0,";
     private static readonly string Footer = "}";
