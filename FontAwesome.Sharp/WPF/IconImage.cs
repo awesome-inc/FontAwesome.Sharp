@@ -18,7 +18,7 @@ public class IconImage : IconImageBase<IconChar>, IHaveIconFont
 
     private static void OnIconFontPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (!(d is IconImage iconImage)) return;
+        if (d is not IconImage iconImage) return;
         var imageSource = iconImage.ImageSourceFor(iconImage.Icon);
         iconImage.SetValue(SourceProperty, imageSource);
     }

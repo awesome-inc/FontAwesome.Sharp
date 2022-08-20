@@ -197,8 +197,8 @@ public static class IconHelper
 
         TypefaceForStyle.Add(key, typeFace);
         return typeFace;
-
     }
+
     private static readonly Dictionary<int, Typeface> TypefaceForStyle = new();
 
     internal static Typeface Throw(string message)

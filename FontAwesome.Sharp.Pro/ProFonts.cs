@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Text;
 using System.Linq;
 using System.Reflection;
@@ -13,14 +14,24 @@ using WpfTypeface = System.Windows.Media.Typeface;
 
 internal static class ProFonts
 {
-    #region WinForms
-    private static readonly string[] FontTitles =
+    [field: SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+    public static bool ThrowOnNullFonts { get; } = false;
+    internal static WpfTypeface Throw(string message)
     {
-        "Font Awesome 6 Pro Regular", // fa-regular-400-pro.ttf
-        "Font Awesome 6 Pro Solid", // fa-solid-900-pro.ttf
-        "Font Awesome 6 Pro Light", // fa-light-300-pro.ttf
-        "Font Awesome 6 Pro Thin", // fa-thin-100-pro.ttf
-        "Font Awesome 6 Duotone Solid", // fa-duotone-900-pro.ttf
+        if (ThrowOnNullFonts) throw new InvalidOperationException(message);
+        return default;
+    }
+
+
+    #region WinForms
+    internal static readonly Dictionary<int, string> FontTitles = new()
+    {
+        { (int)ProIconFont.Regular,  "Font Awesome 6 Pro Regular"}, // fa-regular-400-pro.ttf
+        { (int)ProIconFont.Solid, "Font Awesome 6 Pro Solid"}, // fa-solid-900-pro.ttf
+        { (int)ProIconFont.Light, "Font Awesome 6 Pro Light"}, // fa-light-300-pro.ttf
+        { (int)ProIconFont.Thin, "Font Awesome 6 Pro Thin"}, // fa-thin-100-pro.ttf
+        //"Font Awesome 6 Duotone Solid", // fa-duotone-900-pro.ttf
     };
 
     private static bool _wpfInitialized;
@@ -39,15 +50,34 @@ internal static class ProFonts
     {
         if (_wpfInitialized) throw new InvalidOperationException("Already initialized");
         var assembly = fontsAssembly ?? Assembly.GetEntryAssembly();
-        _wpfTypefaces = assembly.LoadTypefaces(path, FontTitles);
+        _wpfTypefaces = assembly.LoadTypefaces(path, FontTitles.Values);
         _wpfInitialized = true;
     }
 
-    public static WpfFont WpfFontFor(this ProIcons icon)
+    public static WpfFont WpfFontFor(this ProIcons icon, ProIconFont iconFont = ProIconFont.Auto)
     {
-        var typeFace = WpfTypefaces.Find(icon, out _, out _);
+        var typeFace = TypeFaceFor(icon, iconFont);
         return typeFace?.FontFamily;
     }
+
+    private static readonly Dictionary<int, WpfTypeface> TypefaceForStyle = new();
+
+    internal static WpfTypeface TypeFaceFor(this ProIcons icon, ProIconFont iconFont)
+    {
+        if (iconFont == ProIconFont.Auto) return WpfTypefaces.Find(icon, out _, out _);
+        var key = (int)iconFont;
+        if (TypefaceForStyle.TryGetValue(key, out var typeFace)) return typeFace;
+        if (!FontTitles.TryGetValue(key, out var name))
+            return Throw($"No font loaded for style: {iconFont}");
+
+        typeFace = WpfTypefaces.FirstOrDefault(t => t.FontFamily.Source.EndsWith(name));
+        if (typeFace == null)
+            return Throw($"No font loaded for '{name}'");
+
+        TypefaceForStyle.Add(key, typeFace);
+        return typeFace;
+    }
+
     #endregion
 
     #region WinForms
