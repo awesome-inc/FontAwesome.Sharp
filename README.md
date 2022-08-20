@@ -224,7 +224,7 @@ When you are restricted to [ImageSource](<http://msdn.microsoft.com/en-us/librar
 control you can use the `IconSource` markup extension like:
 
 ```xml
-<RibbonButton SmallImageSource="{fa:IconSource InfoCircle, Foreground=Red"/>
+<RibbonButton SmallImageSource="{fa:IconSource InfoCircle, Foreground=Red}"/>
 ```
 
 ### Menus and MVVM
