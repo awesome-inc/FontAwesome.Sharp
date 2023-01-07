@@ -252,8 +252,10 @@
                 <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource FaButtonStyle}"
                         Content="{faPro:Icon Avocado, Foreground={StaticResource FaBrush}}" />
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="DuoTone"/>
-                <faPro:IconImage Grid.Row="2" Grid.Column="1" Icon="Zhihu"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Thin"/>
+                <faPro:IconImage Grid.Row="2" Grid.Column="1" Icon="House" IconFont="Thin"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Solid"/>
+                <faPro:IconImage Grid.Row="3" Grid.Column="1" Icon="House" IconFont="Solid"/>
 
 
             </Grid>
