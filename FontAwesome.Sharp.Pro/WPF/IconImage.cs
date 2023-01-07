@@ -13,7 +13,7 @@ public class IconImage : IconImageBase<ProIcons>, IHaveProIconFont
     }
 
     public static readonly DependencyProperty IconFontProperty = DependencyProperty.Register(nameof(IconFont),
-        typeof(IconImage), typeof(IconImage),
+        typeof(ProIconFont), typeof(IconImage),
         new PropertyMetadata(ProIconFont.Auto, OnIconFontPropertyChanged));
 
     private static void OnIconFontPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

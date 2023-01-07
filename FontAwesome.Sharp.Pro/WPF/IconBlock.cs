@@ -15,7 +15,7 @@ public class IconBlock : IconBlockBase<ProIcons>, IHaveProIconFont
     }
 
     public static readonly DependencyProperty IconFontProperty = DependencyProperty.Register(nameof(IconFont),
-        typeof(IconFont), typeof(IconBlock),
+        typeof(ProIconFont), typeof(IconBlock),
         new PropertyMetadata(ProIconFont.Auto, OnIconFontPropertyChanged));
 
     private static void OnIconFontPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
