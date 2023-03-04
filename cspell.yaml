@@ -1,0 +1,36 @@
+---
+# https://cspell.org/configuration
+version: "0.2"
+files:
+  - "**/*.md"
+allowCompoundWords: true
+caseSensitive: false
+dictionaries:
+  - de-de # https://github.com/streetsidesoftware/cspell-dicts/tree/main/dictionaries/de_DE
+  - common-companies
+  - common-tools
+  - common-people
+  - project-words
+dictionaryDefinitions:
+  - name: common-tools
+    description: Common Tools
+    path: .dict/common-tools.txt
+    addWords: true
+  - name: common-companies
+    description: Common Companies
+    path: .dict/common-companies.txt
+    addWords: true
+  - name: common-people
+    description: Common People
+    path: .dict/common-people.txt
+    addWords: true
+  - name: project-words
+    description: Project Words
+    path: .dict/project-words.txt
+    addWords: true
+ignorePaths:
+  - .git
+  - .gitignore
+  - node_modules
+  - package-lock.json
+  - _docs/CHANGELOG.md
