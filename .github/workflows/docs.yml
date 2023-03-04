@@ -1,0 +1,20 @@
+name: docs
+on:
+  push:
+    branches: [main]
+    paths:
+      - mkdocs.yml
+      - .github/workflows/docs.yml
+      - "docs/**"
+  #--- TODO: For now also enable manual runs
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: "mkdocs: gh-deploy" #  # https://www.mkdocs.org/user-guide/deploying-your-docs/#github-pages
+        run: |
+          pip install --user -r requirements.txt
+          python -m mkdocs gh-deploy --force
