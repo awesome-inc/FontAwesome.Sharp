@@ -20,7 +20,7 @@ Here is a screenshot from the WPF sample application show-casing using also othe
 
 ![Using Font Awesome Pro and Material Design Icons](docs/img/pro_and_mdi.png)
 
-Read the [documentation](docs/index.md) for more information.
+Read the [documentation](https://awesome-inc.github.io/FontAwesome.Sharp/) for more information.
 
 Don't miss out the community tutorials on YouTube, e.g.
 
