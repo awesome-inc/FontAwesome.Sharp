@@ -9,6 +9,8 @@ on:
   pull_request:
     branches: [main]
     paths: ["!docs/**"]
+  #--- TODO: For now also enable manual runs
+  workflow_dispatch:
 
 jobs:
   build:
