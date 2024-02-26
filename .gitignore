@@ -7,6 +7,8 @@
 
 # Ignore MSBuild sonarqube scanner work
 .sonarqube/
+# Ignore lock file
+package-lock.json
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/sonarqube,visualstudio,visualstudiocode,intellij+all
