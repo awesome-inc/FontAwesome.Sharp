@@ -11,7 +11,6 @@ using Nuke.Common.Tools.ReportGenerator;
 using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Utilities.Collections;
 using Serilog;
-using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [UnsetVisualStudioEnvironmentVariables]
@@ -34,7 +33,7 @@ class Build : NukeBuild
         {
             TestsDirectory
                 .GlobDirectories("**/bin", "**/obj", "**/TestResults")
-                .ForEach(DeleteDirectory);
+                .ForEach(x => x.DeleteDirectory());
         });
 
     Target Restore => _ => _
@@ -66,7 +65,7 @@ class Build : NukeBuild
             DotNetTest(settings => settings
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
-                .SetFramework("net6.0-windows") // Framework
+                .SetFramework("net8.0-windows") // Framework
                 .SetDataCollector("XPlat Code Coverage")
             );
         });
@@ -136,7 +135,7 @@ class Build : NukeBuild
             SonarScannerTasks.SonarScannerEnd(settings => settings
                     .SetLogin(SonarLogin) // TODO: should be secret -> SetArgument
                     // cf.: https://github.com/nuke-build/nuke/issues/377#issuecomment-595276623
-                    .SetFramework("net5.0") // Framework
+                    //.SetFramework("net5.0") // Framework
             );
         });
 
@@ -208,7 +207,7 @@ class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
 
-    const string Framework = "net6.0";
+    const string Framework = "net8.0";
     [GitVersion(Framework = Framework, NoFetch = true)] readonly GitVersion GitVersion;
 
     [Parameter("The SonarQube login token")]
