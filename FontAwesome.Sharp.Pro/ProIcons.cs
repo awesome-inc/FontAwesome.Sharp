@@ -1,7 +1,7 @@
 namespace FontAwesome.Sharp.Pro;
 
 // ReSharper disable All
-public enum ProIcons : uint
+public enum ProIcons : int
 {
     None = 0,
     _0 = 0x30,
