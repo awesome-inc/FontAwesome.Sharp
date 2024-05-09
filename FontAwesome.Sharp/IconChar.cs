@@ -1,7 +1,7 @@
 namespace FontAwesome.Sharp;
 
 // ReSharper disable All
-public enum IconChar : uint
+public enum IconChar : int
 {
     None = 0,
     _0 = 0x30,
