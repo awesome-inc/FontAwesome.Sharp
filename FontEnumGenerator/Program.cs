@@ -53,7 +53,7 @@ internal static class Program
     private static readonly string Header = "namespace {1};" + Environment.NewLine +
                                             Environment.NewLine +
                                             "// ReSharper disable All" + Environment.NewLine +
-                                            "public enum {0} : int" + Environment.NewLine +
+                                            "public enum {0} : uint" + Environment.NewLine +
                                             "{{" + Environment.NewLine +
                                             "    None = 0,";
     private static readonly string Footer = "}";
