@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -52,6 +53,7 @@ public static class IconHelper
     /// <returns></returns>
     public static FontFamily LoadFont(this Assembly assembly, string path, string fontTitle)
     {
+        if (DesignerProperties.GetIsInDesignMode(new DependencyObject()) && assembly == Assembly.GetEntryAssembly()) return new FontFamily(new Uri(AppDomain.CurrentDomain.BaseDirectory), $"./{path}/#{fontTitle}");
         return new FontFamily(BaseUri, $"./{assembly.GetName().Name};component/{path}/#{fontTitle}");
     }
 
