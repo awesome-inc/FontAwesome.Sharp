@@ -40,7 +40,7 @@ However, updating to newer version
 of [@fortawesome/fontawesome-free](https://www.npmjs.com/package/@fortawesome/fontawesome-free)
 and [@mdi/font](https://www.npmjs.com/package/@mdi/font) is automated via `Update-Fonts.ps1`, so
 
-```console
+```powershell
 $.\Update-Fonts.ps1
 Updating node packages...
 Updating web fonts...
@@ -50,8 +50,8 @@ Generating IconEnum classes...
 
 Next, after successfuly running all tests
 
-```console
-build.bat /v:m /t:Test
+```powershell
+$.\Build.ps1 Test
 ```
 
 Review and commit changes (e.g. `git diff/commit`).
