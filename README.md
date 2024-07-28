@@ -11,14 +11,14 @@ A library for embedding [Font Awesome](http://fortawesome.github.io/Font-Awesome
 
 Here is a screenshot from the sample applications
 
-![Using the Font Awesome in WPF and Windows Forms](docs/img/FontAwesome.Sharp.png)
+![Using the Font Awesome in WPF and Windows Forms](https://raw.githubusercontent.com/awesome-inc/FontAwesome.Sharp/main/docs/img/FontAwesome.Sharp.png)
 
 Here is a screenshot from the WPF sample application show-casing using also other icon fonts like
 
 - **FontAwesome Pro** and
 - **MaterialDesign**:
 
-![Using Font Awesome Pro and Material Design Icons](docs/img/pro_and_mdi.png)
+![Using Font Awesome Pro and Material Design Icons](https://raw.githubusercontent.com/awesome-inc/FontAwesome.Sharp/main/docs/img/pro_and_mdi.png)
 
 Read the [documentation](https://awesome-inc.github.io/FontAwesome.Sharp/) for more information.
 
