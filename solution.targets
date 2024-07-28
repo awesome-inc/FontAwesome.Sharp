@@ -25,6 +25,10 @@
         <AssemblyOriginatorKeyFile>$(SolutionDir)\key.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
+    <ItemGroup>
+        <!-- https://devblogs.microsoft.com/nuget/add-a-readme-to-your-nuget-package/#add-a-readme-to-your-package -->
+        <None Include="..\docs\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 
     <!-- Need to conditionally bring in references for .NET Framework, cf.:
      - https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-multitarget
