@@ -27,7 +27,10 @@ Find where your issue would logically sit, i.e. find the class closest to your i
 
 ### 2. Create a test method
 
-We are currently using NUnit, so just create a descriptive test method and attribute it with `[Test]`.
+We are currently using [XUnit](https://xunit.net/docs/getting-started/v2/netfx/visual-studio#write-first-tests), so just create a descriptive test class or [extend an existing one](https://github.com/awesome-inc/FontAwesome.Sharp/tree/main/FontAwesome.Sharp.Tests).
+
+Also, you might find it useful to make yourself familiar with the excellent [FluentAssertions](https://fluentassertions.com/) library 
+as well as [StaFact](https://github.com/AArnott/Xunit.StaFact), which is used for running tests in the UI Dispatcher Thread.
 
 ### 3. Submit a pull request with the failing test
 
